@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FishNET Zebrafish Colony & Breeding Intelligence Portal | Qatar University</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #0b1120;
+            --bg-nav: #0f172a;
+            --border-color: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-teal: #0d9488;
+            --accent-blue: #0284c7;
+            --accent-indigo: #6366f1;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Top Unified Navigation Bar */
+        header {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 100;
+            flex-shrink: 0;
+        }
+
+        .brand-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-logo {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #0d9488, #0284c7);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            box-shadow: 0 4px 12px rgba(13, 148, 136, 0.3);
+        }
+
+        .brand-text h1 {
+            font-size: 15px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .brand-badge {
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 9999px;
+            background: rgba(13, 148, 136, 0.2);
+            color: #2dd4bf;
+            border: 1px solid rgba(13, 148, 136, 0.4);
+            text-transform: uppercase;
+        }
+
+        .brand-text p {
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        /* Nav Tab Switcher */
+        .portal-nav {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: #090e17;
+            padding: 4px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .nav-link-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            padding: 7px 16px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+        }
+
+        .nav-link-btn:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-link-btn.active {
+            background: #0d9488;
+            color: #ffffff;
+            box-shadow: 0 2px 8px rgba(13, 148, 136, 0.4);
+        }
+
+        /* Right Quick Actions */
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .action-btn {
+            background: #1e293b;
+            color: #e2e8f0;
+            border: 1px solid #334155;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .action-btn:hover {
+            background: #334155;
+            color: #ffffff;
+            border-color: #475569;
+        }
+
+        /* Full Height Responsive Frame */
+        .portal-frame-container {
+            flex: 1;
+            width: 100%;
+            height: calc(100vh - 61px);
+            position: relative;
+            background: #0b1120;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+
+        @media (max-width: 860px) {
+            header {
+                flex-direction: column;
+                gap: 8px;
+                padding: 10px;
+            }
+            .brand-text p {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Unified Master Header -->
+    <header>
+        <div class="brand-section">
+            <div class="brand-logo">🐟</div>
+            <div class="brand-text">
+                <h1>
+                    FishNET Intelligence Portal
+                    <span class="brand-badge">QU Biology Lab</span>
+                </h1>
+                <p>Zebrafish Colony Architecture, 4-Mode Pedigrees & Reproductive Intelligence</p>
+            </div>
+        </div>
+
+        <!-- Master Navigation Switcher -->
+        <nav class="portal-nav">
+            <button onclick="switchPortalView('colony')" id="btn-view-colony" class="nav-link-btn active">
+                <span>🌳 Colony & Pedigree Explorer</span>
+            </button>
+            <button onclick="switchPortalView('breeding')" id="btn-view-breeding" class="nav-link-btn">
+                <span>🧬 Breeding & Mating Intelligence</span>
+            </button>
+        </nav>
+
+        <!-- Lab Actions -->
+        <div class="header-actions">
+            <a href="FishNET_Colony_Analytics_Report.xlsx" download class="action-btn" title="Download Master Excel Report">
+                <span>📊 Master Excel</span>
+            </a>
+            <button onclick="openExternalCurrentView()" class="action-btn" title="Open Fullscreen in New Tab">
+                <span>↗️ Fullscreen</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content Frame -->
+    <div class="portal-frame-container">
+        <iframe id="portalFrame" src="colony.html" title="FishNET Active Dashboard"></iframe>
+    </div>
+
+    <script>
+        let currentView = 'colony';
+
+        function switchPortalView(view) {
+            currentView = view;
+            const frame = document.getElementById('portalFrame');
+            const btnColony = document.getElementById('btn-view-colony');
+            const btnBreeding = document.getElementById('btn-view-breeding');
+
+            if (view === 'colony') {
+                frame.src = 'colony.html';
+                btnColony.classList.add('active');
+                btnBreeding.classList.remove('active');
+            } else {
+                frame.src = 'breeding.html';
+                btnBreeding.classList.add('active');
+                btnColony.classList.remove('active');
+            }
+        }
+
+        function openExternalCurrentView() {
+            const targetUrl = currentView === 'colony' ? 'colony.html' : 'breeding.html';
+            window.open(targetUrl, '_blank');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+# Temporary & Build artifacts
+*.pyc
+__pycache__/
+temp_*
+*.tmp
+.DS_Store
