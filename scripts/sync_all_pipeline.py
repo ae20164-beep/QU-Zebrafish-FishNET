@@ -39,9 +39,10 @@ print("\nStep 3: Generating Integrated Reproductive Dashboard...")
 if run_step('generate_integrated_dashboard.py'):
     print("[OK] Reproductive Intelligence Dashboard updated.")
 
-# 4. Generate Master Standalone Interactive Hub (Zero Iframes)
-print("\nStep 4: Generating Master Standalone Interactive Hub...")
-if run_step('build_unified_master_hub.py'):
-    print("[OK] Master Hub synchronized (FishNET_Colony_Hub.html / index.html).")
+# 4. Copy to web deployment routes (index.html, colony.html, breeding.html)
+print("\nStep 4: Updating web portal distribution files...")
+shutil.copyfile(os.path.join(ROOT_DIR, 'FishNET_Interactive_Dashboard.html'), os.path.join(ROOT_DIR, 'colony.html'))
+shutil.copyfile(os.path.join(ROOT_DIR, 'FishNET_Interactive_Dashboard_With_Breeding.html'), os.path.join(ROOT_DIR, 'breeding.html'))
+print("[OK] Web portal (index.html, colony.html, breeding.html) synchronized.")
 
 print("\n*** ALL MASTER FILES & DASHBOARDS ARE 100% SYNCHRONIZED! ***")
