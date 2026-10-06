@@ -128,7 +128,7 @@ def read_xlsx_rows(path):
 def process():
     labels_dir = r'c:\Users\ae20164\OneDrive - Qatar University (1)\Zebrafish shared folder\FishNET Data\Labels'
     done_dir = os.path.join(labels_dir, 'DONE')
-    if not os.path.exists(done_dir):
+    if not os.path.exists(os.path.join(done_dir, '24-including intank.csv')):
         done_dir = os.path.join(labels_dir, 'archive', 'DONE')
     breeding_dir = r'c:\Users\ae20164\OneDrive - Qatar University (1)\breeding'
     
