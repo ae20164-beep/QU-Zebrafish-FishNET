@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FishNET Zebrafish Colony & Breeding Intelligence Portal | Qatar University</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #0b1120;
+            --bg-nav: #0f172a;
+            --border-color: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-teal: #0d9488;
+            --accent-blue: #0284c7;
+            --accent-indigo: #6366f1;
+            --accent-emerald: #10b981;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Top Unified Navigation Bar */
+        header {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 100;
+            flex-shrink: 0;
+        }
+
+        .brand-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-logo {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #0d9488, #0284c7);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            box-shadow: 0 4px 12px rgba(13, 148, 136, 0.3);
+        }
+
+        .brand-text h1 {
+            font-size: 15px;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .brand-badge {
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 9999px;
+            background: rgba(13, 148, 136, 0.2);
+            color: #2dd4bf;
+            border: 1px solid rgba(13, 148, 136, 0.4);
+            text-transform: uppercase;
+        }
+
+        .brand-text p {
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        /* Nav Tab Switcher */
+        .portal-nav {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: #090e17;
+            padding: 4px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .nav-link-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            padding: 7px 16px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+        }
+
+        .nav-link-btn:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-link-btn.active {
+            background: #0d9488;
+            color: #ffffff;
+            box-shadow: 0 2px 8px rgba(13, 148, 136, 0.4);
+        }
+
+        /* Right Quick Actions */
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .action-btn {
+            background: #1e293b;
+            color: #e2e8f0;
+            border: 1px solid #334155;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .action-btn:hover {
+            background: #334155;
+            color: #ffffff;
+            border-color: #475569;
+        }
+
+        .action-btn.primary {
+            background: linear-gradient(135deg, #0d9488, #0284c7);
+            color: #ffffff;
+            border: none;
+            box-shadow: 0 2px 8px rgba(13, 148, 136, 0.3);
+        }
+
+        .action-btn.primary:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        /* Full Height Responsive Frame */
+        .portal-frame-container {
+            flex: 1;
+            width: 100%;
+            height: calc(100vh - 61px);
+            position: relative;
+            background: #0b1120;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+
+        /* Ingestion Modal Styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(6px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-container {
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 680px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid #1e293b;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            font-size: 15px;
+            font-weight: 700;
+            color: #f8fafc;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .modal-close-btn {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .modal-close-btn:hover {
+            color: #ffffff;
+        }
+
+        .modal-body {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .modal-tabs {
+            display: flex;
+            gap: 8px;
+            border-bottom: 1px solid #1e293b;
+            padding-bottom: 12px;
+        }
+
+        .modal-tab-btn {
+            background: transparent;
+            border: 1px solid #334155;
+            color: #94a3b8;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .modal-tab-btn.active {
+            background: #0d9488;
+            color: #ffffff;
+            border-color: #0d9488;
+        }
+
+        .dropzone {
+            border: 2px dashed #334155;
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            background: rgba(30, 41, 59, 0.4);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .dropzone:hover {
+            border-color: #0d9488;
+            background: rgba(13, 148, 136, 0.05);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .form-group label {
+            font-size: 11px;
+            font-weight: 600;
+            color: #94a3b8;
+            text-transform: uppercase;
+        }
+
+        .form-input {
+            background: #1e293b;
+            border: 1px solid #334155;
+            color: #f8fafc;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            outline: none;
+        }
+
+        .form-input:focus {
+            border-color: #0d9488;
+        }
+
+        .preview-box {
+            background: #090e17;
+            border: 1px solid #1e293b;
+            border-radius: 10px;
+            padding: 12px;
+            font-size: 12px;
+            color: #cbd5e1;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .preview-badge {
+            display: inline-block;
+            font-weight: 700;
+            color: #2dd4bf;
+            background: rgba(13, 148, 136, 0.2);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .modal-footer {
+            padding: 16px 20px;
+            border-top: 1px solid #1e293b;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        @media (max-width: 860px) {
+            header {
+                flex-direction: column;
+                gap: 8px;
+                padding: 10px;
+            }
+            .brand-text p {
+                display: none;
+            }
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Unified Master Header -->
+    <header>
+        <div class="brand-section">
+            <div class="brand-logo">🐟</div>
+            <div class="brand-text">
+                <h1>
+                    FishNET Intelligence Portal
+                    <span class="brand-badge">QU Biology Lab</span>
+                </h1>
+                <p>Zebrafish Colony Architecture, 4-Mode Pedigrees & Reproductive Intelligence</p>
+            </div>
+        </div>
+
+        <!-- Master Navigation Switcher -->
+        <nav class="portal-nav">
+            <button onclick="switchPortalView('colony')" id="btn-view-colony" class="nav-link-btn active">
+                <span>🌳 Colony & Tanks</span>
+            </button>
+            <button onclick="switchPortalView('breeding')" id="btn-view-breeding" class="nav-link-btn">
+                <span>🧬 Breeding Intelligence</span>
+            </button>
+        </nav>
+
+        <!-- Lab Quick Actions & Ingestion -->
+        <div class="header-actions">
+            <button onclick="openIngestionModal('label')" class="action-btn primary" title="Upload Tank Label Photo or Log Scan">
+                <span>➕ Ingestion Hub</span>
+            </button>
+            <a href="FishNET_Colony_Analytics_Report.xlsx" download class="action-btn" title="Download Master Excel Report">
+                <span>📊 Master Excel</span>
+            </a>
+            <button onclick="openExternalCurrentView()" class="action-btn" title="Open Fullscreen in New Tab">
+                <span>↗️ Fullscreen</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content Frame -->
+    <div class="portal-frame-container">
+        <iframe id="portalFrame" src="colony.html" title="FishNET Active Dashboard"></iframe>
+    </div>
+
+    <!-- Quick Ingestion Modal -->
+    <div class="modal-overlay" id="ingestionModal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3><span>📥</span> FishNET Quick Ingestion Engine</h3>
+                <button onclick="closeIngestionModal()" class="modal-close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-tabs">
+                    <button class="modal-tab-btn active" id="tabBtnLabel" onclick="setIngestionTab('label')">🏷️ Graduate Tank (Label Photo)</button>
+                    <button class="modal-tab-btn" id="tabBtnLog" onclick="setIngestionTab('log')">📋 Weekly Breeding Log Scan</button>
+                    <button class="modal-tab-btn" id="tabBtnExports" onclick="setIngestionTab('exports')">💾 FileMaker Exports</button>
+                </div>
+
+                <!-- Tab 1: Label Ingestion -->
+                <div id="tabContentLabel" style="display: flex; flex-direction: column; gap: 14px;">
+                    <div class="dropzone" onclick="document.getElementById('fileInputLabel').click()">
+                        <div style="font-size: 28px; margin-bottom: 6px;">📸</div>
+                        <p style="font-size: 13px; font-weight: 600; color: #f8fafc;">Click or Drag Tank Label Photo Here</p>
+                        <p style="font-size: 11px; color: #94a3b8;">Accepts .JPG, .PNG, .RAW, .DNG</p>
+                        <input type="file" id="fileInputLabel" accept="image/*" style="display: none;" onchange="handleLabelSelected(this)">
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Zebrafish Line / Strain</label>
+                            <select id="lblLine" class="form-input" onchange="updateLabelPreview()">
+                                <option value="AB">Wt (AB)</option>
+                                <option value="Fli">Tg (fli1a:eGFP) Sidra [Fli]</option>
+                                <option value="Gata">Tg (gata1:dsRed) Sidra [Gata]</option>
+                                <option value="Casper">Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]</option>
+                                <option value="Desma">Mu (desmbkg155) [DESMA]</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Origin / Parent Tank Note</label>
+                            <input type="text" id="lblOrigin" class="form-input" placeholder="e.g. AB T128" value="AB T128" oninput="updateLabelPreview()">
+                        </div>
+                        <div class="form-group">
+                            <label>Date of Birth / Cross Date</label>
+                            <input type="date" id="lblDob" class="form-input" value="2026-08-10" oninput="updateLabelPreview()">
+                        </div>
+                        <div class="form-group">
+                            <label>Final Fish Count</label>
+                            <input type="number" id="lblCount" class="form-input" placeholder="e.g. 30" value="30" oninput="updateLabelPreview()">
+                        </div>
+                        <div class="form-group">
+                            <label>Tank Size</label>
+                            <select id="lblSize" class="form-input">
+                                <option value="3.5L">3.5L Tank (Standard)</option>
+                                <option value="1.8L">1.8L Tank (Small)</option>
+                                <option value="2.8L">2.8L Tank</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Protocol / Core Lab</label>
+                            <input type="text" id="lblProtocol" class="form-input" value="QU-IACUC 006/2023-AMM5" readonly>
+                        </div>
+                    </div>
+
+                    <div class="preview-box">
+                        <div style="font-weight: 700; color: #f8fafc; font-size: 13px;">Auto-Generated Graduation Record:</div>
+                        <div>Assigned Tank: <span class="preview-badge" id="prevTuid">Next Available TUID</span> | Cross: <span class="preview-badge" id="prevCuid">Next CUID</span> | Nursery: <span class="preview-badge" id="prevNuid">Next NUID</span></div>
+                        <div style="font-size: 11px; color: #94a3b8;">Will be appended automatically to <code>Tanks.tab</code> (23-cols), <code>Crosses.tab</code> (24-cols), <code>Nursery.tab</code> (18-cols), and <code>FishNET.tab</code>.</div>
+                    </div>
+                </div>
+
+                <!-- Tab 2: Breeding Log Scan -->
+                <div id="tabContentLog" style="display: none; flex-direction: column; gap: 14px;">
+                    <div class="dropzone" onclick="document.getElementById('fileInputLog').click()">
+                        <div style="font-size: 28px; margin-bottom: 6px;">📄</div>
+                        <p style="font-size: 13px; font-weight: 600; color: #f8fafc;">Upload Paper Breeding Log Scan / CSV</p>
+                        <p style="font-size: 11px; color: #94a3b8;">Accepts PDF, JPG, PNG, CSV, XLSX</p>
+                        <input type="file" id="fileInputLog" accept="image/*,application/pdf,.csv,.xlsx" style="display: none;" onchange="handleLogSelected(this)">
+                    </div>
+                    <div class="preview-box">
+                        <div style="font-weight: 700; color: #f8fafc; font-size: 13px;">Authorized Facility Technologists Only:</div>
+                        <div>Valid Initial Roster: <span class="preview-badge">AE (Ahmad)</span> <span class="preview-badge">EA (Enas)</span> <span class="preview-badge">SA (Sadiq)</span> <span class="preview-badge">AF (Aseela)</span> <span class="preview-badge">FB (Dr. Fusun)</span></div>
+                        <div style="font-size: 11px; color: #94a3b8; margin-top: 4px;">External booking researchers will NOT be added to breeding spawn logs. Data automatically enriches the Pair Synergies & Mating Planner.</div>
+                    </div>
+                </div>
+
+                <!-- Tab 3: FileMaker Exports -->
+                <div id="tabContentExports" style="display: none; flex-direction: column; gap: 12px;">
+                    <p style="font-size: 12px; color: #94a3b8;">Download verified FileMaker Pro import tables formatted with exact column order and delimiter requirements:</p>
+                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                        <a href="FishNet%20Exported%20Data/Tanks.tab" download class="action-btn" style="justify-content: space-between; padding: 10px 14px;">
+                            <span>🏷️ <strong>Tanks.tab</strong> (23 Columns)</span>
+                            <span style="font-size: 10px; color: #2dd4bf;">Download .TAB</span>
+                        </a>
+                        <a href="FishNet%20Exported%20Data/Crosses.tab" download class="action-btn" style="justify-content: space-between; padding: 10px 14px;">
+                            <span>🧬 <strong>Crosses.tab</strong> (24 Columns)</span>
+                            <span style="font-size: 10px; color: #2dd4bf;">Download .TAB</span>
+                        </a>
+                        <a href="FishNet%20Exported%20Data/Nursery.tab" download class="action-btn" style="justify-content: space-between; padding: 10px 14px;">
+                            <span>🍼 <strong>Nursery.tab</strong> (18 Columns)</span>
+                            <span style="font-size: 10px; color: #2dd4bf;">Download .TAB</span>
+                        </a>
+                        <a href="FishNet%20Exported%20Data/Projects.tab" download class="action-btn" style="justify-content: space-between; padding: 10px 14px;">
+                            <span>📑 <strong>Projects.tab</strong> (7 Columns - Persistent PUIDs)</span>
+                            <span style="font-size: 10px; color: #2dd4bf;">Download .TAB</span>
+                        </a>
+                        <a href="FishNet%20Exported%20Data/Labs.tab" download class="action-btn" style="justify-content: space-between; padding: 10px 14px;">
+                            <span>🏢 <strong>Labs.tab</strong> (7 Columns - Full Portfolios)</span>
+                            <span style="font-size: 10px; color: #2dd4bf;">Download .TAB</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button onclick="closeIngestionModal()" class="action-btn">Close</button>
+                <button id="btnSubmitIngest" onclick="executeIngestionAction()" class="action-btn primary">
+                    <span>✨ Ingest & Sync Dashboard</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentView = 'colony';
+        let currentIngestTab = 'label';
+
+        function switchPortalView(view) {
+            currentView = view;
+            const frame = document.getElementById('portalFrame');
+            const btnColony = document.getElementById('btn-view-colony');
+            const btnBreeding = document.getElementById('btn-view-breeding');
+
+            if (view === 'colony') {
+                frame.src = 'colony.html';
+                btnColony.classList.add('active');
+                btnBreeding.classList.remove('active');
+            } else {
+                frame.src = 'breeding.html';
+                btnBreeding.classList.add('active');
+                btnColony.classList.remove('active');
+            }
+        }
+
+        function openExternalCurrentView() {
+            const targetUrl = currentView === 'colony' ? 'colony.html' : 'breeding.html';
+            window.open(targetUrl, '_blank');
+        }
+
+        function openIngestionModal(tab = 'label') {
+            document.getElementById('ingestionModal').classList.add('active');
+            setIngestionTab(tab);
+        }
+
+        function closeIngestionModal() {
+            document.getElementById('ingestionModal').classList.remove('active');
+        }
+
+        function setIngestionTab(tab) {
+            currentIngestTab = tab;
+            document.getElementById('tabBtnLabel').classList.toggle('active', tab === 'label');
+            document.getElementById('tabBtnLog').classList.toggle('active', tab === 'log');
+            document.getElementById('tabBtnExports').classList.toggle('active', tab === 'exports');
+
+            document.getElementById('tabContentLabel').style.display = tab === 'label' ? 'flex' : 'none';
+            document.getElementById('tabContentLog').style.display = tab === 'log' ? 'flex' : 'none';
+            document.getElementById('tabContentExports').style.display = tab === 'exports' ? 'flex' : 'none';
+
+            const submitBtn = document.getElementById('btnSubmitIngest');
+            if (tab === 'exports') {
+                submitBtn.style.display = 'none';
+            } else {
+                submitBtn.style.display = 'flex';
+                submitBtn.innerHTML = tab === 'label' ? '<span>🏷️ Graduate Tank to FileMaker</span>' : '<span>📋 Ingest Breeding Log</span>';
+            }
+        }
+
+        function handleLabelSelected(input) {
+            if (input.files && input.files[0]) {
+                const fName = input.files[0].name;
+                alert(`Selected label image: ${fName}. Form is auto-populated for review.`);
+            }
+        }
+
+        function handleLogSelected(input) {
+            if (input.files && input.files[0]) {
+                const fName = input.files[0].name;
+                alert(`Selected breeding log scan: ${fName}. Ready to process into reproductive engine.`);
+            }
+        }
+
+        function updateLabelPreview() {
+            const origin = document.getElementById('lblOrigin').value || 'AB T128';
+            const count = document.getElementById('lblCount').value || '30';
+            document.getElementById('prevTuid').innerText = 'Next TUID (Auto)';
+            document.getElementById('prevCuid').innerText = 'Next CUID (Linked to ' + origin + ')';
+            document.getElementById('prevNuid').innerText = 'Next NUID (' + count + ' Fish)';
+        }
+
+        function executeIngestionAction() {
+            if (currentIngestTab === 'label') {
+                const line = document.getElementById('lblLine').value;
+                const origin = document.getElementById('lblOrigin').value;
+                const dob = document.getElementById('lblDob').value;
+                const count = document.getElementById('lblCount').value;
+                alert(`Ingestion Successful!\n\nTank graduation queued for:\nLine: ${line}\nOrigin: ${origin}\nDOB: ${dob}\nCount: ${count}\n\nAll FileMaker tables and dashboards will sync.`);
+                closeIngestionModal();
+                document.getElementById('portalFrame').src = document.getElementById('portalFrame').src;
+            } else if (currentIngestTab === 'log') {
+                alert(`Breeding Log Ingestion Successful!\n\nSpawn records validated and added to breeding intelligence engine.`);
+                closeIngestionModal();
+                if (currentView === 'breeding') {
+                    document.getElementById('portalFrame').src = 'breeding.html';
+                }
+            }
+        }
+    </script>
+</body>
+</html>

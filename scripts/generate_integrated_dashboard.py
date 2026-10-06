@@ -1909,15 +1909,10 @@ def generate_dashboard():
 
     html_content = html_template.replace('__DATA_JSON__', data_json_str)
 
-    out_integrated = os.path.join(labels_dir, 'FishNET_Interactive_Dashboard_With_Breeding.html')
-    with open(out_integrated, 'w', encoding='utf-8') as f:
+    out_breeding = os.path.join(labels_dir, 'breeding.html')
+    with open(out_breeding, 'w', encoding='utf-8') as f:
         f.write(html_content)
-    print(f'Wrote {out_integrated}')
-
-    out_main = os.path.join(labels_dir, 'FishNET_Interactive_Dashboard.html')
-    with open(out_main, 'w', encoding='utf-8') as f:
-        f.write(html_content)
-    print(f'Wrote {out_main}')
+    print(f'Wrote {out_breeding}')
 
 if __name__ == '__main__':
     generate_dashboard()

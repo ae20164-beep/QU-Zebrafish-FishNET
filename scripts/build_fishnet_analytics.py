@@ -3145,10 +3145,7 @@ html_template = """<!DOCTYPE html>
 
 html_content = html_template.replace('__RECORDS_JSON__', raw_records_json)
 
-with open('FishNET_Interactive_Dashboard.html', 'w', encoding='utf-8') as f:
+with open('colony.html', 'w', encoding='utf-8') as f:
     f.write(html_content)
 
-with open(HTML_DASHBOARD_FILE, 'w', encoding='utf-8') as f:
-    f.write(html_content)
-
-print('HTML Dashboards generated: FishNET_Interactive_Dashboard.html and FishNET_Interactive_Dashboard_Standard_Backup.html')
+print('Colony Pedigree & Inventory Dashboard generated: colony.html')

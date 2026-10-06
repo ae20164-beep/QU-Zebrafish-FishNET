@@ -127,7 +127,7 @@ def read_xlsx_rows(path):
 
 def process():
     labels_dir = r'c:\Users\ae20164\OneDrive - Qatar University (1)\Zebrafish shared folder\FishNET Data\Labels'
-    done_dir = os.path.join(labels_dir, 'DONE')
+    done_dir = os.path.join(labels_dir, 'archive', 'DONE') if os.path.exists(os.path.join(labels_dir, 'archive', 'DONE')) else os.path.join(labels_dir, 'DONE')
     breeding_dir = r'c:\Users\ae20164\OneDrive - Qatar University (1)\breeding'
     
     # 1. Load FishNET Tanks with Sex Structure Analysis
