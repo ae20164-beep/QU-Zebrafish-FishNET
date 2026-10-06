@@ -540,10 +540,8 @@
             <p>Unified Zebrafish Platform (2024–2026) | 183 Tanks • 2,233 Spawning Events • 1,252,045 Eggs • 72 Crosses • Full 5-Gen Pedigree</p>
         </div>
         <div class="header-controls">
-            <input type="file" id="fileUploadInput" style="display: none;" accept=".csv,.xlsx,.tab" onchange="handleFileUpload(event)">
-            <button class="btn btn-outline" onclick="document.getElementById('fileUploadInput').click()">📁 Ingest Updated Data</button>
-            <button class="btn btn-outline" onclick="exportBreedingJSON()">💾 Export JSON</button>
-            <button class="btn btn-emerald" onclick="exportBreedingCSV()">📥 Export Master CSV</button>
+            <button class="btn btn-outline" onclick="exportBreedingJSON()">💾 Export Database (JSON)</button>
+            <button class="btn btn-emerald" onclick="exportBreedingCSV()">📥 Export Master CSV (2024–2026)</button>
         </div>
     </header>
 
@@ -2545,16 +2543,6 @@
             else if (tabId === 'tab-audit') renderAuditTab();
             else if (tabId === 'tab-planner') calculatePlanner();
             else if (tabId === 'tab-raw-events') renderRawEvents();
-        }
-
-        function handleFileUpload(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                alert(`File "${file.name}" received! Re-compiling analytics pipeline.`);
-            };
-            reader.readAsText(file);
         }
 
         window.onload = function() {
