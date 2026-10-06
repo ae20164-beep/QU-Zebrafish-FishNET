@@ -1766,13 +1766,38 @@ def generate_dashboard():
             })
             .then(res => res.json())
             .then(res => {
-                alert(`✅ Spawning event recorded directly in Master Google Sheet!`);
+                currentEvents.unshift({
+                    date: payload.date,
+                    line: payload.line,
+                    in_tank: payload.in_tank,
+                    tank_id: payload.tank_id,
+                    eggs_0h: payload.eggs_0h,
+                    sr_0h: payload.sr_0h,
+                    sr_24h: payload.sr_24h,
+                    live_24h: payload.live_24h,
+                    staff: payload.operator,
+                    notes: payload.notes,
+                    year: Number(payload.date.split('-')[0]) || 2026
+                });
+
+                document.getElementById('kpiTotalEvents').innerText = currentEvents.length.toLocaleString();
+                const totEggs = currentEvents.reduce((acc, ev) => acc + (ev.eggs_0h || 0), 0);
+                const totLive = currentEvents.reduce((acc, ev) => acc + (ev.live_24h || 0), 0);
+                document.getElementById('kpiTotalEggs').innerText = totEggs.toLocaleString();
+                document.getElementById('kpiLive24h').innerText = totLive.toLocaleString();
+
+                renderBenchmarks();
+                renderScorecards();
+                renderRawEvents();
+                renderTrends();
+
+                alert(`✅ Spawning event recorded directly in Google Sheets and updated on your dashboard!`);
                 closeLogSpawnModal();
                 btn.disabled = false;
                 btn.innerText = '💾 Submit to Live Google Sheet';
             })
             .catch(err => {
-                alert('Spawning record queued for cloud synchronization.');
+                alert('Record submitted to cloud queue.');
                 closeLogSpawnModal();
                 btn.disabled = false;
                 btn.innerText = '💾 Submit to Live Google Sheet';
@@ -1785,9 +1810,12 @@ def generate_dashboard():
             btn.disabled = true;
             btn.innerText = '⏳ Creating in Google Sheet...';
 
+            const autoTuid = 'T' + String(Object.keys(currentTanks).length + 1).padStart(4, '0');
+            const targetTuid = document.getElementById('newTankId').value.trim() || autoTuid;
+
             const payload = {
                 action: 'ADD_TANK',
-                tuid: document.getElementById('newTankId').value,
+                tuid: targetTuid,
                 line: document.getElementById('newTankLine').value,
                 derivative_cross: document.getElementById('newTankCross').value,
                 sex_type: document.getElementById('newTankSexType').value,
@@ -1808,7 +1836,34 @@ def generate_dashboard():
             })
             .then(res => res.json())
             .then(res => {
-                alert(`✅ Tank created directly in Master Google Sheet!`);
+                currentTanks[targetTuid] = {
+                    tuid: targetTuid,
+                    line: payload.line,
+                    derivative_cross: payload.derivative_cross,
+                    sex_type: payload.sex_type,
+                    female: payload.female,
+                    male: payload.male,
+                    total: payload.total,
+                    dob: payload.dob,
+                    tank_size: payload.tank_size,
+                    protocol: payload.protocol,
+                    notes: payload.notes,
+                    status: 'Active',
+                    total_spawns: 0,
+                    total_eggs_0h: 0,
+                    total_live_24h: 0,
+                    avg_sr_24h: 0,
+                    avg_clutch: 0,
+                    spawn_history: []
+                };
+
+                document.getElementById('kpiTotalTanks').innerText = Object.keys(currentTanks).length;
+                renderInventory();
+                renderScorecards();
+                populateFocalDropdown();
+                renderTurnoverTable();
+
+                alert(`✅ Tank ${targetTuid} created in Google Sheets and added to your inventory!`);
                 closeAddTankModal();
                 btn.disabled = false;
                 btn.innerText = '💾 Create Tank in Google Sheet';
