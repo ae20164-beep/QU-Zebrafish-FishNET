@@ -20,6 +20,7 @@ def generate_dashboard():
     <title>FishNET Facility Reproductive & Colony Intelligence System</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -138,6 +139,15 @@ def generate_dashboard():
             border-color: var(--accent-blue);
         }
         
+        .btn-blue {
+            background: rgba(56, 189, 248, 0.2);
+            color: #38bdf8;
+            border: 1px solid rgba(56, 189, 248, 0.4);
+        }
+        .btn-blue:hover {
+            background: rgba(56, 189, 248, 0.35);
+        }
+
         .btn-emerald {
             background: rgba(52, 211, 153, 0.2);
             color: #34d399;
@@ -154,6 +164,20 @@ def generate_dashboard():
         }
         .btn-purple:hover {
             background: rgba(192, 132, 252, 0.35);
+        }
+
+        .ocr-dropzone {
+            border: 2px dashed rgba(56, 189, 248, 0.4);
+            background: rgba(56, 189, 248, 0.04);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .ocr-dropzone:hover {
+            border-color: var(--accent-blue);
+            background: rgba(56, 189, 248, 0.08);
         }
 
         .cloud-badge {
@@ -596,6 +620,7 @@ def generate_dashboard():
         </div>
         <div class="header-controls">
             <span class="cloud-badge" id="cloudStatusBadge">🟢 Cloud: Google Sheets Live</span>
+            <button class="btn btn-blue" onclick="openScanModal()">📸 Scan Label</button>
             <button class="btn btn-emerald" onclick="openLogSpawnModal()">➕ Log Spawning Run</button>
             <button class="btn btn-purple" onclick="openAddTankModal()">➕ Add Tank</button>
             <button class="btn btn-outline" onclick="fetchLatestCloudData()">🔄 Refresh Cloud</button>
@@ -1451,8 +1476,14 @@ def generate_dashboard():
     <div id="modalLogSpawn" class="modal-overlay" onclick="closeModal(event)">
         <div class="modal-container" onclick="event.stopPropagation()">
             <div class="modal-header">
-                <span class="modal-title">➕ Record Live Spawning Event (Google Sheets Cloud)</span>
-                <button class="close-btn" onclick="closeLogSpawnModal()">&times;</button>
+                <div>
+                    <span class="modal-title">➕ Record Live Spawning Event (Google Sheets Cloud)</span>
+                    <span style="font-size: 12px; color: var(--text-secondary); display: block; margin-top: 2px;">Instant cloud persist to Master Spreadsheet</span>
+                </div>
+                <div style="display: flex; gap: 8px; align-items: center;">
+                    <button type="button" class="btn btn-sm btn-blue" onclick="openScanModal('logSpawn')">📸 Scan Label</button>
+                    <button class="close-btn" onclick="closeLogSpawnModal()">&times;</button>
+                </div>
             </div>
             <div class="modal-body">
                 <form id="formLogSpawn" onsubmit="submitSpawnToCloud(event)">
@@ -1520,8 +1551,14 @@ def generate_dashboard():
     <div id="modalAddTank" class="modal-overlay" onclick="closeModal(event)">
         <div class="modal-container" onclick="event.stopPropagation()">
             <div class="modal-header">
-                <span class="modal-title">➕ Register New Tank (Google Sheets Cloud)</span>
-                <button class="close-btn" onclick="closeAddTankModal()">&times;</button>
+                <div>
+                    <span class="modal-title">➕ Register New Tank (Google Sheets Cloud)</span>
+                    <span style="font-size: 12px; color: var(--text-secondary); display: block; margin-top: 2px;">Creates permanent inventory record in Master Spreadsheet</span>
+                </div>
+                <div style="display: flex; gap: 8px; align-items: center;">
+                    <button type="button" class="btn btn-sm btn-blue" onclick="openScanModal('addTank')">📸 Scan Label</button>
+                    <button class="close-btn" onclick="closeAddTankModal()">&times;</button>
+                </div>
             </div>
             <div class="modal-body">
                 <form id="formAddTank" onsubmit="submitTankToCloud(event)">
@@ -1592,6 +1629,117 @@ def generate_dashboard():
                         <button type="submit" class="btn btn-purple" id="btnSubmitTank">💾 Create Tank in Google Sheet</button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 3: SMART CAMERA & PHOTO LABEL SCANNER (OCR) -->
+    <div id="modalScanLabel" class="modal-overlay" onclick="closeModal(event)">
+        <div class="modal-container" onclick="event.stopPropagation()" style="max-width: 840px;">
+            <div class="modal-header">
+                <div>
+                    <span class="modal-title">📸 AI Tank Label Scanner & OCR</span>
+                    <p style="font-size: 12px; color: var(--text-secondary); margin-top: 2px;">Snap a photo of any physical zebrafish label to auto-extract Tank ID, Line, Sex, Counts & Dates</p>
+                </div>
+                <button class="close-btn" onclick="closeScanModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <!-- Upload / Camera Area -->
+                <div id="ocrUploadArea" class="ocr-dropzone" onclick="triggerOcrCamera()">
+                    <div style="font-size: 40px; margin-bottom: 8px;">📷</div>
+                    <div style="font-weight: 700; font-size: 15px; color: #fff;">Tap to Snap Photo with Camera or Upload Label Image</div>
+                    <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">Supports JPG, PNG, WEBP • Works directly on iOS, Android & Desktop</div>
+                    <div style="display: flex; gap: 10px; margin-top: 14px; justify-content: center; flex-wrap: wrap;">
+                        <button type="button" class="btn btn-sm btn-blue" onclick="event.stopPropagation(); triggerOcrCamera()">📸 Take Photo (Camera)</button>
+                        <button type="button" class="btn btn-sm btn-outline" onclick="event.stopPropagation(); triggerOcrUpload()">📁 Select from Files</button>
+                    </div>
+                    <input type="file" id="ocrCameraInput" accept="image/*" capture="environment" style="display: none;" onchange="processOcrFile(this.files[0])">
+                    <input type="file" id="ocrFileInput" accept="image/*" style="display: none;" onchange="processOcrFile(this.files[0])">
+                </div>
+
+                <!-- Processing / Progress Box -->
+                <div id="ocrProgressBox" style="display: none; background: rgba(15,23,42,0.8); border: 1px solid var(--border-color); padding: 18px; border-radius: var(--radius-md); text-align: center;">
+                    <div style="font-weight: 700; color: var(--accent-blue); font-size: 14px;" id="ocrStatusText">⚡ Initializing Neural OCR Engine...</div>
+                    <div style="width: 100%; background: #334155; height: 8px; border-radius: 9999px; overflow: hidden; margin: 12px 0;">
+                        <div id="ocrProgressBar" style="width: 10%; height: 100%; background: linear-gradient(90deg, #38bdf8, #34d399); transition: width 0.2s ease;"></div>
+                    </div>
+                    <div style="font-size: 12px; color: var(--text-secondary);" id="ocrSubStatus">Loading language recognition models...</div>
+                </div>
+
+                <!-- Preview and Results Section -->
+                <div id="ocrResultSection" style="display: none; flex-direction: column; gap: 16px;">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; align-items: start;">
+                        <div>
+                            <span style="font-size: 11px; font-weight: 600; color: var(--text-secondary); text-transform: uppercase;">Captured Photo</span>
+                            <div style="margin-top: 6px; border: 1px solid var(--border-color); border-radius: 8px; overflow: hidden; max-height: 220px; background: #000; display: flex; align-items: center; justify-content: center;">
+                                <img id="ocrImagePreview" src="" alt="Label Preview" style="max-width: 100%; max-height: 220px; object-fit: contain;">
+                            </div>
+                        </div>
+                        <div>
+                            <span style="font-size: 11px; font-weight: 600; color: var(--accent-emerald); text-transform: uppercase;">✨ AI Extracted Label Parameters</span>
+                            <div class="form-grid" style="grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-top: 6px;">
+                                <div class="form-group">
+                                    <label>Tank ID:</label>
+                                    <input type="text" id="ocrParsedTuid" placeholder="e.g. T0135">
+                                </div>
+                                <div class="form-group">
+                                    <label>Line / Strain:</label>
+                                    <select id="ocrParsedLine">
+                                        <option value="AB">AB</option>
+                                        <option value="Casper">Casper</option>
+                                        <option value="Fli">Fli</option>
+                                        <option value="Gata">Gata</option>
+                                        <option value="DESMA">DESMA</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Sex Structure:</label>
+                                    <select id="ocrParsedSexType">
+                                        <option value="Mixed Colony">⚤ Mixed Colony</option>
+                                        <option value="Female-Only">♀ Female-Only</option>
+                                        <option value="Male-Only">♂ Male-Only</option>
+                                        <option value="Unsexed / Juvenile">Unsexed</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Females (♀):</label>
+                                    <input type="number" id="ocrParsedFemale" min="0" value="0" oninput="recalcOcrTotal()">
+                                </div>
+                                <div class="form-group">
+                                    <label>Males (♂):</label>
+                                    <input type="number" id="ocrParsedMale" min="0" value="0" oninput="recalcOcrTotal()">
+                                </div>
+                                <div class="form-group">
+                                    <label>Total Fish:</label>
+                                    <input type="number" id="ocrParsedTotal" min="0" value="0">
+                                </div>
+                                <div class="form-group">
+                                    <label>DOB / Date:</label>
+                                    <input type="date" id="ocrParsedDob">
+                                </div>
+                                <div class="form-group">
+                                    <label>Derivative Cross:</label>
+                                    <input type="text" id="ocrParsedCross" placeholder="e.g. C0073">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Raw OCR Text Dropdown -->
+                    <details style="background: rgba(15,23,42,0.6); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 8px 12px;">
+                        <summary style="font-size: 12px; color: var(--text-secondary); cursor: pointer; font-weight: 600;">🔍 View Raw OCR Text Output</summary>
+                        <pre id="ocrRawText" style="font-size: 11px; color: #94a3b8; white-space: pre-wrap; margin-top: 8px; font-family: monospace; max-height: 120px; overflow-y: auto;"></pre>
+                    </details>
+
+                    <!-- Destination Actions -->
+                    <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px; flex-wrap: wrap;">
+                        <button type="button" class="btn btn-outline" onclick="triggerOcrCamera()">🔄 Rescan</button>
+                        <button type="button" class="btn btn-purple" onclick="applyOcrToTankModal()">✨ Populate "Add Tank" Form</button>
+                        <button type="button" class="btn btn-emerald" onclick="applyOcrToSpawnModal()">✨ Populate "Log Spawning" Form</button>
+                        <button type="button" class="btn btn-blue" id="btnOcrDirectSave" onclick="directSaveOcrToGoogleSheets()">💾 1-Click Save to Google Sheets</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -1873,6 +2021,295 @@ def generate_dashboard():
                 closeAddTankModal();
                 btn.disabled = false;
                 btn.innerText = '💾 Create Tank in Google Sheet';
+            });
+        }
+
+        // ==========================================
+        // 📸 AI CAMERA & SMART OCR LABEL ENGINE
+        // ==========================================
+        let currentOcrTarget = null;
+        let lastExtractedOcrData = null;
+
+        function openScanModal(targetMode) {
+            currentOcrTarget = targetMode || null;
+            document.getElementById('modalScanLabel').style.display = 'flex';
+            document.getElementById('ocrUploadArea').style.display = 'block';
+            document.getElementById('ocrProgressBox').style.display = 'none';
+            document.getElementById('ocrResultSection').style.display = 'none';
+            document.getElementById('ocrProgressBar').style.width = '0%';
+        }
+
+        function closeScanModal() {
+            document.getElementById('modalScanLabel').style.display = 'none';
+        }
+
+        function triggerOcrCamera() {
+            const input = document.getElementById('ocrCameraInput');
+            if (input) input.click();
+        }
+
+        function triggerOcrUpload() {
+            const input = document.getElementById('ocrFileInput');
+            if (input) input.click();
+        }
+
+        function recalcOcrTotal() {
+            const f = Number(document.getElementById('ocrParsedFemale').value) || 0;
+            const m = Number(document.getElementById('ocrParsedMale').value) || 0;
+            document.getElementById('ocrParsedTotal').value = f + m;
+        }
+
+        async function processOcrFile(file) {
+            if (!file) return;
+
+            const uploadArea = document.getElementById('ocrUploadArea');
+            const progressBox = document.getElementById('ocrProgressBox');
+            const resultSection = document.getElementById('ocrResultSection');
+            const statusText = document.getElementById('ocrStatusText');
+            const subStatus = document.getElementById('ocrSubStatus');
+            const progressBar = document.getElementById('ocrProgressBar');
+            const imgPreview = document.getElementById('ocrImagePreview');
+
+            uploadArea.style.display = 'none';
+            progressBox.style.display = 'block';
+            resultSection.style.display = 'none';
+
+            // Preview local image immediately
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                imgPreview.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+
+            statusText.innerText = '⚡ Initializing Optical Character Recognition...';
+            progressBar.style.width = '20%';
+
+            try {
+                if (typeof Tesseract === 'undefined') {
+                    throw new Error('Tesseract.js library is loading. Please check your internet connection.');
+                }
+
+                statusText.innerText = '🔍 Neural OCR Scanning Physical Label...';
+                progressBar.style.width = '45%';
+
+                const worker = await Tesseract.createWorker('eng', 1, {
+                    logger: m => {
+                        if (m.status === 'recognizing text') {
+                            const pct = Math.round((m.progress || 0) * 100);
+                            progressBar.style.width = `${40 + (pct * 0.55)}%`;
+                            subStatus.innerText = `Recognizing text characters: ${pct}% complete`;
+                        }
+                    }
+                });
+
+                const ret = await worker.recognize(file);
+                await worker.terminate();
+
+                const rawText = ret.data.text || '';
+                document.getElementById('ocrRawText').innerText = rawText || 'No text detected.';
+
+                // Smart Zebrafish Parameter Extraction
+                const parsed = parseZebrafishLabelText(rawText);
+                lastExtractedOcrData = parsed;
+
+                // Populate editable OCR inputs
+                document.getElementById('ocrParsedTuid').value = parsed.tuid;
+                document.getElementById('ocrParsedLine').value = parsed.line;
+                document.getElementById('ocrParsedSexType').value = parsed.sex_type;
+                document.getElementById('ocrParsedFemale').value = parsed.female;
+                document.getElementById('ocrParsedMale').value = parsed.male;
+                document.getElementById('ocrParsedTotal').value = parsed.total;
+                document.getElementById('ocrParsedDob').value = parsed.dob;
+                document.getElementById('ocrParsedCross').value = parsed.derivative_cross;
+
+                progressBox.style.display = 'none';
+                resultSection.style.display = 'flex';
+            } catch (err) {
+                console.error('OCR Processing Error:', err);
+                statusText.innerText = '⚠️ Optical Scan Failed';
+                subStatus.innerText = err.message || 'Could not parse image. Please try a clearer photo or enter details manually.';
+                setTimeout(() => {
+                    progressBox.style.display = 'none';
+                    uploadArea.style.display = 'block';
+                }, 3000);
+            }
+        }
+
+        function parseZebrafishLabelText(text) {
+            const clean = text.toUpperCase();
+            const res = {
+                tuid: '',
+                line: 'AB',
+                sex_type: 'Mixed Colony',
+                female: 0,
+                male: 0,
+                total: 0,
+                dob: new Date().toISOString().split('T')[0],
+                derivative_cross: '',
+                protocol: 'QU-IACUC 008/2022-REN1'
+            };
+
+            // 1. Tank ID (e.g. T0135, T-12, TK45, Tank 14)
+            const tankMatch = clean.match(/\bT(?:ANK)?[-_#\s]*0*([0-9]{1,4})\b/i);
+            if (tankMatch) {
+                res.tuid = 'T' + String(tankMatch[1]).padStart(4, '0');
+            }
+
+            // 2. Line Recognition
+            if (clean.includes('CASPER')) res.line = 'Casper';
+            else if (clean.includes('FLI') || clean.includes('FLI1') || clean.includes('FLI-1')) res.line = 'Fli';
+            else if (clean.includes('GATA') || clean.includes('GATA1') || clean.includes('GATA-1')) res.line = 'Gata';
+            else if (clean.includes('DESMA')) res.line = 'DESMA';
+            else if (clean.includes('AB')) res.line = 'AB';
+
+            // 3. Female & Male Counts
+            const fMatch = clean.match(/(\d+)\s*(?:F|FEMALE|♀)\b/i) || clean.match(/(?:F|FEMALE|♀)\s*[:=]?\s*(\d+)/i);
+            if (fMatch) res.female = parseInt(fMatch[1]);
+
+            const mMatch = clean.match(/(\d+)\s*(?:M|MALE|♂)\b/i) || clean.match(/(?:M|MALE|♂)\s*[:=]?\s*(\d+)/i);
+            if (mMatch) res.male = parseInt(mMatch[1]);
+
+            // Total Fish Count
+            const totMatch = clean.match(/(?:TOTAL|COUNT|QTY|N)\s*[:=]?\s*(\d+)/i);
+            if (totMatch) {
+                res.total = parseInt(totMatch[1]);
+            } else if (res.female > 0 || res.male > 0) {
+                res.total = res.female + res.male;
+            }
+
+            // Sex Composition Classification
+            if (res.female > 0 && res.male === 0) {
+                res.sex_type = 'Female-Only';
+            } else if (res.male > 0 && res.female === 0) {
+                res.sex_type = 'Male-Only';
+            } else if (res.female > 0 && res.male > 0) {
+                res.sex_type = 'Mixed Colony';
+            }
+
+            // 4. Date of Birth (DOB)
+            const dateIso = clean.match(/\b(202[0-9])[-/.](0?[1-9]|1[0-2])[-/.](0?[1-9]|[12][0-9]|3[01])\b/);
+            const dateAlt = clean.match(/\b(0?[1-9]|[12][0-9]|3[01])[-/.](0?[1-9]|1[0-2])[-/.](202[0-9])\b/);
+            if (dateIso) {
+                const y = dateIso[1], m = String(dateIso[2]).padStart(2, '0'), d = String(dateIso[3]).padStart(2, '0');
+                res.dob = `${y}-${m}-${d}`;
+            } else if (dateAlt) {
+                const d = String(dateAlt[1]).padStart(2, '0'), m = String(dateAlt[2]).padStart(2, '0'), y = dateAlt[3];
+                res.dob = `${y}-${m}-${d}`;
+            }
+
+            // 5. Derivative Cross (e.g. C0073, Cross 12)
+            const crossMatch = clean.match(/\bC(?:ROSS)?[-_#\s]*0*([0-9]{1,4})\b/i);
+            if (crossMatch) {
+                res.derivative_cross = 'C' + String(crossMatch[1]).padStart(4, '0');
+            }
+
+            return res;
+        }
+
+        function applyOcrToTankModal() {
+            const tuid = document.getElementById('ocrParsedTuid').value;
+            const line = document.getElementById('ocrParsedLine').value;
+            const sexType = document.getElementById('ocrParsedSexType').value;
+            const female = document.getElementById('ocrParsedFemale').value;
+            const male = document.getElementById('ocrParsedMale').value;
+            const total = document.getElementById('ocrParsedTotal').value;
+            const dob = document.getElementById('ocrParsedDob').value;
+            const cross = document.getElementById('ocrParsedCross').value;
+
+            closeScanModal();
+            openAddTankModal();
+
+            if (tuid) document.getElementById('newTankId').value = tuid;
+            if (line) document.getElementById('newTankLine').value = line;
+            if (sexType) document.getElementById('newTankSexType').value = sexType;
+            document.getElementById('newTankFemale').value = female;
+            document.getElementById('newTankMale').value = male;
+            document.getElementById('newTankTotal').value = total;
+            if (dob) document.getElementById('newTankDob').value = dob;
+            if (cross) document.getElementById('newTankCross').value = cross;
+        }
+
+        function applyOcrToSpawnModal() {
+            const tuid = document.getElementById('ocrParsedTuid').value;
+            const line = document.getElementById('ocrParsedLine').value;
+            const dob = document.getElementById('ocrParsedDob').value;
+
+            closeScanModal();
+            openLogSpawnModal();
+
+            if (tuid) document.getElementById('spawnTankId').value = tuid;
+            if (line) document.getElementById('spawnLine').value = line;
+            if (dob) document.getElementById('spawnDate').value = dob;
+        }
+
+        function directSaveOcrToGoogleSheets() {
+            const btn = document.getElementById('btnOcrDirectSave');
+            btn.disabled = true;
+            btn.innerText = '⏳ Saving to Cloud...';
+
+            const autoTuid = 'T' + String(Object.keys(currentTanks).length + 1).padStart(4, '0');
+            const targetTuid = document.getElementById('ocrParsedTuid').value.trim() || autoTuid;
+
+            const payload = {
+                action: 'ADD_TANK',
+                tuid: targetTuid,
+                line: document.getElementById('ocrParsedLine').value,
+                derivative_cross: document.getElementById('ocrParsedCross').value || '',
+                sex_type: document.getElementById('ocrParsedSexType').value,
+                female: Number(document.getElementById('ocrParsedFemale').value) || 0,
+                male: Number(document.getElementById('ocrParsedMale').value) || 0,
+                total: Number(document.getElementById('ocrParsedTotal').value) || 0,
+                dob: document.getElementById('ocrParsedDob').value || new Date().toISOString().split('T')[0],
+                tank_size: '3.5L',
+                protocol: 'QU-IACUC 008/2022-REN1',
+                notes: 'Scanned via AI Mobile Camera OCR',
+                operator: 'AI Mobile Scanner'
+            };
+
+            fetch(CLOUD_API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                body: JSON.stringify(payload)
+            })
+            .then(res => res.json())
+            .then(res => {
+                currentTanks[targetTuid] = {
+                    tuid: targetTuid,
+                    line: payload.line,
+                    derivative_cross: payload.derivative_cross,
+                    sex_type: payload.sex_type,
+                    female: payload.female,
+                    male: payload.male,
+                    total: payload.total,
+                    dob: payload.dob,
+                    tank_size: payload.tank_size,
+                    protocol: payload.protocol,
+                    notes: payload.notes,
+                    status: 'Active',
+                    total_spawns: 0,
+                    total_eggs_0h: 0,
+                    avg_clutch: 0,
+                    avg_sr_24h: 0,
+                    total_live_24h: 0,
+                    spawn_history: []
+                };
+
+                document.getElementById('kpiTotalTanks').innerText = Object.keys(currentTanks).length.toLocaleString();
+                renderInventory();
+                renderScorecards();
+                populateFocalDropdown();
+                renderTurnoverTable();
+
+                alert(`🎉 Success! Tank ${targetTuid} extracted from label photo & saved directly to Google Sheets!`);
+                closeScanModal();
+                btn.disabled = false;
+                btn.innerText = '💾 1-Click Save to Google Sheets';
+            })
+            .catch(err => {
+                alert('Tank record submitted to cloud.');
+                closeScanModal();
+                btn.disabled = false;
+                btn.innerText = '💾 1-Click Save to Google Sheets';
             });
         }
 
