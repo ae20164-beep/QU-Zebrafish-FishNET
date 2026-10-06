@@ -104,11 +104,47 @@ else:
     # Initialize empty list per PI - to be dynamically populated upon registration & cross-checking
     pi_teams = defaultdict(list)
 
+# Load real descriptive project titles
+TITLES_PATH = os.path.join(SCRIPTS_DIR, 'project_titles.json')
+project_titles = {}
+if os.path.exists(TITLES_PATH):
+    with open(TITLES_PATH, 'r', encoding='utf-8') as f:
+        project_titles = json.load(f)
+
+def clean_alphanumeric(s):
+    return re.sub(r'[^a-zA-Z0-9]', '', str(s)).lower()
+
+title_lookup = {clean_alphanumeric(k): v for k, v in project_titles.items()}
+
+def resolve_project_title(p_num, b_key, is_facility):
+    if is_facility:
+        return "Zebrafish Maintenance and Breeding Practice at BRC Zebrafish Facility"
+    ck_num = clean_alphanumeric(p_num)
+    ck_base = clean_alphanumeric(b_key)
+    res_title = None
+    # 1. Exact or partial match on p_num
+    for k, v in title_lookup.items():
+        if k in ck_num or ck_num in k:
+            res_title = v
+            break
+    # 2. Match on base key
+    if not res_title:
+        for k, v in title_lookup.items():
+            if k in ck_base or ck_base in k:
+                res_title = v
+                break
+    if not res_title:
+        res_title = f"Zebrafish Research Protocol - {p_num}"
+        
+    # Clean any trailing funding metadata
+    res_title = re.split(r'\s*(?:Funding Agency|Grant Number|Project\s*start|This\s*is|\*|Date:)', res_title, flags=re.IGNORECASE)[0].strip()
+    return res_title
+
 # ==================== BUILD PROJECTS.TAB ====================
 # Columns:
 # 1. Date End
 # 2. Lab Users (Facility core for facility projects; PI + verified RAs for individual projects)
-# 3. Protocol Name
+# 3. Protocol Name (Descriptive Research Title)
 # 4. Protocol Number (specific version number)
 # 5. PUID (permanent base PUID)
 # 6. Status (Active, Superseded, Completed, Pending Renewal)
@@ -125,13 +161,12 @@ for b_key, puid in sorted(puid_map.items(), key=lambda x: x[1]):
         status = v['status']
         
         is_facility = ("Facility" in pi_name) or ("006/2023" in p_num) or ("031" in p_num and "Facility" in b_key)
+        p_name = resolve_project_title(p_num, b_key, is_facility)
         
         if is_facility:
-            p_name = "Zebrafish Maintenance and Breeding Practice at BRC Zebrafish Facility"
             lab_users = FACILITY_CORE_USERS
             luid = "Zebrafish Core Facility (Dr. Huseyin Yalcin)"
         else:
-            p_name = f"Zebrafish Research Protocol - {p_num}"
             luid = pi_name
             # PI + verified registered RAs for this PI
             ra_raw = pi_teams.get(pi_name, [])
@@ -156,7 +191,7 @@ projects_path = os.path.join(EXPORT_DIR, 'Projects.tab')
 with open(projects_path, 'w', encoding='utf-8', newline='') as f:
     f.write('\r\n'.join(project_rows) + '\r\n')
 
-print(f"[OK] Wrote {len(project_rows)} project version rows to {projects_path}")
+print(f"[OK] Wrote {len(project_rows)} project version rows with descriptive titles to {projects_path}")
 
 # ==================== BUILD LABS.TAB ====================
 # Columns:
@@ -197,7 +232,7 @@ for pi, p_list in pi_projects_grouped.items():
 
     # First record for this Lab
     first_p = p_list[0]
-    p_name_first = "Zebrafish Maintenance and Breeding Practice at BRC Zebrafish Facility" if "Facility" in pi else f"Zebrafish Research Protocol - {first_p['num']}"
+    p_name_first = resolve_project_title(first_p['num'], first_p['base'], "Facility" in pi)
     
     first_row = [
         college,
@@ -212,7 +247,7 @@ for pi, p_list in pi_projects_grouped.items():
 
     # Remaining versions / projects for this PI
     for sub_p in p_list[1:]:
-        p_name_sub = "Zebrafish Maintenance and Breeding Practice at BRC Zebrafish Facility" if "Facility" in pi else f"Zebrafish Research Protocol - {sub_p['num']}"
+        p_name_sub = resolve_project_title(sub_p['num'], sub_p['base'], "Facility" in pi)
         sub_row = [
             '',
             '',
