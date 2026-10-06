@@ -22,29 +22,29 @@
 16	34	350	316	?	90.29%		C0022		15-10-2024	14/10/2024	T0011		Fli (Sidra) x Fli (Sidra)	1	T0011	QU-IACUC-006/2023	Ahmad	Retired		Tg Tg (fli1a:eGFP) Sidra	Fli (Sidra)	Tg Tg (fli1a:eGFP) Sidra	Fli (Sidra)
 31	44	152	108	?	71.05%		C0023		15-10-2024	14/10/2024	T0012		Fli (Sidra) G1 x Fli (Sidra) G1		T0012	QU-IACUC-006/2023	Ahmad	Retired		Tg Tg (fli1a:eGFP) Sidra	Fli (Sidra) G1	Tg Tg (fli1a:eGFP) Sidra	Fli (Sidra) G1
 0	0	13	13	?	100.00%		C0024		03-06-2024	2/6/2024	t0015		Casper x AB G1	1	t0039	QU-IACUC 006/2023	Enas	Retired		Mu Mu (mitfaw2/w2; mpv17a9/a9)	Casper	Wt Wt (AB) Sidra	AB G1
-							C0025		18-11-2024	17/11/2024	T0015		Casper x Casper	1	T0015	QU-IACUC-006/2023	Enas	Retired		Mu Mu (mitfaw2/w2; mpv17a9/a9)	Casper	Mu Mu (mitfaw2/w2; mpv17a9/a9)	Casper
-							C0026		24-12-2024	23/12/2024	T0059		AB Mix x Cas/AB	1	T0066	QU-IACUC 006/2023-AMM1	Enas	Retired		Wt Wt (AB)	AB Mix	Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB) Sidra	Cas/AB
-							C0027		12-11-2024	11/11/2024	T0011		Fli (Sidra) x Fli (Sidra)	1	T0011	QU-IACUC-006/2023		Retired		Tg Tg (fli1a:eGFP) Sidra	Fli (Sidra)	Tg Tg (fli1a:eGFP) Sidra	Fli (Sidra)
-							C0028		17-02-2025	16/2/2025	t0064		AB Mix x Gata G2		t0049	QU-IACUC 006/2023-AMM1	Enas	Retired		Wt Wt (AB)	AB Mix	Tg Tg (gata1:dsRed) Sidra [Gata]	Gata G2
-							C0029		05-03-2025	4/3/2025	t0015		Casper x Casper		t0015	QU-IACUC 006/2023-AMM1	Enas	Retired		Mu Mu (mitfaw2/w2; mpv17a9/a9)	Casper	Mu Mu (mitfaw2/w2; mpv17a9/a9)	Casper
-							C0030		27-02-2025	26/2/2025	t0056		AB x Gata G2		t0049	QU-IACUC 006/2023-AMM1	Enas	Retired		Wt Wt (AB)	AB	Tg Tg (gata1:dsRed) Sidra [Gata]	Gata G2
-							C0031		16-03-2025	16/3/2025	t0053		Fli G2 x AB		t0056	QU-IACUC 006/2023-AMM1		Retired		Tg Tg (fli1a:eGFP) Sidra [Fli]	Fli G2	Wt Wt (AB)	AB
+C0025		18-11-2024	17/11/2024	T0015		Casper x Casper	1	T0015	QU-IACUC-006/2023	Enas	Retired		Mu Mu (mitfaw2/w2; mpv17a9/a9)	Casper	Mu Mu (mitfaw2/w2; mpv17a9/a9)	Casper
+C0026		24-12-2024	23/12/2024	T0059		AB Mix x Cas/AB	1	T0066	QU-IACUC 006/2023-AMM1	Enas	Retired		Wt Wt (AB)	AB Mix	Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB) Sidra	Cas/AB
+C0027		12-11-2024	11/11/2024	T0011		Fli (Sidra) x Fli (Sidra)	1	T0011	QU-IACUC-006/2023		Retired		Tg Tg (fli1a:eGFP) Sidra	Fli (Sidra)	Tg Tg (fli1a:eGFP) Sidra	Fli (Sidra)
+C0028		17-02-2025	16/2/2025	t0064		AB Mix x Gata G2		t0049	QU-IACUC 006/2023-AMM1	Enas	Retired		Wt Wt (AB)	AB Mix	Tg Tg (gata1:dsRed) Sidra [Gata]	Gata G2
+C0029		05-03-2025	4/3/2025	t0015		Casper x Casper		t0015	QU-IACUC 006/2023-AMM1	Enas	Retired		Mu Mu (mitfaw2/w2; mpv17a9/a9)	Casper	Mu Mu (mitfaw2/w2; mpv17a9/a9)	Casper
+C0030		27-02-2025	26/2/2025	t0056		AB x Gata G2		t0049	QU-IACUC 006/2023-AMM1	Enas	Retired		Wt Wt (AB)	AB	Tg Tg (gata1:dsRed) Sidra [Gata]	Gata G2
+C0031		16-03-2025	16/3/2025	t0053		Fli G2 x AB		t0056	QU-IACUC 006/2023-AMM1		Retired		Tg Tg (fli1a:eGFP) Sidra [Fli]	Fli G2	Wt Wt (AB)	AB
 0	0	4	4	?	100.00%		C0032		14-10-2025	19/7/2025	t0072		Fli +ve x Fli +ve		t0072	QU-IACUC 006/2023-AMM1	Ahmad	Retired		Tg Tg (fli1a:eGFP) Sidra [Fli]	Fli +ve	Tg Tg (fli1a:eGFP) Sidra [Fli]	Fli +ve
 0		5	5	?	100.00%		C0033		20-07-2025	19/7/2025	t0082		Fli X AB outcross x Fli X AB outcross		t0082	QU-IACUC 006/2023-AMM1	Ahmad	Retired		Tg Tg (fli1a:eGFP) Sidra [Fli]	Fli X AB outcross	Tg Tg (fli1a:eGFP) Sidra [Fli]	Fli X AB outcross
-		7	7		100.00%		C0034		03-07-2025	3/7/2025	t0067		Casper X AB (Sidra) x Casper		t0015	QU-IACUC 006/2023-AMM1	Enas	Retired		Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB) Sidra	Casper X AB (Sidra)	Mu Mu (mitfaw2/w2; mpv17a9/a9)	Casper
+7	7		100.00%		C0034		03-07-2025	3/7/2025	t0067		Casper X AB (Sidra) x Casper		t0015	QU-IACUC 006/2023-AMM1	Enas	Retired		Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB) Sidra	Casper X AB (Sidra)	Mu Mu (mitfaw2/w2; mpv17a9/a9)	Casper
 0		3	3	?	100.00%		C0035		03-07-2025	2/7/2025	t0067		Casper X AB (Sidra) x Casper		t0015	QU-IACUC 006/2023-AMM1	Enas	Retired		Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB) Sidra	Casper X AB (Sidra)	Mu Mu (mitfaw2/w2; mpv17a9/a9)	Casper
 0		3	3	?	100.00%		C0036		17-04-2025	16/4/2025	t0015		Casper x Casper		t0015	QU-IACUC 006/2023-AMM1	Enas	Retired		Mu Mu (mitfaw2/w2; mpv17a9/a9)	Casper	Mu Mu (mitfaw2/w2; mpv17a9/a9)	Casper
 0		3	3	?	100.00%		C0037		26-02-2025	25/2/2025	t0056		AB x Gata G2		t0049	QU-IACUC 006/2023-AMM1	Enas	Retired		Wt Wt (AB)	AB	Tg Tg (gata1:dsRed) Sidra [Gata]	Gata G2
 0		17	17	?	100.00%		C0038		17-06-2025	23/6/2025	t0073		Gata outcross +ve x Gata outcross +ve		t0073	QU-IACUC 006/2023-AMM1	Ahmad	Retired		Tg Tg (gata1:dsRed) Sidra [Gata]	Gata outcross +ve	Tg Tg (gata1:dsRed) Sidra [Gata]	Gata outcross +ve
 0		9	9	?	100.00%		C0039		23-06-2025	22/6/2025	t0073		Gata outcross +ve x Gata outcross +ve		t0073	QU-IACUC 006/2023-AMM1	Enas	Retired		Tg Tg (gata1:dsRed) Sidra [Gata]	Gata outcross +ve	Tg Tg (gata1:dsRed) Sidra [Gata]	Gata outcross +ve
-							C0040		12-09-2025	11/9/2025	t0069		Casper outcross X AB mix x Casper outcross X AB mix		t0069	QU-IACUC 006/2023-AMM1	Ahmad	Retired		Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB)	Casper outcross X AB mix	Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB)	Casper outcross X AB mix
+C0040		12-09-2025	11/9/2025	t0069		Casper outcross X AB mix x Casper outcross X AB mix		t0069	QU-IACUC 006/2023-AMM1	Ahmad	Retired		Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB)	Casper outcross X AB mix	Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB)	Casper outcross X AB mix
 0		7	7	?	100.00%		C0041		04-09-2025	3/9/2025	t0095		AB (Sidra) x AB Mix (Males Only)		t0093	QU-IACUC 006/2023-AMM1	Ahmad	Retired		Wt Wt (AB) Sidra	AB (Sidra)	Wt Wt (AB)	AB Mix (Males Only)
 0		15	15	?	100.00%		C0042		16-06-2025	15/6/2025	t0095		AB (Sidra) x AB Mix (Males Only)		t0093	QU-IACUC 006/2023-AMM1	Ahmad	Retired		Wt Wt (AB) Sidra	AB (Sidra)	Wt Wt (AB)	AB Mix (Males Only)
 0	0	9	9	?	100.00%		C0043		14-10-2025	13/10/2025	t0073		Gata outcross +ve x Gata G2	1	t0049	QU-IACUC 006/2023-AMM3	Ahmad	Retired		Tg Tg (gata1:dsRed) Sidra [Gata]	Gata outcross +ve	Tg Tg (gata1:dsRed) Sidra [Gata]	Gata G2
 0	0	15	15	?	100.00%		C0044		03-07-2025	2/7/2025	T0067		Casper X AB (Sidra) x Casper	1	T0015	QU-IACUC 006/2023-AMM3	Enas	Retired		Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB) Sidra	Casper X AB (Sidra)	Mu Mu (mitfaw2/w2; mpv17a9/a9)	Casper
 0	0	3	3	?	100.00%		C0045		11-02-2026	11/2/2026	T0077		Casper x Casper	1	T0077	QU-IACUC 006/2023-AMM3	Enas	Retired		Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Casper	Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Casper
 0	0	6	6	?	100.00%		C0046		16-04-2025	15/4/2025	T0015		Casper x Casper	1	T0015	QU-IACUC 006/2023-AMM3	Enas	Retired		Mu Mu (mitfaw2/w2; mpv17a9/a9)	Casper	Mu Mu (mitfaw2/w2; mpv17a9/a9)	Casper
-0	0	2	2	?	100.00%		C0047		03-05-2026	11/2/2026	T109		x	1	T109	QU-IACUC 006/2023-AMM3	Enas	Retired					
+0	0	2	2	?	100.00%		C0047		03-05-2026	11/2/2026	T109		x	1	T109	QU-IACUC 006/2023-AMM3	Enas	Retired
 0	0	18	18	?	100.00%		C0048		11-02-2026	10/2/2026	T0115		Casper From T69 Hetero x Casper From T69 Hetero	1	T0115	QU-IACUC 006/2023-AMM3	Enas	Retired		Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB)	Casper From T69 Hetero	Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB)	Casper From T69 Hetero
 0	0	15	15	?	100.00%		C0049		11-02-2026	10/2/2026	T0114		Casper Pure from T69 x Casper	1	T0015	QU-IACUC 006/2023-AMM3	Enas	Retired		Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Casper Pure from T69	Mu Mu (mitfaw2/w2; mpv17a9/a9)	Casper
 0	0	6	6	?	100.00%		C0050		26-01-2026	25/1/2026	T0101		Gata x AB (Sidra) x Gata x AB (Sidra)	1	T0101	QU-IACUC 006/2023-AMM3	Ahmad	Retired		Tg Tg (gata1:dsRed) Sidra [Gata]; (AB) Sidra	Gata x AB (Sidra)	Tg Tg (gata1:dsRed) Sidra [Gata]; (AB) Sidra	Gata x AB (Sidra)
@@ -54,7 +54,7 @@
 0	0	52	52	?	100.00%		C0054		29-Jun-26	?	T0126		Casper from T126 Pure	1	T0126	QU-IACUC 006/2023-AMM5	Enas	Retired		Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Casper from T114/T15 pure	Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Casper from T114/T15 pure
 0	0	94	94	?	100.00%		C0055		18-Jun-26	?	T0069		Casper from T69 (Hetero)	1	T0069	QU-IACUC 006/2023-AMM5	Enas	Retired		Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB)	Casper outcross X AB mix	Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB)	Casper outcross X AB mix
 0	0	30	30	?	100.00%		C0056		30-Jun-26	?	T0110		Gata from T110	1	T0110	QU-IACUC 006/2023-AMM5	Ahmad	Retired		Tg Tg (gata1:dsRed) Sidra [Gata]; (AB) Sidra	GataxAB sidra	Tg Tg (gata1:dsRed) Sidra [Gata]; (AB) Sidra	GataxAB sidra
-0	0	15	15	?	100.00%		C0057		30-Jun-26	?			Gata Mix	1		QU-IACUC 006/2023-AMM5	Ahmad	Retired					
+0	0	15	15	?	100.00%		C0057		30-Jun-26	?			Gata Mix	1		QU-IACUC 006/2023-AMM5	Ahmad	Retired
 0	0	7	7	?	100.00%		C0058		28-Apr-26	?	T0056		Fli T105 x AB T56	1	T0105	QU-IACUC 006/2023-AMM5	Ahmad	Retired		Wt Wt (AB)	AB	Tg Tg (fli1a:eGFP) Sidra [Fli]	Fli From T82
 0	0	26	26	?	100.00%		C0059		18-Jun-26	?	T0121		Casper from T121(F) vs T123(M)	1	T0123	QU-IACUC 006/2023-AMM5	Enas	Retired		Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB) Sidra	Casper from T67/T15	Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Casper from T0015/pure
 0	0	49	49	?	100.00%		C0060		05-Jul-26	?	T0108		Casper from T108 Pure	1	T0108	QU-IACUC 006/2023-AMM5	Enas	Retired		Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Casper	Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Casper
@@ -68,3 +68,4 @@
 0	0	9	9	?	100.00%		C0069		17-Aug-26	?	T0133		Fli	1	T0133	QU-IACUC 006/2023-AMM5	Ahmad	Retired		Tg Tg (fli1a:eGFP) Sidra [Fli]	Fli from T82	Tg Tg (fli1a:eGFP) Sidra [Fli]	Fli from T82
 0	0	22	22	?	100.00%		C0070		16-Aug-26	?	T0132		Fli	1	T0132	QU-IACUC 006/2023-AMM5	Ahmad	Retired		Tg Tg (fli1:EGFP) [Fli]	Fli mix T52 & T54 & T82	Tg Tg (fli1:EGFP) [Fli]	Fli mix T52 & T54 & T82
 0	0	11	11	?	100.00%		C0071		07-Apr-26	?	T0082		Fli	1	T0082	QU-IACUC 006/2023-AMM5	Ahmad	Retired		Tg Tg (fli1a:eGFP) Sidra [Fli]	Fli X AB outcross	Tg Tg (fli1a:eGFP) Sidra [Fli]	Fli X AB outcross
+0	0	42	42	100.00%	100.00%		C0072		10-Aug-26	10/08/2026	T0128		AB x AB	1	T0128	QU-IACUC 006/2023-AMM5	Ahmad	Active	Zebrafish facility	Wt (AB)	AB T128	Wt (AB)	AB T128
