@@ -1666,8 +1666,8 @@ def generate_dashboard():
                         <button type="button" class="btn btn-sm btn-purple" style="margin-top: 14px; pointer-events: none;">Browse Files</button>
                     </div>
 
-                    <input type="file" id="ocrCameraInput" accept="image/*" capture="environment" style="display: none;" onchange="processOcrFile(this.files[0])">
-                    <input type="file" id="ocrFileInput" accept="image/png, image/jpeg, image/webp, image/heic, image/*" style="display: none;" onchange="processOcrFile(this.files[0])">
+                    <input type="file" id="ocrCameraInput" accept="image/*" capture="environment" style="display: none;" onchange="if(this.files && this.files.length) processOcrFile(this.files[0])">
+                    <input type="file" id="ocrFileInput" accept=".jpg,.jpeg,.png,.webp,.heic,image/jpeg,image/png,image/webp" style="display: none;" onchange="if(this.files && this.files.length) processOcrFile(this.files[0])">
                 </div>
 
                 <!-- Processing / Progress Box -->
@@ -2130,18 +2130,83 @@ def generate_dashboard():
 
         function triggerOcrCamera() {
             const input = document.getElementById('ocrCameraInput');
-            if (input) input.click();
+            if (input) {
+                input.value = '';
+                input.click();
+            }
         }
 
         function triggerOcrUpload() {
             const input = document.getElementById('ocrFileInput');
-            if (input) input.click();
+            if (input) {
+                input.value = '';
+                input.click();
+            }
         }
 
         function recalcOcrTotal() {
             const f = Number(document.getElementById('ocrParsedFemale').value) || 0;
             const m = Number(document.getElementById('ocrParsedMale').value) || 0;
             document.getElementById('ocrParsedTotal').value = f + m;
+        }
+
+        // Preprocess image on HTML5 canvas for optimal handwritten character recognition
+        async function preprocessImageForOcr(file) {
+            return new Promise((resolve) => {
+                const img = new Image();
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    
+                    let width = img.width;
+                    let height = img.height;
+                    const maxDim = 1800;
+                    if (width > maxDim || height > maxDim) {
+                        if (width > height) {
+                            height = Math.round((height * maxDim) / width);
+                            width = maxDim;
+                        } else {
+                            width = Math.round((width * maxDim) / height);
+                            height = maxDim;
+                        }
+                    }
+                    
+                    canvas.width = width;
+                    canvas.height = height;
+                    ctx.drawImage(img, 0, 0, width, height);
+                    
+                    try {
+                        const imgData = ctx.getImageData(0, 0, width, height);
+                        const d = imgData.data;
+                        
+                        let minVal = 255, maxVal = 0;
+                        for (let i = 0; i < d.length; i += 4) {
+                            const gray = 0.299 * d[i] + 0.587 * d[i+1] + 0.114 * d[i+2];
+                            if (gray < minVal) minVal = gray;
+                            if (gray > maxVal) maxVal = gray;
+                        }
+                        
+                        const range = (maxVal - minVal) || 1;
+                        for (let i = 0; i < d.length; i += 4) {
+                            let gray = 0.299 * d[i] + 0.587 * d[i+1] + 0.114 * d[i+2];
+                            let stretched = ((gray - minVal) / range) * 255;
+                            stretched = stretched < 130 ? (stretched * 0.75) : Math.min(255, stretched * 1.2);
+                            d[i] = stretched;
+                            d[i+1] = stretched;
+                            d[i+2] = stretched;
+                        }
+                        ctx.putImageData(imgData, 0, 0);
+                    } catch (e) {
+                        console.warn('Canvas filter error:', e);
+                    }
+                    
+                    canvas.toBlob((blob) => {
+                        resolve(blob || file);
+                    }, 'image/jpeg', 0.92);
+                };
+                img.onerror = () => resolve(file);
+                img.src = URL.createObjectURL(file);
+            });
         }
 
         async function processOcrFile(file) {
@@ -2168,13 +2233,16 @@ def generate_dashboard():
             };
             reader.readAsDataURL(file);
 
-            statusText.innerText = '⚡ Initializing Optical Character Recognition...';
+            statusText.innerText = '⚡ Preprocessing Image & Optimizing Contrast...';
             progressBar.style.width = '20%';
 
             try {
                 if (typeof Tesseract === 'undefined') {
                     throw new Error('Tesseract.js library is loading. Please check your internet connection.');
                 }
+
+                // Run Canvas preprocessor to filter tape color & enhance handwritten ink
+                const optimizedBlob = await preprocessImageForOcr(file);
 
                 statusText.innerText = currentOcrMode === 'sheet' ? '🔍 Scanning Spawning Log Sheet...' : '🔍 Neural OCR Scanning Physical Label...';
                 progressBar.style.width = '45%';
@@ -2189,7 +2257,7 @@ def generate_dashboard():
                     }
                 });
 
-                const ret = await worker.recognize(file);
+                const ret = await worker.recognize(optimizedBlob);
                 await worker.terminate();
 
                 const rawText = ret.data.text || '';
@@ -2228,7 +2296,7 @@ def generate_dashboard():
             }
         }
 
-        // --- Single Label Parser ---
+        // --- Single Label Parser Calibrated on QU Zebrafish Facility Labels ---
         function parseZebrafishLabelText(text) {
             const clean = text.toUpperCase();
             const res = {
@@ -2243,47 +2311,85 @@ def generate_dashboard():
                 protocol: 'QU-IACUC 008/2022-REN1'
             };
 
-            const tankMatch = clean.match(/\bT(?:ANK)?[-_#\s]*0*([0-9]{1,4})\b/i);
-            if (tankMatch) {
-                res.tuid = 'T' + String(tankMatch[1]).padStart(4, '0');
-            }
-
+            // 1. Line / Strain Detection
             if (clean.includes('CASPER')) res.line = 'Casper';
             else if (clean.includes('FLI') || clean.includes('FLI1') || clean.includes('FLI-1')) res.line = 'Fli';
             else if (clean.includes('GATA') || clean.includes('GATA1') || clean.includes('GATA-1')) res.line = 'Gata';
             else if (clean.includes('DESMA')) res.line = 'DESMA';
             else if (clean.includes('AB')) res.line = 'AB';
 
-            const fMatch = clean.match(/(\d+)\s*(?:F|FEMALE|♀)\b/i) || clean.match(/(?:F|FEMALE|♀)\s*[:=]?\s*(\d+)/i);
+            // 2. Tank ID (e.g. AB T81, T128, T0118, T112, Fli T133, Casper T47)
+            const tankMatch = clean.match(/\b(?:AB|CASPER|FLI|GATA|DESMA)?\s*T(?:ANK)?[-_#\s]*0*([0-9]{1,4})\b/i);
+            if (tankMatch) {
+                res.tuid = 'T' + String(tankMatch[1]).padStart(4, '0');
+            }
+
+            // 3. Parental Cross / Derivative Origin (e.g. Casper from T115, Fli from T82, AB T118 x AB T43)
+            const originMatch = clean.match(/FROM\s+(?:(?:AB|CASPER|FLI|GATA|DESMA)\s+)?T(?:ANK)?[-_#\s]*0*([0-9]{1,4})/i);
+            const crossMatch = clean.match(/(?:AB|CASPER|FLI|GATA)?\s*T\s*0?[0-9]{1,4}\s*(?:X|\*|&)\s*(?:AB|CASPER|FLI|GATA)?\s*T\s*0?[0-9]{1,4}/i);
+            const stdCrossMatch = clean.match(/\bC(?:ROSS)?[-_#\s]*0*([0-9]{1,4})\b/i);
+
+            if (crossMatch) {
+                res.derivative_cross = crossMatch[0].trim();
+            } else if (originMatch) {
+                res.derivative_cross = 'From T' + String(originMatch[1]).padStart(4, '0');
+            } else if (stdCrossMatch) {
+                res.derivative_cross = 'C' + String(stdCrossMatch[1]).padStart(4, '0');
+            }
+
+            // 4. Sex Counts (F, M, Female, Male)
+            const fMatch = clean.match(/(?:F|FEMALE|♀)\s*[:=\s]*([0-9]+)/i) || clean.match(/([0-9]+)\s*(?:F|FEMALE|♀)\b/i);
             if (fMatch) res.female = parseInt(fMatch[1]);
 
-            const mMatch = clean.match(/(\d+)\s*(?:M|MALE|♂)\b/i) || clean.match(/(?:M|MALE|♂)\s*[:=]?\s*(\d+)/i);
+            const mMatch = clean.match(/(?:M|MALE|♂)\s*[:=\s]*([0-9]+)/i) || clean.match(/([0-9]+)\s*(?:M|MALE|♂)\b/i) || clean.match(/([0-9]+)\s*SUSPECTED\s*MALES/i);
             if (mMatch) res.male = parseInt(mMatch[1]);
 
-            const totMatch = clean.match(/(?:TOTAL|COUNT|QTY|N)\s*[:=]?\s*(\d+)/i);
+            // 5. Total Count
+            const totMatch = clean.match(/(?:\[\s*)?T(?:OTAL|COUNT|QTY|N)?\s*[:=\s]+([0-9]+)/i) || clean.match(/APPROX\s*([0-9]+)/i) || clean.match(/#FISH\s*([0-9]+)/i);
             if (totMatch) {
                 res.total = parseInt(totMatch[1]);
             } else if (res.female > 0 || res.male > 0) {
                 res.total = res.female + res.male;
             }
 
+            // 6. Sex Composition
             if (res.female > 0 && res.male === 0) res.sex_type = 'Female-Only';
             else if (res.male > 0 && res.female === 0) res.sex_type = 'Male-Only';
             else if (res.female > 0 && res.male > 0) res.sex_type = 'Mixed Colony';
 
-            const dateIso = clean.match(/\b(202[0-9])[-/.](0?[1-9]|1[0-2])[-/.](0?[1-9]|[12][0-9]|3[01])\b/);
-            const dateAlt = clean.match(/\b(0?[1-9]|[12][0-9]|3[01])[-/.](0?[1-9]|1[0-2])[-/.](202[0-9])\b/);
-            if (dateIso) {
-                const y = dateIso[1], m = String(dateIso[2]).padStart(2, '0'), d = String(dateIso[3]).padStart(2, '0');
-                res.dob = `${y}-${m}-${d}`;
-            } else if (dateAlt) {
-                const d = String(dateAlt[1]).padStart(2, '0'), m = String(dateAlt[2]).padStart(2, '0'), y = dateAlt[3];
-                res.dob = `${y}-${m}-${d}`;
-            }
+            // 7. Date of Birth / Logged Date
+            const monthMap = {
+                'JAN': '01', 'FEB': '02', 'MAR': '03', 'APR': '04', 'MAY': '05', 'JUN': '06',
+                'JUL': '07', 'AUG': '08', 'SEP': '09', 'OCT': '10', 'NOV': '11', 'DEC': '12',
+                'JUNE': '06', 'JULY': '07', 'SEPT': '09'
+            };
 
-            const crossMatch = clean.match(/\bC(?:ROSS)?[-_#\s]*0*([0-9]{1,4})\b/i);
-            if (crossMatch) {
-                res.derivative_cross = 'C' + String(crossMatch[1]).padStart(4, '0');
+            const dm1 = clean.match(/\b([0-9]{1,2})[\s.-]+(JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC|JUNE|JULY|SEPT)[A-Z]*[\s,.-]+(202[0-9]|[2-9][0-9])\b/);
+            const dm2 = clean.match(/\b(JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC|JUNE|JULY|SEPT)[A-Z]*[\s.-]+([0-9]{1,2})[\s,.-]+(202[0-9]|[2-9][0-9])\b/);
+            const dm3 = clean.match(/\b([0-9]{1,2})[\s./-]+([0-9]{1,2})[\s./-]+(202[0-9]|[2-9][0-9])\b/);
+            const dmIso = clean.match(/\b(202[0-9])[-/.](0?[1-9]|1[0-2])[-/.](0?[1-9]|[12][0-9]|3[01])\b/);
+
+            if (dm1) {
+                const d = String(dm1[1]).padStart(2, '0');
+                const mo = monthMap[dm1[2].substring(0, 3)] || '01';
+                let yr = dm1[3];
+                if (yr.length === 2) yr = '20' + yr;
+                res.dob = `${yr}-${mo}-${d}`;
+            } else if (dm2) {
+                const mo = monthMap[dm2[1].substring(0, 3)] || '01';
+                const d = String(dm2[2]).padStart(2, '0');
+                let yr = dm2[3];
+                if (yr.length === 2) yr = '20' + yr;
+                res.dob = `${yr}-${mo}-${d}`;
+            } else if (dmIso) {
+                const y = dmIso[1], m = String(dmIso[2]).padStart(2, '0'), d = String(dmIso[3]).padStart(2, '0');
+                res.dob = `${y}-${m}-${d}`;
+            } else if (dm3) {
+                const p1 = String(dm3[1]).padStart(2, '0');
+                const p2 = String(dm3[2]).padStart(2, '0');
+                let yr = dm3[3];
+                if (yr.length === 2) yr = '20' + yr;
+                res.dob = `${yr}-${p2}-${p1}`;
             }
 
             return res;
@@ -2296,19 +2402,35 @@ def generate_dashboard():
             const defaultDate = new Date().toISOString().split('T')[0];
 
             let lastDetectedDate = defaultDate;
+            const monthMap = {
+                'JAN': '01', 'FEB': '02', 'MAR': '03', 'APR': '04', 'MAY': '05', 'JUN': '06',
+                'JUL': '07', 'AUG': '08', 'SEP': '09', 'OCT': '10', 'NOV': '11', 'DEC': '12',
+                'JUNE': '06', 'JULY': '07', 'SEPT': '09'
+            };
 
             lines.forEach(rawLine => {
                 const line = rawLine.trim();
                 if (!line || line.length < 5) return;
+                const clean = line.toUpperCase();
 
                 // Check for date in line
-                const dMatch = line.match(/\b(202[0-9])[-/.](0?[1-9]|1[0-2])[-/.](0?[1-9]|[12][0-9]|3[01])\b/) || line.match(/\b(0?[1-9]|[12][0-9]|3[01])[-/.](0?[1-9]|1[0-2])[-/.](202[0-9])\b/);
-                if (dMatch) {
-                    if (dMatch[1].length === 4) {
-                        lastDetectedDate = `${dMatch[1]}-${String(dMatch[2]).padStart(2, '0')}-${String(dMatch[3]).padStart(2, '0')}`;
-                    } else {
-                        lastDetectedDate = `${dMatch[3]}-${String(dMatch[2]).padStart(2, '0')}-${String(dMatch[1]).padStart(2, '0')}`;
-                    }
+                const dm1 = clean.match(/\b([0-9]{1,2})[\s.-]+(JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)[A-Z]*[\s,.-]+(202[0-9]|[2-9][0-9])\b/);
+                const dm2 = clean.match(/\b(JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)[A-Z]*[\s.-]+([0-9]{1,2})[\s,.-]+(202[0-9]|[2-9][0-9])\b/);
+                const dmIso = clean.match(/\b(202[0-9])[-/.](0?[1-9]|1[0-2])[-/.](0?[1-9]|[12][0-9]|3[01])\b/);
+                const dmAlt = clean.match(/\b(0?[1-9]|[12][0-9]|3[01])[-/.](0?[1-9]|1[0-2])[-/.](202[0-9])\b/);
+
+                if (dm1) {
+                    let yr = dm1[3];
+                    if (yr.length === 2) yr = '20' + yr;
+                    lastDetectedDate = `${yr}-${monthMap[dm1[2].substring(0, 3)] || '01'}-${String(dm1[1]).padStart(2, '0')}`;
+                } else if (dm2) {
+                    let yr = dm2[3];
+                    if (yr.length === 2) yr = '20' + yr;
+                    lastDetectedDate = `${yr}-${monthMap[dm2[1].substring(0, 3)] || '01'}-${String(dm2[2]).padStart(2, '0')}`;
+                } else if (dmIso) {
+                    lastDetectedDate = `${dmIso[1]}-${String(dmIso[2]).padStart(2, '0')}-${String(dmIso[3]).padStart(2, '0')}`;
+                } else if (dmAlt) {
+                    lastDetectedDate = `${dmAlt[3]}-${String(dmAlt[2]).padStart(2, '0')}-${String(dmAlt[1]).padStart(2, '0')}`;
                 }
 
                 // Check for tank IDs or lines
@@ -2317,14 +2439,12 @@ def generate_dashboard():
                 const hasEggs = /\b[0-9]{2,4}\b/.test(line);
 
                 if ((hasTank || hasLine) && hasEggs) {
-                    // Extract Line
                     let lineName = 'AB';
                     if (/CASPER/i.test(line)) lineName = 'Casper';
                     else if (/FLI/i.test(line)) lineName = 'Fli';
                     else if (/GATA/i.test(line)) lineName = 'Gata';
                     else if (/DESMA/i.test(line)) lineName = 'DESMA';
 
-                    // Extract Tank ID / Code
                     let tankId = '';
                     const pairMatch = line.match(/(?:T\s*0?[0-9]{2,4}\s*(?:x|&|\*)\s*T\s*0?[0-9]{2,4})/i);
                     if (pairMatch) {
@@ -2334,7 +2454,6 @@ def generate_dashboard():
                         tankId = singleTankMatch ? 'T' + String(singleTankMatch[1]).padStart(4, '0') : `${lineName} Spawning Tank`;
                     }
 
-                    // Extract Numbers (Eggs 0h, SR 0h, SR 24h, Live 24h)
                     const numbers = line.match(/\b\d{2,4}\b/g) || [];
                     let eggs0h = 500;
                     let sr0h = 90;
@@ -2362,7 +2481,6 @@ def generate_dashboard():
                 }
             });
 
-            // If empty, add 1 row template for manual completion
             if (rows.length === 0) {
                 rows.push({
                     date: defaultDate,
