@@ -39,8 +39,9 @@ print("\nStep 3: Generating Integrated Reproductive Dashboard...")
 if run_step('generate_integrated_dashboard.py'):
     print("[OK] Reproductive Intelligence Dashboard updated.")
 
-# 4. Web portal distribution ready
-print("\nStep 4: Web portal distribution files verified (index.html, colony.html, breeding.html)...")
-print("[OK] Web portal verified.")
+# 4. Generate Master Standalone Interactive Hub (Zero Iframes)
+print("\nStep 4: Generating Master Standalone Interactive Hub...")
+if run_step('build_unified_master_hub.py'):
+    print("[OK] Master Hub synchronized (FishNET_Colony_Hub.html / index.html).")
 
 print("\n*** ALL MASTER FILES & DASHBOARDS ARE 100% SYNCHRONIZED! ***")
