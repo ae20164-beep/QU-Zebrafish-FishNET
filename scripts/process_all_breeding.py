@@ -132,6 +132,85 @@ def process():
         done_dir = os.path.join(labels_dir, 'archive', 'DONE')
     breeding_dir = r'c:\Users\ae20164\OneDrive - Qatar University (1)\breeding'
     
+    # 1. Load Crosses Mapping for Cross-Checking DOB
+    crosses_map = {}
+    crosses_tab_path = os.path.join(labels_dir, 'FishNet Exported Data', 'Crosses.tab')
+    if os.path.exists(crosses_tab_path):
+        with open(crosses_tab_path, 'r', encoding='utf-8-sig', errors='ignore') as f:
+            for r in csv.reader(f, delimiter='\t'):
+                if len(r) >= 10:
+                    cuid = r[7].strip().upper()
+                    mating_date = r[9].strip()
+                    origin = r[11].strip() if len(r) > 11 else ''
+                    crosses_map[cuid] = {'date': mating_date, 'origin': origin}
+
+    def parse_cross_date_dt(cd):
+        if not cd:
+            return None
+        m = re.match(r'^(\d{1,2})-(\w{3})-(\d{2,4})$', cd)
+        if m:
+            d, mon, y = m.groups()
+            months = {'Jan':1, 'Feb':2, 'Mar':3, 'Apr':4, 'May':5, 'Jun':6, 'Jul':7, 'Aug':8, 'Sep':9, 'Oct':10, 'Nov':11, 'Dec':12}
+            m_num = months.get(mon.capitalize(), 1)
+            yr = int(y)
+            if yr < 100: yr += 2000
+            return datetime(yr, m_num, int(d))
+        m2 = re.match(r'^(\d{1,2})[-/](\d{1,2})[-/](\d{2,4})$', cd)
+        if m2:
+            d, mth, y = m2.groups()
+            yr = int(y)
+            if yr < 100: yr += 2000
+            return datetime(yr, int(mth), int(d))
+        return None
+
+    def resolve_dob(raw_dob, d_cross):
+        c_info = crosses_map.get(d_cross.upper(), {})
+        cross_dt = parse_cross_date_dt(c_info.get('date', ''))
+        
+        if not raw_dob:
+            if cross_dt:
+                return cross_dt, cross_dt.strftime('%d-%m-%Y'), cross_dt.strftime('%Y-%m-%d')
+            return None, '', ''
+        
+        parts = re.split(r'[-/]', str(raw_dob).strip())
+        if len(parts) == 3:
+            try:
+                p1, p2, p3 = int(parts[0]), int(parts[1]), int(parts[2])
+                if p3 < 100: p3 += 2000
+                
+                if cross_dt:
+                    # If US format (month=p1, day=p2) matches cross date
+                    if cross_dt.year == p3 and cross_dt.month == p1 and cross_dt.day == p2:
+                        dt = datetime(p3, p1, p2)
+                        return dt, dt.strftime('%d-%m-%Y'), dt.strftime('%Y-%m-%d')
+                    # If Euro format (day=p1, month=p2) matches cross date
+                    elif cross_dt.year == p3 and cross_dt.month == p2 and cross_dt.day == p1:
+                        dt = datetime(p3, p2, p1)
+                        return dt, dt.strftime('%d-%m-%Y'), dt.strftime('%Y-%m-%d')
+                    else:
+                        # Ground directly to cross date if available
+                        return cross_dt, cross_dt.strftime('%d-%m-%Y'), cross_dt.strftime('%Y-%m-%d')
+                else:
+                    # Fallback heuristic
+                    if p1 <= 12 and p2 > 12:
+                        dt = datetime(p3, p1, p2)
+                        return dt, dt.strftime('%d-%m-%Y'), dt.strftime('%Y-%m-%d')
+                    elif p2 <= 12 and p1 <= 31:
+                        dt = datetime(p3, p2, p1)
+                        return dt, dt.strftime('%d-%m-%Y'), dt.strftime('%Y-%m-%d')
+            except:
+                pass
+        
+        for fmt in ['%d-%b-%y', '%d-%m-%y', '%d-%b-%Y', '%d/%m/%Y', '%Y-%m-%d', '%d-%m-%Y']:
+            try:
+                dt = datetime.strptime(raw_dob, fmt)
+                if dt.year > 2030:
+                    dt = dt.replace(year=dt.year - 100)
+                return dt, dt.strftime('%d-%m-%Y'), dt.strftime('%Y-%m-%d')
+            except:
+                pass
+        return None, str(raw_dob), ''
+
     # 1. Load FishNET Tanks with Sex Structure Analysis
     fishnet_tanks = {}
     tanks_tab_path = os.path.join(labels_dir, 'FishNet Exported Data', 'Tanks.tab')
@@ -182,13 +261,24 @@ def process():
             else:
                 line = 'Other'
             
-            # Status
-            if 'ACTIVE' in status_raw.upper() or 'ADULT' in status_raw.upper():
-                status_clean = 'Active'
-            elif 'EUTH' in status_raw.upper() or 'DEAD' in status_raw.upper():
+            # Resolve DOB with cross-grounding
+            dob_dt, dob_display, dob_iso = resolve_dob(dob, derivative_cross)
+
+            # Determine Biological / Operational Status
+            # Check age relative to present (Oct 2026):
+            is_mature = False
+            if dob_dt:
+                age_days = (datetime(2026, 10, 6) - dob_dt).days
+                if age_days > 90:  # > 3 months
+                    is_mature = True
+
+            if 'EUTH' in status_raw.upper() or 'DEAD' in status_raw.upper():
                 status_clean = 'Euthanized'
             elif 'LARVAE' in status_raw.upper():
-                status_clean = 'Larvae'
+                # If tank is already mature (>3 months) or actively breeding, graduate to Active
+                status_clean = 'Active' if is_mature else 'Larvae'
+            elif 'ACTIVE' in status_raw.upper() or 'ADULT' in status_raw.upper():
+                status_clean = 'Active'
             else:
                 status_clean = status_raw
 
@@ -206,16 +296,6 @@ def process():
                 sex_type = 'Unsexed / Juvenile'
                 can_in_tank = False
 
-            dob_dt = None
-            for fmt in ['%d-%b-%y', '%d-%m-%y', '%d-%b-%Y', '%d/%m/%Y', '%Y-%m-%d', '%d-%m-%Y']:
-                try:
-                    dob_dt = datetime.strptime(dob, fmt)
-                    if dob_dt.year > 2030:
-                        dob_dt = dob_dt.replace(year=dob_dt.year - 100)
-                    break
-                except:
-                    pass
-
             num_id = int(re.sub(r'\D', '', tuid)) if re.search(r'\d', tuid) else 0
             std_tuid = f'T{num_id:04d}'
             tank_obj = {
@@ -231,8 +311,9 @@ def process():
                 'total': total,
                 'sex_type': sex_type,
                 'can_in_tank': can_in_tank,
-                'dob': dob,
-                'dob_iso': dob_dt.strftime('%Y-%m-%d') if dob_dt else '',
+                'dob': dob_display or dob,
+                'raw_dob': dob,
+                'dob_iso': dob_iso,
                 'dob_dt': dob_dt,
                 'turnover_date': turnover_date,
                 'tank_size': tank_size,

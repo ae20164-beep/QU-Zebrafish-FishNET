@@ -504,7 +504,7 @@ def generate_dashboard():
         <div class="kpi-card kpi-blue">
             <span class="kpi-label">Total Tanks</span>
             <span class="kpi-value" id="kpiTotalTanks">183</span>
-            <span class="kpi-subtext" id="kpiTankStatusSub">110 Active | 63 Euthanized | 10 Larvae</span>
+            <span class="kpi-subtext" id="kpiTankStatusSub">117 Active | 63 Euthanized | 3 Larvae</span>
         </div>
         <div class="kpi-card kpi-emerald">
             <span class="kpi-label">Breeding Events</span>
@@ -824,9 +824,9 @@ def generate_dashboard():
                     <span class="filter-label">Status:</span>
                     <select id="invStatusFilter" onchange="renderInventory()">
                         <option value="ALL">All Statuses (183)</option>
-                        <option value="Active" selected>Active / Adult (110)</option>
+                        <option value="Active" selected>Active / Adult (117)</option>
                         <option value="Euthanized">Euthanized (63)</option>
-                        <option value="Larvae">Larvae (&lt;2 weeks) (10)</option>
+                        <option value="Larvae">Larvae (&lt;2 weeks) (3)</option>
                     </select>
                 </div>
                 <div class="filter-group">
@@ -948,6 +948,148 @@ def generate_dashboard():
                             <td>OCR artifact ('A13' instead of 'AB').</td>
                             <td>Normalized to <strong>AB T0093 (M) x AB T0095 (F)</strong>.</td>
                             <td><span class="badge badge-active">Resolved</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h4 style="font-size: 14px; margin-top: 24px; margin-bottom: 12px; color: var(--accent-emerald);">3. DOB & Derivative Cross Biological Validation Audit (Resolving Ambiguous Formats & Stale Larvae Labels)</h4>
+            <div class="table-responsive">
+                <table id="auditDobCrossTable">
+                    <thead>
+                        <tr>
+                            <th>Tank ID</th>
+                            <th>Line</th>
+                            <th>Raw DOB</th>
+                            <th>Linked Derivative Cross</th>
+                            <th>Cross Mating Date</th>
+                            <th>Validated Biological DOB</th>
+                            <th>Spawning History</th>
+                            <th>Original vs. Resolved Status</th>
+                            <th>Biological Rationale & Resolution</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>T0122</strong></td>
+                            <td><span class="badge badge-casper">Casper</span></td>
+                            <td><code>02-11-26</code></td>
+                            <td><code style="color: var(--accent-indigo);">C0045</code></td>
+                            <td><code>11-02-2026</code></td>
+                            <td><strong>11-02-2026</strong></td>
+                            <td>6 Spawns (Jun–Jul 2026)</td>
+                            <td><span class="badge badge-casper">Larvae</span> &rarr; <span class="badge badge-active">Active Adult</span></td>
+                            <td>Raw DOB typed in US format (MM-DD-YY). Grounded to C0045 (11 Feb 2026). Fish actively spawned at 4–5 months; stale nursery label graduated to Active.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>T0124</strong></td>
+                            <td><span class="badge badge-casper">Casper</span></td>
+                            <td><code>02-12-26</code></td>
+                            <td><code style="color: var(--accent-indigo);">C0047</code></td>
+                            <td><code>03-05-2026</code></td>
+                            <td><strong>03-05-2026</strong></td>
+                            <td>6 Spawns (Jun–Jul 2026)</td>
+                            <td><span class="badge badge-casper">Larvae</span> &rarr; <span class="badge badge-active">Active Adult</span></td>
+                            <td>Grounded to C0047 (3 May 2026). Reached maturity and spawned in June/July 2026; graduated to Active.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>T0125</strong></td>
+                            <td><span class="badge badge-casper">Casper</span></td>
+                            <td><code>02-11-26</code></td>
+                            <td><code style="color: var(--accent-indigo);">C0048</code></td>
+                            <td><code>11-02-2026</code></td>
+                            <td><strong>11-02-2026</strong></td>
+                            <td>2 Spawns (Jun–Jul 2026)</td>
+                            <td><span class="badge badge-casper">Larvae</span> &rarr; <span class="badge badge-active">Active Adult</span></td>
+                            <td>Raw DOB (02-11-26) was US MM-DD-YY. Grounded to C0048 (11 Feb 2026). Actively spawned; graduated to Active.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>T0126</strong></td>
+                            <td><span class="badge badge-casper">Casper</span></td>
+                            <td><code>02-11-26</code></td>
+                            <td><code style="color: var(--accent-indigo);">C0049</code></td>
+                            <td><code>11-02-2026</code></td>
+                            <td><strong>11-02-2026</strong></td>
+                            <td>2 Spawns (Jun–Jul 2026)</td>
+                            <td><span class="badge badge-casper">Larvae</span> &rarr; <span class="badge badge-active">Active Adult</span></td>
+                            <td>Raw DOB (02-11-26) was US MM-DD-YY. Grounded to C0049 (11 Feb 2026). Actively spawned; graduated to Active.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>T0131</strong></td>
+                            <td><span class="badge badge-casper">Casper</span></td>
+                            <td><code>02-11-26</code></td>
+                            <td><code style="color: var(--accent-indigo);">C0051</code></td>
+                            <td><code>11-02-2026</code></td>
+                            <td><strong>11-02-2026</strong></td>
+                            <td>2 Spawns (Jun–Jul 2026)</td>
+                            <td><span class="badge badge-casper">Larvae</span> &rarr; <span class="badge badge-active">Active Adult</span></td>
+                            <td>Raw DOB (02-11-26) was US MM-DD-YY. Grounded to C0051 (11 Feb 2026). Actively spawned; graduated to Active.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>T0166 / T0167</strong></td>
+                            <td><span class="badge badge-ab">AB</span></td>
+                            <td><code>05-12-26</code></td>
+                            <td><code style="color: var(--accent-indigo);">C0065</code></td>
+                            <td><code>12-May-26</code></td>
+                            <td><strong>12-05-2026</strong></td>
+                            <td>0 Spawns (Holdings)</td>
+                            <td><span class="badge badge-casper">Larvae</span> &rarr; <span class="badge badge-active">Active Adult</span></td>
+                            <td>Raw DOB (05-12-26) was US MM-DD-YY. Grounded to C0065 (12 May 2026). In October 2026 fish are ~5 months old; graduated from nursery label.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>T0168–T0170</strong></td>
+                            <td><span class="badge badge-ab">AB</span></td>
+                            <td><code>05-12-26</code></td>
+                            <td><code style="color: var(--accent-indigo);">-</code></td>
+                            <td><code>-</code></td>
+                            <td><strong>12-05-2026</strong></td>
+                            <td>0 Spawns (Holdings)</td>
+                            <td><span class="badge badge-casper">Larvae</span> &rarr; <span class="badge badge-active">Active Adult</span></td>
+                            <td>Same cohort as T0166/T0167. Resolved to 12 May 2026 (~5 months old); graduated from nursery label.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>T0108</strong></td>
+                            <td><span class="badge badge-casper">Casper</span></td>
+                            <td><code>07-03-25</code></td>
+                            <td><code style="color: var(--accent-indigo);">C0035</code></td>
+                            <td><code>03-07-2025</code></td>
+                            <td><strong>03-07-2025</strong></td>
+                            <td>8 Spawns (Feb–Jul 2026)</td>
+                            <td><span class="badge badge-active">Active</span></td>
+                            <td>Disambiguated 07-03-25 (US MM-DD-YY) via Cross C0035 (3 July 2025). Age calculation corrected.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>T0117</strong></td>
+                            <td><span class="badge badge-ab">AB</span></td>
+                            <td><code>09-04-25</code></td>
+                            <td><code style="color: var(--accent-indigo);">C0041</code></td>
+                            <td><code>04-09-2025</code></td>
+                            <td><strong>04-09-2025</strong></td>
+                            <td>5 Spawns (Apr–Jun 2026)</td>
+                            <td><span class="badge badge-active">Active</span></td>
+                            <td>Disambiguated 09-04-25 via Cross C0041 (4 September 2025). Age calculation corrected.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>T0121</strong></td>
+                            <td><span class="badge badge-casper">Casper</span></td>
+                            <td><code>07-03-25</code></td>
+                            <td><code style="color: var(--accent-indigo);">C0044</code></td>
+                            <td><code>03-07-2025</code></td>
+                            <td><strong>03-07-2025</strong></td>
+                            <td>4 Spawns (May–Jul 2026)</td>
+                            <td><span class="badge badge-active">Active</span></td>
+                            <td>Disambiguated 07-03-25 via Cross C0044 (3 July 2025). Age calculation corrected.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>T0177</strong></td>
+                            <td><span class="badge badge-ab">AB</span></td>
+                            <td><code>04-07-26</code></td>
+                            <td><code style="color: var(--accent-indigo);">C0071</code></td>
+                            <td><code>07-Apr-26</code></td>
+                            <td><strong>07-04-2026</strong></td>
+                            <td>0 Spawns</td>
+                            <td><span class="badge badge-active">Active</span></td>
+                            <td>Disambiguated 04-07-26 via Cross C0071 (7 April 2026). Age calculation corrected.</td>
                         </tr>
                     </tbody>
                 </table>
