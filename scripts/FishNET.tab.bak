@@ -1,0 +1,121 @@
+TUID	NOTES	FEMALE	MALE	TOTAL	TANK 	DOB	DOD	TURNOVER	Derivative cross	PATERNAL X MATERNAL	PATERNAL	MATERNAL	STATUS
+T0011	Fli (Sidra)	9	3	12	2.8L	26-Feb-23		19-08-24					Adult/Active
+T0012	Fli (Sidra) G1	8	6	14	2.8L	30-Jul-23	06-07-25	20-01-25					Euthanized
+T0013	Fli (Sidra) G1	4	4	10	1.8L	13-Sep-23		06-03-25					Adult/Active
+T0014	Fli	1	5	6	1.8L	07-Apr-23	16-01-25	28-09-24					Euthanized
+T0015	Casper	1	1	2	1.8L	16-Apr-23		07-10-24					Adult/Active
+T0019	Gata	0	1	1	1.8L	20-Feb-23	06-07-25	13-08-24					Euthanized
+T0020	Gata G1	2	1	4	1.8L	25-Jun-23	03-05-26	16-12-24					Euthanized
+T0021	Gata G1	2	3	8	1.8L	25-Sep-23		18-03-25					Adult/Active
+T0022	AB	16	13	29	6L	07-Jun-23	06-07-25	28-11-24					Euthanized
+T0023	AB	12	15	27	6L	07-Jun-23	03-12-24	28-11-24					Euthanized
+T0024	AB	14	17	31	6L	18-May-23	02-12-24	08-11-24					Euthanized
+T0025	AB	7	4	11	2.8L	12-Mar-23	20-10-24	02-09-24					Euthanized
+T0026	AB	7	5	12	2.8L	25-Jul-23	27-03-25	15-01-25					Euthanized
+T0027	AB	8	6	14	2.8L	25-Jul-23	27-03-25	15-01-25					Euthanized
+T0028	AB		22	22	6L	08-Aug-23	06-07-25	29-01-25					Euthanized
+T0029	AB	18	12	30	6L	09-Apr-23	20-10-24	30-09-24					Euthanized
+T0030	AB	8	6	14	2.8L	04-Sep-23	27-03-25	25-02-25					Euthanized
+T0031	AB	5	3	8	1.8L	04-Sep-23	27-03-25	25-02-25					Euthanized
+T0032	AB	12	15	27	6L	02-Jul-23	27-03-25	23-12-24					Euthanized
+T0033	AB	1	1	2	1.8L	19-Aug-23	01-12-24	09-02-25					Euthanized
+T0034	AB	6	4	10	2.8L	12-Mar-23	20-10-24	02-09-24					Euthanized
+T0035	AB	8	6	14	2.8L	14-Aug-23	06-07-25	04-02-25					Euthanized
+T0036	AB	4	10	14	2.8L	07-May-23	01-12-24	28-10-24					Euthanized
+T0037	AB G1	2	3	5	1.8L	28-Aug-23	06-07-25	18-02-25	C0014	T0038T0038	T0038	T0038	Euthanized
+T0038	AB	5	9	14	2.8L	20-Feb-23	16-01-25	13-08-24					Euthanized
+T0039	AB G1	3	42	5	2.8L	31-Jul-23	06-07-25	21-01-25	C0015	T0038T0038	T0038	T0038	Euthanized
+T0040	AB	0	10	10	6L	14-Aug-23	16-01-25	04-02-25					Euthanized
+T0041	AB	0	31	31	6L	25-Jul-23	16-01-25	15-01-25					Euthanized
+T0042	AB (MIX)	14		14	6L	30-Jun-24	03-05-26	22-12-25					Euthanized
+T0043	AB (MIX)	4		4	1.8L	30-Jun-24	03-05-26	22-12-25					Euthanized
+T0044	AB G1	19	21	40	8L	13-Sep-23	06-07-25	06-03-25	C0016	T0038T0038	T0038	T0038	Euthanized
+T0046	AB G1	3	7	11	2.8L	02-Jan-24	06-08-25	25-06-25	C0001	T0038T0038	T0038	T0038	Euthanized
+T0047	Fli G1	14	9	23	6L	21-Nov-23	06-07-25	14-05-25	C0002	T0011T0011	T0011	T0011	Euthanized
+T0048	Fli G2	8	6	14	3.5L	24-Sep-23	06-07-25	17-03-25	C0003	T0012T0012	T0012	T0012	Euthanized
+T0049	Gata G2		5	5	3.5L	27-Feb-24		20-08-25	C0004	T0020T0020	T0020	T0020	Adult/Active
+T0050	Gata G2 (not scr.)	2	1	3	3.5L	23-Oct-23	06-07-25	15-04-25	C0005	T0020T0020	T0020	T0020	Euthanized
+T0051	Gata G2		17	17	3.5L	23-Nov-23	06-07-25	16-05-25	C0006	T0020T0020	T0020	T0020	Euthanized
+T0052	Fli G1 (Re-scr.)	9	5	14	3.5L	11-Mar-24	27-10-25	02-09-25	C0007	T0011T0011	T0011	T0011	Euthanized
+T0053	Fli G2	17	0	14	8L	23-Sep-23	06-07-25	16-03-25	C0008	T0048T0048	T0048	T0048	Euthanized
+T0054	Fli G1	10	7	17	3.5L	25-Aug-24		16-02-26	C0009	T0011T0011	T0011	T0011	Adult/Active
+T0055	AB	0	5	5	2.8L	18-May-23	03-12-24	08-11-24					Euthanized
+T0056	AB	12	3	15	8L	01-Sep-24		23-02-26	C0010	T0027T0027	T0027	T0027	Adult/Active
+T0057	AB	9	8	17	6L	12-May-24	11-11-25	03-11-25	C0011	T0036T0036	T0036	T0036	Euthanized
+T0058	Fli G1	9	2	11	3.5L	26-Jun-23	06-07-25	17-12-24	C0012	T0011T0011	T0011	T0011	Euthanized
+T0059	AB Mix	12	8	20	6L	15-Jul-24	03-05-26	06-01-26					Euthanized
+T0060	AB (Mix+out-cross)	4	3	7	1.8L	27-May-24	14-12-25	18-11-25					Euthanized
+T0061	AB Mix	13	8	21	6L	07-Jul-24		29-12-25					Adult/Active
+T0062	AB Mix	7		7	2.8L	30-Jun-24	03-05-26	22-12-25					Euthanized
+T0063	AB G1	7	10	17	6L	31-Jul-23	06-07-25	21-01-25	C0013	T0038T0038	T0038	T0038	Euthanized
+T0064	AB Mix	8	0	8	2.8L	30-Jun-24	03-05-26	22-12-25					Euthanized
+T0065	AB 	3	0	3	3.5L	30-Sep-24		24-03-26	C0017	T0026T0026	T0026	T0026	Adult/Active
+T0066	Cas/AB	11	1	12	2.8L	03-Jun-24		25-11-25	C0024	t0015t0039	t0039	t0015	Adult/Active
+T0067	Casper X AB (Sidra)	4	1	5	2.8L	29-Oct-24		22-04-26					Adult/Active
+T0068	Casper Pure		1	1	1.8L	18-Nov-24		12-05-26	C0025	T0015T0015	T0015	T0015	Adult/Active
+T0069	Casper outcross X AB mix	15	4	19	6L	24-Dec-24		17-06-26	C0026	T0059T0066	T0066	T0059	Adult/Active
+T0070	Fli G1 +ve from T11	4	3	7	1.8L	12-Nov-24		06-05-26	C0027	T0011T0011	T0011	T0011	Adult/Active
+T0071	Fli for Squeezing	17		17	8L	24-Sep-23	06-07-25	17-03-25					Euthanized
+T0072	Fli +ve	4	2	6	3.5L	05-Mar-25		27-08-26					Adult/Active
+T0073	Gata outcross +ve	6	1	7	3.5L	17-Feb-25		11-08-26	C0028	t0064t0049	t0049	t0064	Adult/Active
+T0074	AB Mix	7	7	14	6L	02-Mar-25	14-12-25	24-08-26					Euthanized
+T0075	AB Mix	20	0	20	6L	02-Mar-25		24-08-26					Adult/Active
+T0076	AB Mix	5	0	5	2.8L	24-Mar-25		15-09-26					Adult/Active
+T0077	Casper		7	7	1.8L	05-Mar-25		27-08-26	C0029	t0015t0015	t0015	t0015	Adult/Active
+T0078	Casper X AB	3	5	8	1.8L	13-Feb-25		07-08-26					Adult/Active
+T0079	Gata x AB sidra (outcross) +ve	13	0	13	2.8L	26-Feb-25		20-08-26	C0030	t0056t0049	t0049	t0056	Adult/Active
+T0080	AB (Sidra)	6	4	10	1.8L	13-Nov-24		07-05-26					Adult/Active
+T0081	AB Outcross 	3	4	8	2.8L	05-Dec-24		29-05-26					Adult/Active
+T0082	Fli X AB outcross	4	3	7	1.8L	16-Mar-25		07-09-26	C0031	t0053t0056	t0056	t0053	Adult/Active
+T0083	AB (Males Only)		23	23	6L	30-Jun-24	14-12-25	22-12-25					Euthanized
+T0084	AB (Males Only)		25	25	6L	12-May-24	14-12-25	03-11-25					Euthanized
+T0085	AB (Males Only)		23	23	6L	30-Jun-24	14-12-25	22-12-25					Euthanized
+T0086	AB Mix	18	11	29	6L	22-Dec-24		15-06-26					Adult/Active
+T0087	AB Mix	6	4	10	2.8L	22-Dec-24		15-06-26					Adult/Active
+T0088	AB outcross	30		30	6L	27-Apr-25	14-12-25	19-10-26					Euthanized
+T0089	AB Mix	15	0	15	6L	13-Apr-25		05-10-26					Adult/Active
+T0090	AB Mix	4	3	8	1.8L	13-Nov-24		07-05-26					Adult/Active
+T0091	AB Mix	4	2	6	1.8L	13-Nov-24	03-05-26	07-05-26					Euthanized
+T0092	AB outcross		2	2	1.8L	13-Nov-24	03-05-26	07-05-26					Euthanized
+T0093	AB Mix (Males Only)		11	11	2.8L	22-Dec-24		15-06-26					Adult/Active
+T0094	AB Mix	27		27	6L	27-Apr-25		19-10-26					Adult/Active
+T0095	AB (Sidra)	4	0	4	1.8L	13-Nov-24		07-05-26					Adult/Active
+T0096	AB outcross	8	5	13	2.8L	27-Apr-25		19-10-26					Adult/Active
+T0097	AB outcross	2	1	3	1.8L	03-Jul-25		25-12-26					Adult/Active
+T0098	Fli From T52+54+82	2	7	9	2.8L	07-Jul-25		29-12-26					Adult/Active
+T0099	AB outcross	5	0	5	2.8L	05-May-25		27-10-26					Adult/Active
+T0100	Fli outcross	1	0	1	1.8L	22-Jul-25		13-01-27					Adult/Active
+T0101	Gata x AB (Sidra)	7	1	8	1.8L	01-May-25		23-10-26					Adult/Active
+T0102	Gata (Sidra) outcross		1	1	1.8L	21-Jul-25		12-01-27					Adult/Active
+T0103	AB outcross	7	6	13	6L	11-Jun-25		03-12-26					Adult/Active
+T0104	Fli From T72	2	2	4	3.5L	20-Jul-25		11-01-27	C0032	t0072t0072	t0072	t0072	Adult/Active
+T0105	Fli From T82	5		5	3.5L	20-Jul-25		11-01-27	C0033	t0082t0082	t0082	t0082	Adult/Active
+T0106	AB mix from T95 x 93	17	3	20	6L	12-Aug-25		03-02-27					Adult/Active
+T0107	Casper	4	3	7	1.8L	03-Jul-25		25-12-26	C0034	t0067t0015	t0015	t0067	Adult/Active
+T0108	Casper	2	1	3	1.8L	03-Jul-25		25-12-26	C0035	t0067t0015	t0015	t0067	Adult/Active
+T0109	Casper	2	1	3	1.8L	16-Apr-25		08-10-26	C0036	t0015t0015	t0015	t0015	Adult/Active
+T0110	GataxAB sidra	2	1	3	1.8L	26-Feb-25		20-08-26	C0037	t0056t0049	t0049	t0056	Adult/Active
+T0111	Gata From T73	10	7	17	6L	16-Jun-25		08-12-26	C0038	t0073t0073	t0073	t0073	Adult/Active
+T0112	Gata From T73	2	7	9	1.8L	22-Jun-25		14-12-26	C0039	t0073t0073	t0073	t0073	Adult/Active
+T0113	Gata Mix 	7	3	10	1.8L	26-Feb-25		20-08-26					Adult/Active
+T0114	Casper Pure from T69	1	0	1	1.8L	11-Sep-25		05-03-27	C0040	t0069t0069	t0069	t0069	Adult/Active
+T0115	Casper From T69 Hetero	4	2	6	2.8L	11-Sep-25		05-03-27	C0040	t0069t0069	t0069	t0069	Juvenile(<3 months old)
+T0116	Casper from T69 	13	4	17	2.8L	11-Sep-25		05-03-27					Adult/Active
+T0117	AB crossout	11	1	12	3.5L	04-Sep-25		26-02-27	C0041	t0095t0093	t0093	t0095	Juvenile(<3 months old)
+T0118	AB crossout	19	2	21	3.5L	16-Jun-25		08-12-26	C0042	t0095t0093	t0093	t0095	Adult/Active
+T0119	Fli From T82	4	2	6	2.8L	16-Sep-25		10-03-27					Juvenile(<3 months old)
+T0120	Gata from T73/T49	5	4	9	2.8L	14-Oct-25		07-04-27	C0043	t0073t0049	t0049	t0073	Adult/Active
+T0121	Casper from T67/T15	13	2	15	2.8L	03-Jul-25		25-12-26	C0044	T0067T0015	T0015	T0067	Adult/Active
+T0122	Cas from T77 Vs Spotted F	1	2	3	1.8L	11-Feb-26		05-08-27	C0045	T0077T0077	T0077	T0077	Juvenile(<3 months old)
+T0123	Casper from T0015/pure	0	6	6	1.8L	16-Apr-25		08-10-26	C0046	T0015T0015	T0015	T0015	Adult/Active
+T0124	Casper from T105/pure	1	1	2	1.8L	12-Feb-26		06-08-27	C0047	T109T109	T109	T109	Juvenile(<3 months old)
+T0125	Casper from T0115/pure			18	6L	11-Feb-26		05-08-27	C0048	T0115T0115	T0115	T0115	Juvenile(<3 months old)
+T0126	Casper from T114/T15 pure			15	6L	11-Feb-26		05-08-27	C0049	T0114T0015	T0015	T0114	Juvenile(<3 months old)
+T0127	Gata from T101	4	2	6	3.5L	26-Jan-26		20-07-27	C0050	T0101T0101	T0101	T0101	Adult/Active
+T0128	AB mix T86 & T87 & T96	4	3	7	2.8L	14-Dec-25		07-06-27					Adult/Active
+T0129	AB mix T87 & T96	5	5	10	2.8L	07-Dec-25		31-05-27					Adult/Active
+T0130	AB mix T87 & T96	0	8	8	1.8L	07-Dec-25		31-05-27					Adult/Active
+T0131	Casper from T115/T109			10	6L	11-Feb-26		05-08-27	C0051	T0115T0109	T0109	T0115	Juvenile(<3 months old)
+T0132	Fli mix T52 & T54 & T82	2	4	6	2.8L	07-Jul-25		29-12-26					Adult/Active
+T0133	Fli from T82	8	3	11	2.8L	24-Nov-25		18-05-27	C0052	T0082T0082	T0082	T0082	Adult/Active
+T0134	Gata from T101/T93 (AB)	14	0	14	2.8L	25-Nov-25		19-05-27	C0053	T0101T0093	T0093	T0101	Adult/Active

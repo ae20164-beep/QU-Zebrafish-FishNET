@@ -1,0 +1,8 @@
+﻿Timestamp	Filename	Error	Message
+2026-10-04 11:31:46.252 +0300	ZFL-BRC-DBRCH10D126W01-2-FINAL.fmp12	0	Import operations started
+2026-10-04 11:31:46.278 +0300	ZFL-BRC-DBRCH10D126W01-2-FINAL.fmp12	0	Import of tables from file “crosses.tab” started
+2026-10-04 11:31:46.314 +0300	crosses	0	fields imported : 24
+2026-10-04 11:31:46.318 +0300	ZFL-BRC-DBRCH10D126W01-2-FINAL.fmp12	0	tables imported : 1
+2026-10-04 11:31:46.321 +0300	ZFL-BRC-DBRCH10D126W01-2-FINAL.fmp12	0	Import completed
+2026-10-04 11:31:46.340 +0300	ZFL-BRC-DBRCH10D126W01-2-FINAL.fmp12	0	Import operations committed
+2026-10-04 11:31:46.345 +0300	ZFL-BRC-DBRCH10D126W01-2-FINAL.fmp12	0	==================================================================
