@@ -36,12 +36,12 @@ N0035	9	Graduate to system		C0039		1/7/2025	23-06-2025	22/6/2025	t0073	t0073	QU-
 N0036		Graduate to system		C0040		20/9/2025	12-09-2025	11/9/2025	t0069	t0069	QU-IACUC 006/2023-AMM1	Ahmad		Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB)	Casper outcross X AB mix	Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB)	Casper outcross X AB mix
 N0037	7	Graduate to system		C0041		12/9/2025	04-09-2025	3/9/2025	t0095	t0093	QU-IACUC 006/2023-AMM1	Ahmad		Wt Wt (AB) Sidra	AB (Sidra)	Wt Wt (AB)	AB Mix (Males Only)
 N0038	15	Graduate to system		C0042		24/6/2025	16-06-2025	15/6/2025	t0095	t0093	QU-IACUC 006/2023-AMM1	Ahmad		Wt Wt (AB) Sidra	AB (Sidra)	Wt Wt (AB)	AB Mix (Males Only)
-N0039																	
+N0039
 N0040	9	Graduate to system		C0043		22/10/2025	14-10-2025	13/10/2025	t0073	t0049	QU-IACUC 006/2023-AMM3	Ahmad		Tg Tg (gata1:dsRed) Sidra [Gata]	Gata outcross +ve	Tg Tg (gata1:dsRed) Sidra [Gata]	Gata G2
 N0041	15	Graduate to system		C0044		11/7/2025	03-07-2025	2/7/2025	T0067	T0015	QU-IACUC 006/2023-AMM3	Enas		Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB) Sidra	Casper X AB (Sidra)	Mu Mu (mitfaw2/w2; mpv17a9/a9)	Casper
 N0042	3	Graduate to system		C0045		19/2/2026	11-02-2026	11/2/2026	T0077	T0077	QU-IACUC 006/2023-AMM3	Enas		Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Casper	Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Casper
 N0043	6	Graduate to system		C0046		24/4/2025	16-04-2025	15/4/2025	T0015	T0015	QU-IACUC 006/2023-AMM3	Enas		Mu Mu (mitfaw2/w2; mpv17a9/a9)	Casper	Mu Mu (mitfaw2/w2; mpv17a9/a9)	Casper
-N0044	2	Graduate to system		C0047		11/5/2026	03-05-2026	11/2/2026	T109	T109	QU-IACUC 006/2023-AMM3	Enas					
+N0044	2	Graduate to system		C0047		11/5/2026	03-05-2026	11/2/2026	T109	T109	QU-IACUC 006/2023-AMM3	Enas
 N0045	18	Graduate to system		C0048		19/2/2026	11-02-2026	10/2/2026	T0115	T0115	QU-IACUC 006/2023-AMM3	Enas		Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB)	Casper From T69 Hetero	Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB)	Casper From T69 Hetero
 N0046	15	Graduate to system		C0049		19/2/2026	11-02-2026	10/2/2026	T0114	T0015	QU-IACUC 006/2023-AMM3	Enas		Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Casper Pure from T69	Mu Mu (mitfaw2/w2; mpv17a9/a9)	Casper
 N0047	6	Graduate to system		C0050		3/2/2026	26-01-2026	25/1/2026	T0101	T0101	QU-IACUC 006/2023-AMM3	Ahmad		Tg Tg (gata1:dsRed) Sidra [Gata]; (AB) Sidra	Gata x AB (Sidra)	Tg Tg (gata1:dsRed) Sidra [Gata]; (AB) Sidra	Gata x AB (Sidra)
@@ -51,7 +51,7 @@ N0050	14	Graduate to system		C0053		3/12/2025	25-11-2025	24/11/2025	T0101	T0093	
 N0051	52	Graduate to system		C0054		8/1/0001	29-Jun-26	?	T0126	T0126	QU-IACUC 006/2023-AMM5	Enas		Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Casper from T114/T15 pure	Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Casper from T114/T15 pure
 N0052	94	Graduate to system		C0055		8/1/0001	18-Jun-26	?	T0069	T0069	QU-IACUC 006/2023-AMM5	Enas		Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB)	Casper outcross X AB mix	Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB)	Casper outcross X AB mix
 N0053	30	Graduate to system		C0056		8/1/0001	30-Jun-26	?	T0110	T0110	QU-IACUC 006/2023-AMM5	Ahmad		Tg Tg (gata1:dsRed) Sidra [Gata]; (AB) Sidra	GataxAB sidra	Tg Tg (gata1:dsRed) Sidra [Gata]; (AB) Sidra	GataxAB sidra
-N0054	15	Graduate to system		C0057		8/1/0001	30-Jun-26	?			QU-IACUC 006/2023-AMM5	Ahmad					
+N0054	15	Graduate to system		C0057		8/1/0001	30-Jun-26	?			QU-IACUC 006/2023-AMM5	Ahmad
 N0055	7	Graduate to system		C0058		8/1/0001	28-Apr-26	?	T0056	T0105	QU-IACUC 006/2023-AMM5	Ahmad		Wt Wt (AB)	AB	Tg Tg (fli1a:eGFP) Sidra [Fli]	Fli From T82
 N0056	26	Graduate to system		C0059		8/1/0001	18-Jun-26	?	T0121	T0123	QU-IACUC 006/2023-AMM5	Enas		Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB) Sidra	Casper from T67/T15	Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Casper from T0015/pure
 N0057	49	Graduate to system		C0060		8/1/0001	05-Jul-26	?	T0108	T0108	QU-IACUC 006/2023-AMM5	Enas		Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Casper	Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Casper
@@ -65,3 +65,4 @@ N0064	6	Graduate to system		C0068		8/1/0001	16-Aug-26	?	T0119	T0119	QU-IACUC 006
 N0065	9	Graduate to system		C0069		8/1/0001	17-Aug-26	?	T0133	T0133	QU-IACUC 006/2023-AMM5	Ahmad		Tg Tg (fli1a:eGFP) Sidra [Fli]	Fli from T82	Tg Tg (fli1a:eGFP) Sidra [Fli]	Fli from T82
 N0066	22	Graduate to system		C0070		8/1/0001	16-Aug-26	?	T0132	T0132	QU-IACUC 006/2023-AMM5	Ahmad		Tg Tg (fli1:EGFP) [Fli]	Fli mix T52 & T54 & T82	Tg Tg (fli1:EGFP) [Fli]	Fli mix T52 & T54 & T82
 N0067	11	Graduate to system		C0071		8/1/0001	07-Apr-26	?	T0082	T0082	QU-IACUC 006/2023-AMM5	Ahmad		Tg Tg (fli1a:eGFP) Sidra [Fli]	Fli X AB outcross	Tg Tg (fli1a:eGFP) Sidra [Fli]	Fli X AB outcross
+N0068	42	Graduate to system		C0072		10/09/2026	10-Aug-26	10/08/2026	T0128	T0128	QU-IACUC 006/2023-AMM5	Ahmad	Zebrafish facility	Wt (AB)	AB T128	Wt (AB)	AB T128
