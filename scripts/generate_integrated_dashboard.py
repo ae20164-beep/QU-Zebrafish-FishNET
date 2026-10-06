@@ -1919,5 +1919,10 @@ def generate_dashboard():
         f.write(html_content)
     print(f'Wrote {out_main}')
 
+    out_index = os.path.join(labels_dir, 'index.html')
+    with open(out_index, 'w', encoding='utf-8') as f:
+        f.write(html_content)
+    print(f'Wrote {out_index}')
+
 if __name__ == '__main__':
     generate_dashboard()

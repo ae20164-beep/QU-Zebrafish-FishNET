@@ -41,6 +41,7 @@ if run_step('generate_integrated_dashboard.py'):
 
 # 4. Copy to web deployment routes (index.html, colony.html, breeding.html)
 print("\nStep 4: Updating web portal distribution files...")
+shutil.copyfile(os.path.join(ROOT_DIR, 'FishNET_Interactive_Dashboard.html'), os.path.join(ROOT_DIR, 'index.html'))
 shutil.copyfile(os.path.join(ROOT_DIR, 'FishNET_Interactive_Dashboard.html'), os.path.join(ROOT_DIR, 'colony.html'))
 shutil.copyfile(os.path.join(ROOT_DIR, 'FishNET_Interactive_Dashboard_With_Breeding.html'), os.path.join(ROOT_DIR, 'breeding.html'))
 print("[OK] Web portal (index.html, colony.html, breeding.html) synchronized.")
