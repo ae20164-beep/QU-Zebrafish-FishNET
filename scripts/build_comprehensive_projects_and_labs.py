@@ -134,9 +134,10 @@ for b_key, puid in sorted(puid_map.items(), key=lambda x: x[1]):
             p_name = f"Zebrafish Research Protocol - {p_num}"
             luid = pi_name
             # PI + verified registered RAs for this PI
-            ra_list = pi_teams.get(pi_name, [])
-            if ra_list:
-                lab_users = f"{pi_name}\x0b" + "\x0b".join(ra_list)
+            ra_raw = pi_teams.get(pi_name, [])
+            ra_names = [r['name'] if isinstance(r, dict) else str(r) for r in ra_raw if r]
+            if ra_names:
+                lab_users = f"{pi_name}\x0b" + "\x0b".join(ra_names)
             else:
                 lab_users = pi_name  # Starts with PI only; populated dynamically when RAs register
 

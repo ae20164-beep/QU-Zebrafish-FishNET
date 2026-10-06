@@ -19,6 +19,11 @@ def run_step(script_name):
         return False
     return True
 
+# 0. Sync RA Registries and Build Projects/Labs Tables
+print("\nStep 0: Synchronizing RAs & FileMaker Projects/Labs...")
+run_step('sync_ra_team_registry.py')
+run_step('build_comprehensive_projects_and_labs.py')
+
 # 1. Synchronize FileMaker Master Exports & Dashboards
 print("\nStep 1: Synchronizing FileMaker Master Exports...")
 if run_step('build_fishnet_analytics.py'):
