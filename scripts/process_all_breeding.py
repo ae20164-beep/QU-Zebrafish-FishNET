@@ -132,17 +132,68 @@ def process():
         done_dir = os.path.join(labels_dir, 'archive', 'DONE')
     breeding_dir = r'c:\Users\ae20164\OneDrive - Qatar University (1)\breeding'
     
-    # 1. Load Crosses Mapping for Cross-Checking DOB
+    # 1. Load Nursery Mapping
+    nursery_map = {}
+    nursery_by_cross = {}
+    nursery_tab_path = os.path.join(labels_dir, 'FishNet Exported Data', 'Nursery.tab')
+    if os.path.exists(nursery_tab_path):
+        with open(nursery_tab_path, 'r', encoding='utf-8-sig', errors='ignore') as f:
+            for r in csv.reader(f, delimiter='\t'):
+                if len(r) >= 8:
+                    nuid = r[0].strip().upper()
+                    count = r[1].strip()
+                    action = r[2].strip()
+                    cuid = r[4].strip().upper()
+                    grad_date = r[6].strip()
+                    mating_date = r[7].strip()
+                    set_date = r[8].strip() if len(r) > 8 else ''
+                    dam = r[9].strip() if len(r) > 9 else ''
+                    sire = r[10].strip() if len(r) > 10 else ''
+                    n_rec = {
+                        'nuid': nuid, 'count': count, 'action': action, 'cuid': cuid,
+                        'grad_date': grad_date, 'mating_date': mating_date, 'set_date': set_date,
+                        'dam': dam, 'sire': sire
+                    }
+                    nursery_map[nuid] = n_rec
+                    if cuid:
+                        if cuid not in nursery_by_cross:
+                            nursery_by_cross[cuid] = []
+                        nursery_by_cross[cuid].append(n_rec)
+
+    # 2. Load Crosses Mapping for Cross-Checking DOB (with dynamic column extraction)
     crosses_map = {}
     crosses_tab_path = os.path.join(labels_dir, 'FishNet Exported Data', 'Crosses.tab')
     if os.path.exists(crosses_tab_path):
         with open(crosses_tab_path, 'r', encoding='utf-8-sig', errors='ignore') as f:
             for r in csv.reader(f, delimiter='\t'):
-                if len(r) >= 10:
-                    cuid = r[7].strip().upper()
-                    mating_date = r[9].strip()
-                    origin = r[11].strip() if len(r) > 11 else ''
-                    crosses_map[cuid] = {'date': mating_date, 'origin': origin}
+                if not r: continue
+                cuid = None
+                for col in r:
+                    c_m = re.search(r'\b(C\d{4})\b', col.strip().upper())
+                    if c_m:
+                        cuid = c_m.group(1)
+                        break
+                if not cuid: continue
+                
+                dates = []
+                for col in r:
+                    c_str = col.strip()
+                    if re.match(r'^\d{1,2}[-/]\d{1,2}[-/]\d{2,4}$', c_str) or re.match(r'^\d{1,2}-[A-Za-z]{3}-\d{2,4}$', c_str):
+                        dates.append(c_str)
+                mating_date = dates[0] if dates else ''
+                
+                tanks_in_row = []
+                for col in r:
+                    for tm in re.findall(r'\bT\d{4}\b', col.strip().upper()):
+                        if tm not in tanks_in_row:
+                            tanks_in_row.append(tm)
+                
+                crosses_map[cuid] = {
+                    'cuid': cuid,
+                    'date': mating_date,
+                    'dam': tanks_in_row[0] if len(tanks_in_row) > 0 else '',
+                    'sire': tanks_in_row[1] if len(tanks_in_row) > 1 else (tanks_in_row[0] if tanks_in_row else '')
+                }
 
     def parse_cross_date_dt(cd):
         if not cd:
@@ -166,6 +217,12 @@ def process():
     def resolve_dob(raw_dob, d_cross):
         c_info = crosses_map.get(d_cross.upper(), {})
         cross_dt = parse_cross_date_dt(c_info.get('date', ''))
+        
+        # Check nursery date if cross date missing
+        if not cross_dt and d_cross:
+            n_list = nursery_by_cross.get(d_cross.upper(), [])
+            if n_list:
+                cross_dt = parse_cross_date_dt(n_list[0].get('mating_date', ''))
         
         if not raw_dob:
             if cross_dt:
@@ -211,7 +268,7 @@ def process():
                 pass
         return None, str(raw_dob), ''
 
-    # 1. Load FishNET Tanks with Sex Structure Analysis
+    # 3. Load FishNET Tanks with Sex Structure Analysis
     fishnet_tanks = {}
     tanks_tab_path = os.path.join(labels_dir, 'FishNet Exported Data', 'Tanks.tab')
     if not os.path.exists(tanks_tab_path):
@@ -298,11 +355,21 @@ def process():
 
             num_id = int(re.sub(r'\D', '', tuid)) if re.search(r'\d', tuid) else 0
             std_tuid = f'T{num_id:04d}'
+
+            # Link derivative nursery records
+            n_records = nursery_by_cross.get(derivative_cross.upper(), [])
+            derivative_nursery = ', '.join([n['nuid'] for n in n_records]) if n_records else ''
+            nursery_grad_date = n_records[0]['grad_date'] if n_records else ''
+            nursery_count = sum(int(n['count']) for n in n_records if n['count'].isdigit()) if n_records else 0
+
             tank_obj = {
                 'tuid': std_tuid,
                 'raw_tuid': tuid,
                 'num_id': num_id,
                 'derivative_cross': derivative_cross,
+                'derivative_nursery': derivative_nursery,
+                'nursery_grad_date': nursery_grad_date,
+                'nursery_count': nursery_count,
                 'genotype': genotype,
                 'notes': notes,
                 'line': line,
