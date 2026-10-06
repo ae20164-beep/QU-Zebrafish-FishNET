@@ -861,7 +861,10 @@ html_template = """<!DOCTYPE html>
                     <button onclick="switchTab('crosses')" id="tab-btn-crosses" class="tab-btn px-3.5 py-1.5 rounded-lg text-xs font-medium border border-slate-700 text-slate-300 hover:text-white transition">📋 Crosses (<span id="tabCountCrosses">0</span>)</button>
                     <button onclick="switchTab('welfare')" id="tab-btn-welfare" class="tab-btn px-3.5 py-1.5 rounded-lg text-xs font-medium border border-slate-700 text-slate-300 hover:text-white transition">⚖️ Density</button>
                     <button onclick="switchTab('alerts')" id="tab-btn-alerts" class="tab-btn px-3.5 py-1.5 rounded-lg text-xs font-medium border border-slate-700 text-slate-300 hover:text-white transition">⚠️ Alerts (<span id="tabCountAlerts">0</span>)</button>
-                </nav>
+                <!-- Breeding Dashboard Quick Jump -->
+                <a href="breeding.html" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-600/30 transition flex items-center gap-1.5" title="Switch to Breeding Intelligence">
+                    <span>🧬 Breeding Analytics ↗</span>
+                </a>
 
                 <!-- File Upload Trigger -->
                 <label class="cursor-pointer px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-teal-600 hover:bg-teal-500 text-white shadow-lg shadow-teal-600/30 transition flex items-center gap-1.5">
@@ -3148,4 +3151,7 @@ html_content = html_template.replace('__RECORDS_JSON__', raw_records_json)
 with open('colony.html', 'w', encoding='utf-8') as f:
     f.write(html_content)
 
-print('Colony Pedigree & Inventory Dashboard generated: colony.html')
+with open('FishNET_Colony_Dashboard.html', 'w', encoding='utf-8') as f:
+    f.write(html_content)
+
+print('Colony Pedigree & Inventory Dashboard generated: colony.html and FishNET_Colony_Dashboard.html')

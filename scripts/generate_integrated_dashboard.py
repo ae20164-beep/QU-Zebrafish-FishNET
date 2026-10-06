@@ -492,6 +492,9 @@ def generate_dashboard():
             <p>Integrated Database: 2024–2026 Breeding Records, Single-Sex Reservoirs & Pedigree Architecture</p>
         </div>
         <div class="header-controls">
+            <a href="colony.html" class="btn" style="background: #0d9488; text-decoration: none;" title="Switch to Colony & Pedigree Dashboard">
+                <span>🐟 Colony & Pedigrees ↗</span>
+            </a>
             <input type="file" id="fileUploadInput" accept=".tab,.tsv,.csv,.xlsx" style="display: none;" onchange="handleFileUpload(event)">
             <button class="btn btn-outline" onclick="document.getElementById('fileUploadInput').click()">📁 Upload Updated File</button>
             <button class="btn btn-outline" onclick="exportBreedingJSON()">💾 Export JSON</button>
@@ -1913,6 +1916,11 @@ def generate_dashboard():
     with open(out_breeding, 'w', encoding='utf-8') as f:
         f.write(html_content)
     print(f'Wrote {out_breeding}')
+
+    out_breeding_named = os.path.join(labels_dir, 'FishNET_Breeding_Dashboard.html')
+    with open(out_breeding_named, 'w', encoding='utf-8') as f:
+        f.write(html_content)
+    print(f'Wrote {out_breeding_named}')
 
 if __name__ == '__main__':
     generate_dashboard()
