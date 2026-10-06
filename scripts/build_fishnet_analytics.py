@@ -63,20 +63,37 @@ def is_active_status(status_str):
         return False
     return True
 
+TANK_COLS = [
+    'Date of Birth', 'Date of Death', 'Dervitive Cross', 'Facility',
+    'Females', 'Genotype', 'Lab Member', 'Males', 'Notes',
+    'Number of Fish', 'Protocol', 'Rack Number', 'Room',
+    'Row Letter', 'Search', 'Space Number', 'Status',
+    'Subspace Number', 'Tank Size', 'tankCount', 'TUID',
+    'Turnover Date', 'Laboratories::Lab Name'
+]
+
 # 1. Load Data
 with open(TAB_FILE, 'r', encoding='utf-8-sig', errors='replace') as f:
     reader = csv.reader(f, delimiter='\t')
     raw_rows = list(reader)
 
-raw_header = raw_rows[0]
-header = [h.strip().replace('\ufeff', '') for h in raw_header]
 records = []
+has_header = False
+if raw_rows and ('TUID' in raw_rows[0] or 'Date of Birth' in raw_rows[0]):
+    has_header = True
+    header = [h.strip().replace('\ufeff', '') for h in raw_rows[0]]
+    data_rows = raw_rows[1:]
+else:
+    header = TANK_COLS
+    data_rows = raw_rows
 
-for r in raw_rows[1:]:
+for r in data_rows:
+    if not any(r): continue
     row_dict = {}
     for i, col in enumerate(header):
         row_dict[col] = r[i].strip() if i < len(r) else ''
-    records.append(row_dict)
+    if row_dict.get('TUID'):
+        records.append(row_dict)
 
 tanks_dict = {r['TUID']: r for r in records}
 

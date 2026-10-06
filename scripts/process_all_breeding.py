@@ -134,19 +134,23 @@ def process():
     fishnet_tanks = {}
     with open(os.path.join(labels_dir, 'FishNET.tab'), 'r', encoding='utf-8-sig', errors='ignore') as f:
         reader = list(csv.reader(f, delimiter='\t'))
-        for row in reader[1:]:
-            if not row or not row[0].strip():
+        for row in reader:
+            if not row or len(row) < 21:
                 continue
-            tuid = row[0].strip().upper()
-            notes = row[1].strip() if len(row) > 1 else ''
-            female = int(row[2].strip()) if len(row) > 2 and row[2].strip().isdigit() else 0
-            male = int(row[3].strip()) if len(row) > 3 and row[3].strip().isdigit() else 0
-            total = int(row[4].strip()) if len(row) > 4 and row[4].strip().isdigit() else (female + male)
-            dob = row[6].strip() if len(row) > 6 else ''
-            status = row[13].strip() if len(row) > 13 else 'Active'
+            # Col 21 (index 20): TUID
+            tuid = row[20].strip().upper()
+            if not tuid or not tuid.startswith('T'):
+                continue
+            dob = row[0].strip()
+            female = int(row[4].strip()) if len(row) > 4 and row[4].strip().isdigit() else 0
+            genotype = row[5].strip() if len(row) > 5 else ''
+            male = int(row[7].strip()) if len(row) > 7 and row[7].strip().isdigit() else 0
+            notes = row[8].strip() if len(row) > 8 else ''
+            total = int(row[9].strip()) if len(row) > 9 and row[9].strip().isdigit() else (female + male)
+            status = row[16].strip() if len(row) > 16 else 'Adult/Active'
             
             line = 'Other'
-            nu = notes.upper()
+            nu = (notes + ' ' + genotype).upper()
             if 'AB' in nu or 'WILD' in nu:
                 line = 'AB'
             elif 'CASP' in nu or 'CAS' in nu:
