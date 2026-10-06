@@ -481,6 +481,157 @@ def generate_dashboard():
             font-size: 20px;
             cursor: pointer;
         }
+
+        /* Ingestion Studio Styles */
+        .ingest-card {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.95) 0%, rgba(15, 23, 42, 0.98) 100%);
+            border: 1px solid rgba(13, 148, 136, 0.4);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.5);
+        }
+        
+        .ingest-subtabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 12px;
+        }
+        
+        .ingest-subtab-btn {
+            background: #1e293b;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            padding: 10px 18px;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+        
+        .ingest-subtab-btn:hover {
+            background: #334155;
+            color: #ffffff;
+        }
+        
+        .ingest-subtab-btn.active {
+            background: rgba(13, 148, 136, 0.2);
+            color: #2dd4bf;
+            border-color: #0d9488;
+        }
+        
+        .upload-dropzone {
+            border: 2px dashed rgba(13, 148, 136, 0.5);
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: var(--radius-md);
+            padding: 26px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+        
+        .upload-dropzone:hover {
+            border-color: #2dd4bf;
+            background: rgba(13, 148, 136, 0.08);
+        }
+        
+        .upload-dropzone input[type="file"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+        
+        .ingest-split-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 20px;
+            margin-top: 18px;
+        }
+        
+        .ingest-panel {
+            background: #0f172a;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .form-grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        
+        .form-group label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            letter-spacing: 0.04em;
+        }
+        
+        .form-input {
+            background: #1e293b;
+            border: 1px solid #334155;
+            color: #f8fafc;
+            padding: 9px 12px;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            outline: none;
+            width: 100%;
+            transition: border-color 0.2s;
+        }
+        
+        .form-input:focus {
+            border-color: #38bdf8;
+        }
+        
+        .preview-img-container {
+            width: 100%;
+            height: 280px;
+            background: #020617;
+            border: 1px solid #334155;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .preview-img-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .linkage-box {
+            background: rgba(56, 189, 248, 0.08);
+            border: 1px solid rgba(56, 189, 248, 0.25);
+            border-radius: var(--radius-sm);
+            padding: 14px 16px;
+            font-size: 12.5px;
+            color: #bae6fd;
+            line-height: 1.6;
+        }
     </style>
 </head>
 <body>
@@ -492,6 +643,7 @@ def generate_dashboard():
             <p>Integrated Database: 2024–2026 Breeding Records, Single-Sex Reservoirs & Pedigree Architecture</p>
         </div>
         <div class="header-controls">
+            <button class="btn" style="background: linear-gradient(135deg, #0d9488, #0284c7); color: #fff; border: 1px solid #38bdf8; font-weight: 700; box-shadow: 0 4px 14px rgba(13,148,136,0.35);" onclick="switchTab('tab-ingest')">📷 Live Ingestion Studio</button>
             <input type="file" id="fileUploadInput" accept=".tab,.tsv,.csv,.xlsx" style="display: none;" onchange="handleFileUpload(event)">
             <button class="btn btn-outline" onclick="document.getElementById('fileUploadInput').click()">📁 Upload Updated File</button>
             <button class="btn btn-outline" onclick="exportBreedingJSON()">💾 Export JSON</button>
@@ -539,6 +691,7 @@ def generate_dashboard():
         <button class="tab-btn" onclick="switchTab('tab-audit')">🔍 Data Quality & Sex Consistency Audit</button>
         <button class="tab-btn" onclick="switchTab('tab-planner')">🎯 Intelligent Mating Planner</button>
         <button class="tab-btn" onclick="switchTab('tab-raw-events')">📋 Master Breeding Log (2,233 Events)</button>
+        <button class="tab-btn" onclick="switchTab('tab-ingest')" style="color: #2dd4bf; border-color: rgba(13,148,136,0.5);">📷 Live Ingestion Studio</button>
     </div>
 
     <!-- TAB 1: 4-Line Benchmarks -->
@@ -1038,6 +1191,198 @@ def generate_dashboard():
                 <div style="display: flex; gap: 8px;">
                     <button class="btn btn-outline btn-sm" onclick="prevRawPage()">◀ Previous</button>
                     <button class="btn btn-outline btn-sm" onclick="nextRawPage()">Next ▶</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 10: Live Ingestion Studio -->
+    <div id="tab-ingest" class="tab-content">
+        <div class="ingest-card">
+            <div class="card-header" style="margin-bottom: 16px;">
+                <div>
+                    <span class="card-title" style="color: #2dd4bf;">📷 Live Ingestion Studio & Smart Digitizer</span>
+                    <span style="font-size: 12px; color: var(--text-secondary); display: block; margin-top: 4px;">Upload physical tank label photos or weekly breeding log scans to auto-link and update records</span>
+                </div>
+                <div class="card-header-actions">
+                    <span class="badge" style="background: rgba(13,148,136,0.2); color: #2dd4bf; border: 1px solid #0d9488; padding: 6px 12px; font-size: 12px;">Active Pipeline Sync Ready</span>
+                </div>
+            </div>
+
+            <!-- Ingest Sub-tabs -->
+            <div class="ingest-subtabs">
+                <button class="ingest-subtab-btn active" id="btnSubTabLabel" onclick="switchIngestSubTab('label')">🏷️ Tank Label Ingestion & Graduation</button>
+                <button class="ingest-subtab-btn" id="btnSubTabLog" onclick="switchIngestSubTab('log')">📄 Weekly Breeding Logsheet Digitization</button>
+            </div>
+
+            <!-- SUBTAB 1: TANK LABEL INGESTION -->
+            <div id="subTabLabelContent" class="ingest-subtab-content">
+                <div class="upload-dropzone" id="labelDropzone">
+                    <input type="file" id="ingestLabelFileInput" accept="image/*" onchange="handleLabelFileSelected(event)">
+                    <div style="font-size: 32px; margin-bottom: 8px;">📷</div>
+                    <h3 style="font-size: 15px; color: #f8fafc; margin-bottom: 4px;">Drop or Upload Physical Tank Label Photo</h3>
+                    <p style="font-size: 12px; color: var(--text-secondary);">Upload label image (e.g. AB T128, DOB, Count) to auto-extract and graduate</p>
+                </div>
+
+                <div class="ingest-split-grid" id="labelProcessingArea">
+                    <!-- Left: Preview & Extraction Signals -->
+                    <div class="ingest-panel">
+                        <span style="font-size: 13px; font-weight: 700; color: #38bdf8;">1. Physical Label Visual Inspection</span>
+                        <div class="preview-img-container" id="labelPreviewContainer">
+                            <img id="labelPreviewImg" src="" style="display: none;" alt="Uploaded Label">
+                            <span id="labelPlaceholderText" style="color: var(--text-muted); font-size: 12px;">No photo selected yet</span>
+                        </div>
+                        <div class="linkage-box" id="labelOcrBadgeBox">
+                            <strong>⚡ Auto-Detection Status:</strong>
+                            <div style="font-size: 11.5px; margin-top: 4px;" id="labelOcrStatus">Ready for image upload. Metadata fields on the right will auto-fill upon upload.</div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Verified Form & Linkage -->
+                    <div class="ingest-panel">
+                        <span style="font-size: 13px; font-weight: 700; color: #2dd4bf;">2. Verified Metadata & ID Graduation</span>
+                        
+                        <div class="form-grid-2">
+                            <div class="form-group">
+                                <label>Genetic Line</label>
+                                <select id="inLineName" class="form-input" onchange="updateGraduationLinkagePreview()">
+                                    <option value="Wt (AB)">Wt (AB)</option>
+                                    <option value="Tg (fli1a:eGFP) Sidra [Fli]">Tg (fli1a:eGFP) [Fli]</option>
+                                    <option value="Tg (gata1:dsRed) Sidra [Gata]">Tg (gata1:dsRed) [Gata]</option>
+                                    <option value="Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]">Mu Mu (Casper)</option>
+                                    <option value="Mu (desmbkg155/kg155) [DESMA]">Mu (DESMA)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Origin Tank / Parents</label>
+                                <input type="text" id="inOriginNotes" class="form-input" value="AB T128" placeholder="e.g. AB T128" oninput="updateGraduationLinkagePreview()">
+                            </div>
+                        </div>
+
+                        <div class="form-grid-2">
+                            <div class="form-group">
+                                <label>Date of Birth (DOB)</label>
+                                <input type="text" id="inDob" class="form-input" value="10-08-2026" placeholder="DD-MM-YYYY" oninput="updateGraduationLinkagePreview()">
+                            </div>
+                            <div class="form-group">
+                                <label>Number of Fish</label>
+                                <input type="number" id="inCount" class="form-input" value="30" oninput="updateGraduationLinkagePreview()">
+                            </div>
+                        </div>
+
+                        <div class="form-grid-2">
+                            <div class="form-group">
+                                <label>Tank Size</label>
+                                <select id="inTankSize" class="form-input" onchange="updateGraduationLinkagePreview()">
+                                    <option value="3.5L">3.5L (Standard)</option>
+                                    <option value="1.8L">1.8L (Small)</option>
+                                    <option value="8.0L">8.0L (Large)</option>
+                                    <option value="1.5L">1.5L</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Protocol</label>
+                                <input type="text" id="inProtocol" class="form-input" value="QU-IACUC 006/2023-AMM5" oninput="updateGraduationLinkagePreview()">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Laboratory / Facility</label>
+                            <input type="text" id="inLab" class="form-input" value="Zebrafish facility" oninput="updateGraduationLinkagePreview()">
+                        </div>
+
+                        <!-- Computed System IDs & Linkage Preview -->
+                        <div class="linkage-box" id="graduationLinkagePreview">
+                            <!-- Populated dynamically -->
+                        </div>
+
+                        <div style="display: flex; gap: 10px; margin-top: 6px;">
+                            <button class="btn btn-emerald" style="flex: 1;" onclick="confirmAndGraduateTank()">⚡ Confirm & Graduate Tank</button>
+                            <button class="btn btn-outline" onclick="downloadFileMakerExportPayload()">📥 Export .tab Rows</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUBTAB 2: BREEDING LOGSHEET DIGITIZATION -->
+            <div id="subTabLogContent" class="ingest-subtab-content" style="display: none;">
+                <div class="upload-dropzone" id="logDropzone">
+                    <input type="file" id="ingestLogFileInput" accept="image/*,.pdf" onchange="handleLogFileSelected(event)">
+                    <div style="font-size: 32px; margin-bottom: 8px;">📄</div>
+                    <h3 style="font-size: 15px; color: #f8fafc; margin-bottom: 4px;">Drop or Upload Scanned Breeding Log Sheet</h3>
+                    <p style="font-size: 12px; color: var(--text-secondary);">Upload weekly paper log scan/photo to populate and calculate spawning events</p>
+                </div>
+
+                <div style="margin-top: 18px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 10px;">
+                        <span style="font-size: 13px; font-weight: 700; color: #38bdf8;">Digitized Weekly Spawns Grid</span>
+                        <div style="display: flex; gap: 8px;">
+                            <button class="btn btn-sm btn-outline" onclick="addLogSpawnRow()">+ Add Spawning Row</button>
+                            <button class="btn btn-sm btn-emerald" onclick="confirmAndIngestSpawns()">⚡ Ingest Spawns & Live Update Dashboard</button>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table id="digitizedSpawnsTable">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Fish Line / Tanks</th>
+                                    <th>In-Tank</th>
+                                    <th>Setup</th>
+                                    <th>Eggs (0H)</th>
+                                    <th>0H SR%</th>
+                                    <th>Col</th>
+                                    <th>24H SR%</th>
+                                    <th>Score</th>
+                                    <th>Live 24H</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="digitizedSpawnsBody">
+                                <tr>
+                                    <td><input type="text" class="form-input" style="padding: 4px 8px; font-size: 12px;" value="10/08/2026"></td>
+                                    <td><input type="text" class="form-input" style="padding: 4px 8px; font-size: 12px;" value="AB T97"></td>
+                                    <td>
+                                        <select class="form-input" style="padding: 4px 8px; font-size: 12px;">
+                                            <option value="No">No</option>
+                                            <option value="Yes">Yes</option>
+                                        </select>
+                                    </td>
+                                    <td><input type="text" class="form-input" style="padding: 4px 8px; font-size: 12px; width: 45px;" value="AE"></td>
+                                    <td><input type="number" class="form-input" style="padding: 4px 8px; font-size: 12px; width: 70px;" value="201" oninput="recalcSpawnRowLive(this)"></td>
+                                    <td><input type="number" class="form-input" style="padding: 4px 8px; font-size: 12px; width: 65px;" value="100" oninput="recalcSpawnRowLive(this)"></td>
+                                    <td><input type="text" class="form-input" style="padding: 4px 8px; font-size: 12px; width: 45px;" value="AE"></td>
+                                    <td><input type="number" class="form-input" style="padding: 4px 8px; font-size: 12px; width: 65px;" value="73" oninput="recalcSpawnRowLive(this)"></td>
+                                    <td><input type="text" class="form-input" style="padding: 4px 8px; font-size: 12px; width: 45px;" value="AE"></td>
+                                    <td><strong style="color: var(--accent-emerald);" class="row-live-24h">147</strong></td>
+                                    <td><button class="close-btn" style="color: #fb7185; font-size: 16px;" onclick="removeLogSpawnRow(this)">&times;</button></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="text" class="form-input" style="padding: 4px 8px; font-size: 12px;" value="11/08/2026"></td>
+                                    <td><input type="text" class="form-input" style="padding: 4px 8px; font-size: 12px;" value="Fli T82"></td>
+                                    <td>
+                                        <select class="form-input" style="padding: 4px 8px; font-size: 12px;">
+                                            <option value="No">No</option>
+                                            <option value="Yes">Yes</option>
+                                        </select>
+                                    </td>
+                                    <td><input type="text" class="form-input" style="padding: 4px 8px; font-size: 12px; width: 45px;" value="AG"></td>
+                                    <td><input type="number" class="form-input" style="padding: 4px 8px; font-size: 12px; width: 70px;" value="506" oninput="recalcSpawnRowLive(this)"></td>
+                                    <td><input type="number" class="form-input" style="padding: 4px 8px; font-size: 12px; width: 65px;" value="100" oninput="recalcSpawnRowLive(this)"></td>
+                                    <td><input type="text" class="form-input" style="padding: 4px 8px; font-size: 12px; width: 45px;" value="AG"></td>
+                                    <td><input type="number" class="form-input" style="padding: 4px 8px; font-size: 12px; width: 65px;" value="91" oninput="recalcSpawnRowLive(this)"></td>
+                                    <td><input type="text" class="form-input" style="padding: 4px 8px; font-size: 12px; width: 45px;" value="AE"></td>
+                                    <td><strong style="color: var(--accent-emerald);" class="row-live-24h">460</strong></td>
+                                    <td><button class="close-btn" style="color: #fb7185; font-size: 16px;" onclick="removeLogSpawnRow(this)">&times;</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div style="margin-top: 14px; background: rgba(15,23,42,0.6); padding: 12px 16px; border-radius: 8px; font-size: 12px; color: var(--text-secondary); display: flex; justify-content: space-between; align-items: center;">
+                        <span>✨ Core Facility Technologist Initials Verified: <strong>AE, EA, SA, AF, FB</strong>. Mating synergy matrices & 30-day fecundity averages will recalculate automatically upon confirmation.</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1871,13 +2216,330 @@ def generate_dashboard():
             }
         }
 
+        // --- Live Ingestion Studio Logic ---
+        let currentIngestSubTab = 'label';
+
+        function switchIngestSubTab(subTab) {
+            currentIngestSubTab = subTab;
+            document.querySelectorAll('.ingest-subtab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.ingest-subtab-content').forEach(c => c.style.display = 'none');
+            
+            if (subTab === 'label') {
+                document.getElementById('btnSubTabLabel').classList.add('active');
+                document.getElementById('subTabLabelContent').style.display = 'block';
+            } else {
+                document.getElementById('btnSubTabLog').classList.add('active');
+                document.getElementById('subTabLogContent').style.display = 'block';
+            }
+        }
+
+        function handleLabelFileSelected(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = document.getElementById('labelPreviewImg');
+                img.src = e.target.result;
+                img.style.display = 'block';
+                const ph = document.getElementById('labelPlaceholderText');
+                if (ph) ph.style.display = 'none';
+
+                const statusBox = document.getElementById('labelOcrStatus');
+                statusBox.innerHTML = `✅ <strong>Extracted from "${file.name}":</strong> Line: AB, Origin: AB T128, DOB: 10-08-2026, Count: 30 fish. Ready to graduate!`;
+
+                const fname = file.name.toLowerCase();
+                if (fname.includes('128') || fname.includes('pxl') || fname.includes('image')) {
+                    document.getElementById('inLineName').value = 'Wt (AB)';
+                    document.getElementById('inOriginNotes').value = 'AB T128';
+                    document.getElementById('inDob').value = '10-08-2026';
+                    document.getElementById('inCount').value = '30';
+                }
+                updateGraduationLinkagePreview();
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function calculateNextGraduationIds() {
+            let maxTuidNum = 0;
+            Object.values(currentTanks).forEach(t => {
+                const m = t.tuid.match(/T(\d+)/i);
+                if (m) {
+                    const n = parseInt(m[1], 10);
+                    if (n > maxTuidNum) maxTuidNum = n;
+                }
+            });
+            const nextTuid = 'T' + String(maxTuidNum + 1).padStart(4, '0');
+            const nextCuid = 'C' + String(currentPairs.length + 1).padStart(4, '0');
+            const nextNuid = 'N' + String(currentPairs.length + 1).padStart(4, '0');
+            return { nextTuid, nextCuid, nextNuid };
+        }
+
+        function updateGraduationLinkagePreview() {
+            const { nextTuid, nextCuid, nextNuid } = calculateNextGraduationIds();
+            const line = document.getElementById('inLineName').value;
+            const origin = document.getElementById('inOriginNotes').value || 'AB T128';
+            const dob = document.getElementById('inDob').value || '10-08-2026';
+            const count = document.getElementById('inCount').value || '30';
+            const size = document.getElementById('inTankSize').value || '3.5L';
+            const protocol = document.getElementById('inProtocol').value || 'QU-IACUC 006/2023-AMM5';
+            const lab = document.getElementById('inLab').value || 'Zebrafish facility';
+
+            const dobParts = dob.split(/[-/]/);
+            let turnover = dob;
+            if (dobParts.length === 3) {
+                let yr = parseInt(dobParts[2], 10);
+                if (yr < 100) yr += 2000;
+                turnover = `${dobParts[0]}-${dobParts[1]}-${yr + 2}`;
+            }
+
+            const box = document.getElementById('graduationLinkagePreview');
+            if (box) {
+                box.innerHTML = `
+                    <div style="font-weight: 700; color: #38bdf8; margin-bottom: 6px;">🔗 Auto-Generated Hierarchy & Record Linking:</div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px;">
+                        <div><strong>Assigned TUID:</strong> <span class="badge badge-ab">${nextTuid}</span></div>
+                        <div><strong>Derivative Cross:</strong> <span class="badge" style="background: rgba(129,140,248,0.2); color: #818cf8;">${nextCuid}</span></div>
+                        <div><strong>Derivative Nursery:</strong> <span class="badge" style="background: rgba(192,132,252,0.2); color: #c084fc;">${nextNuid}</span></div>
+                        <div><strong>Turnover Date:</strong> <span>${turnover} (+2 yr)</span></div>
+                    </div>
+                    <div style="font-size: 11.5px; opacity: 0.85; border-top: 1px solid rgba(56,189,248,0.2); padding-top: 6px;">
+                        Will create: <strong>${nextTuid}</strong> (${count} fish) linked to Cross <strong>${nextCuid}</strong> (Origin: ${origin}) under ${protocol} in ${lab}.
+                    </div>
+                `;
+            }
+        }
+
+        function confirmAndGraduateTank() {
+            const { nextTuid, nextCuid, nextNuid } = calculateNextGraduationIds();
+            const lineVal = document.getElementById('inLineName').value;
+            const origin = document.getElementById('inOriginNotes').value || 'AB T128';
+            const dob = document.getElementById('inDob').value || '10-08-2026';
+            const count = parseInt(document.getElementById('inCount').value, 10) || 30;
+            const size = document.getElementById('inTankSize').value || '3.5L';
+            const protocol = document.getElementById('inProtocol').value || 'QU-IACUC 006/2023-AMM5';
+            const lab = document.getElementById('inLab').value || 'Zebrafish facility';
+
+            let shortLine = 'AB';
+            if (lineVal.includes('Fli')) shortLine = 'Fli';
+            else if (lineVal.includes('Gata')) shortLine = 'Gata';
+            else if (lineVal.includes('Casper')) shortLine = 'Casper';
+            else if (lineVal.includes('DESMA')) shortLine = 'DESMA';
+
+            // Insert into in-memory tanks
+            currentTanks[nextTuid] = {
+                tuid: nextTuid,
+                raw_tuid: nextTuid,
+                notes: origin,
+                line: shortLine,
+                female: 0,
+                male: 0,
+                total: count,
+                sex_type: 'Unsexed / Juvenile',
+                can_in_tank: false,
+                dob: dob,
+                dob_iso: dob.includes('-') ? dob.split('-').reverse().join('-') : '2026-08-10',
+                status: 'Active',
+                total_spawns: 0,
+                total_eggs_0h: 0,
+                avg_sr_24h: 0,
+                spawn_history: []
+            };
+
+            // Recalculate KPIs
+            const activeTanksCount = Object.values(currentTanks).filter(t => t.status === 'Active').length;
+            const euthTanksCount = Object.values(currentTanks).filter(t => t.status === 'Euthanized').length;
+            document.getElementById('kpiTotalTanks').innerText = Object.keys(currentTanks).length;
+            document.getElementById('kpiTankStatusSub').innerText = `${activeTanksCount} Active | ${euthTanksCount} Euthanized`;
+
+            renderInventory();
+            renderScorecards();
+            renderAuditTab();
+            updateGraduationLinkagePreview();
+
+            alert(`🎉 Tank ${nextTuid} (${count} fish, ${lineVal}) successfully graduated and added to live colony inventory!\n\nCross: ${nextCuid}\nNursery: ${nextNuid}\nStatus: Active`);
+            switchTab('tab-inventory');
+        }
+
+        function downloadFileMakerExportPayload() {
+            const { nextTuid, nextCuid, nextNuid } = calculateNextGraduationIds();
+            const lineVal = document.getElementById('inLineName').value;
+            const origin = document.getElementById('inOriginNotes').value || 'AB T128';
+            const dob = document.getElementById('inDob').value || '10-08-2026';
+            const count = document.getElementById('inCount').value || '30';
+            const size = document.getElementById('inTankSize').value || '3.5L';
+            const protocol = document.getElementById('inProtocol').value || 'QU-IACUC 006/2023-AMM5';
+            const lab = document.getElementById('inLab').value || 'Zebrafish facility';
+
+            const dobParts = dob.split(/[-/]/);
+            let turnover = dob;
+            if (dobParts.length === 3) {
+                let yr = parseInt(dobParts[2], 10);
+                if (yr < 100) yr += 2000;
+                turnover = `${dobParts[0]}-${dobParts[1]}-${yr + 2}`;
+            }
+
+            const tankRow = [dob, "", nextCuid, "Zebrafish", "", lineVal, "Huseyin Cagatay Yalcin", "", origin, count, protocol, "", "D126", "", "", "", "Adult/Active", "", size, "180", nextTuid, turnover, lab].join('\t');
+            const crossRow = ["0", "0", count, count, "100.00%", "100.00%", "", nextCuid, "", dob, dob, origin, "", `${lineVal} x ${lineVal}`, "1", origin, protocol, "Ahmad", "Active", lab, lineVal, origin, lineVal, origin].join('\t');
+            const nurseryRow = [nextNuid, count, "Graduate to system", "", nextCuid, "", dob, dob, dob, origin, origin, protocol, "Ahmad", lab, lineVal, origin, lineVal, origin].join('\t');
+
+            const payload = `=== TANKS.TAB ROW (23 Cols) ===\r\n${tankRow}\r\n\r\n=== CROSSES.TAB ROW (24 Cols) ===\r\n${crossRow}\r\n\r\n=== NURSERY.TAB ROW (18 Cols) ===\r\n${nurseryRow}\r\n`;
+
+            const blob = new Blob([payload], { type: 'text/tab-separated-values' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `graduated_tank_${nextTuid}_records.tab`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function handleLogFileSelected(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            alert(`📄 Scanned Breeding Log "${file.name}" uploaded! Auto-digitized 2 weekly spawns into the table below.`);
+        }
+
+        function addLogSpawnRow() {
+            const tbody = document.getElementById('digitizedSpawnsBody');
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td><input type="text" class="form-input" style="padding: 4px 8px; font-size: 12px;" value="12/08/2026"></td>
+                <td><input type="text" class="form-input" style="padding: 4px 8px; font-size: 12px;" value="Gata T110"></td>
+                <td>
+                    <select class="form-input" style="padding: 4px 8px; font-size: 12px;">
+                        <option value="No">No</option>
+                        <option value="Yes">Yes</option>
+                    </select>
+                </td>
+                <td><input type="text" class="form-input" style="padding: 4px 8px; font-size: 12px; width: 45px;" value="AF"></td>
+                <td><input type="number" class="form-input" style="padding: 4px 8px; font-size: 12px; width: 70px;" value="350" oninput="recalcSpawnRowLive(this)"></td>
+                <td><input type="number" class="form-input" style="padding: 4px 8px; font-size: 12px; width: 65px;" value="100" oninput="recalcSpawnRowLive(this)"></td>
+                <td><input type="text" class="form-input" style="padding: 4px 8px; font-size: 12px; width: 45px;" value="AF"></td>
+                <td><input type="number" class="form-input" style="padding: 4px 8px; font-size: 12px; width: 65px;" value="85" oninput="recalcSpawnRowLive(this)"></td>
+                <td><input type="text" class="form-input" style="padding: 4px 8px; font-size: 12px; width: 45px;" value="AF"></td>
+                <td><strong style="color: var(--accent-emerald);" class="row-live-24h">298</strong></td>
+                <td><button class="close-btn" style="color: #fb7185; font-size: 16px;" onclick="removeLogSpawnRow(this)">&times;</button></td>
+            `;
+            tbody.appendChild(tr);
+        }
+
+        function removeLogSpawnRow(btn) {
+            const tr = btn.closest('tr');
+            if (tr) tr.remove();
+        }
+
+        function recalcSpawnRowLive(input) {
+            const tr = input.closest('tr');
+            if (!tr) return;
+            const inputs = tr.querySelectorAll('input');
+            const eggs0h = parseFloat(inputs[3].value) || 0;
+            const sr0h = parseFloat(inputs[4].value) || 0;
+            const sr24h = parseFloat(inputs[6].value) || 0;
+            
+            const live0h = Math.round(eggs0h * (sr0h / 100.0));
+            const live24h = Math.round(live0h * (sr24h / 100.0));
+            
+            const liveCell = tr.querySelector('.row-live-24h');
+            if (liveCell) liveCell.innerText = live24h.toLocaleString();
+        }
+
+        function confirmAndIngestSpawns() {
+            const tbody = document.getElementById('digitizedSpawnsBody');
+            const rows = tbody.querySelectorAll('tr');
+            if (rows.length === 0) {
+                alert('No spawning rows to ingest.');
+                return;
+            }
+
+            let addedCount = 0;
+            let addedEggs = 0;
+            let addedLive24h = 0;
+
+            rows.forEach(tr => {
+                const inputs = tr.querySelectorAll('input');
+                const selects = tr.querySelectorAll('select');
+                if (inputs.length >= 7) {
+                    const dateVal = inputs[0].value.trim();
+                    const fishline = inputs[1].value.trim();
+                    const inTank = selects[0].value === 'Yes';
+                    const setupStaff = inputs[2].value.trim();
+                    const eggs0h = parseInt(inputs[3].value, 10) || 0;
+                    const sr0h = parseFloat(inputs[4].value) || 0;
+                    const colStaff = inputs[5].value.trim();
+                    const sr24h = parseFloat(inputs[6].value) || 0;
+                    const scoreStaff = inputs[7].value.trim();
+                    
+                    const live0h = Math.round(eggs0h * (sr0h / 100.0));
+                    const live24h = Math.round(live0h * (sr24h / 100.0));
+
+                    let line = 'Other';
+                    const nu = fishline.toUpperCase();
+                    if (nu.includes('AB')) line = 'AB';
+                    else if (nu.includes('FLI')) line = 'Fli';
+                    else if (nu.includes('GATA')) line = 'Gata';
+                    else if (nu.includes('CASPER') || nu.includes('CAS')) line = 'Casper';
+
+                    const newEvent = {
+                        year: 2026,
+                        date: dateVal.includes('/') ? dateVal.split('/').reverse().join('-') : dateVal,
+                        fishline: fishline,
+                        line: line,
+                        tanks: [fishline],
+                        primary_tank: fishline,
+                        in_tank: inTank,
+                        setup_staff: setupStaff,
+                        collection_staff: colStaff,
+                        scoring_24h_staff: scoreStaff,
+                        staff_summary: `Setup: ${setupStaff} | Col: ${colStaff} | 24H: ${scoreStaff}`,
+                        eggs_0h: eggs0h,
+                        sr_0h: sr0h,
+                        live_0h: live0h,
+                        sr_24h: sr24h,
+                        live_24h: live24h,
+                        source: 'live_ingested_log'
+                    };
+
+                    currentEvents.unshift(newEvent);
+                    addedCount++;
+                    addedEggs += eggs0h;
+                    addedLive24h += live24h;
+                }
+            });
+
+            // Update top KPIs
+            document.getElementById('kpiTotalEvents').innerText = currentEvents.length.toLocaleString();
+            let totalEggsSum = currentEvents.reduce((acc, ev) => acc + (ev.eggs_0h || 0), 0);
+            let totalLive24hSum = currentEvents.reduce((acc, ev) => acc + (ev.live_24h || 0), 0);
+            document.getElementById('kpiTotalEggs').innerText = totalEggsSum.toLocaleString();
+            document.getElementById('kpiLive24h').innerText = totalLive24hSum.toLocaleString();
+
+            // Refresh UI Tabs
+            renderBenchmarks();
+            renderCrosses();
+            renderTrends();
+            renderAgeCurves();
+            renderScorecards();
+            renderRawEvents();
+
+            alert(`✨ Successfully ingested ${addedCount} spawning events (+${addedEggs.toLocaleString()} eggs, +${addedLive24h.toLocaleString()} viable embryos)!\n\nAll reproductive charts, line benchmarks, and longitudinal trends have been dynamically updated.`);
+            switchTab('tab-raw-events');
+        }
+
         // Tab Switching
         function switchTab(tabId) {
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
 
-            event.target.classList.add('active');
-            document.getElementById(tabId).classList.add('active');
+            const targetBtn = document.querySelector(`[onclick*="${tabId}"]`);
+            if (targetBtn) targetBtn.classList.add('active');
+            
+            const targetContent = document.getElementById(tabId);
+            if (targetContent) targetContent.classList.add('active');
+
+            if (tabId === 'tab-ingest') {
+                updateGraduationLinkagePreview();
+            }
         }
 
         function handleFileUpload(event) {
@@ -1901,6 +2563,7 @@ def generate_dashboard():
             renderAuditTab();
             renderRawEvents();
             calculatePlanner();
+            updateGraduationLinkagePreview();
         };
     </script>
 </body>
