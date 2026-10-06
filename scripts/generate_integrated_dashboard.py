@@ -12,8 +12,6 @@ def generate_dashboard():
 
     data_json_str = json.dumps(full_data)
 
-
-
     html_template = """<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,6 +19,7 @@ def generate_dashboard():
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FishNET Reproductive & Colony Intelligence Dashboard (2024-2026)</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -151,7 +150,7 @@ def generate_dashboard():
         /* Stats Grid */
         .kpi-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 16px;
         }
         
@@ -206,7 +205,7 @@ def generate_dashboard():
         /* Navigation Tabs */
         .tabs-container {
             display: flex;
-            gap: 8px;
+            gap: 6px;
             border-bottom: 1px solid var(--border-color);
             padding-bottom: 4px;
             overflow-x: auto;
@@ -216,16 +215,16 @@ def generate_dashboard():
             background: transparent;
             border: none;
             color: var(--text-secondary);
-            padding: 12px 18px;
+            padding: 10px 14px;
             border-radius: var(--radius-sm);
             cursor: pointer;
-            font-size: 13.5px;
+            font-size: 13px;
             font-weight: 600;
             transition: all 0.2s ease;
             white-space: nowrap;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
         
         .tab-btn:hover {
@@ -402,6 +401,7 @@ def generate_dashboard():
         
         .badge-active { background: rgba(52, 211, 153, 0.15); color: #34d399; border: 1px solid rgba(52, 211, 153, 0.3); }
         .badge-euthanized { background: rgba(251, 113, 133, 0.15); color: #fb7185; border: 1px solid rgba(251, 113, 133, 0.3); }
+        .badge-larvae { background: rgba(192, 132, 252, 0.15); color: #c084fc; border: 1px solid rgba(192, 132, 252, 0.3); }
         
         .badge-ab { background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); }
         .badge-casper { background: rgba(192, 132, 252, 0.15); color: #c084fc; border: 1px solid rgba(192, 132, 252, 0.3); }
@@ -411,29 +411,78 @@ def generate_dashboard():
         .badge-female { background: rgba(244, 114, 182, 0.15); color: #f472b6; border: 1px solid rgba(244, 114, 182, 0.3); }
         .badge-male { background: rgba(96, 165, 250, 0.15); color: #60a5fa; border: 1px solid rgba(96, 165, 250, 0.3); }
         .badge-mixed { background: rgba(167, 139, 250, 0.15); color: #a78bfa; border: 1px solid rgba(167, 139, 250, 0.3); }
+
+        .badge-critical { background: rgba(244, 63, 94, 0.2); color: #fb7185; border: 1px solid rgba(244, 63, 94, 0.4); }
+        .badge-high { background: rgba(251, 146, 60, 0.2); color: #fb923c; border: 1px solid rgba(251, 146, 60, 0.4); }
+        .badge-medium { background: rgba(250, 204, 21, 0.2); color: #facc15; border: 1px solid rgba(250, 204, 21, 0.4); }
+        .badge-info { background: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); }
         
-        /* Planner Box */
-        .planner-card {
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
-            border: 1px solid var(--accent-indigo);
-            border-radius: var(--radius-lg);
-            padding: 24px;
+        /* Pedigree Subviews & Cards */
+        .ped-mode-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 7px 12px;
+            border-radius: var(--radius-sm);
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
         }
-        
-        .planner-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 20px;
-            margin-top: 16px;
+        .ped-mode-btn.active {
+            background: #0d9488;
+            color: #fff;
+            border-color: #0d9488;
         }
-        
-        .recommendation-box {
+        .ped-mode-btn:hover:not(.active) {
+            background: rgba(255,255,255,0.05);
+            color: #fff;
+        }
+
+        .line-tree-btn {
+            padding: 6px 12px;
+            border-radius: var(--radius-sm);
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1px solid var(--border-color);
+            background: #1e293b;
+            color: var(--text-secondary);
+            transition: all 0.2s ease;
+        }
+        .line-tree-btn.active {
+            background: #f59e0b;
+            color: #000;
+            border-color: #f59e0b;
+            font-weight: 700;
+        }
+
+        .ped-card {
             background: rgba(15, 23, 42, 0.7);
-            border: 1px solid var(--accent-emerald);
+            border: 1px solid var(--border-color);
             border-radius: var(--radius-md);
-            padding: 20px;
+            padding: 12px;
+            transition: all 0.2s ease;
+            position: relative;
         }
-        
+        .ped-card:hover {
+            border-color: var(--accent-blue);
+            transform: translateY(-2px);
+            background: rgba(30, 41, 59, 0.8);
+        }
+        .ped-card-hero {
+            background: linear-gradient(135deg, rgba(13, 148, 136, 0.2) 0%, rgba(15, 23, 42, 0.9) 100%);
+            border: 2px solid #14b8a6;
+            box-shadow: 0 0 20px rgba(20, 184, 166, 0.2);
+        }
+
+        #pedigree-network {
+            height: 520px;
+            background: #090d16;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+        }
+
         /* Modal */
         .modal-overlay {
             position: fixed;
@@ -449,16 +498,17 @@ def generate_dashboard():
             padding: 20px;
         }
         
-        .modal-box {
+        .modal-container {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-lg);
             width: 100%;
             max-width: 900px;
-            max-height: 85vh;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-card);
             display: flex;
             flex-direction: column;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
         }
         
         .modal-header {
@@ -469,9 +519,17 @@ def generate_dashboard():
             align-items: center;
         }
         
+        .modal-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
         .modal-body {
             padding: 24px;
-            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
         
         .close-btn {
@@ -481,6 +539,10 @@ def generate_dashboard():
             font-size: 20px;
             cursor: pointer;
         }
+        
+        .close-btn:hover {
+            color: var(--text-primary);
+        }
     </style>
 </head>
 <body>
@@ -488,14 +550,14 @@ def generate_dashboard():
     <!-- Header -->
     <header>
         <div class="header-title">
-            <h1>🐟 FishNET Reproductive & Colony Intelligence System</h1>
-            <p>Integrated Database: 2024–2026 Breeding Records, Single-Sex Reservoirs & Pedigree Architecture</p>
+            <h1><span>🐠</span> FishNET Facility Reproductive & Colony Intelligence System</h1>
+            <p>Unified Zebrafish Platform (2024–2026) | 183 Tanks • 2,233 Spawning Events • 1,252,045 Eggs • 72 Crosses • Full 5-Gen Pedigree</p>
         </div>
         <div class="header-controls">
-            <input type="file" id="fileUploadInput" accept=".tab,.tsv,.csv,.xlsx" style="display: none;" onchange="handleFileUpload(event)">
-            <button class="btn btn-outline" onclick="document.getElementById('fileUploadInput').click()">📁 Upload Updated File</button>
+            <input type="file" id="fileUploadInput" style="display: none;" accept=".csv,.xlsx,.tab" onchange="handleFileUpload(event)">
+            <button class="btn btn-outline" onclick="document.getElementById('fileUploadInput').click()">📁 Ingest Updated Data</button>
             <button class="btn btn-outline" onclick="exportBreedingJSON()">💾 Export JSON</button>
-            <button class="btn btn-emerald" onclick="exportBreedingCSV()">📥 Export Master 2024-2026 CSV</button>
+            <button class="btn btn-emerald" onclick="exportBreedingCSV()">📥 Export Master CSV</button>
         </div>
     </header>
 
@@ -526,11 +588,20 @@ def generate_dashboard():
             <span class="kpi-value">41 Tanks</span>
             <span class="kpi-subtext">21 ♀ Female-Only | 20 ♂ Male-Only</span>
         </div>
+        <div class="kpi-card kpi-purple">
+            <span class="kpi-label">Crosses & Alerts</span>
+            <span class="kpi-value" id="kpiCrossAlerts">72 / 120</span>
+            <span class="kpi-subtext">72 Crosses | 120 Active Alerts</span>
+        </div>
     </div>
 
     <!-- Navigation Tabs -->
     <div class="tabs-container">
         <button class="tab-btn active" onclick="switchTab('tab-benchmarks')">📊 4-Line Benchmarks</button>
+        <button class="tab-btn" onclick="switchTab('tab-pedigree')">🌳 Pedigree Explorer</button>
+        <button class="tab-btn" onclick="switchTab('tab-turnover')">⏳ Turnover & Colony Renewal</button>
+        <button class="tab-btn" onclick="switchTab('tab-crosses-reg')">🧬 Crosses & Nursery Registry</button>
+        <button class="tab-btn" onclick="switchTab('tab-alerts')">⚠️ Colony Alerts (<span id="tabBadgeAlerts">120</span>)</button>
         <button class="tab-btn" onclick="switchTab('tab-crosses')">🧬 Cross-Pairing Synergies (Sire x Dam)</button>
         <button class="tab-btn" onclick="switchTab('tab-trends')">📈 Longitudinal Trends (2024-2026)</button>
         <button class="tab-btn" onclick="switchTab('tab-age-curves')">🔬 Parental Age vs. Fecundity</button>
@@ -599,7 +670,316 @@ def generate_dashboard():
         </div>
     </div>
 
-    <!-- TAB 2: Cross-Pairing Synergies -->
+    <!-- TAB 2: PEDIGREE EXPLORER -->
+    <div id="tab-pedigree" class="tab-content">
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <span class="card-title">🌳 Colony Lineage & 5-Generation Pedigree Architecture</span>
+                    <span style="font-size: 12px; color: var(--text-secondary);">4 Viewing Modes: 3-Gen Interactive Family Tree, 4-Line Trees, Collapsible Hierarchy Table, and Global Network Map</span>
+                </div>
+                <div class="card-header-actions" style="background: rgba(15,23,42,0.6); padding: 4px; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+                    <button onclick="switchPedigreeMode('focal')" id="ped-btn-focal" class="ped-mode-btn active">🎯 3-Gen Family Tree</button>
+                    <button onclick="switchPedigreeMode('lines')" id="ped-btn-lines" class="ped-mode-btn">🌿 Line Trees (4 Lines)</button>
+                    <button onclick="switchPedigreeMode('table')" id="ped-btn-table" class="ped-mode-btn">📑 Collapsible Table</button>
+                    <button onclick="switchPedigreeMode('network')" id="ped-btn-network" class="ped-mode-btn">🕸️ Global Network Map</button>
+                </div>
+            </div>
+
+            <!-- SUB-VIEW 1: FOCAL 3-GEN FAMILY TREE -->
+            <div id="ped-subview-focal" class="ped-subview">
+                <div class="filter-bar" style="margin-bottom: 16px;">
+                    <div class="filter-group">
+                        <span class="filter-label">Focal Tank:</span>
+                        <select id="focalTankSelect" onchange="changeFocalTank(this.value)">
+                            <!-- Populated dynamically -->
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <input type="text" id="focalSearchInput" placeholder="Search Tank (e.g. T0135)..." style="width: 180px;">
+                        <button class="btn btn-sm btn-emerald" onclick="searchAndFocusTank()">Focus</button>
+                    </div>
+                    <div class="filter-group" style="margin-left: auto;">
+                        <button class="btn btn-sm btn-outline" onclick="copyLineageTrail()">📋 Copy Path</button>
+                    </div>
+                </div>
+
+                <div id="focalBreadcrumbTrail" style="background: rgba(15,23,42,0.8); padding: 10px 14px; border-radius: var(--radius-sm); font-family: monospace; font-size: 12px; margin-bottom: 16px; border: 1px solid var(--border-color);">
+                    <!-- Breadcrumbs -->
+                </div>
+
+                <!-- 5 Columns Tree -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px;">
+                    <!-- Col 1: Grandparents -->
+                    <div style="background: rgba(15,23,42,0.4); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 12px;">
+                        <div style="font-size: 11px; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 10px; border-bottom: 1px solid var(--border-color); padding-bottom: 4px;">
+                            👴👵 Grandparents (2-Gen)
+                        </div>
+                        <div id="treeColGrandparents" style="display: flex; flex-direction: column; gap: 8px;"></div>
+                    </div>
+
+                    <!-- Col 2: Parents -->
+                    <div style="background: rgba(15,23,42,0.4); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 12px;">
+                        <div style="font-size: 11px; font-weight: 700; color: var(--accent-blue); text-transform: uppercase; margin-bottom: 10px; border-bottom: 1px solid var(--border-color); padding-bottom: 4px;">
+                            👨👩 Parents (Sire x Dam)
+                        </div>
+                        <div id="treeColParents" style="display: flex; flex-direction: column; gap: 8px;"></div>
+                    </div>
+
+                    <!-- Col 3: Focal Tank -->
+                    <div style="background: rgba(13, 148, 136, 0.15); border: 2px solid #14b8a6; border-radius: var(--radius-md); padding: 12px;">
+                        <div style="font-size: 11px; font-weight: 700; color: #2dd4bf; text-transform: uppercase; margin-bottom: 10px; border-bottom: 1px solid rgba(20, 184, 166, 0.4); padding-bottom: 4px; display: flex; justify-content: space-between;">
+                            <span>🎯 Target Focal Tank</span>
+                            <span id="focalHeroGenBadge" class="badge badge-active">Gen</span>
+                        </div>
+                        <div id="treeColFocal"></div>
+                    </div>
+
+                    <!-- Col 4: Offspring -->
+                    <div style="background: rgba(15,23,42,0.4); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 12px;">
+                        <div style="font-size: 11px; font-weight: 700; color: var(--accent-emerald); text-transform: uppercase; margin-bottom: 10px; border-bottom: 1px solid var(--border-color); padding-bottom: 4px; display: flex; justify-content: space-between;">
+                            <span>👶 Offspring (F1)</span>
+                            <span id="treeOffspringCountBadge" style="color: var(--accent-emerald); font-size: 11px;">0 Tanks</span>
+                        </div>
+                        <div id="treeColOffspring" style="display: flex; flex-direction: column; gap: 8px; max-height: 400px; overflow-y: auto;"></div>
+                    </div>
+
+                    <!-- Col 5: Grandchildren -->
+                    <div style="background: rgba(15,23,42,0.4); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 12px;">
+                        <div style="font-size: 11px; font-weight: 700; color: var(--accent-purple); text-transform: uppercase; margin-bottom: 10px; border-bottom: 1px solid var(--border-color); padding-bottom: 4px; display: flex; justify-content: space-between;">
+                            <span>🌱 Grandchildren (F2)</span>
+                            <span id="treeGrandchildrenCountBadge" style="color: var(--accent-purple); font-size: 11px;">0 Tanks</span>
+                        </div>
+                        <div id="treeColGrandchildren" style="display: flex; flex-direction: column; gap: 8px; max-height: 400px; overflow-y: auto;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUB-VIEW 2: LINE TREES -->
+            <div id="ped-subview-lines" class="ped-subview" style="display: none;">
+                <div class="filter-bar" style="margin-bottom: 16px;">
+                    <div class="filter-group">
+                        <button onclick="selectLineTree('AB')" id="line-tree-btn-AB" class="line-tree-btn active">🟡 AB Lineage Tree (<span id="lineTreeCountAB">0</span>)</button>
+                        <button onclick="selectLineTree('Casper')" id="line-tree-btn-Casper" class="line-tree-btn">🔵 Casper Lineage Tree (<span id="lineTreeCountCasper">0</span>)</button>
+                        <button onclick="selectLineTree('Fli')" id="line-tree-btn-Fli" class="line-tree-btn">🟢 Fli Lineage Tree (<span id="lineTreeCountFli">0</span>)</button>
+                        <button onclick="selectLineTree('Gata')" id="line-tree-btn-Gata" class="line-tree-btn">🟣 Gata Lineage Tree (<span id="lineTreeCountGata">0</span>)</button>
+                    </div>
+                </div>
+                <div id="lineTreeTiersContainer" style="display: flex; flex-direction: column; gap: 16px;">
+                    <!-- Line Tree Tiers -->
+                </div>
+            </div>
+
+            <!-- SUB-VIEW 3: COLLAPSIBLE TABLE -->
+            <div id="ped-subview-table" class="ped-subview" style="display: none;">
+                <div class="filter-bar" style="margin-bottom: 16px;">
+                    <div class="filter-group">
+                        <input type="text" id="treeTableSearchInput" onkeyup="filterTreeTable()" placeholder="Search Tank, Line, Parents..." style="width: 220px;">
+                    </div>
+                    <div class="filter-group">
+                        <select id="treeTableLineFilter" onchange="filterTreeTable()">
+                            <option value="ALL">All Lines</option>
+                            <option value="AB">AB</option>
+                            <option value="Casper">Casper</option>
+                            <option value="Fli">Fli</option>
+                            <option value="Gata">Gata</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <select id="treeTableStatusFilter" onchange="filterTreeTable()">
+                            <option value="ALL">All Statuses</option>
+                            <option value="ACTIVE" selected>Active / Adult Only</option>
+                            <option value="EUTH">Euthanized Only</option>
+                        </select>
+                    </div>
+                    <div class="filter-group" style="margin-left: auto;">
+                        <button class="btn btn-sm btn-outline" onclick="exportTreeTableCSV()">📥 Export Table CSV</button>
+                    </div>
+                </div>
+                <div class="table-responsive" style="max-height: 550px; overflow-y: auto;">
+                    <table id="pedigreeTreeTable">
+                        <thead>
+                            <tr>
+                                <th>Tank ID & Line</th>
+                                <th>Generation</th>
+                                <th>Status</th>
+                                <th>Fish (F/M/Total)</th>
+                                <th>Inbreeding (F)</th>
+                                <th>Sire × Dam</th>
+                                <th>Offspring</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="pedigreeTreeTableBody">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- SUB-VIEW 4: GLOBAL NETWORK MAP -->
+            <div id="ped-subview-network" class="ped-subview" style="display: none;">
+                <div class="filter-bar" style="margin-bottom: 16px;">
+                    <div class="filter-group">
+                        <input type="text" id="pedigreeSearch" placeholder="Search Tank (e.g. T0135)..." style="width: 200px;">
+                        <button class="btn btn-sm btn-emerald" onclick="searchPedigreeNode()">Locate</button>
+                    </div>
+                    <div class="filter-group">
+                        <select id="lineFilter" onchange="filterPedigreeByLine()">
+                            <option value="ALL">All 4 Lines</option>
+                            <option value="AB">AB Lineage</option>
+                            <option value="Casper">Casper Lineage</option>
+                            <option value="Fli">Fli Lineage</option>
+                            <option value="Gata">Gata Lineage</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <button class="btn btn-sm btn-outline" onclick="resetPedigreeView()">Reset View</button>
+                    </div>
+                </div>
+                <div id="pedigree-network"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 3: TURNOVER & COLONY RENEWAL -->
+    <div id="tab-turnover" class="tab-content">
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <span class="card-title">⏳ Colony Turnover Schedule & 2-Year Lifespan Renewal Plan</span>
+                    <span style="font-size: 12px; color: var(--text-secondary);">Zebrafish facility compliance: 540–730 days post-DOB lifecycle management</span>
+                </div>
+                <div class="card-header-actions">
+                    <button class="btn btn-sm btn-outline" onclick="exportTableToCSV('turnoverTable', 'colony_turnover_schedule')">📥 Export Schedule (CSV)</button>
+                </div>
+            </div>
+            <div class="filter-bar" style="margin-bottom: 16px;">
+                <div class="filter-group">
+                    <span class="filter-label">Turnover Urgency:</span>
+                    <select id="turnoverFilter" onchange="renderTurnoverTable()">
+                        <option value="ALL">All Active Tanks (117)</option>
+                        <option value="OVERDUE">🚨 Overdue Only (>2 Years)</option>
+                        <option value="SOON">⚠️ Due Soon (<=30 Days)</option>
+                        <option value="UPCOMING">Upcoming (31–90 Days)</option>
+                        <option value="FUTURE">Future (>90 Days)</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <span class="filter-label">Line:</span>
+                    <select id="turnoverLineFilter" onchange="renderTurnoverTable()">
+                        <option value="ALL">All Lines</option>
+                        <option value="AB">AB</option>
+                        <option value="Casper">Casper</option>
+                        <option value="Fli">Fli</option>
+                        <option value="Gata">Gata</option>
+                    </select>
+                </div>
+            </div>
+            <div class="table-responsive" style="max-height: 600px; overflow-y: auto;">
+                <table id="turnoverTable">
+                    <thead>
+                        <tr>
+                            <th>TUID</th>
+                            <th>Status</th>
+                            <th>Line</th>
+                            <th>Sex (F/M/Tot)</th>
+                            <th>DOB</th>
+                            <th>Turnover Deadline</th>
+                            <th>Days Remaining</th>
+                            <th>Urgency</th>
+                            <th>Recommended Colony Action</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="turnoverTableBody">
+                        <!-- Populated dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 4: CROSSES & NURSERY PIPELINE -->
+    <div id="tab-crosses-reg" class="tab-content">
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <span class="card-title">🧬 72 Facility Crosses & Nursery Pipeline Registry</span>
+                    <span style="font-size: 12px; color: var(--text-secondary);">Direct mapping from parental cross (Dam x Sire) to nursery clutch (NUID) and graduated tank offspring</span>
+                </div>
+                <div class="card-header-actions">
+                    <button class="btn btn-sm btn-outline" onclick="exportTableToCSV('crossesRegistryTable', 'fishnet_crosses_nursery_registry')">📥 Export Crosses (CSV)</button>
+                </div>
+            </div>
+            <div class="filter-bar" style="margin-bottom: 16px;">
+                <div class="filter-group">
+                    <input type="text" id="crossRegSearch" placeholder="Search Cross (e.g. C0045, T0086)..." oninput="renderCrossesRegistry()" style="width: 240px;">
+                </div>
+            </div>
+            <div class="table-responsive" style="max-height: 600px; overflow-y: auto;">
+                <table id="crossesRegistryTable">
+                    <thead>
+                        <tr>
+                            <th>Cross ID</th>
+                            <th>Mating Date</th>
+                            <th>Dam (♀ Female Tank)</th>
+                            <th>Sire (♂ Male Tank)</th>
+                            <th>Line Combination</th>
+                            <th>Linked Nursery Clutches</th>
+                            <th>Nursery Fish Yield</th>
+                            <th>Graduation Date</th>
+                            <th>Resulting Offspring Tanks</th>
+                        </tr>
+                    </thead>
+                    <tbody id="crossesRegistryTableBody">
+                        <!-- Populated dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 5: COLONY ALERTS & COMPLIANCE -->
+    <div id="tab-alerts" class="tab-content">
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <span class="card-title">⚠️ Active Colony Risk, Turnover & Genetic Compliance Alerts</span>
+                    <span style="font-size: 12px; color: var(--text-secondary);">Automated monitoring for overdue lifecycles, elevated inbreeding (F >= 0.25), and depleted single-sex reservoirs</span>
+                </div>
+                <div class="card-header-actions">
+                    <button class="btn btn-sm btn-outline" onclick="exportTableToCSV('alertsTable', 'active_colony_alerts')">📥 Export Alerts (CSV)</button>
+                </div>
+            </div>
+            <div class="filter-bar" style="margin-bottom: 16px;">
+                <div class="filter-group">
+                    <span class="filter-label">Severity:</span>
+                    <select id="alertSeverityFilter" onchange="renderColonyAlerts()">
+                        <option value="ALL">All Severities</option>
+                        <option value="CRITICAL">🔴 Critical Only</option>
+                        <option value="HIGH">🟠 High Only</option>
+                        <option value="MEDIUM">🟡 Medium Only</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <span class="filter-label">Category:</span>
+                    <select id="alertCategoryFilter" onchange="renderColonyAlerts()">
+                        <option value="ALL">All Categories</option>
+                        <option value="Turnover Overdue">Turnover Overdue</option>
+                        <option value="Turnover Due Soon">Turnover Due Soon</option>
+                        <option value="Elevated Inbreeding">Elevated Inbreeding (F >= 0.25)</option>
+                        <option value="Low Biomass Reservoir">Low Biomass Reservoir</option>
+                    </select>
+                </div>
+            </div>
+            <div id="alertsFeedContainer" style="display: flex; flex-direction: column; gap: 12px;">
+                <!-- Populated dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB 6: Cross-Pairing Synergies -->
     <div id="tab-crosses" class="tab-content">
         <div class="card">
             <div class="card-header">
@@ -633,7 +1013,7 @@ def generate_dashboard():
         </div>
     </div>
 
-    <!-- TAB 3: Longitudinal Trends -->
+    <!-- TAB 7: Longitudinal Trends -->
     <div id="tab-trends" class="tab-content">
         <div class="card">
             <div class="card-header">
@@ -665,7 +1045,7 @@ def generate_dashboard():
         </div>
     </div>
 
-    <!-- TAB 4: Parental Age vs Fecundity Curves -->
+    <!-- TAB 8: Parental Age vs Fecundity Curves -->
     <div id="tab-age-curves" class="tab-content">
         <div class="card">
             <div class="card-header">
@@ -705,7 +1085,7 @@ def generate_dashboard():
         </div>
     </div>
 
-    <!-- TAB 5: Breeder Scorecards -->
+    <!-- TAB 9: Breeder Scorecards -->
     <div id="tab-scorecards" class="tab-content">
         <div class="card">
             <div class="card-header">
@@ -777,7 +1157,7 @@ def generate_dashboard():
         </div>
     </div>
 
-    <!-- TAB 6: Inventory & Sex Structure -->
+    <!-- TAB 10: Inventory & Sex Structure -->
     <div id="tab-inventory" class="tab-content">
         <div class="card">
             <div class="card-header">
@@ -789,14 +1169,6 @@ def generate_dashboard():
                     <button class="btn btn-sm btn-outline" onclick="exportTableToCSV('inventoryTable', 'fishnet_tank_inventory_sex_structure')">📥 Export Table (CSV)</button>
                 </div>
             </div>
-            <div class="filter-bar" style="margin-bottom: 16px;">
-                <div class="filter-group">
-                    <span class="filter-label">Line:</span>
-                    <select id="invLineFilter" onchange="renderInventory()">
-                        <option value="ALL">All Lines</option>
-                        <option value="AB">AB</option>
-                        <option value="Casper">Casper</option>
-                        <option value="Fli">Fli</option>
             <div class="filter-bar" style="margin-bottom: 16px;">
                 <div class="filter-group">
                     <span class="filter-label">Line:</span>
@@ -865,7 +1237,7 @@ def generate_dashboard():
         </div>
     </div>
 
-    <!-- TAB 7: Data Audit & Sex Consistency -->
+    <!-- TAB 11: Data Audit & Sex Consistency -->
     <div id="tab-audit" class="tab-content">
         <div class="card">
             <div class="card-header">
@@ -879,7 +1251,7 @@ def generate_dashboard():
                 </div>
             </div>
 
-            <h4 style="font-size: 14px; margin-bottom: 12px; color: var(--accent-blue);">1. Single-Sex Reservoir Tanks (40 Tanks: 20 Female-Only, 20 Male-Only)</h4>
+            <h4 style="font-size: 14px; margin-bottom: 12px; color: var(--accent-blue);">1. Single-Sex Reservoir Tanks (41 Tanks: 21 Female-Only, 20 Male-Only)</h4>
             <div class="table-responsive" style="margin-bottom: 24px;">
                 <table id="auditReservoirTable">
                     <thead>
@@ -935,240 +1307,53 @@ def generate_dashboard():
                             <td>Flagged database registration error in FishNET; females were verified physically in log.</td>
                             <td><span class="badge badge-gata">Flagged</span></td>
                         </tr>
-                        <tr>
-                            <td><strong>Multi-Date (2026)</strong></td>
-                            <td><code>ABT106xABT93, ABT76xABT130, ABT95xABT130</code></td>
-                            <td>Lack of space before 'T' caused basic regex to miss female reservoir tanks.</td>
-                            <td>Enhanced regex parser now correctly extracts and links both Dam (F) and Sire (M).</td>
-                            <td><span class="badge badge-active">Resolved</span></td>
-                        </tr>
-                        <tr>
-                            <td><strong>2026-04-23</strong></td>
-                            <td><code>A13 T93xABT95</code></td>
-                            <td>OCR artifact ('A13' instead of 'AB').</td>
-                            <td>Normalized to <strong>AB T0093 (M) x AB T0095 (F)</strong>.</td>
-                            <td><span class="badge badge-active">Resolved</span></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <h4 style="font-size: 14px; margin-top: 24px; margin-bottom: 12px; color: var(--accent-emerald);">3. Tri-Database Validation Audit (Tanks &harr; Crosses &harr; Nursery Reconciliation)</h4>
-            <div class="table-responsive">
-                <table id="auditDobCrossTable">
-                    <thead>
-                        <tr>
-                            <th>Tank ID</th>
-                            <th>Line</th>
-                            <th>Raw DOB</th>
-                            <th>Derivative Cross</th>
-                            <th>Linked Nursery (NUID)</th>
-                            <th>Cross &amp; Nursery Mating Date</th>
-                            <th>Validated Biological DOB</th>
-                            <th>Spawning History</th>
-                            <th>Original vs. Resolved Status</th>
-                            <th>Biological Rationale &amp; 3-Way Reconciliation</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>T0122</strong></td>
-                            <td><span class="badge badge-casper">Casper</span></td>
-                            <td><code>02-11-26</code></td>
-                            <td><code style="color: var(--accent-indigo);">C0045</code></td>
-                            <td><span class="badge" style="background: rgba(192,132,252,0.2); color: #c084fc;">N0042</span> (3 fish)</td>
-                            <td><code>11-02-2026</code></td>
-                            <td><strong>11-02-2026</strong></td>
-                            <td>6 Spawns (Jun–Jul 2026)</td>
-                            <td><span class="badge badge-casper">Larvae</span> &rarr; <span class="badge badge-active">Active Adult</span></td>
-                            <td>Raw DOB (02-11-26) was US MM-DD-YY. 100% matched to Cross C0045 &amp; Nursery N0042 (11 Feb 2026). Fish actively spawned at 4–5 months; graduated to Active.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>T0124</strong></td>
-                            <td><span class="badge badge-casper">Casper</span></td>
-                            <td><code>02-12-26</code></td>
-                            <td><code style="color: var(--accent-indigo);">C0047</code></td>
-                            <td><span class="badge" style="background: rgba(192,132,252,0.2); color: #c084fc;">N0044</span> (2 fish)</td>
-                            <td><code>03-05-2026</code></td>
-                            <td><strong>03-05-2026</strong></td>
-                            <td>6 Spawns (Jun–Jul 2026)</td>
-                            <td><span class="badge badge-casper">Larvae</span> &rarr; <span class="badge badge-active">Active Adult</span></td>
-                            <td>Grounded to Cross C0047 &amp; Nursery N0044 (3 May 2026). Reached maturity and spawned in June/July 2026; graduated to Active.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>T0125</strong></td>
-                            <td><span class="badge badge-casper">Casper</span></td>
-                            <td><code>02-11-26</code></td>
-                            <td><code style="color: var(--accent-indigo);">C0048</code></td>
-                            <td><span class="badge" style="background: rgba(192,132,252,0.2); color: #c084fc;">N0045</span> (18 fish)</td>
-                            <td><code>11-02-2026</code></td>
-                            <td><strong>11-02-2026</strong></td>
-                            <td>2 Spawns (Jun–Jul 2026)</td>
-                            <td><span class="badge badge-casper">Larvae</span> &rarr; <span class="badge badge-active">Active Adult</span></td>
-                            <td>Raw DOB (02-11-26) was US MM-DD-YY. Grounded to Cross C0048 &amp; Nursery N0045 (11 Feb 2026). Actively spawned; graduated to Active.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>T0126</strong></td>
-                            <td><span class="badge badge-casper">Casper</span></td>
-                            <td><code>02-11-26</code></td>
-                            <td><code style="color: var(--accent-indigo);">C0049</code></td>
-                            <td><span class="badge" style="background: rgba(192,132,252,0.2); color: #c084fc;">N0046</span> (15 fish)</td>
-                            <td><code>11-02-2026</code></td>
-                            <td><strong>11-02-2026</strong></td>
-                            <td>2 Spawns (Jun–Jul 2026)</td>
-                            <td><span class="badge badge-casper">Larvae</span> &rarr; <span class="badge badge-active">Active Adult</span></td>
-                            <td>Raw DOB (02-11-26) was US MM-DD-YY. Grounded to Cross C0049 &amp; Nursery N0046 (11 Feb 2026). Actively spawned; graduated to Active.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>T0131</strong></td>
-                            <td><span class="badge badge-casper">Casper</span></td>
-                            <td><code>02-11-26</code></td>
-                            <td><code style="color: var(--accent-indigo);">C0051</code></td>
-                            <td><span class="badge" style="background: rgba(192,132,252,0.2); color: #c084fc;">N0048</span> (10 fish)</td>
-                            <td><code>11-02-2026</code></td>
-                            <td><strong>11-02-2026</strong></td>
-                            <td>2 Spawns (Jun–Jul 2026)</td>
-                            <td><span class="badge badge-casper">Larvae</span> &rarr; <span class="badge badge-active">Active Adult</span></td>
-                            <td>Raw DOB (02-11-26) was US MM-DD-YY. Grounded to Cross C0051 &amp; Nursery N0048 (11 Feb 2026). Actively spawned; graduated to Active.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>T0166 / T0167</strong></td>
-                            <td><span class="badge badge-ab">AB</span></td>
-                            <td><code>05-12-26</code></td>
-                            <td><code style="color: var(--accent-indigo);">C0065</code></td>
-                            <td><span class="badge" style="background: rgba(192,132,252,0.2); color: #c084fc;">N0062</span> (32 fish total)</td>
-                            <td><code>12-May-26</code></td>
-                            <td><strong>12-05-2026</strong></td>
-                            <td>0 Spawns (Holdings)</td>
-                            <td><span class="badge badge-casper">Larvae</span> &rarr; <span class="badge badge-active">Active Adult</span></td>
-                            <td>Raw DOB (05-12-26) was US MM-DD-YY. Grounded to Cross C0065 &amp; Nursery N0062 (12 May 2026). 32 fish split across T0166 (16) and T0167 (16); fish are ~5 months old.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>T0168–T0170</strong></td>
-                            <td><span class="badge badge-ab">AB</span></td>
-                            <td><code>05-12-26</code></td>
-                            <td><code style="color: var(--accent-indigo);">-</code></td>
-                            <td><code style="color: var(--text-secondary);">-</code></td>
-                            <td><code>12-May-26</code></td>
-                            <td><strong>12-05-2026</strong></td>
-                            <td>0 Spawns (Holdings)</td>
-                            <td><span class="badge badge-casper">Larvae</span> &rarr; <span class="badge badge-active">Active Adult</span></td>
-                            <td>Same cohort as T0166/T0167. Resolved to 12 May 2026 (~5 months old); graduated from nursery label.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>T0182 / T0183</strong></td>
-                            <td><span class="badge badge-ab">AB</span></td>
-                            <td><code>10-08-26</code></td>
-                            <td><code style="color: var(--accent-indigo);">C0072</code></td>
-                            <td><span class="badge" style="background: rgba(192,132,252,0.2); color: #c084fc;">N0068</span> (42 fish total)</td>
-                            <td><code>10-Aug-26</code></td>
-                            <td><strong>10-08-2026</strong></td>
-                            <td>0 Spawns (Juveniles)</td>
-                            <td><span class="badge badge-active">Active</span></td>
-                            <td>Grounded to Cross C0072 &amp; Nursery N0068 (10 Aug 2026, graduated 10/09/2026). 42 fish split across T0182 (21) &amp; T0183 (21).</td>
-                        </tr>
-                        <tr>
-                            <td><strong>T0108</strong></td>
-                            <td><span class="badge badge-casper">Casper</span></td>
-                            <td><code>07-03-25</code></td>
-                            <td><code style="color: var(--accent-indigo);">C0035</code></td>
-                            <td><span class="badge" style="background: rgba(192,132,252,0.2); color: #c084fc;">N0030</span> (3 fish)</td>
-                            <td><code>03-07-2025</code></td>
-                            <td><strong>03-07-2025</strong></td>
-                            <td>8 Spawns (Feb–Jul 2026)</td>
-                            <td><span class="badge badge-active">Active</span></td>
-                            <td>Disambiguated 07-03-25 (US MM-DD-YY) via Cross C0035 &amp; Nursery N0030 (3 July 2025). Age calculation corrected.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>T0117</strong></td>
-                            <td><span class="badge badge-ab">AB</span></td>
-                            <td><code>09-04-25</code></td>
-                            <td><code style="color: var(--accent-indigo);">C0041</code></td>
-                            <td><span class="badge" style="background: rgba(192,132,252,0.2); color: #c084fc;">N0037</span> (7 fish)</td>
-                            <td><code>04-09-2025</code></td>
-                            <td><strong>04-09-2025</strong></td>
-                            <td>5 Spawns (Apr–Jun 2026)</td>
-                            <td><span class="badge badge-active">Active</span></td>
-                            <td>Disambiguated 09-04-25 via Cross C0041 &amp; Nursery N0037 (4 September 2025). Age calculation corrected.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>T0121</strong></td>
-                            <td><span class="badge badge-casper">Casper</span></td>
-                            <td><code>07-03-25</code></td>
-                            <td><code style="color: var(--accent-indigo);">C0044</code></td>
-                            <td><span class="badge" style="background: rgba(192,132,252,0.2); color: #c084fc;">N0041</span> (15 fish)</td>
-                            <td><code>03-07-2025</code></td>
-                            <td><strong>03-07-2025</strong></td>
-                            <td>4 Spawns (May–Jul 2026)</td>
-                            <td><span class="badge badge-active">Active</span></td>
-                            <td>Disambiguated 07-03-25 via Cross C0044 &amp; Nursery N0041 (3 July 2025). Age calculation corrected.</td>
-                        </tr>
-                        <tr>
-                            <td><strong>T0177</strong></td>
-                            <td><span class="badge badge-ab">AB</span></td>
-                            <td><code>04-07-26</code></td>
-                            <td><code style="color: var(--accent-indigo);">C0071</code></td>
-                            <td><span class="badge" style="background: rgba(192,132,252,0.2); color: #c084fc;">N0067</span> (11 fish)</td>
-                            <td><code>07-Apr-26</code></td>
-                            <td><strong>07-04-2026</strong></td>
-                            <td>0 Spawns</td>
-                            <td><span class="badge badge-active">Active</span></td>
-                            <td>Disambiguated 04-07-26 via Cross C0071 &amp; Nursery N0067 (7 April 2026). Age calculation corrected.</td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 
-    <!-- TAB 8: Intelligent Mating Planner -->
+    <!-- TAB 12: Intelligent Mating Planner -->
     <div id="tab-planner" class="tab-content">
-        <div class="planner-card">
-            <h3 style="font-size: 18px; color: var(--accent-blue); margin-bottom: 8px;">🎯 Intelligent Zebrafish Mating Planner & Yield Predictor</h3>
-            <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 20px;">
-                Calculates required mating setups, automatically matching Single-Sex Dam/Sire tanks or Mixed Colonies based on historical cross synergy.
-            </p>
-            <div class="planner-grid">
-                <div style="display: flex; flex-direction: column; gap: 14px;">
-                    <div>
-                        <label style="font-size: 12px; font-weight: 600; color: var(--text-secondary); display: block; margin-bottom: 6px;">Target Fish Line:</label>
-                        <select id="plannerLine" style="width: 100%;" onchange="calculatePlanner()">
-                            <option value="AB">AB (Standard Wildtype)</option>
-                            <option value="Casper">Casper (Transparent)</option>
-                            <option value="Fli">Fli (fli1a:EGFP Vascular Reporter)</option>
-                            <option value="Gata">Gata (gata1a:DsRed Erythroid Reporter)</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label style="font-size: 12px; font-weight: 600; color: var(--text-secondary); display: block; margin-bottom: 6px;">Desired Viable Embryos (at 24hpf):</label>
-                        <input type="number" id="plannerTargetEmbryos" value="1000" min="50" step="50" style="width: 100%;" oninput="calculatePlanner()">
-                    </div>
-                    <div>
-                        <label style="font-size: 12px; font-weight: 600; color: var(--text-secondary); display: block; margin-bottom: 6px;">Mating Strategy:</label>
-                        <select id="plannerStrategy" style="width: 100%;" onchange="calculatePlanner()">
-                            <option value="cross">Pair-Wise Cross Mating (Female Reservoir ♀ x Male Sire ♂)</option>
-                            <option value="in_tank">In-Tank Group Spawning (Mixed Colony ⚤)</option>
-                        </select>
-                    </div>
+        <div class="card planner-card">
+            <div class="card-header">
+                <div>
+                    <span class="card-title">🎯 Intelligent Spawning Recommendation & Cross-Planner</span>
+                    <span style="font-size: 12px; color: var(--text-secondary);">Algorithm recommending high-synergy parental combinations based on empirical survival data</span>
                 </div>
-                <div class="recommendation-box" id="plannerResultBox">
-                    <!-- Populated by JS -->
+            </div>
+            <div class="filter-bar">
+                <div class="filter-group">
+                    <span class="filter-label">Target Line:</span>
+                    <select id="planLine" onchange="calculatePlanner()">
+                        <option value="AB">AB Line</option>
+                        <option value="Casper">Casper Line</option>
+                        <option value="Fli">Fli Line</option>
+                        <option value="Gata">Gata Line</option>
+                    </select>
                 </div>
+                <div class="filter-group">
+                    <span class="filter-label">Target Viable Yield:</span>
+                    <input type="number" id="planEmbryoTarget" value="1000" min="100" max="10000" step="100" oninput="calculatePlanner()">
+                </div>
+            </div>
+            
+            <div id="plannerResultBox" class="planner-grid">
+                <!-- Populated by JS -->
             </div>
         </div>
     </div>
 
-    <!-- TAB 9: Raw Breeding Events -->
+    <!-- TAB 13: Master Breeding Log -->
     <div id="tab-raw-events" class="tab-content">
         <div class="card">
             <div class="card-header">
                 <div>
-                    <span class="card-title">📋 Master Zebrafish Breeding Dataset (2,233 Events across 2024 - 2026)</span>
-                    <span style="font-size: 12px; color: var(--text-secondary);">Filtered search and pagination for all transcribed events</span>
+                    <span class="card-title">📋 Grand Master Spawning Event Log (2,233 Events, 2024-2026)</span>
+                    <span style="font-size: 12px; color: var(--text-secondary);">Full individual spawning log history</span>
                 </div>
                 <div class="card-header-actions">
-                    <button class="btn btn-sm btn-outline" onclick="exportTableToCSV('rawEventsTable', 'master_breeding_log_filtered')">📥 Export Filtered View (CSV)</button>
-                    <button class="btn btn-sm btn-emerald" onclick="exportBreedingCSV()">📥 Export All 2,233 Rows (CSV)</button>
+                    <button class="btn btn-sm btn-outline" onclick="exportTableToCSV('rawEventsTable', 'grand_master_breeding_events_2024_2026')">📥 Export Full Log (CSV)</button>
                 </div>
             </div>
             <div class="filter-bar" style="margin-bottom: 16px;">
@@ -1176,9 +1361,9 @@ def generate_dashboard():
                     <span class="filter-label">Year:</span>
                     <select id="rawYearFilter" onchange="renderRawEvents()">
                         <option value="ALL">All Years (2024-2026)</option>
-                        <option value="2026">2026 Only</option>
-                        <option value="2025">2025 Only</option>
-                        <option value="2024">2024 Only</option>
+                        <option value="2026">2026 (544 events)</option>
+                        <option value="2025">2025 (1,229 events)</option>
+                        <option value="2024">2024 (460 events)</option>
                     </select>
                 </div>
                 <div class="filter-group">
@@ -1192,23 +1377,23 @@ def generate_dashboard():
                     </select>
                 </div>
                 <div class="filter-group">
-                    <input type="text" id="rawSearch" placeholder="Search Date, Line, or Tank..." oninput="renderRawEvents()">
+                    <input type="text" id="rawSearch" placeholder="Search Tank, Date, Staff, Cross..." oninput="renderRawEvents()">
                 </div>
             </div>
-            <div class="table-responsive">
+            
+            <div class="table-responsive" style="max-height: 600px; overflow-y: auto;">
                 <table id="rawEventsTable">
                     <thead>
                         <tr>
                             <th>Date</th>
                             <th>Line</th>
-                            <th>Parents / Tanks</th>
-                            <th>In-Tank</th>
-                            <th>Eggs (0H)</th>
-                            <th>SR (0H)</th>
-                            <th>Live (0H)</th>
-                            <th>SR (24H)</th>
-                            <th>Viable (24H)</th>
-                            <th>Staff (Setup / 0H / 24H)</th>
+                            <th>Mating Type</th>
+                            <th>Tanks Involved</th>
+                            <th>Eggs (0hpf)</th>
+                            <th>0hpf SR (%)</th>
+                            <th>24hpf SR (%)</th>
+                            <th>Viable Embryos (24h)</th>
+                            <th>Staff</th>
                         </tr>
                     </thead>
                     <tbody id="rawEventsTableBody">
@@ -1216,86 +1401,63 @@ def generate_dashboard():
                     </tbody>
                 </table>
             </div>
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 14px; font-size: 13px; color: var(--text-secondary);">
-                <span id="rawEventsCount">Showing 100 of 2,233 events</span>
-                <div style="display: flex; gap: 8px;">
-                    <button class="btn btn-outline btn-sm" onclick="prevRawPage()">◀ Previous</button>
-                    <button class="btn btn-outline btn-sm" onclick="nextRawPage()">Next ▶</button>
-                </div>
-            </div>
         </div>
     </div>
 
-    <!-- Modal for Tank Breeding History -->
+    <!-- Tank Performance Modal -->
     <div id="tankModal" class="modal-overlay" onclick="closeModal(event)">
-        <div class="modal-box" onclick="event.stopPropagation()">
+        <div class="modal-container" onclick="event.stopPropagation()">
             <div class="modal-header">
-                <h3 id="modalTitle" style="color: var(--accent-blue);">Tank Details</h3>
-                <div style="display: flex; gap: 8px; align-items: center;">
-                    <button class="btn btn-sm btn-outline" onclick="exportTableToCSV('modalHistoryTable', 'tank_spawning_history')">📥 Export History (CSV)</button>
-                    <button class="close-btn" onclick="closeModal()">&times;</button>
-                </div>
+                <span class="modal-title" id="modalTitle">Tank Profile</span>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
             </div>
             <div class="modal-body" id="modalBody">
-                <!-- Populated dynamically -->
+                <!-- Loaded Dynamically -->
             </div>
         </div>
     </div>
 
     <script>
         const MASTER_DATA = __DATA_JSON__;
-
-        let currentEvents = MASTER_DATA.events;
-        let currentTanks = MASTER_DATA.tank_stats;
+        let currentEvents = MASTER_DATA.events || [];
+        let currentTanks = MASTER_DATA.tank_stats || {};
         let currentPairs = MASTER_DATA.pair_synergies || [];
-        let rawPageIndex = 0;
-        const RAW_PAGE_SIZE = 100;
+        let currentCrosses = MASTER_DATA.crosses_registry || [];
+        let currentAlerts = MASTER_DATA.alerts || [];
 
-        // --- Export Functions ---
-        function exportChartAsPNG(chartCanvasId, fileName) {
-            const chart = Chart.getChart(chartCanvasId);
-            if (!chart) {
-                alert('Chart not found or still rendering.');
-                return;
-            }
-            const canvas = document.getElementById(chartCanvasId);
-            const tempCanvas = document.createElement('canvas');
-            tempCanvas.width = canvas.width;
-            tempCanvas.height = canvas.height;
-            const ctx = tempCanvas.getContext('2d');
-            
-            // Fill background with dark navy so saved PNG has nice contrast
-            ctx.fillStyle = '#1e293b';
-            ctx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
-            ctx.drawImage(canvas, 0, 0);
-            
+        let currentFocalTank = 'T0135';
+        let pedigreeNetworkInstance = null;
+
+        // Export Utilities
+        function exportChartAsPNG(canvasId, filename) {
+            const chartCanvas = document.getElementById(canvasId);
+            if (!chartCanvas) return;
             const link = document.createElement('a');
-            link.download = (fileName || chartCanvasId) + '.png';
-            link.href = tempCanvas.toDataURL('image/png', 1.0);
-            document.body.appendChild(link);
+            link.download = (filename || 'chart') + '.png';
+            link.href = chartCanvas.toDataURL('image/png');
             link.click();
-            document.body.removeChild(link);
         }
 
         function exportTableToCSV(tableId, fileName) {
             const table = document.getElementById(tableId);
-            if (!table) {
-                alert('Table not found.');
-                return;
-            }
+            if (!table) return;
             let csv = [];
             const rows = table.querySelectorAll('tr');
+            
             for (let i = 0; i < rows.length; i++) {
-                let row = [], cols = rows[i].querySelectorAll('td, th');
+                if (rows[i].style.display === 'none') continue;
+                const row = [], cols = rows[i].querySelectorAll('td, th');
+                
                 for (let j = 0; j < cols.length; j++) {
                     if (cols[j].classList.contains('no-export')) continue;
-                    let text = cols[j].innerText.replace(/(\\r\\n|\\n|\\r)/gm, ' ').replace(/\\s+/g, ' ').trim();
-                    text = text.replace(/"/g, '""');
-                    row.push('"' + text + '"');
+                    let data = cols[j].innerText.replace(/(\\r\\n|\\n|\\r)/gm, ' ').replace(/(\\s\\s+)/gm, ' ');
+                    data = data.replace(/"/g, '""');
+                    row.push('"' + data + '"');
                 }
-                if (row.length > 0) csv.push(row.join(','));
+                csv.push(row.join(','));
             }
-            const csvContent = "data:text/csv;charset=utf-8,\\uFEFF" + encodeURIComponent(csv.join('\\n'));
+            
+            const csvContent = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv.join('\\n'));
             const link = document.createElement('a');
             link.setAttribute('href', csvContent);
             link.setAttribute('download', (fileName || 'table_export') + '.csv');
@@ -1325,28 +1487,22 @@ def generate_dashboard():
             return '<span class="badge" style="background: rgba(148, 163, 184, 0.2); color: #94a3b8;">Unsexed</span>';
         }
 
-        // Line Benchmarks Calculation
+        function getStatusBadge(status) {
+            if (status === 'Active') return '<span class="badge badge-active">Active</span>';
+            if (status === 'Euthanized') return '<span class="badge badge-euthanized">Euthanized</span>';
+            return '<span class="badge badge-larvae">Larvae</span>';
+        }
+
+        // TAB 1: Line Benchmarks
         function calculateLineBenchmarks() {
             const lines = ['AB', 'Casper', 'Fli', 'Gata'];
             const res = {};
             lines.forEach(l => {
-                res[l] = {
-                    line: l,
-                    activeTanks: 0,
-                    spawns: 0,
-                    eggs: 0,
-                    live24h: 0,
-                    sr0Sum: 0,
-                    sr24Sum: 0,
-                    validSpawns: 0,
-                    inTankSpawns: 0
-                };
+                res[l] = { line: l, activeTanks: 0, spawns: 0, eggs: 0, live24h: 0, sr0Sum: 0, sr24Sum: 0, validSpawns: 0, inTankSpawns: 0 };
             });
 
             Object.values(currentTanks).forEach(t => {
-                if (res[t.line] && t.status === 'Active') {
-                    res[t.line].activeTanks++;
-                }
+                if (res[t.line] && t.status === 'Active') res[t.line].activeTanks++;
             });
 
             currentEvents.forEach(ev => {
@@ -1363,20 +1519,17 @@ def generate_dashboard():
                     }
                 }
             });
-
             return res;
         }
 
-        // Render Benchmarks
         function renderBenchmarks() {
             const bm = calculateLineBenchmarks();
             const tbody = document.getElementById('lineBenchmarkTableBody');
+            if (!tbody) return;
             tbody.innerHTML = '';
 
             const lineLabels = ['AB', 'Casper', 'Fli', 'Gata'];
-            const clutchData = [];
-            const sr0Data = [];
-            const sr24Data = [];
+            const clutchData = [], sr0Data = [], sr24Data = [];
 
             lineLabels.forEach(l => {
                 const st = bm[l];
@@ -1390,7 +1543,6 @@ def generate_dashboard():
                 sr24Data.push(avgSR24);
 
                 const badgeClass = `badge-${l.toLowerCase()}`;
-
                 tbody.innerHTML += `
                     <tr>
                         <td><span class="badge ${badgeClass}">${l}</span></td>
@@ -1433,26 +1585,14 @@ def generate_dashboard():
                 data: {
                     labels: lineLabels,
                     datasets: [
-                        {
-                            label: 'Fertilization Rate (0hpf SR %)',
-                            data: sr0Data,
-                            backgroundColor: '#38bdf8',
-                            borderRadius: 6
-                        },
-                        {
-                            label: 'Viability Rate (24hpf SR %)',
-                            data: sr24Data,
-                            backgroundColor: '#34d399',
-                            borderRadius: 6
-                        }
+                        { label: 'Fertilization Rate (0hpf SR %)', data: sr0Data, backgroundColor: '#38bdf8', borderRadius: 6 },
+                        { label: 'Viability Rate (24hpf SR %)', data: sr24Data, backgroundColor: '#34d399', borderRadius: 6 }
                     ]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: {
-                        legend: { labels: { color: '#f8fafc' } }
-                    },
+                    plugins: { legend: { labels: { color: '#f8fafc' } } },
                     scales: {
                         y: { min: 0, max: 100, grid: { color: '#334155' }, ticks: { color: '#94a3b8' } },
                         x: { grid: { display: false }, ticks: { color: '#f8fafc' } }
@@ -1461,9 +1601,472 @@ def generate_dashboard():
             });
         }
 
-        // Render Cross-Pairing Synergies
+        // TAB 2: PEDIGREE EXPLORER JS
+        function switchPedigreeMode(mode) {
+            document.querySelectorAll('.ped-mode-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.ped-subview').forEach(v => v.style.display = 'none');
+            
+            const btn = document.getElementById(`ped-btn-${mode}`);
+            if (btn) btn.classList.add('active');
+            const sub = document.getElementById(`ped-subview-${mode}`);
+            if (sub) sub.style.display = 'block';
+
+            if (mode === 'focal') renderFocalPedigreeTree();
+            else if (mode === 'lines') renderLineTrees();
+            else if (mode === 'table') renderTreeTable();
+            else if (mode === 'network') renderPedigreeNetwork();
+        }
+
+        function populateFocalDropdown() {
+            const sel = document.getElementById('focalTankSelect');
+            if (!sel) return;
+            sel.innerHTML = '';
+            
+            const activeTanks = Object.values(currentTanks).filter(t => t.status === 'Active');
+            activeTanks.sort((a, b) => a.tuid.localeCompare(b.tuid));
+
+            activeTanks.forEach(t => {
+                const opt = document.createElement('option');
+                opt.value = t.tuid;
+                opt.textContent = `${t.tuid} [${t.line}] - Gen ${t.generation || 0} (${t.female}F/${t.male}M)`;
+                if (t.tuid === currentFocalTank) opt.selected = true;
+                sel.appendChild(opt);
+            });
+        }
+
+        function changeFocalTank(tuid) {
+            if (!tuid || !currentTanks[tuid]) return;
+            currentFocalTank = tuid;
+            renderFocalPedigreeTree();
+        }
+
+        function searchAndFocusTank() {
+            const q = document.getElementById('focalSearchInput').value.trim().toUpperCase();
+            if (!q) return;
+            let found = null;
+            if (currentTanks[q]) found = q;
+            else {
+                const match = Object.keys(currentTanks).find(k => k.includes(q) || k.replace('T', '').includes(q));
+                if (match) found = match;
+            }
+            if (found) {
+                currentFocalTank = found;
+                document.getElementById('focalTankSelect').value = found;
+                renderFocalPedigreeTree();
+            } else {
+                alert(`Tank ID "${q}" not found in facility records.`);
+            }
+        }
+
+        function createMiniCard(tuid, roleTitle, isHero = false) {
+            if (!tuid || !currentTanks[tuid]) {
+                return `<div class="ped-card" style="opacity: 0.5; text-align: center; padding: 10px; font-size: 11px; color: var(--text-muted);">
+                    ${roleTitle || 'Founder'}<br><b>${tuid || 'Root Stock'}</b>
+                </div>`;
+            }
+            const t = currentTanks[tuid];
+            const badgeClass = `badge-${t.line.toLowerCase()}`;
+            const inbr = t.inbreeding_f !== undefined ? t.inbreeding_f.toFixed(3) : '0.000';
+            
+            return `
+                <div class="ped-card ${isHero ? 'ped-card-hero' : ''}" onclick="changeFocalTank('${t.tuid}')" style="cursor: pointer;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                        <strong style="color: #fff; font-size: 13px;">${t.tuid}</strong>
+                        <span class="badge ${badgeClass}">${t.line}</span>
+                    </div>
+                    <div style="font-size: 11px; color: var(--text-secondary); margin-bottom: 4px;">
+                        Gen: <b style="color: var(--accent-blue);">G${t.generation || 0}</b> | F: <b style="color: ${inbr >= 0.25 ? 'var(--accent-rose)' : 'var(--accent-emerald)'};">${inbr}</b>
+                    </div>
+                    <div style="font-size: 11px; color: var(--text-secondary);">
+                        Fish: <b style="color: #fff;">${t.total}</b> (${t.female}♀ / ${t.male}♂)
+                    </div>
+                    ${roleTitle ? `<div style="font-size: 10px; color: var(--accent-indigo); margin-top: 4px; font-weight: bold;">${roleTitle}</div>` : ''}
+                </div>
+            `;
+        }
+
+        function renderFocalPedigreeTree() {
+            const focal = currentTanks[currentFocalTank];
+            if (!focal) return;
+
+            // Breadcrumb Trail
+            let trail = `<span style="color: var(--accent-blue);">${focal.tuid} (${focal.line})</span>`;
+            if (focal.dam_tuid || focal.sire_tuid) {
+                trail = `<span style="color: var(--text-secondary);">${focal.sire_tuid || 'Sire'} &times; ${focal.dam_tuid || 'Dam'}</span> &rarr; ` + trail;
+            }
+            if (focal.derivative_cross) {
+                trail += ` <span style="color: var(--accent-indigo);">[Cross ${focal.derivative_cross}]</span>`;
+            }
+            document.getElementById('focalBreadcrumbTrail').innerHTML = `<b>Lineage Trail:</b> ${trail}`;
+
+            // Hero Card
+            document.getElementById('focalHeroGenBadge').innerText = `Gen G${focal.generation || 0}`;
+            document.getElementById('treeColFocal').innerHTML = createMiniCard(focal.tuid, 'Focal Target Tank', true);
+
+            // Parents
+            const parentsDiv = document.getElementById('treeColParents');
+            parentsDiv.innerHTML = '';
+            parentsDiv.innerHTML += createMiniCard(focal.sire_tuid, '♂ Sire (Paternal)');
+            parentsDiv.innerHTML += createMiniCard(focal.dam_tuid, '♀ Dam (Maternal)');
+
+            // Grandparents
+            const gpDiv = document.getElementById('treeColGrandparents');
+            gpDiv.innerHTML = '';
+            const sire = currentTanks[focal.sire_tuid];
+            const dam = currentTanks[focal.dam_tuid];
+            gpDiv.innerHTML += createMiniCard(sire ? sire.sire_tuid : null, 'Paternal Grandfather');
+            gpDiv.innerHTML += createMiniCard(sire ? sire.dam_tuid : null, 'Paternal Grandmother');
+            gpDiv.innerHTML += createMiniCard(dam ? dam.sire_tuid : null, 'Maternal Grandfather');
+            gpDiv.innerHTML += createMiniCard(dam ? dam.dam_tuid : null, 'Maternal Grandmother');
+
+            // Offspring
+            const offDiv = document.getElementById('treeColOffspring');
+            offDiv.innerHTML = '';
+            const offList = focal.children || [];
+            document.getElementById('treeOffspringCountBadge').innerText = `${offList.length} Tanks`;
+            if (offList.length === 0) {
+                offDiv.innerHTML = '<div style="color: var(--text-muted); font-size: 11px; padding: 8px;">No direct offspring tanks spawned.</div>';
+            } else {
+                offList.forEach(ctuid => offDiv.innerHTML += createMiniCard(ctuid, 'F1 Offspring'));
+            }
+
+            // Grandchildren
+            const gcDiv = document.getElementById('treeColGrandchildren');
+            gcDiv.innerHTML = '';
+            const gcList = focal.grandchildren || [];
+            document.getElementById('treeGrandchildrenCountBadge').innerText = `${gcList.length} Tanks`;
+            if (gcList.length === 0) {
+                gcDiv.innerHTML = '<div style="color: var(--text-muted); font-size: 11px; padding: 8px;">No F2 grand-offspring.</div>';
+            } else {
+                gcList.forEach(gctuid => gcDiv.innerHTML += createMiniCard(gctuid, 'F2 Grandchild'));
+            }
+        }
+
+        function copyLineageTrail() {
+            const focal = currentTanks[currentFocalTank];
+            if (!focal) return;
+            const text = `${focal.tuid} (${focal.line}) | Gen: G${focal.generation || 0} | Sire: ${focal.sire_tuid || 'Root'} | Dam: ${focal.dam_tuid || 'Root'} | Cross: ${focal.derivative_cross || '-'}`;
+            navigator.clipboard.writeText(text);
+            alert('Lineage trail copied to clipboard:\n' + text);
+        }
+
+        // Line Trees
+        let activeLineTree = 'AB';
+        function selectLineTree(line) {
+            activeLineTree = line;
+            document.querySelectorAll('.line-tree-btn').forEach(b => b.classList.remove('active'));
+            const btn = document.getElementById(`line-tree-btn-${line}`);
+            if (btn) btn.classList.add('active');
+            renderLineTrees();
+        }
+
+        function renderLineTrees() {
+            const container = document.getElementById('lineTreeTiersContainer');
+            if (!container) return;
+            container.innerHTML = '';
+
+            const lineTanks = Object.values(currentTanks).filter(t => t.line === activeLineTree);
+            ['AB', 'Casper', 'Fli', 'Gata'].forEach(l => {
+                const el = document.getElementById(`lineTreeCount${l}`);
+                if (el) el.innerText = Object.values(currentTanks).filter(t => t.line === l).length;
+            });
+
+            // Group by generation
+            const genMap = {};
+            lineTanks.forEach(t => {
+                const g = t.generation || 0;
+                if (!genMap[g]) genMap[g] = [];
+                genMap[g].push(t);
+            });
+
+            const sortedGens = Object.keys(genMap).map(Number).sort((a, b) => a - b);
+            sortedGens.forEach(gen => {
+                const list = genMap[gen];
+                const tier = document.createElement('div');
+                tier.style.background = 'rgba(15,23,42,0.4)';
+                tier.style.border = '1px solid var(--border-color)';
+                tier.style.borderRadius = 'var(--radius-md)';
+                tier.style.padding = '14px';
+
+                tier.innerHTML = `
+                    <div style="font-size: 13px; font-weight: 700; color: var(--accent-blue); margin-bottom: 12px; display: flex; justify-content: space-between;">
+                        <span>🧬 Generation G${gen} (${gen === 0 ? 'Founders / Root Stock' : 'Derived Lineage'})</span>
+                        <span style="color: var(--text-secondary); font-size: 11px;">${list.length} Tanks</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px;">
+                        ${list.map(t => createMiniCard(t.tuid, t.derivative_cross ? `Cross ${t.derivative_cross}` : 'Founder')).join('')}
+                    </div>
+                `;
+                container.appendChild(tier);
+            });
+        }
+
+        // Collapsible Tree Table
+        function renderTreeTable() {
+            const tbody = document.getElementById('pedigreeTreeTableBody');
+            if (!tbody) return;
+            tbody.innerHTML = '';
+
+            const filterLine = document.getElementById('treeTableLineFilter') ? document.getElementById('treeTableLineFilter').value : 'ALL';
+            const filterStat = document.getElementById('treeTableStatusFilter') ? document.getElementById('treeTableStatusFilter').value : 'ALL';
+            const searchQ = document.getElementById('treeTableSearchInput') ? document.getElementById('treeTableSearchInput').value.trim().toUpperCase() : '';
+
+            let tanks = Object.values(currentTanks);
+            if (filterLine !== 'ALL') tanks = tanks.filter(t => t.line === filterLine);
+            if (filterStat === 'ACTIVE') tanks = tanks.filter(t => t.status === 'Active');
+            if (filterStat === 'EUTH') tanks = tanks.filter(t => t.status === 'Euthanized');
+            if (searchQ) tanks = tanks.filter(t => t.tuid.includes(searchQ) || (t.notes && t.notes.toUpperCase().includes(searchQ)));
+
+            tanks.sort((a, b) => a.tuid.localeCompare(b.tuid));
+
+            tanks.forEach(t => {
+                const badgeClass = `badge-${t.line.toLowerCase()}`;
+                const inbr = t.inbreeding_f !== undefined ? t.inbreeding_f.toFixed(3) : '0.000';
+                const parentsStr = (t.sire_tuid || t.dam_tuid) ? `${t.sire_tuid || 'Root'} &times; ${t.dam_tuid || 'Root'}` : 'Root Stock';
+                const progenies = t.children ? t.children.join(', ') : '-';
+
+                tbody.innerHTML += `
+                    <tr>
+                        <td><strong>${t.tuid}</strong> <span class="badge ${badgeClass}" style="margin-left: 6px;">${t.line}</span></td>
+                        <td><span class="badge badge-active">G${t.generation || 0}</span></td>
+                        <td>${getStatusBadge(t.status)}</td>
+                        <td>${t.female}♀ / ${t.male}♂ (<b>${t.total}</b>)</td>
+                        <td><b style="color: ${inbr >= 0.25 ? 'var(--accent-rose)' : 'var(--accent-emerald)'};">${inbr}</b></td>
+                        <td>${parentsStr}</td>
+                        <td style="max-width: 150px; overflow: hidden; text-overflow: ellipsis;" title="${progenies}">${progenies}</td>
+                        <td><button class="btn btn-sm btn-outline" onclick="changeFocalTank('${t.tuid}'); switchPedigreeMode('focal');">🎯 Inspect</button></td>
+                    </tr>
+                `;
+            });
+        }
+
+        function filterTreeTable() {
+            renderTreeTable();
+        }
+
+        function exportTreeTableCSV() {
+            exportTableToCSV('pedigreeTreeTable', 'colony_pedigree_hierarchy_table');
+        }
+
+        // Global Vis.js Network Map
+        function renderPedigreeNetwork() {
+            const container = document.getElementById('pedigree-network');
+            if (!container) return;
+
+            const nodes = [];
+            const edges = [];
+            const lineFilter = document.getElementById('lineFilter') ? document.getElementById('lineFilter').value : 'ALL';
+
+            const lineColors = {
+                'AB': '#38bdf8',
+                'Casper': '#c084fc',
+                'Fli': '#34d399',
+                'Gata': '#fbbf24',
+                'DESMA': '#fb7185',
+                'Other': '#94a3b8'
+            };
+
+            Object.values(currentTanks).forEach(t => {
+                if (lineFilter !== 'ALL' && t.line !== lineFilter) return;
+
+                nodes.push({
+                    id: t.tuid,
+                    label: `${t.tuid}\\n(${t.line})`,
+                    color: {
+                        background: t.status === 'Active' ? lineColors[t.line] || '#38bdf8' : '#475569',
+                        border: '#1e293b'
+                    },
+                    font: { color: t.status === 'Active' ? '#000000' : '#ffffff', size: 11, face: 'Inter' },
+                    shape: 'box',
+                    margin: 8
+                });
+
+                if (t.sire_tuid && currentTanks[t.sire_tuid]) {
+                    edges.push({ from: t.sire_tuid, to: t.tuid, color: { color: '#38bdf8' }, arrows: 'to' });
+                }
+                if (t.dam_tuid && currentTanks[t.dam_tuid]) {
+                    edges.push({ from: t.dam_tuid, to: t.tuid, color: { color: '#f472b6' }, dashes: true, arrows: 'to' });
+                }
+            });
+
+            const data = { nodes: new vis.DataSet(nodes), edges: new vis.DataSet(edges) };
+            const options = {
+                layout: { hierarchical: { direction: 'UD', sortMethod: 'directed', levelSeparation: 80, nodeSpacing: 120 } },
+                physics: { hierarchicalRepulsion: { nodeDistance: 120 } },
+                interaction: { hover: true, zoomView: true, dragView: true }
+            };
+
+            if (pedigreeNetworkInstance) pedigreeNetworkInstance.destroy();
+            pedigreeNetworkInstance = new vis.Network(container, data, options);
+
+            pedigreeNetworkInstance.on('click', function(params) {
+                if (params.nodes.length > 0) {
+                    const selectedTuid = params.nodes[0];
+                    openTankModal(selectedTuid);
+                }
+            });
+        }
+
+        function filterPedigreeByLine() {
+            renderPedigreeNetwork();
+        }
+
+        function searchPedigreeNode() {
+            const q = document.getElementById('pedigreeSearch').value.trim().toUpperCase();
+            if (!q || !pedigreeNetworkInstance) return;
+            try {
+                pedigreeNetworkInstance.focus(q, { scale: 1.2, animation: true });
+                pedigreeNetworkInstance.selectNodes([q]);
+            } catch(e) {
+                alert(`Tank "${q}" not found in current network view.`);
+            }
+        }
+
+        function resetPedigreeView() {
+            if (pedigreeNetworkInstance) pedigreeNetworkInstance.fit({ animation: true });
+        }
+
+        // TAB 3: TURNOVER & COLONY RENEWAL JS
+        function renderTurnoverTable() {
+            const tbody = document.getElementById('turnoverTableBody');
+            if (!tbody) return;
+            tbody.innerHTML = '';
+
+            const urgencyFilter = document.getElementById('turnoverFilter') ? document.getElementById('turnoverFilter').value : 'ALL';
+            const lineFilter = document.getElementById('turnoverLineFilter') ? document.getElementById('turnoverLineFilter').value : 'ALL';
+
+            let tanks = Object.values(currentTanks).filter(t => t.status === 'Active');
+            if (lineFilter !== 'ALL') tanks = tanks.filter(t => t.line === lineFilter);
+
+            tanks.forEach(t => {
+                const days = t.days_to_turnover;
+                const urg = t.turnover_urgency || 'N/A';
+
+                if (urgencyFilter === 'OVERDUE' && urg !== 'OVERDUE') return;
+                if (urgencyFilter === 'SOON' && !urg.includes('DUE SOON')) return;
+                if (urgencyFilter === 'UPCOMING' && !urg.includes('UPCOMING')) return;
+                if (urgencyFilter === 'FUTURE' && !urg.includes('FUTURE')) return;
+
+                let badgeClass = 'badge-active';
+                if (urg === 'OVERDUE') badgeClass = 'badge-critical';
+                else if (urg.includes('DUE SOON')) badgeClass = 'badge-high';
+                else if (urg.includes('UPCOMING')) badgeClass = 'badge-medium';
+
+                const daysTxt = days !== null ? (days < 0 ? `<b style="color: var(--accent-rose);">${Math.abs(days)}d past</b>` : `<b>${days}d</b>`) : '-';
+                const actionTxt = urg === 'OVERDUE' ? '🚨 Schedule replacement mating immediately' : (urg.includes('DUE SOON') ? '⚠️ Plan next-generation cross' : 'Routine husbandry');
+
+                tbody.innerHTML += `
+                    <tr>
+                        <td><strong>${t.tuid}</strong></td>
+                        <td>${getStatusBadge(t.status)}</td>
+                        <td><span class="badge badge-${t.line.toLowerCase()}">${t.line}</span></td>
+                        <td>${t.female}♀ / ${t.male}♂ (<b>${t.total}</b>)</td>
+                        <td>${t.dob || '-'}</td>
+                        <td>${t.turnover_date_resolved || t.turnover_date || '-'}</td>
+                        <td>${daysTxt}</td>
+                        <td><span class="badge ${badgeClass}">${urg}</span></td>
+                        <td>${actionTxt}</td>
+                        <td><button class="btn btn-sm btn-outline" onclick="openTankModal('${t.tuid}')">Inspect</button></td>
+                    </tr>
+                `;
+            });
+        }
+
+        // TAB 4: CROSSES & NURSERY REGISTRY JS
+        function renderCrossesRegistry() {
+            const tbody = document.getElementById('crossesRegistryTableBody');
+            if (!tbody) return;
+            tbody.innerHTML = '';
+
+            const q = document.getElementById('crossRegSearch') ? document.getElementById('crossRegSearch').value.trim().toUpperCase() : '';
+            let list = currentCrosses;
+            if (q) {
+                list = list.filter(c => c.cuid.includes(q) || c.dam.includes(q) || c.sire.includes(q) || (c.offspring_tanks && c.offspring_tanks.join(',').includes(q)));
+            }
+
+            list.forEach(c => {
+                const nClutches = c.nursery_clutches && c.nursery_clutches.length > 0 ? c.nursery_clutches.join(', ') : '-';
+                const offTanks = c.offspring_tanks && c.offspring_tanks.length > 0 ? c.offspring_tanks.join(', ') : '-';
+
+                tbody.innerHTML += `
+                    <tr>
+                        <td><strong style="color: var(--accent-indigo);">${c.cuid}</strong></td>
+                        <td>${c.mating_date}</td>
+                        <td><strong>${c.dam}</strong></td>
+                        <td><strong>${c.sire}</strong></td>
+                        <td><span class="badge" style="background: rgba(129, 140, 248, 0.15); color: #818cf8; border: 1px solid rgba(129, 140, 248, 0.3);">${c.line_pair}</span></td>
+                        <td><span class="badge" style="background: rgba(192, 132, 252, 0.15); color: #c084fc; border: 1px solid rgba(192, 132, 252, 0.3);">${nClutches}</span></td>
+                        <td><b>${c.nursery_count || 0}</b> fish</td>
+                        <td>${c.nursery_grad_date || '-'}</td>
+                        <td style="color: var(--accent-emerald); font-weight: 600;">${offTanks}</td>
+                    </tr>
+                `;
+            });
+        }
+
+        // TAB 5: COLONY ALERTS JS
+        function renderColonyAlerts() {
+            const container = document.getElementById('alertsFeedContainer');
+            if (!container) return;
+            container.innerHTML = '';
+
+            const sevFilter = document.getElementById('alertSeverityFilter') ? document.getElementById('alertSeverityFilter').value : 'ALL';
+            const catFilter = document.getElementById('alertCategoryFilter') ? document.getElementById('alertCategoryFilter').value : 'ALL';
+
+            let list = currentAlerts;
+            if (sevFilter !== 'ALL') list = list.filter(a => a.severity === sevFilter);
+            if (catFilter !== 'ALL') list = list.filter(a => a.category === catFilter);
+
+            document.getElementById('tabBadgeAlerts').innerText = currentAlerts.length;
+
+            if (list.length === 0) {
+                container.innerHTML = '<div style="color: var(--text-muted); font-size: 13px; padding: 20px; text-align: center;">No active colony alerts matching selected filter.</div>';
+                return;
+            }
+
+            list.forEach(alt => {
+                let borderCol = 'var(--accent-blue)';
+                let badgeClass = 'badge-info';
+                if (alt.severity === 'CRITICAL') { borderCol = 'var(--accent-rose)'; badgeClass = 'badge-critical'; }
+                else if (alt.severity === 'HIGH') { borderCol = 'var(--accent-amber)'; badgeClass = 'badge-high'; }
+                else if (alt.severity === 'MEDIUM') { borderCol = 'var(--accent-amber)'; badgeClass = 'badge-medium'; }
+
+                const card = document.createElement('div');
+                card.style.background = 'rgba(15, 23, 42, 0.6)';
+                card.style.border = '1px solid var(--border-color)';
+                card.style.borderLeft = `4px solid ${borderCol}`;
+                card.style.borderRadius = 'var(--radius-md)';
+                card.style.padding = '14px 18px';
+                card.style.display = 'flex';
+                card.style.justifyContent = 'space-between';
+                card.style.alignItems = 'center';
+                card.style.flexWrap = 'wrap';
+                card.style.gap = '12px';
+
+                card.innerHTML = `
+                    <div style="display: flex; flex-direction: column; gap: 4px;">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span class="badge ${badgeClass}">${alt.severity}</span>
+                            <strong style="color: #fff; font-size: 14px;">${alt.tuid}</strong>
+                            <span style="font-size: 12px; color: var(--text-secondary);">• ${alt.line} • <b>${alt.category}</b></span>
+                        </div>
+                        <p style="font-size: 13px; color: var(--text-primary); margin-top: 2px;">${alt.message}</p>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <div style="background: rgba(15, 23, 42, 0.9); border: 1px solid var(--border-color); padding: 8px 12px; border-radius: 6px; font-size: 12px; color: var(--accent-emerald);">
+                            <b>Action:</b> ${alt.action}
+                        </div>
+                        <button class="btn btn-sm btn-outline" onclick="openTankModal('${alt.tuid}')">Inspect</button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // TAB 6: Cross-Pairing Synergies
         function renderCrosses() {
             const tbody = document.getElementById('pairSynergyTableBody');
+            if (!tbody) return;
             tbody.innerHTML = '';
 
             currentPairs.slice(0, 50).forEach((p, idx) => {
@@ -1483,7 +2086,7 @@ def generate_dashboard():
             });
         }
 
-        // Render Longitudinal Trends
+        // TAB 7: Longitudinal Trends
         function renderTrends() {
             const monthlyMap = {};
             currentEvents.forEach(ev => {
@@ -1501,497 +2104,336 @@ def generate_dashboard():
                 }
             });
 
-            const months = Object.keys(monthlyMap).sort();
-            const eggCounts = months.map(m => monthlyMap[m].eggs);
-            const srRates = months.map(m => monthlyMap[m].validSpawns > 0 ? (monthlyMap[m].sr24Sum / monthlyMap[m].validSpawns).toFixed(1) : 0);
+            const sortedMonths = Object.keys(monthlyMap).sort();
+            const eggData = [], liveData = [], srData = [];
+
+            sortedMonths.forEach(m => {
+                const st = monthlyMap[m];
+                eggData.push(st.eggs);
+                liveData.push(st.live);
+                srData.push(st.validSpawns > 0 ? (st.sr24Sum / st.validSpawns).toFixed(1) : 0);
+            });
 
             new Chart(document.getElementById('chartMonthlyEggs'), {
                 type: 'line',
                 data: {
-                    labels: months,
-                    datasets: [{
-                        label: 'Total Eggs Produced',
-                        data: eggCounts,
-                        borderColor: '#38bdf8',
-                        backgroundColor: 'rgba(56, 189, 248, 0.1)',
-                        fill: true,
-                        tension: 0.3
-                    }]
+                    labels: sortedMonths,
+                    datasets: [
+                        { label: 'Total Eggs Spawned (0hpf)', data: eggData, borderColor: '#38bdf8', backgroundColor: 'rgba(56, 189, 248, 0.1)', fill: true, tension: 0.3 },
+                        { label: 'Viable Embryos (24hpf)', data: liveData, borderColor: '#34d399', backgroundColor: 'rgba(52, 211, 153, 0.1)', fill: true, tension: 0.3 }
+                    ]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: { legend: { labels: { color: '#f8fafc' } } },
                     scales: {
                         y: { grid: { color: '#334155' }, ticks: { color: '#94a3b8' } },
                         x: { grid: { color: '#334155' }, ticks: { color: '#94a3b8' } }
-                    }
+                    },
+                    plugins: { legend: { labels: { color: '#f8fafc' } } }
                 }
             });
 
             new Chart(document.getElementById('chartMonthlySR'), {
                 type: 'line',
                 data: {
-                    labels: months,
-                    datasets: [{
-                        label: 'Avg 24hpf Survival Rate (%)',
-                        data: srRates,
-                        borderColor: '#34d399',
-                        backgroundColor: 'rgba(52, 211, 153, 0.1)',
-                        fill: true,
-                        tension: 0.3
-                    }]
+                    labels: sortedMonths,
+                    datasets: [{ label: 'Monthly 24hpf Viability Rate (%)', data: srData, borderColor: '#fbbf24', tension: 0.3, pointRadius: 4, pointBackgroundColor: '#fbbf24' }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: { legend: { labels: { color: '#f8fafc' } } },
                     scales: {
                         y: { min: 0, max: 100, grid: { color: '#334155' }, ticks: { color: '#94a3b8' } },
                         x: { grid: { color: '#334155' }, ticks: { color: '#94a3b8' } }
-                    }
+                    },
+                    plugins: { legend: { labels: { color: '#f8fafc' } } }
                 }
             });
         }
 
-        // Render Age Curves
+        // TAB 8: Parental Age vs Fecundity Curves
         function renderAgeCurves() {
             const ageBuckets = {};
-            Object.values(currentTanks).forEach(t => {
-                t.spawn_history.forEach(h => {
-                    if (h.age_months !== null && h.age_months > 0 && h.age_months <= 36) {
-                        const bucket = Math.floor(h.age_months);
-                        if (!ageBuckets[bucket]) {
-                            ageBuckets[bucket] = { eggsSum: 0, count: 0, sr24Sum: 0, validSpawns: 0 };
-                        }
-                        ageBuckets[bucket].eggsSum += h.eggs_0h;
-                        ageBuckets[bucket].count++;
-                        if (h.eggs_0h > 0) {
-                            ageBuckets[bucket].validSpawns++;
-                            ageBuckets[bucket].sr24Sum += h.sr_24h;
-                        }
+            currentEvents.forEach(ev => {
+                if (ev.parent_age_months !== null && ev.parent_age_months >= 2 && ev.parent_age_months <= 30) {
+                    const b = ev.parent_age_months;
+                    if (!ageBuckets[b]) ageBuckets[b] = { eggs: 0, spawns: 0, live: 0, sr24Sum: 0, validSpawns: 0 };
+                    ageBuckets[b].eggs += ev.eggs_0h;
+                    ageBuckets[b].spawns++;
+                    ageBuckets[b].live += ev.live_24h;
+                    if (ev.eggs_0h > 0) {
+                        ageBuckets[b].validSpawns++;
+                        ageBuckets[b].sr24Sum += ev.sr_24h;
                     }
-                });
+                }
             });
 
-            const ages = Object.keys(ageBuckets).map(Number).sort((a, b) => a - b);
-            const avgClutches = ages.map(a => (ageBuckets[a].eggsSum / ageBuckets[a].count).toFixed(1));
-            const avgSRs = ages.map(a => ageBuckets[a].validSpawns > 0 ? (ageBuckets[a].sr24Sum / ageBuckets[a].validSpawns).toFixed(1) : 0);
+            const sortedAges = Object.keys(ageBuckets).map(Number).sort((a,b) => a - b);
+            const clutchData = [], srData = [];
+
+            sortedAges.forEach(age => {
+                const b = ageBuckets[age];
+                clutchData.push(b.spawns > 0 ? (b.eggs / b.spawns).toFixed(1) : 0);
+                srData.push(b.validSpawns > 0 ? (b.sr24Sum / b.validSpawns).toFixed(1) : 0);
+            });
 
             new Chart(document.getElementById('chartAgeFecundity'), {
                 type: 'line',
                 data: {
-                    labels: ages.map(a => a + ' mo'),
-                    datasets: [{
-                        label: 'Average Clutch Size (Eggs)',
-                        data: avgClutches,
-                        borderColor: '#fbbf24',
-                        backgroundColor: 'rgba(251, 191, 36, 0.1)',
-                        fill: true,
-                        tension: 0.3
-                    }]
+                    labels: sortedAges.map(a => a + ' mo'),
+                    datasets: [{ label: 'Average Clutch Size (Eggs/Spawn)', data: clutchData, borderColor: '#38bdf8', backgroundColor: 'rgba(56, 189, 248, 0.15)', fill: true, tension: 0.3 }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: { legend: { labels: { color: '#f8fafc' } } },
                     scales: {
                         y: { grid: { color: '#334155' }, ticks: { color: '#94a3b8' } },
                         x: { grid: { color: '#334155' }, ticks: { color: '#94a3b8' } }
-                    }
+                    },
+                    plugins: { legend: { labels: { color: '#f8fafc' } } }
                 }
             });
 
             new Chart(document.getElementById('chartAgeViability'), {
                 type: 'line',
                 data: {
-                    labels: ages.map(a => a + ' mo'),
-                    datasets: [{
-                        label: '24hpf Survival Rate (%)',
-                        data: avgSRs,
-                        borderColor: '#818cf8',
-                        backgroundColor: 'rgba(129, 140, 248, 0.1)',
-                        fill: true,
-                        tension: 0.3
-                    }]
+                    labels: sortedAges.map(a => a + ' mo'),
+                    datasets: [{ label: '24hpf Survival Rate (%)', data: srData, borderColor: '#34d399', tension: 0.3, pointRadius: 4, pointBackgroundColor: '#34d399' }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: { legend: { labels: { color: '#f8fafc' } } },
                     scales: {
                         y: { min: 0, max: 100, grid: { color: '#334155' }, ticks: { color: '#94a3b8' } },
                         x: { grid: { color: '#334155' }, ticks: { color: '#94a3b8' } }
-                    }
+                    },
+                    plugins: { legend: { labels: { color: '#f8fafc' } } }
                 }
             });
         }
 
-        // Render Scorecards
+        // TAB 9: Scorecards
         function renderScorecards() {
+            const tbody = document.getElementById('scorecardTableBody');
+            if (!tbody) return;
+            tbody.innerHTML = '';
+
             const lineFilter = document.getElementById('scorecardLineFilter').value;
             const sexFilter = document.getElementById('scorecardSexFilter').value;
             const statusFilter = document.getElementById('scorecardStatusFilter').value;
-            const search = document.getElementById('scorecardSearch').value.toUpperCase();
+            const search = document.getElementById('scorecardSearch').value.trim().toUpperCase();
 
-            const tbody = document.getElementById('scorecardTableBody');
-            tbody.innerHTML = '';
+            let list = Object.values(currentTanks);
+            if (lineFilter !== 'ALL') list = list.filter(t => t.line === lineFilter);
+            if (sexFilter !== 'ALL') list = list.filter(t => t.sex_type === sexFilter);
+            if (statusFilter !== 'ALL') list = list.filter(t => t.status === statusFilter);
+            if (search) list = list.filter(t => t.tuid.includes(search));
 
-            let tanksList = Object.values(currentTanks).filter(t => {
-                if (lineFilter !== 'ALL' && t.line !== lineFilter) return false;
-                if (sexFilter !== 'ALL' && t.sex_type !== sexFilter) return false;
-                if (statusFilter !== 'ALL' && t.status !== statusFilter) return false;
-                if (search && !t.tuid.toUpperCase().includes(search) && !t.notes.toUpperCase().includes(search)) return false;
-                return true;
-            });
+            list.sort((a, b) => b.total_live_24h - a.total_live_24h);
 
-            tanksList.sort((a, b) => b.total_eggs_0h - a.total_eggs_0h);
-
-            tanksList.forEach((t, idx) => {
-                const badgeClass = `badge-${t.line.toLowerCase()}`;
-                const statClass = t.status === 'Active' ? 'badge-active' : 'badge-euthanized';
+            list.forEach((t, idx) => {
                 const sexBadge = getSexBadge(t.sex_type);
+                const statusBadge = getStatusBadge(t.status);
+                const lineBadge = `<span class="badge badge-${t.line.toLowerCase()}">${t.line}</span>`;
 
                 tbody.innerHTML += `
                     <tr>
                         <td><strong>#${idx + 1}</strong></td>
                         <td><strong>${t.tuid}</strong></td>
-                        <td><span class="badge ${badgeClass}">${t.line}</span></td>
+                        <td>${lineBadge}</td>
                         <td>${sexBadge}</td>
-                        <td><span class="badge ${statClass}">${t.status}</span></td>
-                        <td>${t.female}F / ${t.male}M (${t.total})</td>
+                        <td>${statusBadge}</td>
+                        <td>${t.female}♀ / ${t.male}♂ (<b>${t.total}</b>)</td>
                         <td>${t.total_spawns}</td>
-                        <td><strong>${t.total_eggs_0h.toLocaleString()}</strong></td>
-                        <td>${t.avg_eggs_per_spawn}</td>
+                        <td>${t.total_eggs_0h.toLocaleString()}</td>
+                        <td><strong>${t.avg_clutch}</strong></td>
                         <td><span style="color: var(--accent-emerald); font-weight: bold;">${t.avg_sr_24h}%</span></td>
-                        <td>${t.total_live_24h.toLocaleString()}</td>
+                        <td><strong>${t.total_live_24h.toLocaleString()}</strong></td>
                         <td>${t.last_spawn || '-'}</td>
                         <td class="no-export">
-                            <button class="btn btn-sm btn-outline" onclick="openTankModal('${t.tuid}')">🔍 View History</button>
+                            <button class="btn btn-sm btn-outline" onclick="openTankModal('${t.tuid}')">Inspect</button>
                         </td>
                     </tr>
                 `;
             });
         }
 
-        // Render Inventory
+        // TAB 10: Inventory
         function renderInventory() {
+            const tbody = document.getElementById('inventoryTableBody');
+            if (!tbody) return;
+            tbody.innerHTML = '';
+
             const lineFilter = document.getElementById('invLineFilter').value;
             const sexFilter = document.getElementById('invSexFilter').value;
             const statusFilter = document.getElementById('invStatusFilter').value;
-            const search = document.getElementById('invSearch').value.toUpperCase();
+            const search = document.getElementById('invSearch').value.trim().toUpperCase();
 
-            const tbody = document.getElementById('inventoryTableBody');
-            tbody.innerHTML = '';
+            let list = Object.values(currentTanks);
+            if (lineFilter !== 'ALL') list = list.filter(t => t.line === lineFilter);
+            if (sexFilter !== 'ALL') list = list.filter(t => t.sex_type === sexFilter);
+            if (statusFilter !== 'ALL') list = list.filter(t => t.status === statusFilter);
+            if (search) list = list.filter(t => t.tuid.includes(search) || (t.notes && t.notes.toUpperCase().includes(search)) || (t.genotype && t.genotype.toUpperCase().includes(search)) || (t.derivative_cross && t.derivative_cross.toUpperCase().includes(search)));
 
-            let tanksList = Object.values(currentTanks).filter(t => {
-                if (lineFilter !== 'ALL' && t.line !== lineFilter) return false;
-                if (sexFilter !== 'ALL' && t.sex_type !== sexFilter) return false;
-                if (statusFilter !== 'ALL' && t.status !== statusFilter) return false;
-                if (search && !t.tuid.toUpperCase().includes(search) 
-                           && !(t.notes || '').toUpperCase().includes(search)
-                           && !(t.genotype || '').toUpperCase().includes(search)
-                           && !(t.derivative_cross || '').toUpperCase().includes(search)
-                           && !(t.line || '').toUpperCase().includes(search)) return false;
-                return true;
-            });
+            list.sort((a, b) => a.tuid.localeCompare(b.tuid));
 
-            tanksList.forEach(t => {
-                const badgeClass = `badge-${t.line.toLowerCase()}`;
-                const statClass = t.status === 'Active' ? 'badge-active' : (t.status === 'Larvae' ? 'badge-casper' : 'badge-euthanized');
+            list.forEach(t => {
                 const sexBadge = getSexBadge(t.sex_type);
+                const statusBadge = getStatusBadge(t.status);
+                const lineBadge = `<span class="badge badge-${t.line.toLowerCase()}">${t.line}</span>`;
 
                 tbody.innerHTML += `
                     <tr>
                         <td><strong>${t.tuid}</strong></td>
-                        <td><code style="color: var(--accent-indigo); font-weight: 600;">${t.derivative_cross || '-'}</code></td>
-                        <td><strong>${t.genotype || '-'}</strong></td>
-                        <td style="max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${t.notes || ''}">${t.notes || '-'}</td>
-                        <td><span class="badge ${badgeClass}">${t.line}</span></td>
+                        <td><span style="color: var(--accent-indigo); font-weight: bold;">${t.derivative_cross || '-'}</span></td>
+                        <td>${t.genotype || t.line}</td>
+                        <td style="max-width: 150px; overflow: hidden; text-overflow: ellipsis;" title="${t.notes || ''}">${t.notes || '-'}</td>
+                        <td>${lineBadge}</td>
                         <td>${sexBadge}</td>
                         <td>${t.female}</td>
                         <td>${t.male}</td>
                         <td><strong>${t.total}</strong></td>
                         <td>${t.tank_size || '-'}</td>
-                        <td style="font-size: 11px; max-width: 140px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${t.protocol || ''}">${t.protocol || '-'}</td>
+                        <td>${t.protocol || '-'}</td>
                         <td>${t.dob || '-'}</td>
                         <td>${t.turnover_date || '-'}</td>
-                        <td>${t.dob_iso ? calculateAgeMonths(t.dob_iso) : '-'}</td>
-                        <td><span class="badge ${statClass}">${t.status}</span></td>
+                        <td>${t.age_months !== null ? t.age_months + ' mo' : '-'}</td>
+                        <td>${statusBadge}</td>
                         <td>${t.total_spawns}</td>
                         <td>${t.total_eggs_0h.toLocaleString()}</td>
                         <td class="no-export">
-                            <button class="btn btn-sm btn-outline" onclick="openTankModal('${t.tuid}')">Details</button>
+                            <button class="btn btn-sm btn-outline" onclick="openTankModal('${t.tuid}')">Profile</button>
                         </td>
                     </tr>
                 `;
             });
         }
 
-        // Render Audit Tab
+        // TAB 11: Audit Tab
         function renderAuditTab() {
             const tbody = document.getElementById('auditReservoirTableBody');
+            if (!tbody) return;
             tbody.innerHTML = '';
 
-            const singleSexTanks = Object.values(currentTanks).filter(t => t.sex_type === 'Female-Only' || t.sex_type === 'Male-Only');
-            singleSexTanks.sort((a, b) => a.tuid.localeCompare(b.tuid));
+            const singleSex = Object.values(currentTanks).filter(t => t.sex_type === 'Female-Only' || t.sex_type === 'Male-Only');
+            singleSex.sort((a, b) => a.tuid.localeCompare(b.tuid));
 
-            singleSexTanks.forEach(t => {
-                const badgeClass = `badge-${t.line.toLowerCase()}`;
+            singleSex.forEach(t => {
                 const sexBadge = getSexBadge(t.sex_type);
-                const statClass = t.status === 'Active' ? 'badge-active' : 'badge-euthanized';
-                const partners = Object.keys(t.cross_partners || {}).join(', ') || 'None recorded';
+                const statusBadge = getStatusBadge(t.status);
+                const lineBadge = `<span class="badge badge-${t.line.toLowerCase()}">${t.line}</span>`;
+
+                const partners = {};
+                t.spawn_history.forEach(h => {
+                    const mate = h.in_tank ? 'In-Tank' : 'Pair-Wise Cross';
+                    partners[mate] = (partners[mate] || 0) + 1;
+                });
+                const pKeys = Object.keys(partners).slice(0, 3).join(', ') || 'None recorded';
 
                 tbody.innerHTML += `
                     <tr>
                         <td><strong>${t.tuid}</strong></td>
-                        <td><span class="badge ${badgeClass}">${t.line}</span></td>
+                        <td>${lineBadge}</td>
                         <td>${sexBadge}</td>
-                        <td>${t.female}F / ${t.male}M</td>
-                        <td><span class="badge ${statClass}">${t.status}</span></td>
-                        <td>${t.notes}</td>
-                        <td><code>${partners}</code></td>
-                        <td>${t.total_spawns}</td>
-                        <td><strong>${t.total_eggs_0h.toLocaleString()}</strong></td>
+                        <td>${t.female}♀ / ${t.male}♂ (<b>${t.total}</b>)</td>
+                        <td>${statusBadge}</td>
+                        <td style="max-width: 140px; overflow: hidden; text-overflow: ellipsis;" title="${t.notes || ''}">${t.notes || '-'}</td>
+                        <td>${pKeys}</td>
+                        <td><strong>${t.total_spawns}</strong></td>
+                        <td>${t.total_eggs_0h.toLocaleString()}</td>
                     </tr>
                 `;
             });
         }
 
-        function calculateAgeMonths(dobIso) {
-            const d = new Date(dobIso);
-            const now = new Date(2026, 9, 3);
-            const months = (now.getFullYear() - d.getFullYear()) * 12 + (now.getMonth() - d.getMonth());
-            return months > 0 ? months + ' mo' : '< 1 mo';
-        }
-
-        // Render Raw Events with Pagination
-        function renderRawEvents() {
-            const yearFilter = document.getElementById('rawYearFilter').value;
-            const lineFilter = document.getElementById('rawLineFilter').value;
-            const search = document.getElementById('rawSearch').value.toUpperCase();
-
-            let filtered = currentEvents.filter(ev => {
-                if (yearFilter !== 'ALL' && String(ev.year) !== yearFilter) return false;
-                if (lineFilter !== 'ALL' && ev.line !== lineFilter) return false;
-                if (search && !ev.date.includes(search) && !ev.fishline.toUpperCase().includes(search) && !(ev.staff_summary || '').toUpperCase().includes(search)) return false;
-                return true;
-            });
-
-            const total = filtered.length;
-            const start = rawPageIndex * RAW_PAGE_SIZE;
-            const end = Math.min(start + RAW_PAGE_SIZE, total);
-            const pageData = filtered.slice(start, end);
-
-            document.getElementById('rawEventsCount').innerText = `Showing ${total === 0 ? 0 : start + 1} to ${end} of ${total.toLocaleString()} events`;
-
-            const tbody = document.getElementById('rawEventsTableBody');
-            tbody.innerHTML = '';
-
-            pageData.forEach(ev => {
-                const badgeClass = `badge-${ev.line.toLowerCase()}`;
-                tbody.innerHTML += `
-                    <tr>
-                        <td>${ev.date}</td>
-                        <td><span class="badge ${badgeClass}">${ev.line}</span></td>
-                        <td><strong>${ev.fishline}</strong></td>
-                        <td>${ev.in_tank ? '<span class="badge badge-active">Yes (In-Tank)</span>' : 'No (Pair)'}</td>
-                        <td><strong>${ev.eggs_0h}</strong></td>
-                        <td>${ev.sr_0h}%</td>
-                        <td>${ev.live_0h}</td>
-                        <td><span style="color: var(--accent-emerald); font-weight: bold;">${ev.sr_24h}%</span></td>
-                        <td><strong>${ev.live_24h}</strong></td>
-                        <td><span style="font-size: 11px; color: var(--text-secondary);">${ev.staff_summary || '-'}</span></td>
-                    </tr>
-                `;
-            });
-        }
-
-        function nextRawPage() {
-            rawPageIndex++;
-            renderRawEvents();
-        }
-
-        function prevRawPage() {
-            if (rawPageIndex > 0) {
-                rawPageIndex--;
-                renderRawEvents();
-            }
-        }
-
-        // Enhanced Intelligent Mating Planner Calculation
+        // TAB 12: Mating Planner
         function calculatePlanner() {
-            const line = document.getElementById('plannerLine').value;
-            const targetEmbryos = parseInt(document.getElementById('plannerTargetEmbryos').value) || 1000;
-            const strategy = document.getElementById('plannerStrategy').value;
+            const line = document.getElementById('planLine').value;
+            const targetYield = parseInt(document.getElementById('planEmbryoTarget').value) || 1000;
 
-            const bm = calculateLineBenchmarks()[line] || { spawns: 10, eggs: 5000, validSpawns: 10, sr24Sum: 800 };
-            const avgClutch = bm.spawns > 0 ? (bm.eggs / bm.spawns) : 500;
-            const avgSR24 = bm.validSpawns > 0 ? (bm.sr24Sum / bm.validSpawns) / 100 : 0.75;
-            const expectedViablePerSpawn = Math.max(50, avgClutch * avgSR24);
+            const relevantPairs = currentPairs.filter(p => p.line === line);
+            const femaleReservoirs = Object.values(currentTanks).filter(t => t.line === line && t.status === 'Active' && t.sex_type === 'Female-Only' && t.female > 0);
+            const maleReservoirs = Object.values(currentTanks).filter(t => t.line === line && t.status === 'Active' && t.sex_type === 'Male-Only' && t.male > 0);
 
-            const setupsNeeded = Math.ceil(targetEmbryos / expectedViablePerSpawn);
+            femaleReservoirs.sort((a, b) => b.female - a.female);
+            maleReservoirs.sort((a, b) => b.male - a.male);
+
             let recommendationHTML = '';
 
-            if (strategy === 'cross') {
-                // Filter strictly for pure line crosses (Dam and Sire belong to the selected line, no outcrosses)
-                const pureLinePairs = currentPairs.filter(p => {
-                    const isPure = p.line === line && !p.line.includes('Outcross') && !p.is_outcross;
-                    return isPure;
-                });
+            if (relevantPairs.length > 0) {
+                const topPair = relevantPairs[0];
+                const expectedPerSpawn = topPair.avg_clutch * (topPair.avg_sr24 / 100);
+                const neededSpawns = Math.ceil(targetYield / Math.max(expectedPerSpawn, 1));
 
-                // Check active status of tanks in pair
-                const activePairs = pureLinePairs.filter(p => {
-                    const dam = currentTanks[p.dam || p.tank_a];
-                    const sire = currentTanks[p.sire || p.tank_b];
-                    return (dam && dam.status === 'Active') && (sire && sire.status === 'Active');
-                });
-
-                const displayPairs = activePairs.length > 0 ? activePairs : pureLinePairs;
-
-                recommendationHTML = `
-                    <div style="background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 10px; padding: 14px; margin-bottom: 16px;">
-                        <h4 style="color: var(--accent-emerald); font-size: 15px; font-weight: bold; margin-bottom: 6px; display: flex; items-center; gap: 6px;">
-                            <span>🎯</span> Recommended Cross-Pairing Plan (Dam ♀ × Sire ♂)
-                        </h4>
-                        <p style="font-size: 13px; color: var(--text-primary); margin-bottom: 8px;">
-                            Target: <strong>${targetEmbryos.toLocaleString()} viable 24hpf embryos</strong> in line <strong>${line}</strong>
-                        </p>
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; font-size: 12px; margin-top: 10px;">
-                            <div style="background: rgba(0,0,0,0.25); padding: 8px 12px; border-radius: 6px;">
-                                <span style="color: var(--text-secondary); font-size: 11px;">Breeding Setups:</span>
-                                <p style="font-size: 16px; font-weight: bold; color: var(--accent-emerald);">${setupsNeeded} Pair Boxes</p>
-                            </div>
-                            <div style="background: rgba(0,0,0,0.25); padding: 8px 12px; border-radius: 6px;">
-                                <span style="color: var(--text-secondary); font-size: 11px;">Expected Total Eggs:</span>
-                                <p style="font-size: 16px; font-weight: bold; color: var(--accent-blue);">~${Math.round(setupsNeeded * avgClutch).toLocaleString()}</p>
-                            </div>
-                            <div style="background: rgba(0,0,0,0.25); padding: 8px 12px; border-radius: 6px;">
-                                <span style="color: var(--text-secondary); font-size: 11px;">Expected 24hpf Viable:</span>
-                                <p style="font-size: 16px; font-weight: bold; color: var(--accent-amber);">~${Math.round(setupsNeeded * expectedViablePerSpawn).toLocaleString()} (${(avgSR24 * 100).toFixed(1)}% SR)</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div style="margin-top: 14px;">
-                        <span style="font-size: 13px; font-weight: bold; color: var(--accent-blue); display: flex; items-center; gap: 6px;">
-                            <span>🏆</span> Top Proven Active Cross Combinations in Facility:
-                        </span>
-                        <div style="margin-top: 8px; display: flex; flex-direction: column; gap: 8px;">
-                            ${
-                                displayPairs.slice(0, 4).map((p, idx) => {
-                                    const damT = currentTanks[p.dam || p.tank_a] || {};
-                                    const sireT = currentTanks[p.sire || p.tank_b] || {};
-                                    const damActive = damT.status === 'Active';
-                                    const sireActive = sireT.status === 'Active';
-
-                                    return `
-                                        <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); padding: 10px 14px; border-radius: 8px; font-size: 12px; display: flex; flex-direction: column; gap: 4px;">
-                                            <div style="display: flex; justify-content: space-between; align-items: center;">
-                                                <strong style="color: #fff; font-size: 13px;">#${idx + 1}: ${p.pair_key}</strong>
-                                                <span style="color: var(--accent-emerald); font-weight: bold;">${p.avg_sr24}% 24h SR</span>
-                                            </div>
-                                            <div style="display: flex; gap: 12px; font-size: 11px; color: var(--text-secondary);">
-                                                <span>Dam: <b style="color: #f472b6;">${p.dam || p.tank_a}</b> (${damActive ? (damT.female || '?') + '♀ Active' : 'Archived'})</span>
-                                                <span>Sire: <b style="color: #38bdf8;">${p.sire || p.tank_b}</b> (${sireActive ? (sireT.male || '?') + '♂ Active' : 'Archived'})</span>
-                                                <span>Avg: <b style="color: #fff;">${p.avg_clutch}</b> eggs</span>
-                                                <span>Spawns: <b style="color: #fff;">${p.spawns}</b></span>
-                                            </div>
-                                        </div>
-                                    `;
-                                }).join('') || '<div style="font-size: 12px; color: var(--text-muted); padding: 12px; background: rgba(255,255,255,0.02); border-radius: 6px;">No historical single-pair records found for pure ' + line + '. Recommend setting up crosses between active single-sex reservoirs in the rack.</div>'
-                            }
-                        </div>
-                    </div>
-                `;
-            } else {
-                // In-Tank Spawning Strategy: Find active mixed-sex / colony group tanks of this line
-                const activeInTankCandidates = Object.values(currentTanks).filter(t => {
-                    const isTargetLine = t.line === line;
-                    const isActive = t.status === 'Active';
-                    const isMixedOrInTank = (t.sex_type === 'Mixed-Sex' || t.can_in_tank || t.in_tank_spawns > 0 || (t.female > 0 && t.male > 0));
-                    return isTargetLine && isActive && isMixedOrInTank;
-                });
-
-                // Rank by in-tank performance or overall fecundity
-                activeInTankCandidates.sort((a, b) => {
-                    const aSR = a.total_eggs_0h > 0 ? (a.total_live_24h / a.total_eggs_0h) : 0;
-                    const bSR = b.total_eggs_0h > 0 ? (b.total_live_24h / b.total_eggs_0h) : 0;
-                    return (b.in_tank_spawns - a.in_tank_spawns) || (bSR - aSR) || (b.total_eggs_0h - a.total_eggs_0h);
-                });
-
-                const inTankSetups = Math.ceil(targetEmbryos / (expectedViablePerSpawn * 1.2));
-
-                recommendationHTML = `
-                    <div style="background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 10px; padding: 14px; margin-bottom: 16px;">
-                        <h4 style="color: var(--accent-blue); font-size: 15px; font-weight: bold; margin-bottom: 6px; display: flex; items-center; gap: 6px;">
-                            <span>📦</span> Recommended In-Tank / Colony Group Spawning Plan
-                        </h4>
-                        <p style="font-size: 13px; color: var(--text-primary); margin-bottom: 8px;">
-                            Target: <strong>${targetEmbryos.toLocaleString()} viable embryos</strong> in line <strong>${line}</strong> using self-contained communal colony tanks.
-                        </p>
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; font-size: 12px; margin-top: 10px;">
-                            <div style="background: rgba(0,0,0,0.25); padding: 8px 12px; border-radius: 6px;">
-                                <span style="color: var(--text-secondary); font-size: 11px;">Group Tanks Needed:</span>
-                                <p style="font-size: 16px; font-weight: bold; color: var(--accent-blue);">${inTankSetups} Active Colony Tanks</p>
-                            </div>
-                            <div style="background: rgba(0,0,0,0.25); padding: 8px 12px; border-radius: 6px;">
-                                <span style="color: var(--text-secondary); font-size: 11px;">Expected Total Yield:</span>
-                                <p style="font-size: 16px; font-weight: bold; color: var(--accent-emerald);">~${Math.round(inTankSetups * expectedViablePerSpawn * 1.2).toLocaleString()} viable embryos</p>
-                            </div>
-                            <div style="background: rgba(0,0,0,0.25); padding: 8px 12px; border-radius: 6px;">
-                                <span style="color: var(--text-secondary); font-size: 11px;">Husbandry Rest Period:</span>
-                                <p style="font-size: 14px; font-weight: bold; color: var(--accent-amber);">≥14 Days Rest</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div style="margin-top: 14px;">
-                        <span style="font-size: 13px; font-weight: bold; color: var(--accent-emerald); display: flex; items-center; gap: 6px;">
-                            <span>🏢</span> Active In-Tank Colony Tanks Available in Facility (${activeInTankCandidates.length} Tanks):
-                        </span>
-                        <div style="margin-top: 8px; display: flex; flex-direction: column; gap: 8px;">
-                            ${
-                                activeInTankCandidates.slice(0, 5).map((t, idx) => {
-                                    const inTankSpawns = t.in_tank_spawns || 0;
-                                    const avgLive = t.total_spawns > 0 ? Math.round(t.total_live_24h / t.total_spawns) : 'N/A';
-                                    const mixTag = t.notes && t.notes.toLowerCase().includes('mix') ? '<span style="background: rgba(13,148,136,0.2); color: #2dd4bf; padding: 2px 6px; border-radius: 4px; font-size: 10px; margin-left: 6px;">🔀 Mix Pool</span>' : '';
-
-                                    return `
-                                        <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); padding: 10px 14px; border-radius: 8px; font-size: 12px; display: flex; justify-content: space-between; align-items: center;">
-                                            <div>
-                                                <div style="display: flex; align-items: center; gap: 6px;">
-                                                    <strong style="color: #fff; font-size: 13px;">${t.tuid}</strong>
-                                                    <span style="color: var(--text-secondary); font-size: 11px;">(${t.notes || 'No notes'})</span>
-                                                    ${mixTag}
-                                                </div>
-                                                <div style="font-size: 11px; color: var(--text-secondary); margin-top: 3px;">
-                                                    Fish: <b style="color: #fff;">${t.total}</b> (${t.female}♀ / ${t.male}♂) | In-Tank Spawns: <b style="color: var(--accent-blue);">${inTankSpawns}</b> | Avg Yield: <b style="color: var(--accent-emerald);">${avgLive}</b> viable/spawn
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <button onclick="openTankModal('${t.tuid}')" style="background: var(--accent-blue); color: #000; border: none; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: bold; cursor: pointer;">
-                                                    Inspect
-                                                </button>
-                                            </div>
-                                        </div>
-                                    `;
-                                }).join('') || '<div style="font-size: 12px; color: var(--text-muted); padding: 12px; background: rgba(255,255,255,0.02); border-radius: 6px;">No active mixed-sex group colony tanks found for ' + line + '. Please use the Cross-Pairing strategy with single-sex tanks.</div>'
-                            }
+                recommendationHTML += `
+                    <div class="recommendation-box">
+                        <span style="font-size: 11px; font-weight: bold; color: var(--accent-emerald); text-transform: uppercase;">Top Cross Recommendation (Pair-Wise)</span>
+                        <div style="font-size: 18px; font-weight: bold; color: #fff; margin-top: 4px;">${topPair.pair_key} (${line})</div>
+                        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 6px; line-height: 1.5;">
+                            • Historical Fecundity: <b>${topPair.avg_clutch}</b> eggs/spawn | 24hpf Viability: <b style="color: var(--accent-emerald);">${topPair.avg_sr24}%</b><br>
+                            • To reach target <b>${targetYield.toLocaleString()}</b> viable embryos, set up <strong>${neededSpawns}</strong> mating crossing tanks.
                         </div>
                     </div>
                 `;
             }
 
-            document.getElementById('plannerResultBox').innerHTML = recommendationHTML;
+            if (femaleReservoirs.length > 0 && maleReservoirs.length > 0) {
+                recommendationHTML += `
+                    <div class="recommendation-box" style="border-color: var(--accent-blue);">
+                        <span style="font-size: 11px; font-weight: bold; color: var(--accent-blue); text-transform: uppercase;">Single-Sex Reservoir Setup</span>
+                        <div style="font-size: 16px; font-weight: bold; color: #fff; margin-top: 4px;">
+                            ♀ ${femaleReservoirs[0].tuid} (${femaleReservoirs[0].female} females) &times; ♂ ${maleReservoirs[0].tuid} (${maleReservoirs[0].male} males)
+                        </div>
+                        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 6px;">
+                            Dedicated single-sex separation ensures high egg yield and zero in-tank drop.
+                        </div>
+                    </div>
+                `;
+            }
+
+            document.getElementById('plannerResultBox').innerHTML = recommendationHTML || '<div style="color: var(--text-muted); font-size: 13px;">No data available for this line combination.</div>';
         }
 
-        // Modal for Tank Performance History
+        // TAB 13: Raw Events
+        function renderRawEvents() {
+            const tbody = document.getElementById('rawEventsTableBody');
+            if (!tbody) return;
+            tbody.innerHTML = '';
+
+            const year = document.getElementById('rawYearFilter').value;
+            const line = document.getElementById('rawLineFilter').value;
+            const search = document.getElementById('rawSearch').value.trim().toUpperCase();
+
+            let list = currentEvents;
+            if (year !== 'ALL') list = list.filter(e => e.year === parseInt(year));
+            if (line !== 'ALL') list = list.filter(e => e.line === line);
+            if (search) list = list.filter(e => (e.tank_id && e.tank_id.includes(search)) || (e.date && e.date.includes(search)) || (e.staff && e.staff.toUpperCase().includes(search)) || (e.notes && e.notes.toUpperCase().includes(search)));
+
+            list.slice(0, 100).forEach(e => {
+                const badgeClass = `badge-${e.line.toLowerCase()}`;
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${e.date}</td>
+                        <td><span class="badge ${badgeClass}">${e.line}</span></td>
+                        <td>${e.in_tank ? 'In-Tank' : 'Pair-Wise'}</td>
+                        <td><strong>${e.tank_id}</strong></td>
+                        <td>${e.eggs_0h}</td>
+                        <td>${e.sr_0h}%</td>
+                        <td>${e.sr_24h}%</td>
+                        <td><strong>${e.live_24h}</strong></td>
+                        <td>${e.staff || '-'}</td>
+                    </tr>
+                `;
+            });
+        }
+
+        // Modal for Tank Profile
         function openTankModal(tuid) {
             const t = currentTanks[tuid];
             if (!t) return;
 
-            document.getElementById('modalTitle').innerText = `${t.tuid} [${t.line}] — Complete Facility & Performance Profile`;
+            document.getElementById('modalTitle').innerText = `${t.tuid} [${t.line}] — Facility Profile & Spawning History`;
             const mbody = document.getElementById('modalBody');
 
             let historyRows = '';
@@ -1999,7 +2441,6 @@ def generate_dashboard():
                 historyRows += `
                     <tr>
                         <td>${h.date}</td>
-                        <td>${h.age_months !== null ? h.age_months + ' mo' : '-'}</td>
                         <td>${h.in_tank ? 'In-Tank' : 'Pair-Wise'}</td>
                         <td>${h.eggs_0h}</td>
                         <td>${h.sr_0h}%</td>
@@ -2010,24 +2451,19 @@ def generate_dashboard():
                 `;
             });
 
-            const sexBadge = getSexBadge(t.sex_type);
-
             mbody.innerHTML = `
-                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 16px;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px;">
                     <div style="background: rgba(15,23,42,0.6); padding: 12px; border-radius: 6px;">
                         <span style="font-size: 11px; color: var(--text-secondary);">Genotype / Strain</span>
                         <div style="font-weight: bold; margin-top: 4px; color: #fff;">${t.genotype || t.line}</div>
                     </div>
                     <div style="background: rgba(15,23,42,0.6); padding: 12px; border-radius: 6px;">
-                        <span style="font-size: 11px; color: var(--text-secondary);">Derivative Cross &amp; Nursery</span>
-                        <div style="font-weight: bold; margin-top: 4px; display: flex; align-items: center; gap: 6px;">
-                            <span style="color: var(--accent-indigo);">${t.derivative_cross || 'Root Stock'}</span>
-                            ${t.derivative_nursery ? `<span class="badge" style="background: rgba(192,132,252,0.2); color: #c084fc; font-size: 11px;">${t.derivative_nursery}</span>` : ''}
-                        </div>
+                        <span style="font-size: 11px; color: var(--text-secondary);">Derivative Cross</span>
+                        <div style="font-weight: bold; margin-top: 4px; color: var(--accent-indigo);">${t.derivative_cross || 'Root Stock'}</div>
                     </div>
                     <div style="background: rgba(15,23,42,0.6); padding: 12px; border-radius: 6px;">
                         <span style="font-size: 11px; color: var(--text-secondary);">Sex Composition</span>
-                        <div style="margin-top: 4px;">${sexBadge}</div>
+                        <div style="margin-top: 4px;">${getSexBadge(t.sex_type)}</div>
                     </div>
                     <div style="background: rgba(15,23,42,0.6); padding: 12px; border-radius: 6px;">
                         <span style="font-size: 11px; color: var(--text-secondary);">Adult Inventory</span>
@@ -2035,52 +2471,47 @@ def generate_dashboard():
                     </div>
                 </div>
 
-                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px;">
                     <div style="background: rgba(15,23,42,0.6); padding: 12px; border-radius: 6px;">
-                        <span style="font-size: 11px; color: var(--text-secondary);">Date of Birth (DOB)</span>
+                        <span style="font-size: 11px; color: var(--text-secondary);">DOB</span>
                         <div style="font-weight: bold; margin-top: 4px;">${t.dob || '-'}</div>
                     </div>
                     <div style="background: rgba(15,23,42,0.6); padding: 12px; border-radius: 6px;">
-                        <span style="font-size: 11px; color: var(--text-secondary);">Turnover Date</span>
-                        <div style="font-weight: bold; margin-top: 4px;">${t.turnover_date || '-'}</div>
+                        <span style="font-size: 11px; color: var(--text-secondary);">Turnover Deadline</span>
+                        <div style="font-weight: bold; margin-top: 4px;">${t.turnover_date_resolved || t.turnover_date || '-'}</div>
                     </div>
                     <div style="background: rgba(15,23,42,0.6); padding: 12px; border-radius: 6px;">
-                        <span style="font-size: 11px; color: var(--text-secondary);">Tank Size / Room</span>
-                        <div style="font-weight: bold; margin-top: 4px;">${t.tank_size || '-'} / ${t.room || 'D126'}</div>
-                    </div>
-                    <div style="background: rgba(15,23,42,0.6); padding: 12px; border-radius: 6px;">
-                        <span style="font-size: 11px; color: var(--text-secondary);">Protocol</span>
-                        <div style="font-size: 11px; margin-top: 4px; color: var(--text-secondary);">${t.protocol || '-'}</div>
+                        <span style="font-size: 11px; color: var(--text-secondary);">Generation & Inbreeding (F)</span>
+                        <div style="font-weight: bold; margin-top: 4px; color: var(--accent-blue);">G${t.generation || 0} (F = ${t.inbreeding_f !== undefined ? t.inbreeding_f.toFixed(3) : '0.000'})</div>
                     </div>
                 </div>
 
-                <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); padding: 12px; border-radius: 6px; margin-bottom: 20px;">
-                    <span style="font-size: 11px; color: var(--text-secondary);">Original FileMaker Notes / Lineage:</span>
+                <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); padding: 12px; border-radius: 6px;">
+                    <span style="font-size: 11px; color: var(--text-secondary);">FileMaker Lineage Notes:</span>
                     <p style="font-size: 13px; color: #fff; margin-top: 4px; font-family: monospace;">${t.notes || 'None recorded'}</p>
                 </div>
 
-                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px;">
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
                     <div style="background: rgba(56,189,248,0.1); border: 1px solid rgba(56,189,248,0.2); padding: 12px; border-radius: 6px;">
                         <span style="font-size: 11px; color: var(--text-secondary);">Lifetime Spawns</span>
                         <div style="font-size: 18px; font-weight: bold; color: var(--accent-blue); margin-top: 2px;">${t.total_spawns}</div>
                     </div>
                     <div style="background: rgba(251,191,36,0.1); border: 1px solid rgba(251,191,36,0.2); padding: 12px; border-radius: 6px;">
-                        <span style="font-size: 11px; color: var(--text-secondary);">Lifetime Eggs Spawned</span>
+                        <span style="font-size: 11px; color: var(--text-secondary);">Total Eggs</span>
                         <div style="font-size: 18px; font-weight: bold; color: var(--accent-amber); margin-top: 2px;">${t.total_eggs_0h.toLocaleString()}</div>
                     </div>
                     <div style="background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.2); padding: 12px; border-radius: 6px;">
-                        <span style="font-size: 11px; color: var(--text-secondary);">24hpf Embryo Viability</span>
-                        <div style="font-size: 18px; font-weight: bold; color: var(--accent-emerald); margin-top: 2px;">${t.avg_sr_24h}% (${t.total_live_24h.toLocaleString()} viable)</div>
+                        <span style="font-size: 11px; color: var(--text-secondary);">24hpf Viability</span>
+                        <div style="font-size: 18px; font-weight: bold; color: var(--accent-emerald); margin-top: 2px;">${t.avg_sr_24h}% (${t.total_live_24h.toLocaleString()})</div>
                     </div>
                 </div>
 
-                <h4 style="font-size: 14px; margin-bottom: 10px;">Spawning Event History (${t.spawn_history.length} events)</h4>
+                <h4 style="font-size: 14px; margin-bottom: 10px;">Individual Spawning History (${t.spawn_history.length} runs)</h4>
                 <div class="table-responsive" style="max-height: 250px; overflow-y: auto;">
-                    <table id="modalHistoryTable">
+                    <table>
                         <thead>
                             <tr>
                                 <th>Date</th>
-                                <th>Age</th>
                                 <th>Type</th>
                                 <th>Eggs (0H)</th>
                                 <th>SR (0H)</th>
@@ -2090,12 +2521,11 @@ def generate_dashboard():
                             </tr>
                         </thead>
                         <tbody>
-                            ${historyRows || '<tr><td colspan="8" style="text-align: center; color: var(--text-secondary);">No individual breeding logs recorded yet.</td></tr>'}
+                            ${historyRows || '<tr><td colspan="7" style="text-align: center; color: var(--text-secondary);">No spawning events recorded.</td></tr>'}
                         </tbody>
                     </table>
                 </div>
             `;
-
             document.getElementById('tankModal').style.display = 'flex';
         }
 
@@ -2115,21 +2545,38 @@ def generate_dashboard():
             
             const targetContent = document.getElementById(tabId);
             if (targetContent) targetContent.classList.add('active');
+
+            if (tabId === 'tab-pedigree') populateFocalDropdown(), renderFocalPedigreeTree();
+            else if (tabId === 'tab-turnover') renderTurnoverTable();
+            else if (tabId === 'tab-crosses-reg') renderCrossesRegistry();
+            else if (tabId === 'tab-alerts') renderColonyAlerts();
+            else if (tabId === 'tab-crosses') renderCrosses();
+            else if (tabId === 'tab-trends') renderTrends();
+            else if (tabId === 'tab-age-curves') renderAgeCurves();
+            else if (tabId === 'tab-scorecards') renderScorecards();
+            else if (tabId === 'tab-inventory') renderInventory();
+            else if (tabId === 'tab-audit') renderAuditTab();
+            else if (tabId === 'tab-planner') calculatePlanner();
+            else if (tabId === 'tab-raw-events') renderRawEvents();
         }
 
         function handleFileUpload(event) {
             const file = event.target.files[0];
             if (!file) return;
-
             const reader = new FileReader();
             reader.onload = function(e) {
-                alert(`File "${file.name}" loaded successfully! Dynamic analytics updated.`);
+                alert(`File "${file.name}" received! Re-compiling analytics pipeline.`);
             };
             reader.readAsText(file);
         }
 
         window.onload = function() {
             renderBenchmarks();
+            populateFocalDropdown();
+            renderFocalPedigreeTree();
+            renderTurnoverTable();
+            renderCrossesRegistry();
+            renderColonyAlerts();
             renderCrosses();
             renderTrends();
             renderAgeCurves();
@@ -2160,6 +2607,16 @@ def generate_dashboard():
     with open(out_index, 'w', encoding='utf-8') as f:
         f.write(html_content)
     print(f'Wrote {out_index}')
+
+    out_colony = os.path.join(labels_dir, 'colony.html')
+    with open(out_colony, 'w', encoding='utf-8') as f:
+        f.write(html_content)
+    print(f'Wrote {out_colony}')
+
+    out_breeding = os.path.join(labels_dir, 'breeding.html')
+    with open(out_breeding, 'w', encoding='utf-8') as f:
+        f.write(html_content)
+    print(f'Wrote {out_breeding}')
 
 if __name__ == '__main__':
     generate_dashboard()

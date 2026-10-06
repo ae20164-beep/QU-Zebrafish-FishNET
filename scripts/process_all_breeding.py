@@ -894,10 +894,235 @@ def process():
             })
     pair_list.sort(key=lambda x: x['total_eggs'], reverse=True)
 
+    # 5. Compute Pedigree, Kinship Matrix & Inbreeding (F)
+    parents_map = {}
+    children_map = defaultdict(list)
+    for tuid, st in tank_stats.items():
+        d_cross = st.get('derivative_cross', '').upper()
+        notes = st.get('notes', '')
+        dam, sire = '', ''
+        if d_cross in crosses_map:
+            dam = crosses_map[d_cross].get('dam', '')
+            sire = crosses_map[d_cross].get('sire', '')
+        if not dam and not sire:
+            m_tanks = re.findall(r'\bT\s*0*(\d{1,4})\b', notes, re.I)
+            if len(m_tanks) >= 2:
+                dam = f'T{int(m_tanks[0]):04d}'
+                sire = f'T{int(m_tanks[1]):04d}'
+            elif len(m_tanks) == 1:
+                dam = f'T{int(m_tanks[0]):04d}'
+                sire = dam
+        parents_map[tuid] = (sire, dam)
+        st['sire'] = sire
+        st['dam'] = dam
+
+    for tuid, (sire, dam) in parents_map.items():
+        if sire and sire in tank_stats:
+            children_map[sire].append(tuid)
+        if dam and dam in tank_stats and dam != sire:
+            children_map[dam].append(tuid)
+
+    for tuid, st in tank_stats.items():
+        st['progeny'] = children_map[tuid]
+        st['progeny_count'] = len(children_map[tuid])
+
+    # Generation Depth
+    gen_depth = {}
+    def calc_depth(t, visited=None):
+        if visited is None: visited = set()
+        if t in gen_depth: return gen_depth[t]
+        if t in visited: return 0
+        visited.add(t)
+        s, d = parents_map.get(t, ('', ''))
+        dp = calc_depth(s, visited.copy()) if s and s in tank_stats else 0
+        dm = calc_depth(d, visited.copy()) if d and d in tank_stats else 0
+        gen_depth[t] = 1 + max(dp, dm) if (s or d) else 0
+        return gen_depth[t]
+
+    for t in tank_stats:
+        calc_depth(t)
+        tank_stats[t]['gen_depth'] = gen_depth[t]
+
+    # Tabular Kinship & Inbreeding
+    all_ids = sorted(list(tank_stats.keys()))
+    A = defaultdict(lambda: defaultdict(float))
+    for i in all_ids:
+        si, di = parents_map.get(i, ('', ''))
+        if si and di and si in tank_stats and di in tank_stats:
+            A[i][i] = 1.0 + 0.5 * A[si][di]
+        else:
+            A[i][i] = 1.0
+        for j in all_ids:
+            if i == j: continue
+            sj, dj = parents_map.get(j, ('', ''))
+            if sj and dj and sj in tank_stats and dj in tank_stats:
+                val = 0.5 * (A[i][sj] + A[i][dj])
+            elif sj and sj in tank_stats:
+                val = 0.5 * A[i][sj]
+            elif dj and dj in tank_stats:
+                val = 0.5 * A[i][dj]
+            else:
+                val = 0.0
+            A[i][j] = val
+            A[j][i] = val
+
+    inbreeding_coeffs = {}
+    for i in all_ids:
+        si, di = parents_map.get(i, ('', ''))
+        if si and di and si in tank_stats and di in tank_stats:
+            inbreeding_coeffs[i] = round(0.5 * A[si][di], 4)
+        else:
+            inbreeding_coeffs[i] = 0.0
+        tank_stats[i]['inbreeding_f'] = inbreeding_coeffs[i]
+
+    # 6. Compute Turnover Countdown, Aging Lifecycle & Compliance Alerts
+    NOW = datetime(2026, 10, 6)
+    alerts = []
+    turnover_overdue = []
+    turnover_due30 = []
+    turnover_due60 = []
+    turnover_due90 = []
+    turnover_future = []
+
+    for tuid, st in tank_stats.items():
+        # Lifecycle stage
+        dob_dt = st.get('dob_dt')
+        age_months = None
+        if dob_dt:
+            diff_days = (NOW - dob_dt).days
+            age_months = round(diff_days / 30.4375, 1)
+        st['age_months_now'] = age_months
+
+        if st['status'] != 'Active':
+            st['lifecycle_stage'] = 'Euthanized / Inactive'
+        elif age_months is not None:
+            if age_months < 3:
+                st['lifecycle_stage'] = 'Juvenile (<3m)'
+            elif age_months <= 6:
+                st['lifecycle_stage'] = 'Young Adult (3-6m)'
+            elif age_months <= 12:
+                st['lifecycle_stage'] = 'Prime Breeding (6-12m)'
+            elif age_months <= 18:
+                st['lifecycle_stage'] = 'Mature Stock (12-18m)'
+            else:
+                st['lifecycle_stage'] = 'Geriatric (>18m)'
+        else:
+            st['lifecycle_stage'] = 'Active (Unknown Age)'
+
+        # Turnover date parsing
+        turn_str = st.get('turnover_date', '')
+        turn_dt = None
+        for fmt in ['%d-%m-%Y', '%d/%m/%Y', '%d-%b-%y', '%d-%b-%Y', '%d-%m-%y']:
+            try:
+                turn_dt = datetime.strptime(turn_str, fmt)
+                if turn_dt.year > 2030: turn_dt = turn_dt.replace(year=turn_dt.year - 100)
+                break
+            except:
+                pass
+        
+        # Fallback 2 years from DOB
+        if not turn_dt and dob_dt:
+            turn_dt = datetime(dob_dt.year + 2, dob_dt.month, dob_dt.day)
+
+        if turn_dt and st['status'] == 'Active':
+            days_left = (turn_dt - NOW).days
+            st['days_to_turnover'] = days_left
+            st['turnover_date_resolved'] = turn_dt.strftime('%d-%m-%Y')
+            
+            if days_left < 0:
+                st['turnover_urgency'] = 'OVERDUE'
+                turnover_overdue.append(tuid)
+                alerts.append({
+                    'tuid': tuid, 'line': st['line'], 'severity': 'CRITICAL',
+                    'category': 'Turnover Overdue',
+                    'message': f"Tank is {abs(days_left)} days past 2-year colony holding limit (Turnover: {st['turnover_date_resolved']}).",
+                    'action': 'Schedule immediate renewal cross or colony retirement.'
+                })
+            elif days_left <= 30:
+                st['turnover_urgency'] = 'DUE SOON (<=30d)'
+                turnover_due30.append(tuid)
+                alerts.append({
+                    'tuid': tuid, 'line': st['line'], 'severity': 'HIGH',
+                    'category': 'Turnover Due Soon',
+                    'message': f"Reaches 2-year turnover deadline in {days_left} days.",
+                    'action': 'Set up next-generation replacement pairings in breeding room.'
+                })
+            elif days_left <= 60:
+                st['turnover_urgency'] = 'UPCOMING (31-60d)'
+                turnover_due60.append(tuid)
+            elif days_left <= 90:
+                st['turnover_urgency'] = 'UPCOMING (61-90d)'
+                turnover_due90.append(tuid)
+            else:
+                st['turnover_urgency'] = 'FUTURE (>90d)'
+                turnover_future.append(tuid)
+        else:
+            st['days_to_turnover'] = None
+            st['turnover_urgency'] = 'N/A'
+            st['turnover_date_resolved'] = turn_str or '-'
+
+        # Inbreeding alerts
+        if st['status'] == 'Active' and st['inbreeding_f'] >= 0.25:
+            alerts.append({
+                'tuid': tuid, 'line': st['line'], 'severity': 'HIGH',
+                'category': 'Elevated Inbreeding',
+                'message': f"Inbreeding coefficient F = {st['inbreeding_f']} (Full-sib / Parent-Offspring level).",
+                'action': 'Outcross with unrelated stock in next generation.'
+            })
+
+        # Single-Sex Stock Depletion Alerts
+        if st['status'] == 'Active' and st['total'] < 5 and (st['sex_type'] == 'Female-Only' or st['sex_type'] == 'Male-Only'):
+            alerts.append({
+                'tuid': tuid, 'line': st['line'], 'severity': 'MEDIUM',
+                'category': 'Low Biomass Reservoir',
+                'message': f"Single-sex reservoir has only {st['total']} fish remaining ({st['female']}F / {st['male']}M).",
+                'action': 'Replenish reservoir from upcoming nursery graduation batches.'
+            })
+
+    # 7. Compile Complete Crosses Registry
+    crosses_registry = []
+    # Map tank offspring
+    cross_offspring = defaultdict(list)
+    for tuid, st in tank_stats.items():
+        if st.get('derivative_cross'):
+            cross_offspring[st['derivative_cross'].upper()].append(tuid)
+
+    for cuid, c_data in sorted(crosses_map.items()):
+        n_clutches = nursery_by_cross.get(cuid, [])
+        off_tanks = cross_offspring.get(cuid, [])
+        n_count = sum(int(n['count']) for n in n_clutches if n['count'].isdigit()) if n_clutches else 0
+        n_grad = n_clutches[0]['grad_date'] if n_clutches else ''
+        
+        dam_t = tank_stats.get(c_data.get('dam', ''), {})
+        sire_t = tank_stats.get(c_data.get('sire', ''), {})
+        line_str = f"{dam_t.get('line', 'AB')} x {sire_t.get('line', 'AB')}" if dam_t or sire_t else 'AB x AB'
+        
+        crosses_registry.append({
+            'cuid': cuid,
+            'mating_date': c_data.get('date', '-'),
+            'dam': c_data.get('dam', '-'),
+            'sire': c_data.get('sire', '-'),
+            'line_pair': line_str,
+            'nursery_clutches': [n['nuid'] for n in n_clutches],
+            'nursery_count': n_count,
+            'nursery_grad_date': n_grad,
+            'offspring_tanks': off_tanks,
+            'offspring_count': len(off_tanks)
+        })
+
     summary_data = {
         'events': all_events,
         'tank_stats': {k: {k2: v2 for k2, v2 in v.items() if k2 != 'dob_dt'} for k, v in tank_stats.items()},
         'pair_synergies': pair_list,
+        'crosses_registry': crosses_registry,
+        'alerts': alerts,
+        'turnover_summary': {
+            'overdue_count': len(turnover_overdue),
+            'due30_count': len(turnover_due30),
+            'due60_count': len(turnover_due60),
+            'due90_count': len(turnover_due90),
+            'future_count': len(turnover_future)
+        },
         'metadata': {
             'total_events': len(all_events),
             'events_2024': sum(1 for e in all_events if e['year'] == 2024),
@@ -908,15 +1133,18 @@ def process():
             'total_tanks': len(unique_tanks),
             'active_tanks': sum(1 for t in unique_tanks.values() if t['status'] == 'Active'),
             'euthanized_tanks': sum(1 for t in unique_tanks.values() if t['status'] == 'Euthanized'),
+            'larvae_tanks': sum(1 for t in unique_tanks.values() if t['status'] == 'Larvae'),
             'female_only_tanks': n_f_only,
             'male_only_tanks': n_m_only,
-            'mixed_colony_tanks': n_mixed
+            'mixed_colony_tanks': n_mixed,
+            'total_crosses': len(crosses_registry),
+            'total_alerts': len(alerts)
         }
     }
     
     with open(os.path.join(labels_dir, 'breeding_dashboard_data.json'), 'w', encoding='utf-8') as f:
         json.dump(summary_data, f)
-    print(f'Saved breeding_dashboard_data.json with sex awareness and {len(pair_list)} cross-pair records.')
+    print(f'Saved breeding_dashboard_data.json with pedigree, turnover, crosses, and {len(alerts)} alerts.')
 
 if __name__ == '__main__':
     process()
