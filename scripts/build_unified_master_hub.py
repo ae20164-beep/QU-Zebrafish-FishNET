@@ -173,10 +173,12 @@ def generate_unified_html(records, breeding_data, project_rows):
             border: 1px solid var(--border-color);
         }}
         .tab-content {{
-            display: none;
+            display: none !important;
         }}
         .tab-content.active {{
-            display: block;
+            display: flex !important;
+            flex-direction: column;
+            gap: 1.5rem;
         }}
         /* Table styles */
         .custom-table {{
@@ -263,7 +265,7 @@ def generate_unified_html(records, breeding_data, project_rows):
     <main class="max-w-7xl mx-auto w-full p-6 flex-1 flex flex-col gap-6">
 
         <!-- ==================== TAB 1: COLONY & TANKS ==================== -->
-        <section id="tab-colony" class="tab-content active flex flex-col gap-6">
+        <section id="tab-colony" class="tab-content active">
             <!-- Colony KPIs -->
             <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
                 <div class="bg-slate-800/80 border border-slate-700/80 rounded-xl p-4 flex flex-col justify-between shadow-lg">
@@ -381,7 +383,7 @@ def generate_unified_html(records, breeding_data, project_rows):
 
 
         <!-- ==================== TAB 2: 4-MODE PEDIGREES ==================== -->
-        <section id="tab-pedigree" class="tab-content flex flex-col gap-6">
+        <section id="tab-pedigree" class="tab-content">
             <div class="bg-slate-800/60 border border-slate-700 rounded-xl p-5 flex flex-col gap-4 shadow-lg">
                 <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-700 pb-4">
                     <div>
@@ -482,7 +484,7 @@ def generate_unified_html(records, breeding_data, project_rows):
 
 
         <!-- ==================== TAB 3: BREEDING & REPRODUCTIVE INTELLIGENCE ==================== -->
-        <section id="tab-breeding" class="tab-content flex flex-col gap-6">
+        <section id="tab-breeding" class="tab-content">
             <!-- Breeding KPIs -->
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
                 <div class="bg-slate-800/80 border border-slate-700 rounded-xl p-4 flex flex-col justify-between shadow-lg">
@@ -561,7 +563,7 @@ def generate_unified_html(records, breeding_data, project_rows):
 
 
         <!-- ==================== TAB 4: MATING PLANNER ==================== -->
-        <section id="tab-planner" class="tab-content flex flex-col gap-6">
+        <section id="tab-planner" class="tab-content">
             <div class="bg-gradient-to-br from-slate-800/90 to-slate-900/90 border border-indigo-500/40 rounded-2xl p-6 shadow-2xl flex flex-col gap-6">
                 <div>
                     <h2 class="text-lg font-black text-white flex items-center gap-2">
@@ -623,7 +625,7 @@ def generate_unified_html(records, breeding_data, project_rows):
 
 
         <!-- ==================== TAB 5: CROSSES & NURSERY ==================== -->
-        <section id="tab-crosses" class="tab-content flex flex-col gap-6">
+        <section id="tab-crosses" class="tab-content">
             <!-- Crosses & Nursery Summary -->
             <div class="bg-slate-800/60 border border-slate-700 rounded-xl p-5 flex flex-col gap-4 shadow-lg">
                 <div>
@@ -656,7 +658,7 @@ def generate_unified_html(records, breeding_data, project_rows):
 
 
         <!-- ==================== TAB 6: INGESTION HUB ==================== -->
-        <section id="tab-ingestion" class="tab-content flex flex-col gap-6">
+        <section id="tab-ingestion" class="tab-content">
             <div class="bg-slate-800/60 border border-slate-700 rounded-2xl p-6 shadow-xl flex flex-col gap-6 max-w-4xl mx-auto w-full">
                 <div class="border-b border-slate-700 pb-4">
                     <h2 class="text-lg font-black text-white flex items-center gap-2">
