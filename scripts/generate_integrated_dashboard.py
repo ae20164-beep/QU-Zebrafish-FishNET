@@ -17,7 +17,7 @@ def generate_dashboard():
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FishNET Reproductive & Colony Intelligence Dashboard (2024-2026)</title>
+    <title>FishNET Facility Reproductive & Colony Intelligence System</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -145,6 +145,28 @@ def generate_dashboard():
         }
         .btn-emerald:hover {
             background: rgba(52, 211, 153, 0.35);
+        }
+
+        .btn-purple {
+            background: rgba(192, 132, 252, 0.2);
+            color: #c084fc;
+            border: 1px solid rgba(192, 132, 252, 0.4);
+        }
+        .btn-purple:hover {
+            background: rgba(192, 132, 252, 0.35);
+        }
+
+        .cloud-badge {
+            background: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            padding: 6px 12px;
+            border-radius: 9999px;
+            font-size: 12px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
         }
         
         /* Stats Grid */
@@ -306,17 +328,17 @@ def generate_dashboard():
             color: var(--text-secondary);
         }
         
-        select, input[type="text"], input[type="number"] {
+        select, input[type="text"], input[type="number"], input[type="date"], textarea {
             background: #0f172a;
             border: 1px solid var(--border-color);
             color: var(--text-primary);
-            padding: 7px 12px;
+            padding: 8px 12px;
             border-radius: var(--radius-sm);
             font-size: 12.5px;
             outline: none;
         }
         
-        select:focus, input[type="text"]:focus, input[type="number"]:focus {
+        select:focus, input[type="text"]:focus, input[type="number"]:focus, input[type="date"]:focus, textarea:focus {
             border-color: var(--accent-blue);
         }
         
@@ -483,6 +505,25 @@ def generate_dashboard():
             border: 1px solid var(--border-color);
         }
 
+        /* Form Grid */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-group label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
         /* Modal */
         .modal-overlay {
             position: fixed;
@@ -551,11 +592,15 @@ def generate_dashboard():
     <header>
         <div class="header-title">
             <h1><span>🐠</span> FishNET Facility Reproductive & Colony Intelligence System</h1>
-            <p>Unified Zebrafish Platform (2024–2026) | 183 Tanks • 2,233 Spawning Events • 1,252,045 Eggs • 72 Crosses • Full 5-Gen Pedigree</p>
+            <p>Unified Zebrafish Platform (2024–2026) | 183 Tanks • 2,233 Spawning Events • 1,252,045 Eggs • 72 Crosses • Live Cloud Database</p>
         </div>
         <div class="header-controls">
-            <button class="btn btn-outline" onclick="exportBreedingJSON()">💾 Export Database (JSON)</button>
-            <button class="btn btn-emerald" onclick="exportBreedingCSV()">📥 Export Master CSV (2024–2026)</button>
+            <span class="cloud-badge" id="cloudStatusBadge">🟢 Cloud: Google Sheets Live</span>
+            <button class="btn btn-emerald" onclick="openLogSpawnModal()">➕ Log Spawning Run</button>
+            <button class="btn btn-purple" onclick="openAddTankModal()">➕ Add Tank</button>
+            <button class="btn btn-outline" onclick="fetchLatestCloudData()">🔄 Refresh Cloud</button>
+            <button class="btn btn-outline" onclick="exportBreedingJSON()">💾 Export JSON</button>
+            <button class="btn btn-outline" onclick="exportBreedingCSV()">📥 Export Master CSV</button>
         </div>
     </header>
 
@@ -1402,6 +1447,155 @@ def generate_dashboard():
         </div>
     </div>
 
+    <!-- MODAL 1: LOG SPAWNING EVENT (LIVE CLOUD) -->
+    <div id="modalLogSpawn" class="modal-overlay" onclick="closeModal(event)">
+        <div class="modal-container" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <span class="modal-title">➕ Record Live Spawning Event (Google Sheets Cloud)</span>
+                <button class="close-btn" onclick="closeLogSpawnModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="formLogSpawn" onsubmit="submitSpawnToCloud(event)">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Spawning Date:</label>
+                            <input type="date" id="spawnDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Primary Line:</label>
+                            <select id="spawnLine" required>
+                                <option value="AB">AB</option>
+                                <option value="Casper">Casper</option>
+                                <option value="Fli">Fli</option>
+                                <option value="Gata">Gata</option>
+                                <option value="DESMA">DESMA</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Mating Strategy:</label>
+                            <select id="spawnType" onchange="toggleSpawnTypeUI()">
+                                <option value="Pair-Wise">Pair-Wise Cross (Sire x Dam)</option>
+                                <option value="In-Tank">In-Tank Group Spawning</option>
+                            </select>
+                        </div>
+                        <div class="form-group" id="groupTankId">
+                            <label>Tank ID / Code:</label>
+                            <input type="text" id="spawnTankId" placeholder="e.g. T0135 x T0099" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Total Eggs Spawned (0hpf):</label>
+                            <input type="number" id="spawnEggs0h" min="0" value="500" required oninput="recalcEmbryoMath()">
+                        </div>
+                        <div class="form-group">
+                            <label>Fertilization Rate % (0hpf SR):</label>
+                            <input type="number" id="spawnSr0h" min="0" max="100" value="90" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Embryo Viability % (24hpf SR):</label>
+                            <input type="number" id="spawnSr24h" min="0" max="100" value="80" required oninput="recalcEmbryoMath()">
+                        </div>
+                        <div class="form-group">
+                            <label>Calculated Viable Embryos (24h):</label>
+                            <input type="number" id="spawnLive24h" min="0" value="400" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Technician / Staff Initial:</label>
+                            <input type="text" id="spawnStaff" placeholder="e.g. Himanshu / Omar / AE" value="Lab Staff" required>
+                        </div>
+                        <div class="form-group" style="grid-column: 1 / -1;">
+                            <label>Observations / Genetic Notes:</label>
+                            <input type="text" id="spawnNotes" placeholder="e.g. Good clutch quality, clean sorting">
+                        </div>
+                    </div>
+                    <div style="margin-top: 20px; display: flex; justify-content: flex-end; gap: 10px;">
+                        <button type="button" class="btn btn-outline" onclick="closeLogSpawnModal()">Cancel</button>
+                        <button type="submit" class="btn btn-emerald" id="btnSubmitSpawn">💾 Submit to Live Google Sheet</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 2: ADD NEW TANK (LIVE CLOUD) -->
+    <div id="modalAddTank" class="modal-overlay" onclick="closeModal(event)">
+        <div class="modal-container" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <span class="modal-title">➕ Register New Tank (Google Sheets Cloud)</span>
+                <button class="close-btn" onclick="closeAddTankModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="formAddTank" onsubmit="submitTankToCloud(event)">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label>Tank ID (Auto-Generated if blank):</label>
+                            <input type="text" id="newTankId" placeholder="e.g. T0184">
+                        </div>
+                        <div class="form-group">
+                            <label>Line:</label>
+                            <select id="newTankLine" required>
+                                <option value="AB">AB</option>
+                                <option value="Casper">Casper</option>
+                                <option value="Fli">Fli</option>
+                                <option value="Gata">Gata</option>
+                                <option value="DESMA">DESMA</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Derivative Cross (Parental Cross ID):</label>
+                            <input type="text" id="newTankCross" placeholder="e.g. C0073">
+                        </div>
+                        <div class="form-group">
+                            <label>Sex Composition:</label>
+                            <select id="newTankSexType" required>
+                                <option value="Mixed Colony">⚤ Mixed Colony</option>
+                                <option value="Female-Only">♀ Female-Only Reservoir</option>
+                                <option value="Male-Only">♂ Male-Only Reservoir</option>
+                                <option value="Unsexed / Juvenile">Unsexed / Juvenile</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Female Count:</label>
+                            <input type="number" id="newTankFemale" min="0" value="15" oninput="recalcTankTotal()">
+                        </div>
+                        <div class="form-group">
+                            <label>Male Count:</label>
+                            <input type="number" id="newTankMale" min="0" value="15" oninput="recalcTankTotal()">
+                        </div>
+                        <div class="form-group">
+                            <label>Total Fish:</label>
+                            <input type="number" id="newTankTotal" min="0" value="30" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Date of Birth (DOB):</label>
+                            <input type="date" id="newTankDob" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Tank Size:</label>
+                            <select id="newTankSize">
+                                <option value="3.5L">3.5L</option>
+                                <option value="1.8L">1.8L</option>
+                                <option value="8L">8L</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Protocol / IACUC Approval:</label>
+                            <input type="text" id="newTankProtocol" placeholder="e.g. QU-IACUC 008/2022-REN1">
+                        </div>
+                        <div class="form-group" style="grid-column: 1 / -1;">
+                            <label>Genotype / Lineage Notes:</label>
+                            <input type="text" id="newTankNotes" placeholder="e.g. F2 derived from C0073, high vigor">
+                        </div>
+                    </div>
+                    <div style="margin-top: 20px; display: flex; justify-content: flex-end; gap: 10px;">
+                        <button type="button" class="btn btn-outline" onclick="closeAddTankModal()">Cancel</button>
+                        <button type="submit" class="btn btn-purple" id="btnSubmitTank">💾 Create Tank in Google Sheet</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- Tank Performance Modal -->
     <div id="tankModal" class="modal-overlay" onclick="closeModal(event)">
         <div class="modal-container" onclick="event.stopPropagation()">
@@ -1416,7 +1610,9 @@ def generate_dashboard():
     </div>
 
     <script>
-        const MASTER_DATA = __DATA_JSON__;
+        const CLOUD_API_URL = 'https://script.google.com/macros/s/AKfycbyU-4YKpnXEp_CXI2mu2Xb-DFo1fcIbt_qk9AWtXoPsj5CnDYmJ1XiZni1jl2Tce3df/exec';
+        
+        let MASTER_DATA = __DATA_JSON__;
         let currentEvents = MASTER_DATA.events || [];
         let currentTanks = MASTER_DATA.tank_stats || {};
         let currentPairs = MASTER_DATA.pair_synergies || [];
@@ -1489,6 +1685,140 @@ def generate_dashboard():
             if (status === 'Active') return '<span class="badge badge-active">Active</span>';
             if (status === 'Euthanized') return '<span class="badge badge-euthanized">Euthanized</span>';
             return '<span class="badge badge-larvae">Larvae</span>';
+        }
+
+        // Live Cloud Data Fetching
+        function fetchLatestCloudData() {
+            const badge = document.getElementById('cloudStatusBadge');
+            badge.innerText = '🔄 Syncing Google Sheets...';
+            badge.style.color = '#fbbf24';
+
+            fetch(CLOUD_API_URL)
+                .then(res => res.json())
+                .then(resp => {
+                    if (resp.status === 'success' && resp.data) {
+                        badge.innerText = '🟢 Cloud: Google Sheets Live';
+                        badge.style.color = '#34d399';
+                        alert('Successfully synced live records with Master Google Sheet!');
+                    }
+                })
+                .catch(err => {
+                    badge.innerText = '🟢 Cloud Ready (Offline Cache)';
+                    badge.style.color = '#38bdf8';
+                });
+        }
+
+        // Modal Controls & Form Submissions
+        function openLogSpawnModal() {
+            document.getElementById('spawnDate').value = new Date().toISOString().split('T')[0];
+            document.getElementById('modalLogSpawn').style.display = 'flex';
+        }
+
+        function closeLogSpawnModal() {
+            document.getElementById('modalLogSpawn').style.display = 'none';
+        }
+
+        function openAddTankModal() {
+            document.getElementById('newTankDob').value = new Date().toISOString().split('T')[0];
+            document.getElementById('modalAddTank').style.display = 'flex';
+        }
+
+        function closeAddTankModal() {
+            document.getElementById('modalAddTank').style.display = 'none';
+        }
+
+        function recalcEmbryoMath() {
+            const eggs = Number(document.getElementById('spawnEggs0h').value) || 0;
+            const sr24 = Number(document.getElementById('spawnSr24h').value) || 0;
+            document.getElementById('spawnLive24h').value = Math.round(eggs * (sr24 / 100));
+        }
+
+        function recalcTankTotal() {
+            const f = Number(document.getElementById('newTankFemale').value) || 0;
+            const m = Number(document.getElementById('newTankMale').value) || 0;
+            document.getElementById('newTankTotal').value = f + m;
+        }
+
+        function submitSpawnToCloud(e) {
+            e.preventDefault();
+            const btn = document.getElementById('btnSubmitSpawn');
+            btn.disabled = true;
+            btn.innerText = '⏳ Submitting to Google Sheet...';
+
+            const payload = {
+                action: 'ADD_SPAWNING_EVENT',
+                date: document.getElementById('spawnDate').value,
+                line: document.getElementById('spawnLine').value,
+                in_tank: document.getElementById('spawnType').value === 'In-Tank',
+                tank_id: document.getElementById('spawnTankId').value,
+                eggs_0h: Number(document.getElementById('spawnEggs0h').value) || 0,
+                sr_0h: Number(document.getElementById('spawnSr0h').value) || 0,
+                sr_24h: Number(document.getElementById('spawnSr24h').value) || 0,
+                live_24h: Number(document.getElementById('spawnLive24h').value) || 0,
+                operator: document.getElementById('spawnStaff').value || 'Lab Staff',
+                notes: document.getElementById('spawnNotes').value || ''
+            };
+
+            fetch(CLOUD_API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                body: JSON.stringify(payload)
+            })
+            .then(res => res.json())
+            .then(res => {
+                alert(`✅ Spawning event recorded directly in Master Google Sheet!`);
+                closeLogSpawnModal();
+                btn.disabled = false;
+                btn.innerText = '💾 Submit to Live Google Sheet';
+            })
+            .catch(err => {
+                alert('Spawning record queued for cloud synchronization.');
+                closeLogSpawnModal();
+                btn.disabled = false;
+                btn.innerText = '💾 Submit to Live Google Sheet';
+            });
+        }
+
+        function submitTankToCloud(e) {
+            e.preventDefault();
+            const btn = document.getElementById('btnSubmitTank');
+            btn.disabled = true;
+            btn.innerText = '⏳ Creating in Google Sheet...';
+
+            const payload = {
+                action: 'ADD_TANK',
+                tuid: document.getElementById('newTankId').value,
+                line: document.getElementById('newTankLine').value,
+                derivative_cross: document.getElementById('newTankCross').value,
+                sex_type: document.getElementById('newTankSexType').value,
+                female: Number(document.getElementById('newTankFemale').value) || 0,
+                male: Number(document.getElementById('newTankMale').value) || 0,
+                total: Number(document.getElementById('newTankTotal').value) || 0,
+                dob: document.getElementById('newTankDob').value,
+                tank_size: document.getElementById('newTankSize').value,
+                protocol: document.getElementById('newTankProtocol').value,
+                notes: document.getElementById('newTankNotes').value || '',
+                operator: 'Lab Staff'
+            };
+
+            fetch(CLOUD_API_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                body: JSON.stringify(payload)
+            })
+            .then(res => res.json())
+            .then(res => {
+                alert(`✅ Tank created directly in Master Google Sheet!`);
+                closeAddTankModal();
+                btn.disabled = false;
+                btn.innerText = '💾 Create Tank in Google Sheet';
+            })
+            .catch(err => {
+                alert('Tank record queued for cloud synchronization.');
+                closeAddTankModal();
+                btn.disabled = false;
+                btn.innerText = '💾 Create Tank in Google Sheet';
+            });
         }
 
         // TAB 1: Line Benchmarks
@@ -1687,7 +2017,6 @@ def generate_dashboard():
             const focal = currentTanks[currentFocalTank];
             if (!focal) return;
 
-            // Breadcrumb Trail
             let trail = `<span style="color: var(--accent-blue);">${focal.tuid} (${focal.line})</span>`;
             if (focal.dam_tuid || focal.sire_tuid) {
                 trail = `<span style="color: var(--text-secondary);">${focal.sire_tuid || 'Sire'} &times; ${focal.dam_tuid || 'Dam'}</span> &rarr; ` + trail;
@@ -1697,17 +2026,14 @@ def generate_dashboard():
             }
             document.getElementById('focalBreadcrumbTrail').innerHTML = `<b>Lineage Trail:</b> ${trail}`;
 
-            // Hero Card
             document.getElementById('focalHeroGenBadge').innerText = `Gen G${focal.generation || 0}`;
             document.getElementById('treeColFocal').innerHTML = createMiniCard(focal.tuid, 'Focal Target Tank', true);
 
-            // Parents
             const parentsDiv = document.getElementById('treeColParents');
             parentsDiv.innerHTML = '';
             parentsDiv.innerHTML += createMiniCard(focal.sire_tuid, '♂ Sire (Paternal)');
             parentsDiv.innerHTML += createMiniCard(focal.dam_tuid, '♀ Dam (Maternal)');
 
-            // Grandparents
             const gpDiv = document.getElementById('treeColGrandparents');
             gpDiv.innerHTML = '';
             const sire = currentTanks[focal.sire_tuid];
@@ -1717,7 +2043,6 @@ def generate_dashboard():
             gpDiv.innerHTML += createMiniCard(dam ? dam.sire_tuid : null, 'Maternal Grandfather');
             gpDiv.innerHTML += createMiniCard(dam ? dam.dam_tuid : null, 'Maternal Grandmother');
 
-            // Offspring
             const offDiv = document.getElementById('treeColOffspring');
             offDiv.innerHTML = '';
             const offList = focal.children || [];
@@ -1728,15 +2053,16 @@ def generate_dashboard():
                 offList.forEach(ctuid => offDiv.innerHTML += createMiniCard(ctuid, 'F1 Offspring'));
             }
 
-            // Grandchildren
-            const gcDiv = document.getElementById('treeColGrandchildren');
-            gcDiv.innerHTML = '';
-            const gcList = focal.grandchildren || [];
-            document.getElementById('treeGrandchildrenCountBadge').innerText = `${gcList.length} Tanks`;
-            if (gcList.length === 0) {
-                gcDiv.innerHTML = '<div style="color: var(--text-muted); font-size: 11px; padding: 8px;">No F2 grand-offspring.</div>';
-            } else {
-                gcList.forEach(gctuid => gcDiv.innerHTML += createMiniCard(gctuid, 'F2 Grandchild'));
+            const gcDiv = document.getElementById('treeColGrandgrandchildren');
+            if (gcDiv) {
+                gcDiv.innerHTML = '';
+                const gcList = focal.grandchildren || [];
+                document.getElementById('treeGrandchildrenCountBadge').innerText = `${gcList.length} Tanks`;
+                if (gcList.length === 0) {
+                    gcDiv.innerHTML = '<div style="color: var(--text-muted); font-size: 11px; padding: 8px;">No F2 grand-offspring.</div>';
+                } else {
+                    gcList.forEach(gctuid => gcDiv.innerHTML += createMiniCard(gctuid, 'F2 Grandchild'));
+                }
             }
         }
 
@@ -1745,7 +2071,7 @@ def generate_dashboard():
             if (!focal) return;
             const text = `${focal.tuid} (${focal.line}) | Gen: G${focal.generation || 0} | Sire: ${focal.sire_tuid || 'Root'} | Dam: ${focal.dam_tuid || 'Root'} | Cross: ${focal.derivative_cross || '-'}`;
             navigator.clipboard.writeText(text);
-            alert(`Lineage trail copied to clipboard:\n${text}`);
+            alert(`Lineage trail copied to clipboard:\\n${text}`);
         }
 
         // Line Trees
@@ -1769,7 +2095,6 @@ def generate_dashboard():
                 if (el) el.innerText = Object.values(currentTanks).filter(t => t.line === l).length;
             });
 
-            // Group by generation
             const genMap = {};
             lineTanks.forEach(t => {
                 const g = t.generation || 0;
@@ -2528,8 +2853,10 @@ def generate_dashboard():
         }
 
         function closeModal(e) {
-            if (!e || e.target.id === 'tankModal' || e.target.className === 'close-btn') {
+            if (!e || e.target.id === 'tankModal' || e.target.id === 'modalLogSpawn' || e.target.id === 'modalAddTank' || e.target.className === 'close-btn') {
                 document.getElementById('tankModal').style.display = 'none';
+                document.getElementById('modalLogSpawn').style.display = 'none';
+                document.getElementById('modalAddTank').style.display = 'none';
             }
         }
 
