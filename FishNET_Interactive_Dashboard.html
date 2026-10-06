@@ -3269,18 +3269,24 @@
         // TAB 8: Parental Age vs Fecundity Curves
         function renderAgeCurves() {
             const ageBuckets = {};
-            currentEvents.forEach(ev => {
-                if (ev.parent_age_months !== null && ev.parent_age_months >= 2 && ev.parent_age_months <= 30) {
-                    const b = ev.parent_age_months;
-                    if (!ageBuckets[b]) ageBuckets[b] = { eggs: 0, spawns: 0, live: 0, sr24Sum: 0, validSpawns: 0 };
-                    ageBuckets[b].eggs += ev.eggs_0h;
-                    ageBuckets[b].spawns++;
-                    ageBuckets[b].live += ev.live_24h;
-                    if (ev.eggs_0h > 0) {
-                        ageBuckets[b].validSpawns++;
-                        ageBuckets[b].sr24Sum += ev.sr_24h;
+
+            Object.values(currentTanks).forEach(t => {
+                if (!t.spawn_history) return;
+                t.spawn_history.forEach(h => {
+                    if (h.age_months !== undefined && h.age_months !== null) {
+                        const age = Math.round(h.age_months);
+                        if (age >= 3 && age <= 30 && h.eggs_0h > 0) {
+                            if (!ageBuckets[age]) ageBuckets[age] = { eggs: 0, spawns: 0, live: 0, sr24Sum: 0, validSpawns: 0 };
+                            ageBuckets[age].eggs += h.eggs_0h;
+                            ageBuckets[age].spawns++;
+                            ageBuckets[age].live += (h.live_24h || 0);
+                            if (h.sr_24h !== undefined && h.sr_24h !== null && h.sr_24h > 0) {
+                                ageBuckets[age].validSpawns++;
+                                ageBuckets[age].sr24Sum += h.sr_24h;
+                            }
+                        }
                     }
-                }
+                });
             });
 
             const sortedAges = Object.keys(ageBuckets).map(Number).sort((a,b) => a - b);
@@ -3292,39 +3298,67 @@
                 srData.push(b.validSpawns > 0 ? (b.sr24Sum / b.validSpawns).toFixed(1) : 0);
             });
 
-            new Chart(document.getElementById('chartAgeFecundity'), {
-                type: 'line',
-                data: {
-                    labels: sortedAges.map(a => a + ' mo'),
-                    datasets: [{ label: 'Average Clutch Size (Eggs/Spawn)', data: clutchData, borderColor: '#38bdf8', backgroundColor: 'rgba(56, 189, 248, 0.15)', fill: true, tension: 0.3 }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: { grid: { color: '#334155' }, ticks: { color: '#94a3b8' } },
-                        x: { grid: { color: '#334155' }, ticks: { color: '#94a3b8' } }
+            const canvasClutch = document.getElementById('chartAgeFecundity');
+            if (canvasClutch) {
+                const existing = Chart.getChart(canvasClutch);
+                if (existing) existing.destroy();
+                new Chart(canvasClutch, {
+                    type: 'line',
+                    data: {
+                        labels: sortedAges.map(a => a + ' mo'),
+                        datasets: [{ 
+                            label: 'Average Clutch Size (Eggs/Spawn)', 
+                            data: clutchData, 
+                            borderColor: '#38bdf8', 
+                            backgroundColor: 'rgba(56, 189, 248, 0.15)', 
+                            fill: true, 
+                            tension: 0.3,
+                            pointRadius: 4,
+                            pointBackgroundColor: '#38bdf8'
+                        }]
                     },
-                    plugins: { legend: { labels: { color: '#f8fafc' } } }
-                }
-            });
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: { grid: { color: '#334155' }, ticks: { color: '#94a3b8' } },
+                            x: { grid: { color: '#334155' }, ticks: { color: '#94a3b8' } }
+                        },
+                        plugins: { legend: { labels: { color: '#f8fafc' } } }
+                    }
+                });
+            }
 
-            new Chart(document.getElementById('chartAgeViability'), {
-                type: 'line',
-                data: {
-                    labels: sortedAges.map(a => a + ' mo'),
-                    datasets: [{ label: '24hpf Survival Rate (%)', data: srData, borderColor: '#34d399', tension: 0.3, pointRadius: 4, pointBackgroundColor: '#34d399' }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: { min: 0, max: 100, grid: { color: '#334155' }, ticks: { color: '#94a3b8' } },
-                        x: { grid: { color: '#334155' }, ticks: { color: '#94a3b8' } }
+            const canvasViability = document.getElementById('chartAgeViability');
+            if (canvasViability) {
+                const existing2 = Chart.getChart(canvasViability);
+                if (existing2) existing2.destroy();
+                new Chart(canvasViability, {
+                    type: 'line',
+                    data: {
+                        labels: sortedAges.map(a => a + ' mo'),
+                        datasets: [{ 
+                            label: '24hpf Survival Rate (%)', 
+                            data: srData, 
+                            borderColor: '#34d399', 
+                            backgroundColor: 'rgba(52, 211, 153, 0.15)',
+                            fill: true,
+                            tension: 0.3, 
+                            pointRadius: 4, 
+                            pointBackgroundColor: '#34d399' 
+                        }]
                     },
-                    plugins: { legend: { labels: { color: '#f8fafc' } } }
-                }
-            });
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: { min: 0, max: 100, grid: { color: '#334155' }, ticks: { color: '#94a3b8' } },
+                            x: { grid: { color: '#334155' }, ticks: { color: '#94a3b8' } }
+                        },
+                        plugins: { legend: { labels: { color: '#f8fafc' } } }
+                    }
+                });
+            }
         }
 
         // TAB 9: Scorecards
