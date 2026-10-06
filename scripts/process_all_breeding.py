@@ -134,7 +134,11 @@ def process():
     
     # 1. Load FishNET Tanks with Sex Structure Analysis
     fishnet_tanks = {}
-    with open(os.path.join(labels_dir, 'FishNET.tab'), 'r', encoding='utf-8-sig', errors='ignore') as f:
+    tanks_tab_path = os.path.join(labels_dir, 'FishNet Exported Data', 'Tanks.tab')
+    if not os.path.exists(tanks_tab_path):
+        tanks_tab_path = os.path.join(labels_dir, 'FishNET.tab')
+
+    with open(tanks_tab_path, 'r', encoding='utf-8-sig', errors='ignore') as f:
         reader = list(csv.reader(f, delimiter='\t'))
         for row in reader:
             if not row or len(row) < 21:
@@ -143,25 +147,51 @@ def process():
             tuid = row[20].strip().upper()
             if not tuid or not tuid.startswith('T'):
                 continue
+            
             dob = row[0].strip()
+            dod = row[1].strip() if len(row) > 1 else ''
+            derivative_cross = row[2].strip() if len(row) > 2 else ''
+            facility = row[3].strip() if len(row) > 3 else ''
             female = int(row[4].strip()) if len(row) > 4 and row[4].strip().isdigit() else 0
             genotype = row[5].strip() if len(row) > 5 else ''
+            lab_member = row[6].strip() if len(row) > 6 else ''
             male = int(row[7].strip()) if len(row) > 7 and row[7].strip().isdigit() else 0
             notes = row[8].strip() if len(row) > 8 else ''
             total = int(row[9].strip()) if len(row) > 9 and row[9].strip().isdigit() else (female + male)
-            status = row[16].strip() if len(row) > 16 else 'Adult/Active'
+            protocol = row[10].strip() if len(row) > 10 else ''
+            room = row[12].strip() if len(row) > 12 else ''
+            status_raw = row[16].strip() if len(row) > 16 else 'Adult/Active'
+            tank_size = row[18].strip() if len(row) > 18 else ''
+            turnover_date = row[21].strip() if len(row) > 21 else ''
+            lab_name = row[22].strip() if len(row) > 22 else ''
             
-            line = 'Other'
-            nu = (notes + ' ' + genotype).upper()
-            if 'AB' in nu or 'WILD' in nu:
-                line = 'AB'
-            elif 'CASP' in nu or 'CAS' in nu:
+            # Accurate Line categorization
+            g_upper = genotype.upper()
+            n_upper = notes.upper()
+            combined = f"{g_upper} {n_upper}"
+            if 'CASPER' in combined or 'MITFA' in combined or 'MPV17' in combined or re.search(r'\bCAS\b', combined):
                 line = 'Casper'
-            elif 'FLI' in nu:
+            elif 'FLI' in combined or 'EGFP' in combined:
                 line = 'Fli'
-            elif 'GATA' in nu:
+            elif 'GATA' in combined or 'DSRED' in combined:
                 line = 'Gata'
+            elif 'DESMA' in combined or 'DESM' in combined:
+                line = 'DESMA'
+            elif 'AB' in combined or 'WILD' in combined or 'WT' in combined:
+                line = 'AB'
+            else:
+                line = 'Other'
             
+            # Status
+            if 'ACTIVE' in status_raw.upper() or 'ADULT' in status_raw.upper():
+                status_clean = 'Active'
+            elif 'EUTH' in status_raw.upper() or 'DEAD' in status_raw.upper():
+                status_clean = 'Euthanized'
+            elif 'LARVAE' in status_raw.upper():
+                status_clean = 'Larvae'
+            else:
+                status_clean = status_raw
+
             # Determine Sex Structure
             if female > 0 and male == 0:
                 sex_type = 'Female-Only'
@@ -177,7 +207,7 @@ def process():
                 can_in_tank = False
 
             dob_dt = None
-            for fmt in ['%d-%b-%y', '%d-%b-%Y', '%d/%m/%Y', '%Y-%m-%d', '%d-%m-%Y']:
+            for fmt in ['%d-%b-%y', '%d-%m-%y', '%d-%b-%Y', '%d/%m/%Y', '%Y-%m-%d', '%d-%m-%Y']:
                 try:
                     dob_dt = datetime.strptime(dob, fmt)
                     if dob_dt.year > 2030:
@@ -192,6 +222,8 @@ def process():
                 'tuid': std_tuid,
                 'raw_tuid': tuid,
                 'num_id': num_id,
+                'derivative_cross': derivative_cross,
+                'genotype': genotype,
                 'notes': notes,
                 'line': line,
                 'female': female,
@@ -202,19 +234,26 @@ def process():
                 'dob': dob,
                 'dob_iso': dob_dt.strftime('%Y-%m-%d') if dob_dt else '',
                 'dob_dt': dob_dt,
-                'status': 'Active' if 'ACTIVE' in status.upper() or 'ADULT' in status.upper() else 'Euthanized'
+                'turnover_date': turnover_date,
+                'tank_size': tank_size,
+                'protocol': protocol,
+                'room': room,
+                'lab_member': lab_member,
+                'lab_name': lab_name,
+                'status': status_clean,
+                'raw_status': status_raw
             }
             fishnet_tanks[std_tuid] = tank_obj
-            fishnet_tanks[f'T{num_id}'] = tank_obj
 
     unique_tanks = {t['tuid']: t for t in fishnet_tanks.values()}
     n_active = sum(1 for t in unique_tanks.values() if t['status'] == 'Active')
     n_euth = sum(1 for t in unique_tanks.values() if t['status'] == 'Euthanized')
+    n_larvae = sum(1 for t in unique_tanks.values() if t['status'] == 'Larvae')
     n_f_only = sum(1 for t in unique_tanks.values() if t['sex_type'] == 'Female-Only')
     n_m_only = sum(1 for t in unique_tanks.values() if t['sex_type'] == 'Male-Only')
     n_mixed = sum(1 for t in unique_tanks.values() if t['sex_type'] == 'Mixed Colony')
 
-    print(f'Loaded {len(unique_tanks)} unique tanks ({n_active} Active, {n_euth} Euthanized).')
+    print(f'Loaded {len(unique_tanks)} unique tanks ({n_active} Active, {n_euth} Euthanized, {n_larvae} Larvae).')
     print(f'Sex Structure: {n_f_only} Female-Only, {n_m_only} Male-Only, {n_mixed} Mixed Colony.')
 
     # 2. Transcribe & Parse 2026 Data
