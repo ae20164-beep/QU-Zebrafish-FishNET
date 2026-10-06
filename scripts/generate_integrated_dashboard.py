@@ -1745,7 +1745,7 @@ def generate_dashboard():
             if (!focal) return;
             const text = `${focal.tuid} (${focal.line}) | Gen: G${focal.generation || 0} | Sire: ${focal.sire_tuid || 'Root'} | Dam: ${focal.dam_tuid || 'Root'} | Cross: ${focal.derivative_cross || '-'}`;
             navigator.clipboard.writeText(text);
-            alert('Lineage trail copied to clipboard:\n' + text);
+            alert(`Lineage trail copied to clipboard:\n${text}`);
         }
 
         // Line Trees
