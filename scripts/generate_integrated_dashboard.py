@@ -1456,17 +1456,17 @@ def generate_dashboard():
         <div class="card">
             <div class="card-header">
                 <div>
-                    <span class="card-title">📋 Grand Master Spawning Event Log (2,233 Events, 2024-2026)</span>
-                    <span style="font-size: 12px; color: var(--text-secondary);">Full individual spawning log history</span>
+                    <span class="card-title">📋 Grand Master Spawning Event Log (<span id="rawHeaderCount">2,233</span> Events)</span>
+                    <span style="font-size: 12px; color: var(--text-secondary);">Full individual spawning log history with multi-page navigation</span>
                 </div>
                 <div class="card-header-actions">
-                    <button class="btn btn-sm btn-outline" onclick="exportTableToCSV('rawEventsTable', 'grand_master_breeding_events_2024_2026')">📥 Export Full Log (CSV)</button>
+                    <button class="btn btn-sm btn-outline" onclick="exportTableToCSV('rawEventsTable', 'grand_master_breeding_events_2024_2026')">📥 Export Filtered Log (CSV)</button>
                 </div>
             </div>
             <div class="filter-bar" style="margin-bottom: 16px;">
                 <div class="filter-group">
                     <span class="filter-label">Year:</span>
-                    <select id="rawYearFilter" onchange="renderRawEvents()">
+                    <select id="rawYearFilter" onchange="renderRawEvents(true)">
                         <option value="ALL">All Years (2024-2026)</option>
                         <option value="2026">2026 (544 events)</option>
                         <option value="2025">2025 (1,229 events)</option>
@@ -1475,20 +1475,21 @@ def generate_dashboard():
                 </div>
                 <div class="filter-group">
                     <span class="filter-label">Line:</span>
-                    <select id="rawLineFilter" onchange="renderRawEvents()">
+                    <select id="rawLineFilter" onchange="renderRawEvents(true)">
                         <option value="ALL">All Lines</option>
                         <option value="AB">AB</option>
                         <option value="Casper">Casper</option>
                         <option value="Fli">Fli</option>
                         <option value="Gata">Gata</option>
+                        <option value="DESMA">DESMA</option>
                     </select>
                 </div>
                 <div class="filter-group">
-                    <input type="text" id="rawSearch" placeholder="Search Tank, Date, Staff, Cross..." oninput="renderRawEvents()">
+                    <input type="text" id="rawSearch" placeholder="Search Tank, Date, Staff, Cross..." oninput="renderRawEvents(true)">
                 </div>
             </div>
             
-            <div class="table-responsive" style="max-height: 600px; overflow-y: auto;">
+            <div class="table-responsive" style="max-height: 620px; overflow-y: auto;">
                 <table id="rawEventsTable">
                     <thead>
                         <tr>
@@ -1507,6 +1508,26 @@ def generate_dashboard():
                         <!-- Populated by JS -->
                     </tbody>
                 </table>
+            </div>
+
+            <!-- Pagination & Rows-Per-Page Toolbar -->
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; border-top: 1px solid var(--border-color); flex-wrap: wrap; gap: 12px; background: rgba(15,23,42,0.3); margin-top: 8px; border-radius: 0 0 var(--radius-md) var(--radius-md);">
+                <div style="display: flex; align-items: center; gap: 14px; font-size: 12px; color: var(--text-secondary); flex-wrap: wrap;">
+                    <span>Showing <b id="rawPageRange" style="color: #fff;">1 - 50</b> of <b id="rawTotalCount" style="color: #fff;">2,233</b> events</span>
+                    <div style="display: flex; align-items: center; gap: 6px;">
+                        <span>Rows per page:</span>
+                        <select id="rawPageSize" onchange="changeRawPageSize(this.value)" style="background: var(--bg-card); color: #fff; border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 4px 8px; font-size: 12px; cursor: pointer;">
+                            <option value="50" selected>50 rows</option>
+                            <option value="100">100 rows</option>
+                            <option value="200">200 rows</option>
+                            <option value="500">500 rows</option>
+                            <option value="ALL">All rows (2,233)</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="rawPaginationControls" style="display: flex; align-items: center; gap: 4px; flex-wrap: wrap;">
+                    <!-- Dynamically rendered: First, Prev, Page numbers, Next, Last -->
+                </div>
             </div>
         </div>
     </div>
@@ -3792,24 +3813,52 @@ def generate_dashboard():
             document.getElementById('plannerResultBox').innerHTML = recommendationHTML || '<div style="color: var(--text-muted); font-size: 13px;">No data available for this line combination.</div>';
         }
 
-        // TAB 13: Raw Events
-        function renderRawEvents() {
+        // TAB 13: Raw Events State & Pagination
+        let rawCurrentPage = 1;
+        let rawPageSize = 50;
+
+        function changeRawPageSize(val) {
+            rawPageSize = val === 'ALL' ? Infinity : parseInt(val);
+            rawCurrentPage = 1;
+            renderRawEvents(false);
+        }
+
+        function goToRawPage(page) {
+            rawCurrentPage = page;
+            renderRawEvents(false);
+        }
+
+        function renderRawEvents(resetPage = false) {
             const tbody = document.getElementById('rawEventsTableBody');
             if (!tbody) return;
             tbody.innerHTML = '';
 
-            const year = document.getElementById('rawYearFilter').value;
-            const line = document.getElementById('rawLineFilter').value;
-            const search = document.getElementById('rawSearch').value.trim().toUpperCase();
+            if (resetPage) rawCurrentPage = 1;
+
+            const year = document.getElementById('rawYearFilter') ? document.getElementById('rawYearFilter').value : 'ALL';
+            const line = document.getElementById('rawLineFilter') ? document.getElementById('rawLineFilter').value : 'ALL';
+            const search = document.getElementById('rawSearch') ? document.getElementById('rawSearch').value.trim().toUpperCase() : '';
 
             let list = currentEvents;
             if (year !== 'ALL') list = list.filter(e => e.year === parseInt(year));
             if (line !== 'ALL') list = list.filter(e => e.line === line);
-            if (search) list = list.filter(e => (e.tank_id && e.tank_id.includes(search)) || (e.date && e.date.includes(search)) || (e.staff && e.staff.toUpperCase().includes(search)) || (e.notes && e.notes.toUpperCase().includes(search)));
+            if (search) list = list.filter(e => (e.tank_id && e.tank_id.toUpperCase().includes(search)) || (e.date && e.date.includes(search)) || (e.staff && e.staff.toUpperCase().includes(search)) || (e.notes && e.notes.toUpperCase().includes(search)));
 
-            list.slice(0, 100).forEach(e => {
-                const badgeClass = `badge-${e.line.toLowerCase()}`;
-                tbody.innerHTML += `
+            const totalFiltered = list.length;
+            const pageSizeNum = rawPageSize === Infinity ? totalFiltered : rawPageSize;
+            const totalPages = Math.max(1, Math.ceil(totalFiltered / (pageSizeNum || 1)));
+            
+            if (rawCurrentPage > totalPages) rawCurrentPage = totalPages;
+            if (rawCurrentPage < 1) rawCurrentPage = 1;
+
+            const startIdx = (rawCurrentPage - 1) * pageSizeNum;
+            const endIdx = rawPageSize === Infinity ? totalFiltered : Math.min(startIdx + pageSizeNum, totalFiltered);
+            const pageItems = list.slice(startIdx, endIdx);
+
+            let htmlRows = '';
+            pageItems.forEach(e => {
+                const badgeClass = `badge-${(e.line || 'other').toLowerCase()}`;
+                htmlRows += `
                     <tr>
                         <td>${e.date}</td>
                         <td><span class="badge ${badgeClass}">${e.line}</span></td>
@@ -3823,6 +3872,51 @@ def generate_dashboard():
                     </tr>
                 `;
             });
+            tbody.innerHTML = htmlRows || '<tr><td colspan="9" style="text-align: center; color: var(--text-muted); padding: 20px;">No matching breeding records found.</td></tr>';
+
+            // Update Counts & Labels
+            const headerCount = document.getElementById('rawHeaderCount');
+            if (headerCount) headerCount.innerText = totalFiltered.toLocaleString();
+
+            const rangeLabel = document.getElementById('rawPageRange');
+            if (rangeLabel) {
+                rangeLabel.innerText = totalFiltered === 0 ? '0' : `${(startIdx + 1).toLocaleString()} - ${endIdx.toLocaleString()}`;
+            }
+            const totalLabel = document.getElementById('rawTotalCount');
+            if (totalLabel) totalLabel.innerText = totalFiltered.toLocaleString();
+
+            // Render Pagination Controls
+            const pagBox = document.getElementById('rawPaginationControls');
+            if (!pagBox) return;
+            pagBox.innerHTML = '';
+
+            if (totalPages <= 1) return;
+
+            // First & Prev buttons
+            const prevDisabled = rawCurrentPage <= 1 ? 'disabled style="opacity: 0.4; cursor: not-allowed;"' : '';
+            pagBox.innerHTML += `<button type="button" class="btn btn-sm btn-outline" ${prevDisabled} onclick="goToRawPage(1)" title="First Page">«</button>`;
+            pagBox.innerHTML += `<button type="button" class="btn btn-sm btn-outline" ${prevDisabled} onclick="goToRawPage(${rawCurrentPage - 1})" title="Previous Page">‹ Prev</button>`;
+
+            // Page Numbers (sliding window around current page)
+            let startPage = Math.max(1, rawCurrentPage - 2);
+            let endPage = Math.min(totalPages, rawCurrentPage + 2);
+            if (startPage > 1) {
+                pagBox.innerHTML += `<button type="button" class="btn btn-sm btn-outline" onclick="goToRawPage(1)">1</button>`;
+                if (startPage > 2) pagBox.innerHTML += `<span style="color: var(--text-muted); padding: 0 4px; font-size: 11px;">...</span>`;
+            }
+            for (let p = startPage; p <= endPage; p++) {
+                const isActive = p === rawCurrentPage;
+                pagBox.innerHTML += `<button type="button" class="btn btn-sm ${isActive ? 'btn-blue' : 'btn-outline'}" onclick="goToRawPage(${p})">${p}</button>`;
+            }
+            if (endPage < totalPages) {
+                if (endPage < totalPages - 1) pagBox.innerHTML += `<span style="color: var(--text-muted); padding: 0 4px; font-size: 11px;">...</span>`;
+                pagBox.innerHTML += `<button type="button" class="btn btn-sm btn-outline" onclick="goToRawPage(${totalPages})">${totalPages}</button>`;
+            }
+
+            // Next & Last buttons
+            const nextDisabled = rawCurrentPage >= totalPages ? 'disabled style="opacity: 0.4; cursor: not-allowed;"' : '';
+            pagBox.innerHTML += `<button type="button" class="btn btn-sm btn-outline" ${nextDisabled} onclick="goToRawPage(${rawCurrentPage + 1})" title="Next Page">Next ›</button>`;
+            pagBox.innerHTML += `<button type="button" class="btn btn-sm btn-outline" ${nextDisabled} onclick="goToRawPage(${totalPages})" title="Last Page">»</button>`;
         }
 
         // Modal for Tank Profile
