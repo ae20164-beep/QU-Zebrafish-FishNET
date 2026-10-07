@@ -474,10 +474,10 @@
         .badge-euthanized { background: rgba(251, 113, 133, 0.15); color: #fb7185; border: 1px solid rgba(251, 113, 133, 0.3); }
         .badge-larvae { background: rgba(192, 132, 252, 0.15); color: #c084fc; border: 1px solid rgba(192, 132, 252, 0.3); }
         
-        .badge-ab { background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); }
-        .badge-casper { background: rgba(192, 132, 252, 0.15); color: #c084fc; border: 1px solid rgba(192, 132, 252, 0.3); }
-        .badge-fli { background: rgba(52, 211, 153, 0.15); color: #34d399; border: 1px solid rgba(52, 211, 153, 0.3); }
-        .badge-gata { background: rgba(251, 191, 36, 0.15); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.3); }
+        .badge-ab { background: rgba(52, 211, 153, 0.15); color: #34d399; border: 1px solid rgba(52, 211, 153, 0.3); }
+        .badge-casper { background: rgba(251, 191, 36, 0.15); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.3); }
+        .badge-fli { background: rgba(244, 114, 182, 0.15); color: #f472b6; border: 1px solid rgba(244, 114, 182, 0.3); }
+        .badge-gata { background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); }
         
         .badge-female { background: rgba(244, 114, 182, 0.15); color: #f472b6; border: 1px solid rgba(244, 114, 182, 0.3); }
         .badge-male { background: rgba(96, 165, 250, 0.15); color: #60a5fa; border: 1px solid rgba(96, 165, 250, 0.3); }
@@ -938,10 +938,10 @@
             <div id="ped-subview-lines" class="ped-subview" style="display: none;">
                 <div class="filter-bar" style="margin-bottom: 16px;">
                     <div class="filter-group">
-                        <button onclick="selectLineTree('AB')" id="line-tree-btn-AB" class="line-tree-btn active">🟡 AB Lineage Tree (<span id="lineTreeCountAB">0</span>)</button>
-                        <button onclick="selectLineTree('Casper')" id="line-tree-btn-Casper" class="line-tree-btn">🔵 Casper Lineage Tree (<span id="lineTreeCountCasper">0</span>)</button>
-                        <button onclick="selectLineTree('Fli')" id="line-tree-btn-Fli" class="line-tree-btn">🟢 Fli Lineage Tree (<span id="lineTreeCountFli">0</span>)</button>
-                        <button onclick="selectLineTree('Gata')" id="line-tree-btn-Gata" class="line-tree-btn">🟣 Gata Lineage Tree (<span id="lineTreeCountGata">0</span>)</button>
+                        <button onclick="selectLineTree('AB')" id="line-tree-btn-AB" class="line-tree-btn active">🟢 AB Lineage Tree (<span id="lineTreeCountAB">0</span>)</button>
+                        <button onclick="selectLineTree('Casper')" id="line-tree-btn-Casper" class="line-tree-btn">🟡 Casper Lineage Tree (<span id="lineTreeCountCasper">0</span>)</button>
+                        <button onclick="selectLineTree('Fli')" id="line-tree-btn-Fli" class="line-tree-btn">🌸 Fli Lineage Tree (<span id="lineTreeCountFli">0</span>)</button>
+                        <button onclick="selectLineTree('Gata')" id="line-tree-btn-Gata" class="line-tree-btn">🔵 Gata Lineage Tree (<span id="lineTreeCountGata">0</span>)</button>
                     </div>
                 </div>
                 <div id="lineTreeTiersContainer" style="display: flex; flex-direction: column; gap: 16px;">
@@ -1512,7 +1512,7 @@
                             <td><code>Gata T49(F) x ABT93(M) (1,970 eggs)</code></td>
                             <td>FishNET registered T0049 as Male-Only (5M, 0F). Yet females were physically spawned.</td>
                             <td>Flagged database registration error in FishNET; females were verified physically in log.</td>
-                            <td><span class="badge badge-gata">Flagged</span></td>
+                            <td><span class="badge badge-medium">Flagged</span></td>
                         </tr>
                     </tbody>
                 </table>
@@ -3106,7 +3106,7 @@
                     datasets: [{
                         label: 'Avg Clutch Size (Eggs / Spawn)',
                         data: clutchData,
-                        backgroundColor: ['#38bdf8', '#c084fc', '#34d399', '#fbbf24'],
+                        backgroundColor: ['#34d399', '#fbbf24', '#f472b6', '#38bdf8'],
                         borderRadius: 6
                     }]
                 },
@@ -3394,11 +3394,11 @@
             const lineFilter = document.getElementById('lineFilter') ? document.getElementById('lineFilter').value : 'ALL';
 
             const lineColors = {
-                'AB': '#38bdf8',
-                'Casper': '#c084fc',
-                'Fli': '#34d399',
-                'Gata': '#fbbf24',
-                'DESMA': '#fb7185',
+                'AB': '#34d399',
+                'Casper': '#fbbf24',
+                'Fli': '#f472b6',
+                'Gata': '#38bdf8',
+                'DESMA': '#a855f7',
                 'Other': '#94a3b8'
             };
 
