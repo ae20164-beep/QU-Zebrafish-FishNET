@@ -2523,26 +2523,112 @@
             };
             reader.readAsDataURL(file);
 
-            statusText.innerText = '⚡ Preprocessing Image & Optimizing Contrast...';
-            progressBar.style.width = '20%';
+            // Convert file to Base64
+            const toBase64 = f => new Promise((resolve, reject) => {
+                const r = new FileReader();
+                r.readAsDataURL(f);
+                r.onload = () => resolve(r.result);
+                r.onerror = e => reject(e);
+            });
 
+            const base64Data = await toBase64(file);
+            statusText.innerText = '✨ AI Vision Analyzing Label (Gemini 2.5 Flash)...';
+            progressBar.style.width = '35%';
+
+            let usedServerless = false;
+
+            // Attempt 1: Call Vercel Serverless Gemini AI Vision API
             try {
+                const apiRes = await fetch('/api/scan-label', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        imageBase64: base64Data,
+                        mimeType: file.type || 'image/jpeg',
+                        scanMode: currentOcrMode === 'sheet' ? 'spawning_sheet' : 'tank_label'
+                    })
+                });
+
+                if (apiRes.ok) {
+                    const jsonResult = await apiRes.json();
+                    if (jsonResult.success && jsonResult.data) {
+                        usedServerless = true;
+                        progressBar.style.width = '100%';
+                        statusText.innerText = '✅ AI Vision Extraction Complete!';
+                        document.getElementById('ocrRawText').innerText = jsonResult.raw_text || JSON.stringify(jsonResult.data, null, 2);
+
+                        if (currentOcrMode === 'sheet') {
+                            const rows = jsonResult.data.rows || [];
+                            ocrSheetRows = rows.map(r => ({
+                                date: r.date || new Date().toISOString().split('T')[0],
+                                line: r.line || 'AB',
+                                strategy: r.strategy || 'Pairwise',
+                                tuid: r.tank_or_cross_id || '',
+                                eggs_0h: parseInt(r.eggs_0h) || 0,
+                                sr_0h: parseFloat(r.sr_0h) || 100.0,
+                                sr_24h: parseFloat(r.sr_24h) || 50.0,
+                                live_24h: parseInt(r.live_24h) || Math.round((parseInt(r.eggs_0h) || 0) * (parseFloat(r.sr_24h) || 50.0) / 100),
+                                staff: r.staff || 'Tech',
+                                notes: r.notes || ''
+                            }));
+                            renderOcrSheetTable();
+                            progressBox.style.display = 'none';
+                            sheetResultSection.style.display = 'flex';
+                        } else {
+                            const d = jsonResult.data;
+                            const fCount = parseInt(d.female) || 0;
+                            const mCount = parseInt(d.male) || 0;
+                            const totalCount = parseInt(d.total) || (fCount + mCount);
+                            let sexType = 'Mixed Colony';
+                            if (fCount > 0 && mCount === 0) sexType = 'Female-Only';
+                            else if (mCount > 0 && fCount === 0) sexType = 'Male-Only';
+
+                            lastExtractedOcrData = {
+                                tuid: d.tuid || '',
+                                line: d.line || 'AB',
+                                sex_type: sexType,
+                                female: fCount,
+                                male: mCount,
+                                total: totalCount,
+                                dob: d.dob || '',
+                                derivative_cross: d.cross_id || ''
+                            };
+
+                            document.getElementById('ocrParsedTuid').value = lastExtractedOcrData.tuid;
+                            document.getElementById('ocrParsedLine').value = lastExtractedOcrData.line;
+                            document.getElementById('ocrParsedSexType').value = lastExtractedOcrData.sex_type;
+                            document.getElementById('ocrParsedFemale').value = lastExtractedOcrData.female;
+                            document.getElementById('ocrParsedMale').value = lastExtractedOcrData.male;
+                            document.getElementById('ocrParsedTotal').value = lastExtractedOcrData.total;
+                            document.getElementById('ocrParsedDob').value = lastExtractedOcrData.dob;
+                            document.getElementById('ocrParsedCross').value = lastExtractedOcrData.derivative_cross;
+
+                            progressBox.style.display = 'none';
+                            resultSection.style.display = 'flex';
+                        }
+                        return;
+                    }
+                }
+            } catch (apiErr) {
+                console.warn('Serverless Gemini Vision API not reachable, falling back to local Tesseract OCR:', apiErr);
+            }
+
+            // Attempt 2: Fallback to Client-Side Tesseract.js OCR
+            try {
+                statusText.innerText = '🔍 Running Local Neural OCR Engine...';
+                progressBar.style.width = '50%';
+
                 if (typeof Tesseract === 'undefined') {
-                    throw new Error('Tesseract.js library is loading. Please check your internet connection.');
+                    throw new Error('OCR engine offline. Please verify network or Gemini API Key.');
                 }
 
-                // Run Canvas preprocessor to filter tape color & enhance handwritten ink
                 const optimizedBlob = await preprocessImageForOcr(file);
-
-                statusText.innerText = currentOcrMode === 'sheet' ? '🔍 Scanning Spawning Log Sheet...' : '🔍 Neural OCR Scanning Physical Label...';
-                progressBar.style.width = '45%';
-
                 const worker = await Tesseract.createWorker('eng', 1, {
                     logger: m => {
                         if (m.status === 'recognizing text') {
                             const pct = Math.round((m.progress || 0) * 100);
-                            progressBar.style.width = `${40 + (pct * 0.55)}%`;
-                            subStatus.innerText = `Recognizing text characters: ${pct}% complete`;
+                            progressBar.style.width = `${50 + (pct * 0.45)}%`;
+                            subStatus.innerText = `Local OCR reading: ${pct}% complete`;
                         }
                     }
                 });
@@ -2554,13 +2640,11 @@
                 document.getElementById('ocrRawText').innerText = rawText || 'No text detected.';
 
                 if (currentOcrMode === 'sheet') {
-                    // Multi-row spawning sheet parsing
                     ocrSheetRows = parseZebrafishSpawningSheet(rawText);
                     renderOcrSheetTable();
                     progressBox.style.display = 'none';
                     sheetResultSection.style.display = 'flex';
                 } else {
-                    // Single label parameter extraction
                     const parsed = parseZebrafishLabelText(rawText);
                     lastExtractedOcrData = parsed;
 
