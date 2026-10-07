@@ -3821,14 +3821,24 @@ def generate_dashboard():
             const targetYield = parseInt(document.getElementById('planEmbryoTarget').value) || 1000;
 
             const relevantPairs = currentPairs.filter(p => p.line === line);
-            const femaleReservoirs = Object.values(currentTanks).filter(t => t.line === line && t.status === 'Active' && t.sex_type === 'Female-Only' && t.female > 0);
-            const maleReservoirs = Object.values(currentTanks).filter(t => t.line === line && t.status === 'Active' && t.sex_type === 'Male-Only' && t.male > 0);
+            
+            // All active candidate tanks with females or males
+            const allActiveFemales = Object.values(currentTanks).filter(t => t.line === line && t.status === 'Active' && t.female > 0);
+            const allActiveMales = Object.values(currentTanks).filter(t => t.line === line && t.status === 'Active' && t.male > 0);
+            const mixedColonies = Object.values(currentTanks).filter(t => t.line === line && t.status === 'Active' && t.female > 0 && t.male > 0);
+            const singleSexFemales = Object.values(currentTanks).filter(t => t.line === line && t.status === 'Active' && t.sex_type === 'Female-Only' && t.female > 0);
+            const singleSexMales = Object.values(currentTanks).filter(t => t.line === line && t.status === 'Active' && t.sex_type === 'Male-Only' && t.male > 0);
 
-            femaleReservoirs.sort((a, b) => b.female - a.female);
-            maleReservoirs.sort((a, b) => b.male - a.male);
+            // Sort active breeders by performance score or spawn yield
+            allActiveFemales.sort((a, b) => (b.breeder_score || b.avg_clutch || b.female || 0) - (a.breeder_score || a.avg_clutch || a.female || 0));
+            allActiveMales.sort((a, b) => (b.breeder_score || b.avg_clutch || b.male || 0) - (a.breeder_score || a.avg_clutch || a.male || 0));
+            mixedColonies.sort((a, b) => (b.breeder_score || b.avg_clutch || b.total || 0) - (a.breeder_score || a.avg_clutch || a.total || 0));
+            singleSexFemales.sort((a, b) => b.female - a.female);
+            singleSexMales.sort((a, b) => b.male - a.male);
 
             let recommendationHTML = '';
 
+            // Card 1: Pair-Wise Historical Benchmark & Target Calculation
             if (relevantPairs.length > 0) {
                 const topPair = relevantPairs[0];
                 const expectedPerSpawn = topPair.avg_clutch * (topPair.avg_sr24 / 100);
@@ -3836,31 +3846,71 @@ def generate_dashboard():
 
                 recommendationHTML += `
                     <div class="recommendation-box">
-                        <span style="font-size: 11px; font-weight: bold; color: var(--accent-emerald); text-transform: uppercase;">Top Cross Recommendation (Pair-Wise)</span>
+                        <span style="font-size: 11px; font-weight: bold; color: var(--accent-emerald); text-transform: uppercase;">1. Proven Historical Cross Benchmark</span>
                         <div style="font-size: 18px; font-weight: bold; color: #fff; margin-top: 4px;">${topPair.pair_key} (${line})</div>
                         <div style="font-size: 12px; color: var(--text-secondary); margin-top: 6px; line-height: 1.5;">
                             • Historical Fecundity: <b>${topPair.avg_clutch}</b> eggs/spawn | 24hpf Viability: <b style="color: var(--accent-emerald);">${topPair.avg_sr24}%</b><br>
-                            • To reach target <b>${targetYield.toLocaleString()}</b> viable embryos, set up <strong>${neededSpawns}</strong> mating crossing tanks.
+                            • To reach target <b>${targetYield.toLocaleString()}</b> viable embryos, set up <strong>${neededSpawns}</strong> breeding mating setups.
                         </div>
                     </div>
                 `;
             }
 
-            if (femaleReservoirs.length > 0 && maleReservoirs.length > 0) {
+            // Card 2: Active Cross Pairing (Single-Sex & Mixed Colony Tanks)
+            if (allActiveFemales.length > 0 && allActiveMales.length > 0) {
+                // Find different tanks if possible
+                const bestFemaleTank = allActiveFemales[0];
+                let bestMaleTank = allActiveMales[0];
+                if (bestMaleTank.tuid === bestFemaleTank.tuid && allActiveMales.length > 1) {
+                    bestMaleTank = allActiveMales[1];
+                }
+
                 recommendationHTML += `
                     <div class="recommendation-box" style="border-color: var(--accent-blue);">
-                        <span style="font-size: 11px; font-weight: bold; color: var(--accent-blue); text-transform: uppercase;">Single-Sex Reservoir Setup</span>
+                        <span style="font-size: 11px; font-weight: bold; color: var(--accent-blue); text-transform: uppercase;">2. Recommended Active Stock Cross (Mixed / Single-Sex)</span>
                         <div style="font-size: 16px; font-weight: bold; color: #fff; margin-top: 4px;">
-                            ♀ ${femaleReservoirs[0].tuid} (${femaleReservoirs[0].female} females) &times; ♂ ${maleReservoirs[0].tuid} (${maleReservoirs[0].male} males)
+                            ♀ ${bestFemaleTank.tuid} (${bestFemaleTank.female}♀ available, ${bestFemaleTank.sex_type}) &times; ♂ ${bestMaleTank.tuid} (${bestMaleTank.male}♂ available, ${bestMaleTank.sex_type})
                         </div>
                         <div style="font-size: 12px; color: var(--text-secondary); margin-top: 6px;">
-                            Dedicated single-sex separation ensures high egg yield and zero in-tank drop.
+                            • Female Dam Tank Score: <b>${bestFemaleTank.breeder_score || 'N/A'}/100</b> | Male Sire Tank Score: <b>${bestMaleTank.breeder_score || 'N/A'}/100</b><br>
+                            • Available active breeders: <b>${allActiveFemales.length}</b> female-bearing tanks & <b>${allActiveMales.length}</b> male-bearing tanks in ${line} line.
                         </div>
                     </div>
                 `;
             }
 
-            document.getElementById('plannerResultBox').innerHTML = recommendationHTML || '<div style="color: var(--text-muted); font-size: 13px;">No data available for this line combination.</div>';
+            // Card 3: In-Tank Spawning Option (Mixed Colony Tanks)
+            if (mixedColonies.length > 0) {
+                const topMixed = mixedColonies.slice(0, 3).map(t => `<b>${t.tuid}</b> (${t.female}♀ / ${t.male}♂, Score: ${t.breeder_score || 'N/A'})`).join(', ');
+                recommendationHTML += `
+                    <div class="recommendation-box" style="border-color: var(--accent-purple);">
+                        <span style="font-size: 11px; font-weight: bold; color: var(--accent-purple); text-transform: uppercase;">3. Mixed Colony In-Tank Spawning Candidates (${mixedColonies.length} Active Tanks)</span>
+                        <div style="font-size: 14px; color: #fff; margin-top: 6px; line-height: 1.5;">
+                            Top Mixed Tanks: ${topMixed}
+                        </div>
+                        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">
+                            Allows direct in-tank egg collection traps without transferring fish across different stock tanks.
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Card 4: Single-Sex Dedicated Reservoirs (if available)
+            if (singleSexFemales.length > 0 && singleSexMales.length > 0) {
+                recommendationHTML += `
+                    <div class="recommendation-box" style="border-color: #eab308;">
+                        <span style="font-size: 11px; font-weight: bold; color: #eab308; text-transform: uppercase;">4. Dedicated Single-Sex Reservoir Cross</span>
+                        <div style="font-size: 15px; font-weight: bold; color: #fff; margin-top: 4px;">
+                            ♀ ${singleSexFemales[0].tuid} (${singleSexFemales[0].female}♀) &times; ♂ ${singleSexMales[0].tuid} (${singleSexMales[0].male}♂)
+                        </div>
+                        <div style="font-size: 12px; color: var(--text-secondary); margin-top: 4px;">
+                            Zero spontaneous in-tank egg loss prior to scheduled morning mating.
+                        </div>
+                    </div>
+                `;
+            }
+
+            document.getElementById('plannerResultBox').innerHTML = recommendationHTML || '<div style="color: var(--text-muted); font-size: 13px;">No active tanks available for this line.</div>';
         }
 
         // TAB 13: Raw Events State & Pagination
