@@ -954,8 +954,8 @@ def generate_dashboard():
         <div class="card">
             <div class="card-header">
                 <div>
-                    <span class="card-title">⏳ Colony Turnover Schedule & 2-Year Lifespan Renewal Plan</span>
-                    <span style="font-size: 12px; color: var(--text-secondary);">Zebrafish facility compliance: 540–730 days post-DOB lifecycle management</span>
+                    <span class="card-title">⏳ Colony Turnover Schedule & 18-Month Lifespan Renewal Plan</span>
+                    <span style="font-size: 12px; color: var(--text-secondary);">Zebrafish facility compliance: 18-month (540 days) post-DOB lifecycle management & renewal</span>
                 </div>
                 <div class="card-header-actions">
                     <button class="btn btn-sm btn-outline" onclick="exportTableToCSV('turnoverTable', 'colony_turnover_schedule')">📥 Export Schedule (CSV)</button>
@@ -966,7 +966,7 @@ def generate_dashboard():
                     <span class="filter-label">Turnover Urgency:</span>
                     <select id="turnoverFilter" onchange="renderTurnoverTable()">
                         <option value="ALL">All Active Tanks (117)</option>
-                        <option value="OVERDUE">🚨 Overdue Only (>2 Years)</option>
+                        <option value="OVERDUE">🚨 Overdue Only (>18 Months)</option>
                         <option value="SOON">⚠️ Due Soon (<=30 Days)</option>
                         <option value="UPCOMING">Upcoming (31–90 Days)</option>
                         <option value="FUTURE">Future (>90 Days)</option>

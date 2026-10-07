@@ -72,11 +72,8 @@ def ingest_tank_label(line_name, origin_notes, dob_str, count_num, tank_size='3.
     dob_cross = dob_dt.strftime('%d-%b-%y')
     dob_std = dob_dt.strftime('%d/%m/%Y')
     
-    # Turnover date (+2 years)
-    try:
-        turnover_dt = dob_dt.replace(year=dob_dt.year + 2)
-    except:
-        turnover_dt = dob_dt
+    # Turnover date (+18 months / 548 days)
+    turnover_dt = dob_dt + timedelta(days=548)
     turnover_fm = turnover_dt.strftime('%d-%m-%y')
 
     # Genotype string

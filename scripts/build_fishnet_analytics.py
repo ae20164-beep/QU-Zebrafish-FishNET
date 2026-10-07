@@ -333,12 +333,12 @@ for r in records:
         r['Fish_Per_Liter'] = dens
         if dens < 1.0:
             r['Density_Status'] = 'Understocked (<1.0 fish/L)'
-        elif dens <= 6.0:
-            r['Density_Status'] = 'Optimal (1.0 - 6.0 fish/L)'
-        elif dens <= 8.0:
-            r['Density_Status'] = 'Moderate / Acceptable (6.1 - 8.0 fish/L)'
+        elif dens <= 5.0:
+            r['Density_Status'] = 'Optimal (1.0 - 5.0 fish/L)'
+        elif dens <= 7.0:
+            r['Density_Status'] = 'Moderate (5.1 - 7.0 fish/L)'
         else:
-            r['Density_Status'] = 'OVERSTOCKED (>8.0 fish/L - Welfare Alert)'
+            r['Density_Status'] = 'OVERSTOCKED (>7.0 fish/L - Welfare Alert)'
     else:
         r['Fish_Per_Liter'] = 0.0
         r['Density_Status'] = 'Empty / Unknown'
@@ -781,7 +781,7 @@ ws6 = wb.create_sheet(title='6_Tank_Density_Welfare')
 ws6.views.sheetView[0].showGridLines = True
 ws6['A1'] = 'Tank Stocking Density & Welfare Compliance'
 ws6['A1'].font = title_font
-ws6['A2'] = 'Active tanks density evaluation (Target: 2.0 - 6.0 fish/L. Welfare threshold: < 8.0 fish/L).'
+ws6['A2'] = 'Active tanks density evaluation (Target: 1.0 - 5.0 fish/L. Welfare threshold: <= 7.0 fish/L).'
 ws6['A2'].font = subtitle_font
 
 headers6 = ['TUID', 'Status', 'Notes', 'Primary Line', 'Tank Size', 'Volume (L)', 'Total Fish', 'Density (Fish/L)', 'Compliance Status', 'Welfare Action']
@@ -1496,7 +1496,7 @@ html_template = """<!DOCTYPE html>
         <section id="tab-welfare" class="tab-content hidden space-y-4">
             <div class="glass p-5 rounded-xl shadow-lg">
                 <h2 class="text-lg font-bold text-white mb-1">⚖️ Stocking Density & Animal Welfare Compliance</h2>
-                <p class="text-xs text-slate-400 mb-4">Welfare standard: Optimal range is 2.0 to 6.0 fish/liter. Density > 8.0 fish/liter flags welfare review.</p>
+                <p class="text-xs text-slate-400 mb-4">Welfare standard: Optimal density is ≤ 5.0 fish/liter (facility standard: 5.0 fish/L). Density > 7.0 fish/liter flags welfare review.</p>
 
                 <div class="overflow-x-auto max-h-[600px]">
                     <table class="w-full text-left text-xs text-slate-300">
@@ -1865,9 +1865,9 @@ html_template = """<!DOCTYPE html>
                 if (vol > 0 && total > 0) {
                     fishPerLiter = parseFloat((total / vol).toFixed(2));
                     if (fishPerLiter < 1.0) densityStatus = 'Understocked (<1.0 fish/L)';
-                    else if (fishPerLiter <= 6.0) densityStatus = 'Optimal (1.0 - 6.0 fish/L)';
-                    else if (fishPerLiter <= 8.0) densityStatus = 'Moderate / Acceptable (6.1 - 8.0 fish/L)';
-                    else densityStatus = 'OVERSTOCKED (>8.0 fish/L - Welfare Alert)';
+                    else if (fishPerLiter <= 5.0) densityStatus = 'Optimal (1.0 - 5.0 fish/L)';
+                    else if (fishPerLiter <= 7.0) densityStatus = 'Moderate (5.1 - 7.0 fish/L)';
+                    else densityStatus = 'OVERSTOCKED (>7.0 fish/L - Welfare Alert)';
                 }
 
                 return {

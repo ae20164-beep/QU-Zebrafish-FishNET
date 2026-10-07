@@ -1043,9 +1043,9 @@ def process():
             except:
                 pass
         
-        # Fallback 2 years from DOB
+        # Fallback 18 months (548 days / 1.5 years) from DOB
         if not turn_dt and dob_dt:
-            turn_dt = datetime(dob_dt.year + 2, dob_dt.month, dob_dt.day)
+            turn_dt = dob_dt + timedelta(days=548)
 
         if turn_dt and st['status'] == 'Active':
             days_left = (turn_dt - NOW).days
@@ -1058,7 +1058,7 @@ def process():
                 alerts.append({
                     'tuid': tuid, 'line': st['line'], 'severity': 'CRITICAL',
                     'category': 'Turnover Overdue',
-                    'message': f"Tank is {abs(days_left)} days past 2-year colony holding limit (Turnover: {st['turnover_date_resolved']}).",
+                    'message': f"Tank is {abs(days_left)} days past 18-month colony turnover limit (Turnover: {st['turnover_date_resolved']}).",
                     'action': 'Schedule immediate renewal cross or colony retirement.'
                 })
             elif days_left <= 30:
@@ -1067,7 +1067,7 @@ def process():
                 alerts.append({
                     'tuid': tuid, 'line': st['line'], 'severity': 'HIGH',
                     'category': 'Turnover Due Soon',
-                    'message': f"Reaches 2-year turnover deadline in {days_left} days.",
+                    'message': f"Reaches 18-month turnover deadline in {days_left} days.",
                     'action': 'Set up next-generation replacement pairings in breeding room.'
                 })
             elif days_left <= 60:
