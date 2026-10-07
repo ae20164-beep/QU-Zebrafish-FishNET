@@ -1078,13 +1078,40 @@
             <div class="card-header">
                 <div>
                     <span class="card-title">🧬 Proven Parental Cross Combinations (Female Dam x Male Sire Matrix)</span>
-                    <span style="font-size: 12px; color: var(--text-secondary);">Empirical performance of single-sex reservoir crosses and pair-wise matings</span>
+                    <span style="font-size: 12px; color: var(--text-secondary);">Empirical performance of single-sex reservoir crosses and pair-wise matings (135 total historical pairs)</span>
                 </div>
                 <div class="card-header-actions">
                     <button class="btn btn-sm btn-outline" onclick="exportTableToCSV('pairSynergyTable', 'cross_pairing_synergies_matrix')">📥 Export Table (CSV)</button>
                 </div>
             </div>
-            <div class="table-responsive">
+            <div class="filter-bar" style="margin-bottom: 16px;">
+                <div class="filter-group">
+                    <input type="text" id="crossPairSearch" placeholder="Search Pair (e.g. T0135, Casper)..." oninput="renderCrosses()" style="width: 240px;">
+                </div>
+                <div class="filter-group">
+                    <span class="filter-label">Line:</span>
+                    <select id="crossPairLineFilter" onchange="renderCrosses()">
+                        <option value="ALL">All Lines</option>
+                        <option value="AB">AB</option>
+                        <option value="Casper">Casper</option>
+                        <option value="Fli">Fli</option>
+                        <option value="Gata">Gata</option>
+                        <option value="Outcross">Outcrosses</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <span class="filter-label">Display Rows:</span>
+                    <select id="crossPairPageSize" onchange="renderCrosses()">
+                        <option value="ALL">All 135 Pairs</option>
+                        <option value="50">Top 50 Pairs</option>
+                        <option value="100">Top 100 Pairs</option>
+                    </select>
+                </div>
+                <div style="font-size: 12px; color: var(--text-secondary); margin-left: auto;" id="crossPairCountBadge">
+                    Showing 135 pairs
+                </div>
+            </div>
+            <div class="table-responsive" style="max-height: 650px; overflow-y: auto;">
                 <table id="pairSynergyTable">
                     <thead>
                         <tr>
@@ -3439,8 +3466,31 @@
             if (!tbody) return;
             tbody.innerHTML = '';
 
-            currentPairs.slice(0, 50).forEach((p, idx) => {
-                const badgeClass = `badge-${p.line.toLowerCase()}`;
+            const searchVal = (document.getElementById('crossPairSearch')?.value || '').toLowerCase().trim();
+            const lineVal = document.getElementById('crossPairLineFilter')?.value || 'ALL';
+            const pageSizeVal = document.getElementById('crossPairPageSize')?.value || 'ALL';
+            const limit = pageSizeVal === 'ALL' ? Infinity : parseInt(pageSizeVal);
+
+            let filtered = currentPairs.filter(p => {
+                if (lineVal !== 'ALL') {
+                    if (lineVal === 'Outcross' && !p.line.includes('Outcross')) return false;
+                    if (lineVal !== 'Outcross' && p.line !== lineVal) return false;
+                }
+                if (searchVal) {
+                    const matchKey = (p.pair_key || '').toLowerCase().includes(searchVal);
+                    const matchLine = (p.line || '').toLowerCase().includes(searchVal);
+                    if (!matchKey && !matchLine) return false;
+                }
+                return true;
+            });
+
+            const countBadge = document.getElementById('crossPairCountBadge');
+            if (countBadge) {
+                countBadge.textContent = `Showing ${Math.min(filtered.length, limit)} of ${filtered.length} pairs (${currentPairs.length} total in dataset)`;
+            }
+
+            filtered.slice(0, limit).forEach((p, idx) => {
+                const badgeClass = p.line.startsWith('Outcross') ? 'badge-other' : `badge-${p.line.toLowerCase()}`;
                 tbody.innerHTML += `
                     <tr>
                         <td><strong>#${idx + 1}</strong></td>
