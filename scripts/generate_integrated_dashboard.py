@@ -1543,7 +1543,7 @@ def generate_dashboard():
                 </div>
             </div>
             
-            <div class="filter-bar" style="background: rgba(15, 23, 42, 0.5); padding: 16px; border-radius: var(--radius-md); margin-bottom: 20px;">
+            <div class="filter-bar" style="background: rgba(15, 23, 42, 0.5); padding: 16px; border-radius: var(--radius-md); margin-bottom: 20px; flex-wrap: wrap; gap: 14px;">
                 <div class="filter-group">
                     <span class="filter-label">Genetic Line:</span>
                     <select id="planLine" onchange="calculatePlanner()" style="font-weight: 700; font-size: 14px; min-width: 140px;">
@@ -1554,14 +1554,27 @@ def generate_dashboard():
                     </select>
                 </div>
                 <div class="filter-group">
+                    <span class="filter-label">Mating Setup Ratio (1.7L Tank):</span>
+                    <select id="planRatio" onchange="calculatePlanner()" style="font-weight: 700; font-size: 14px; min-width: 190px;">
+                        <option value="2:1" selected>2♀ : 1♂ (Standard Trio - 3 Fish)</option>
+                        <option value="1:1">1♀ : 1♂ (Pair Mating - 2 Fish)</option>
+                        <option value="6:3">6♀ : 3♂ (Group Spawning - 9 Fish Max)</option>
+                    </select>
+                </div>
+                <div class="filter-group">
                     <span class="filter-label">Desired Viable Embryos (24hpf):</span>
-                    <input type="number" id="planEmbryoTarget" value="1000" min="50" max="10000" step="50" oninput="calculatePlanner()" style="width: 130px; font-weight: 700; font-size: 14px;">
+                    <input type="number" id="planEmbryoTarget" value="1000" min="50" max="10000" step="50" oninput="calculatePlanner()" style="width: 120px; font-weight: 700; font-size: 14px;">
                 </div>
                 <div class="filter-group" style="display: flex; align-items: flex-end; gap: 6px;">
                     <button class="btn btn-sm btn-outline" onclick="setQuickEmbryoTarget(300)">300</button>
                     <button class="btn btn-sm btn-outline" onclick="setQuickEmbryoTarget(500)">500</button>
                     <button class="btn btn-sm btn-outline" onclick="setQuickEmbryoTarget(1000)">1,000</button>
                     <button class="btn btn-sm btn-outline" onclick="setQuickEmbryoTarget(2000)">2,000</button>
+                </div>
+                <div style="margin-left: auto; display: flex; align-items: center; gap: 8px;">
+                    <span style="font-size: 11px; color: var(--text-secondary); background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.25); padding: 6px 10px; border-radius: 6px;">
+                        🐟 <strong>Breeding Tank:</strong> 1.7L (Max Capacity: 9 Fish)
+                    </span>
                 </div>
             </div>
             
@@ -3920,6 +3933,27 @@ def generate_dashboard():
         function calculatePlanner() {
             const line = document.getElementById('planLine').value;
             const targetYield = parseInt(document.getElementById('planEmbryoTarget').value) || 1000;
+            const ratioVal = document.getElementById('planRatio')?.value || '2:1';
+
+            let femalesPerBox = 2;
+            let malesPerBox = 1;
+            let ratioMultiplier = 1.5;
+            let ratioLabel = '2♀ : 1♂ (Standard Trio)';
+            let fishPerBox = 3;
+
+            if (ratioVal === '1:1') {
+                femalesPerBox = 1;
+                malesPerBox = 1;
+                ratioMultiplier = 1.0;
+                ratioLabel = '1♀ : 1♂ (Pair Mating)';
+                fishPerBox = 2;
+            } else if (ratioVal === '6:3') {
+                femalesPerBox = 6;
+                malesPerBox = 3;
+                ratioMultiplier = 4.0;
+                ratioLabel = '6♀ : 3♂ (Group Spawning - 9 Fish Max)';
+                fishPerBox = 9;
+            }
 
             const relevantPairs = currentPairs.filter(p => p.line === line);
             const lineTanks = Object.values(currentTanks).filter(t => t.line === line && t.status === 'Active');
@@ -3939,9 +3973,12 @@ def generate_dashboard():
                 benchmarkPairName = relevantPairs[0].pair_key;
             }
 
-            const expectedPerCage = Math.max(1, Math.round(avgClutch * (avgSr24 / 100)));
+            const expectedPerCage = Math.max(1, Math.round(avgClutch * ratioMultiplier * (avgSr24 / 100)));
             const neededCages = Math.max(1, Math.ceil(targetYield / expectedPerCage));
             const totalEstimatedEmbryos = neededCages * expectedPerCage;
+            const totalFemalesNeeded = neededCages * femalesPerBox;
+            const totalMalesNeeded = neededCages * malesPerBox;
+            const totalFishNeeded = totalFemalesNeeded + totalMalesNeeded;
 
             // Pick Best Female and Male Tanks
             const bestFemale = femaleTanks.length > 0 ? femaleTanks[0] : null;
@@ -3958,23 +3995,23 @@ def generate_dashboard():
                 <div class="planner-kpi-grid">
                     <div class="planner-kpi-box emerald">
                         <span class="kpi-label">🎯 Target Viable Embryos</span>
-                        <div class="kpi-value" style="color: var(--accent-emerald); font-size: 26px;">${targetYield.toLocaleString()} <span style="font-size: 14px; font-weight: normal; color: var(--text-secondary);">@ 24hpf</span></div>
+                        <div class="kpi-value" style="color: var(--accent-emerald); font-size: 26px;">${targetYield.toLocaleString()} <span style="font-size: 13px; font-weight: normal; color: var(--text-secondary);">@ 24hpf</span></div>
                         <span class="kpi-subtext">Selected Line: <strong>${line}</strong></span>
                     </div>
                     <div class="planner-kpi-box blue">
-                        <span class="kpi-label">📦 Recommended Mating Cages</span>
-                        <div class="kpi-value" style="color: var(--accent-blue); font-size: 26px;">${neededCages} <span style="font-size: 14px; font-weight: normal; color: var(--text-secondary);">Cages (1♀ : 1♂)</span></div>
+                        <span class="kpi-label">📦 1.7L Breeding Tanks Needed</span>
+                        <div class="kpi-value" style="color: var(--accent-blue); font-size: 26px;">${neededCages} <span style="font-size: 13px; font-weight: normal; color: var(--text-secondary);">Tanks (${ratioLabel})</span></div>
                         <span class="kpi-subtext">Expected output: <strong>~${totalEstimatedEmbryos.toLocaleString()} embryos</strong></span>
                     </div>
                     <div class="planner-kpi-box purple">
-                        <span class="kpi-label">🧬 Historical Synergy Baseline</span>
-                        <div class="kpi-value" style="font-size: 22px; color: #fff;">${avgClutch} <span style="font-size: 13px; color: var(--text-secondary);">eggs/clutch</span></div>
-                        <span class="kpi-subtext">Mean 24h survival: <strong style="color: var(--accent-emerald);">${avgSr24}%</strong></span>
+                        <span class="kpi-label">🐟 Total Fish Required</span>
+                        <div class="kpi-value" style="font-size: 22px; color: #fff;">${totalFemalesNeeded}♀ + ${totalMalesNeeded}♂ <span style="font-size: 13px; color: var(--text-secondary);">(${totalFishNeeded} fish)</span></div>
+                        <span class="kpi-subtext">${fishPerBox} fish/tank (Max 9 in 1.7L tank)</span>
                     </div>
                     <div class="planner-kpi-box">
-                        <span class="kpi-label">🐟 Active Stock Availability</span>
-                        <div class="kpi-value" style="font-size: 22px; color: #fff;">${lineTanks.length} <span style="font-size: 13px; color: var(--text-secondary);">Active Tanks</span></div>
-                        <span class="kpi-subtext"><strong>${femaleTanks.length}</strong> with ♀ &bull; <strong>${maleTanks.length}</strong> with ♂</span>
+                        <span class="kpi-label">🧬 Historical Benchmark</span>
+                        <div class="kpi-value" style="font-size: 22px; color: #fff;">${avgClutch} <span style="font-size: 13px; color: var(--text-secondary);">eggs/spawn</span></div>
+                        <span class="kpi-subtext">Mean 24h survival: <strong style="color: var(--accent-emerald);">${avgSr24}%</strong></span>
                     </div>
                 </div>
 
@@ -3988,10 +4025,10 @@ def generate_dashboard():
                     <div class="planner-plan-card" style="border-left: 4px solid var(--accent-blue);">
                         <div class="planner-plan-header">
                             <div>
-                                <span class="planner-plan-badge" style="background: rgba(56, 189, 248, 0.15); color: var(--accent-blue);">Option A &bull; Recommended Cross</span>
-                                <h3 style="margin: 6px 0 2px 0; font-size: 16px; color: #fff;">High-Yield Inter-Tank Cross</h3>
+                                <span class="planner-plan-badge" style="background: rgba(56, 189, 248, 0.15); color: var(--accent-blue);">Option A &bull; Standard Inter-Tank Cross</span>
+                                <h3 style="margin: 6px 0 2px 0; font-size: 16px; color: #fff;">1.7L Tank Setup (${ratioLabel})</h3>
                             </div>
-                            <span style="font-size: 11px; background: rgba(16, 185, 129, 0.15); color: var(--accent-emerald); padding: 4px 8px; border-radius: 4px; font-weight: 700;">Highest Genetic Quality</span>
+                            <span style="font-size: 11px; background: rgba(16, 185, 129, 0.15); color: var(--accent-emerald); padding: 4px 8px; border-radius: 4px; font-weight: 700;">Optimal Quality</span>
                         </div>
 
                         ${bestFemale && bestMale ? `
@@ -4012,10 +4049,11 @@ def generate_dashboard():
                         </div>
 
                         <div class="planner-protocol-box">
-                            <strong>📋 How to set up tonight:</strong><br>
-                            1. Take <strong>${neededCages} females</strong> from <code>${bestFemale.tuid}</code> and <strong>${neededCages} males</strong> from <code>${bestMale.tuid}</code>.<br>
-                            2. Place 1♀ and 1♂ per crossing cage with divider inserted at ~5:00 PM.<br>
-                            3. Pull divider at morning light onset (8:00 AM) &rarr; Collect eggs at ~10:00 AM.
+                            <strong>📋 Setup Instructions for Tonight:</strong><br>
+                            1. Prepare <strong>${neededCages} standard 1.7L breeding tank(s)</strong> with slotted insert and dividers.<br>
+                            2. Transfer <strong>${femalesPerBox} female(s)</strong> from <code>${bestFemale.tuid}</code> (pull ${totalFemalesNeeded}♀ total) and <strong>${malesPerBox} male(s)</strong> from <code>${bestMale.tuid}</code> (pull ${totalMalesNeeded}♂ total) into each 1.7L box.<br>
+                            3. Total load is <strong>${fishPerBox} fish per 1.7L tank</strong> (well within the 9-fish limit).<br>
+                            4. Keep divided overnight &rarr; pull divider at morning light onset (8:00 AM) &rarr; collect embryos at ~10:00 AM.
                         </div>
                         ` : `
                         <div style="color: var(--text-muted); font-size: 13px; padding: 16px;">Insufficient active male/female tanks for cross pairing in this line.</div>
@@ -4048,7 +4086,7 @@ def generate_dashboard():
                         </div>
 
                         <div class="planner-protocol-box" style="border-left-color: var(--accent-purple);">
-                            <strong>📋 How to set up tonight:</strong><br>
+                            <strong>📋 Setup Instructions for Tonight:</strong><br>
                             1. Place <strong>${Math.min(neededCages, 2)} collection slotted inserts</strong> directly inside tank <code>${bestMixed.tuid}</code> before lights off.<br>
                             2. No fish handling or netting between tanks required.<br>
                             3. Remove egg collection trays at ~10:00 AM next morning.
