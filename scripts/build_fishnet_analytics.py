@@ -11,9 +11,16 @@ from openpyxl.utils import get_column_letter
 # Reference date (Current date: Oct 1, 2026)
 NOW = datetime(2026, 10, 1)
 
-TAB_FILE = 'FishNET.tab'
-EXCEL_REPORT_FILE = 'FishNET_Colony_Analytics_Report.xlsx'
-HTML_DASHBOARD_FILE = 'FishNET_Interactive_Dashboard_Standard_Backup.html'
+LABELS_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if not os.path.exists(os.path.join(LABELS_DIR, 'FishNet Exported Data')):
+    LABELS_DIR = os.getcwd()
+
+TAB_FILE = os.path.join(LABELS_DIR, 'FishNet Exported Data', 'Tanks.tab')
+if not os.path.exists(TAB_FILE):
+    TAB_FILE = os.path.join(LABELS_DIR, 'FishNET.tab')
+
+EXCEL_REPORT_FILE = os.path.join(LABELS_DIR, 'FishNET_Colony_Analytics_Report.xlsx')
+HTML_DASHBOARD_FILE = os.path.join(LABELS_DIR, 'FishNET_Interactive_Dashboard_Standard_Backup.html')
 
 
 def parse_date(d_str):
@@ -95,37 +102,91 @@ for r in data_rows:
     if row_dict.get('TUID'):
         records.append(row_dict)
 
+# Load Crosses Mapping for Derivative Crosses
+crosses_map = {}
+crosses_tab_paths = [
+    os.path.join(LABELS_DIR, 'FishNet Exported Data', 'Crosses.tab'),
+    os.path.join(LABELS_DIR, 'FishNet Exported Data', 'crosses.tab'),
+    os.path.join(os.path.dirname(TAB_FILE), 'Crosses.tab'),
+    os.path.join(os.path.dirname(TAB_FILE), 'crosses.tab')
+]
+for c_path in crosses_tab_paths:
+    if os.path.exists(c_path):
+        with open(c_path, 'r', encoding='utf-8-sig', errors='ignore') as f:
+            for r in csv.reader(f, delimiter='\t'):
+                if not r: continue
+                cuid = None
+                for col in r:
+                    c_m = re.search(r'\b(C\d{4})\b', col.strip().upper())
+                    if c_m: cuid = c_m.group(1); break
+                if not cuid: continue
+                tanks_in_row = []
+                for col in r:
+                    for tm in re.findall(r'\bT\d{4}\b', col.strip().upper()):
+                        if tm not in tanks_in_row: tanks_in_row.append(tm)
+                dam = tanks_in_row[0] if len(tanks_in_row) > 0 else ''
+                sire = tanks_in_row[1] if len(tanks_in_row) > 1 else dam
+                crosses_map[cuid] = {'dam': dam, 'sire': sire}
+        break
+
 tanks_dict = {r['TUID']: r for r in records}
 
-# 2. Enrich Records
+# 2. Enrich Records & Map Lineage
 parents_map = {}
+explicit_gen = {}
 children_map = defaultdict(list)
 
 for r in records:
     tuid = r['TUID']
-    pat = r.get('PATERNAL', '').strip()
-    mat = r.get('MATERNAL', '').strip()
-    p_valid = pat if pat in tanks_dict else None
-    m_valid = mat if mat in tanks_dict else None
+    cross = (r.get('Dervitive Cross') or r.get('Derivative Cross') or '').strip().upper()
+    notes = (r.get('Notes') or r.get('NOTES') or '').strip()
+    genotype = (r.get('Genotype') or r.get('GENOTYPE') or '').strip()
+    combined = f'{notes} {genotype}'
+    
+    # Check explicit generation in notes/genotype (e.g. G1, G2, F1, F2)
+    m_gen = re.search(r'\b[GF](\d+)\b', combined, re.I)
+    explicit_gen[tuid] = int(m_gen.group(1)) if m_gen else 0
+    
+    # Resolve Dam and Sire
+    dam, sire = '', ''
+    if cross in crosses_map:
+        dam = crosses_map[cross]['dam']
+        sire = crosses_map[cross]['sire']
+    if not dam and not sire:
+        m_tanks = re.findall(r'\bT\s*0*(\d{1,4})\b', notes, re.I)
+        if len(m_tanks) >= 2:
+            dam = f'T{int(m_tanks[0]):04d}'
+            sire = f'T{int(m_tanks[1]):04d}'
+        elif len(m_tanks) == 1:
+            dam = f'T{int(m_tanks[0]):04d}'
+            sire = dam
+            
+    p_valid = sire if sire in tanks_dict else ''
+    m_valid = dam if dam in tanks_dict else ''
     parents_map[tuid] = (p_valid, m_valid)
     if p_valid:
         children_map[p_valid].append(tuid)
     if m_valid and m_valid != p_valid:
         children_map[m_valid].append(tuid)
 
-# Generation Depth & Ancestors
+# Generation Depth & Ancestors Calculation
 gen_depth = {}
-def calc_depth(t):
+def calc_depth(t, visited=None):
+    if visited is None: visited = set()
     if t in gen_depth:
         return gen_depth[t]
-    p, m = parents_map.get(t, (None, None))
-    if not p and not m:
-        gen_depth[t] = 0
-        return 0
-    dp = calc_depth(p) if p else 0
-    dm = calc_depth(m) if m else 0
-    gen_depth[t] = 1 + max(dp, dm)
-    return gen_depth[t]
+    if t in visited:
+        return explicit_gen.get(t, 0)
+    visited.add(t)
+    
+    base = explicit_gen.get(t, 0)
+    p, m = parents_map.get(t, ('', ''))
+    dp = calc_depth(p, visited.copy()) if p else 0
+    dm = calc_depth(m, visited.copy()) if m else 0
+    computed = (1 + max(dp, dm)) if (p or m) else 0
+    res = max(base, computed)
+    gen_depth[t] = res
+    return res
 
 for t in tanks_dict:
     calc_depth(t)
@@ -135,7 +196,7 @@ all_ids = sorted(list(tanks_dict.keys()), key=lambda x: (gen_depth[x], x))
 A = defaultdict(lambda: defaultdict(float))
 
 for i in all_ids:
-    si, di = parents_map.get(i, (None, None))
+    si, di = parents_map.get(i, ('', ''))
     if si and di:
         A[i][i] = 1.0 + 0.5 * A[si][di]
     else:
@@ -143,7 +204,7 @@ for i in all_ids:
     for j in all_ids:
         if i == j:
             continue
-        sj, dj = parents_map.get(j, (None, None))
+        sj, dj = parents_map.get(j, ('', ''))
         if sj and dj:
             val = 0.5 * (A[i][sj] + A[i][dj])
         elif sj:
@@ -157,7 +218,7 @@ for i in all_ids:
 
 inbreeding_coeffs = {}
 for i in all_ids:
-    si, di = parents_map.get(i, (None, None))
+    si, di = parents_map.get(i, ('', ''))
     if si and di:
         inbreeding_coeffs[i] = round(0.5 * A[si][di], 4)
     else:
@@ -166,13 +227,15 @@ for i in all_ids:
 # Process calculations
 for r in records:
     tuid = r['TUID']
-    st_raw = r.get('STATUS', '')
+    st_raw = r.get('Status') or r.get('STATUS') or ''
     is_active = is_active_status(st_raw)
     r['Is_Active'] = is_active
     r['Status_Clean'] = 'Adult/Active' if is_active and 'juvenile' not in st_raw.lower() else ('Juvenile (<3m)' if is_active else 'Euthanized')
     
-    r['Line_Category'] = categorize_line(r.get('NOTES', ''))
+    notes_val = r.get('Notes') or r.get('NOTES') or ''
+    r['Line_Category'] = categorize_line(notes_val)
     r['Gen_Depth'] = gen_depth[tuid]
+    r['Generation'] = gen_depth[tuid]
     r['Inbreeding_F'] = inbreeding_coeffs[tuid]
     r['Sire'] = parents_map[tuid][0] or ''
     r['Dam'] = parents_map[tuid][1] or ''
@@ -180,15 +243,30 @@ for r in records:
     r['Progeny_Tanks'] = ', '.join(children_map[tuid])
     
     # Counts
-    r['Female_Count'] = int(r['FEMALE']) if r.get('FEMALE', '').isdigit() else 0
-    r['Male_Count'] = int(r['MALE']) if r.get('MALE', '').isdigit() else 0
-    r['Total_Count'] = int(r['TOTAL']) if r.get('TOTAL', '').isdigit() else 0
+    fem_str = r.get('Females') or r.get('FEMALE') or ''
+    male_str = r.get('Males') or r.get('MALE') or ''
+    tot_str = r.get('Number of Fish') or r.get('TOTAL') or r.get('Total') or ''
+    
+    r['Female_Count'] = int(fem_str) if fem_str.isdigit() else 0
+    r['Male_Count'] = int(male_str) if male_str.isdigit() else 0
+    r['Total_Count'] = int(tot_str) if tot_str.isdigit() else (r['Female_Count'] + r['Male_Count'])
     r['Unsexed_Count'] = max(0, r['Total_Count'] - (r['Female_Count'] + r['Male_Count']))
     
+    # Populate alias keys for frontend JS compatibility
+    r['FEMALE'] = str(r['Female_Count'])
+    r['MALE'] = str(r['Male_Count'])
+    r['TOTAL'] = str(r['Total_Count'])
+    r['STATUS'] = st_raw
+    r['NOTES'] = notes_val
+    r['DOB'] = r.get('Date of Birth') or r.get('DOB') or ''
+    r['TURNOVER'] = r.get('Turnover Date') or r.get('TURNOVER') or ''
+    r['DOD'] = r.get('Date of Death') or r.get('DOD') or ''
+    r['TANK'] = r.get('Tank Size') or r.get('TANK') or ''
+    
     # Dates & Age
-    dob = parse_date(r.get('DOB', ''))
-    turnover = parse_date(r.get('TURNOVER', ''))
-    dod = parse_date(r.get('DOD', ''))
+    dob = parse_date(r['DOB'])
+    turnover = parse_date(r['TURNOVER'])
+    dod = parse_date(r['DOD'])
     r['DOB_parsed'] = dob
     r['TURNOVER_parsed'] = turnover
     r['DOD_parsed'] = dod
@@ -1459,6 +1537,7 @@ html_template = """<!DOCTYPE html>
     <script>
         // Initial Dataset
         const DEFAULT_RECORDS = __RECORDS_JSON__;
+        const CROSSES_DATA = __CROSSES_JSON__;
         let currentRecords = JSON.parse(JSON.stringify(DEFAULT_RECORDS));
         
         // State
@@ -1616,15 +1695,43 @@ html_template = """<!DOCTYPE html>
                 tanksMap[r['TUID']] = r;
             });
 
+            const crossesMap = typeof CROSSES_DATA !== 'undefined' ? CROSSES_DATA : {};
             const parentsMap = {};
             const childrenMap = {};
+            const explicitGen = {};
 
             records.forEach(r => {
                 const tuid = r['TUID'];
-                const pat = (r['PATERNAL'] || '').trim();
-                const mat = (r['MATERNAL'] || '').trim();
-                const pValid = tanksMap[pat] ? pat : null;
-                const mValid = tanksMap[mat] ? mat : null;
+                const notes = (r['Notes'] || r['NOTES'] || '').trim();
+                const geno = (r['Genotype'] || r['GENOTYPE'] || '').trim();
+                const combined = notes + ' ' + geno;
+                
+                // Explicit generation tag (G1, G2, G3, F1, F2, F3)
+                const mGen = combined.match(/\b[GF](\d+)\b/i);
+                explicitGen[tuid] = mGen ? parseInt(mGen[1]) : 0;
+
+                // Sire & Dam resolution
+                let sire = r['Sire'] || '';
+                let dam = r['Dam'] || '';
+                const cross = (r['Dervitive Cross'] || r['Derivative Cross'] || '').trim().toUpperCase();
+
+                if ((!sire || !dam) && crossesMap[cross]) {
+                    dam = crossesMap[cross].dam || dam;
+                    sire = crossesMap[cross].sire || sire;
+                }
+                if (!sire && !dam) {
+                    const mTanks = [...notes.matchAll(/\bT\s*0*(\d{1,4})\b/gi)].map(m => `T${m[1].padStart(4, '0')}`);
+                    if (mTanks.length >= 2) {
+                        dam = mTanks[0];
+                        sire = mTanks[1];
+                    } else if (mTanks.length === 1) {
+                        dam = mTanks[0];
+                        sire = dam;
+                    }
+                }
+
+                const pValid = tanksMap[sire] ? sire : null;
+                const mValid = tanksMap[dam] ? dam : null;
                 parentsMap[tuid] = [pValid, mValid];
 
                 if (pValid) {
@@ -1637,18 +1744,19 @@ html_template = """<!DOCTYPE html>
                 }
             });
 
-            // Generation depth
+            // Generation depth (recursive multi-generation calculator)
             const genDepth = {};
-            function calcDepth(t) {
+            function calcDepth(t, visited = new Set()) {
                 if (genDepth[t] !== undefined) return genDepth[t];
+                if (visited.has(t)) return explicitGen[t] || 0;
+                visited.add(t);
+
+                const base = explicitGen[t] || 0;
                 const [p, m] = parentsMap[t] || [null, null];
-                if (!p && !m) {
-                    genDepth[t] = 0;
-                    return 0;
-                }
-                const dp = p ? calcDepth(p) : 0;
-                const dm = m ? calcDepth(m) : 0;
-                genDepth[t] = 1 + Math.max(dp, dm);
+                const dp = p ? calcDepth(p, new Set(visited)) : 0;
+                const dm = m ? calcDepth(m, new Set(visited)) : 0;
+                const computed = (p || m) ? (1 + Math.max(dp, dm)) : 0;
+                genDepth[t] = Math.max(base, computed);
                 return genDepth[t];
             }
             Object.keys(tanksMap).forEach(t => calcDepth(t));
@@ -3255,7 +3363,7 @@ html_template = """<!DOCTYPE html>
 </html>
 """
 
-html_content = html_template.replace('__RECORDS_JSON__', raw_records_json)
+html_content = html_template.replace('__RECORDS_JSON__', raw_records_json).replace('__CROSSES_JSON__', json.dumps(crosses_map))
 
 with open(HTML_DASHBOARD_FILE, 'w', encoding='utf-8') as f:
     f.write(html_content)

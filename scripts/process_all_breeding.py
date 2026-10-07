@@ -896,10 +896,18 @@ def process():
 
     # 5. Compute Pedigree, Kinship Matrix & Inbreeding (F)
     parents_map = {}
+    explicit_gen = {}
     children_map = defaultdict(list)
     for tuid, st in tank_stats.items():
         d_cross = st.get('derivative_cross', '').upper()
         notes = st.get('notes', '')
+        genotype = st.get('genotype', '')
+        combined = f"{notes} {genotype}"
+
+        # Extract explicit generation tag (e.g. G1, G2, F1, F2)
+        m_gen = re.search(r'\b[GF](\d+)\b', combined, re.I)
+        explicit_gen[tuid] = int(m_gen.group(1)) if m_gen else 0
+
         dam, sire = '', ''
         if d_cross in crosses_map:
             dam = crosses_map[d_cross].get('dam', '')
@@ -915,6 +923,8 @@ def process():
         parents_map[tuid] = (sire, dam)
         st['sire'] = sire
         st['dam'] = dam
+        st['sire_tuid'] = sire
+        st['dam_tuid'] = dam
 
     for tuid, (sire, dam) in parents_map.items():
         if sire and sire in tank_stats:
@@ -925,23 +935,36 @@ def process():
     for tuid, st in tank_stats.items():
         st['progeny'] = children_map[tuid]
         st['progeny_count'] = len(children_map[tuid])
+        st['children'] = children_map[tuid]
+        gc = []
+        for child_id in children_map[tuid]:
+            for gc_id in children_map.get(child_id, []):
+                if gc_id not in gc:
+                    gc.append(gc_id)
+        st['grandchildren'] = gc
+        st['grandchildren_count'] = len(gc)
 
-    # Generation Depth
+    # Generation Depth (Recursive true generation calculation)
     gen_depth = {}
     def calc_depth(t, visited=None):
         if visited is None: visited = set()
         if t in gen_depth: return gen_depth[t]
-        if t in visited: return 0
+        if t in visited: return explicit_gen.get(t, 0)
         visited.add(t)
+        
+        base = explicit_gen.get(t, 0)
         s, d = parents_map.get(t, ('', ''))
         dp = calc_depth(s, visited.copy()) if s and s in tank_stats else 0
         dm = calc_depth(d, visited.copy()) if d and d in tank_stats else 0
-        gen_depth[t] = 1 + max(dp, dm) if (s or d) else 0
+        computed = (1 + max(dp, dm)) if (s or d) else 0
+        gen_depth[t] = max(base, computed)
         return gen_depth[t]
 
     for t in tank_stats:
         calc_depth(t)
         tank_stats[t]['gen_depth'] = gen_depth[t]
+        tank_stats[t]['generation'] = gen_depth[t]
+        tank_stats[t]['gen'] = gen_depth[t]
 
     # Tabular Kinship & Inbreeding
     all_ids = sorted(list(tank_stats.keys()))
