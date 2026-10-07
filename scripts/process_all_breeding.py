@@ -942,31 +942,7 @@ def process():
                 if gc_id not in gc:
                     gc.append(gc_id)
         st['grandchildren'] = gc
-        st['grandchildren_count'] = len(gc)
-
-    # Generation Depth (Recursive true generation calculation)
-    gen_depth = {}
-    def calc_depth(t, visited=None):
-        if visited is None: visited = set()
-        if t in gen_depth: return gen_depth[t]
-        if t in visited: return explicit_gen.get(t, 0)
-        visited.add(t)
-        
-        base = explicit_gen.get(t, 0)
-        s, d = parents_map.get(t, ('', ''))
-        dp = calc_depth(s, visited.copy()) if s and s in tank_stats else 0
-        dm = calc_depth(d, visited.copy()) if d and d in tank_stats else 0
-        computed = (1 + max(dp, dm)) if (s or d) else 0
-        gen_depth[t] = max(base, computed)
-        return gen_depth[t]
-
-    for t in tank_stats:
-        calc_depth(t)
-        tank_stats[t]['gen_depth'] = gen_depth[t]
-        tank_stats[t]['generation'] = gen_depth[t]
-        tank_stats[t]['gen'] = gen_depth[t]
-
-    # Tabular Kinship & Inbreeding
+    # Tabular Kinship & Inbreeding (Henderson's Numerator Relationship Matrix A)
     all_ids = sorted(list(tank_stats.keys()))
     A = defaultdict(lambda: defaultdict(float))
     for i in all_ids:
@@ -997,6 +973,48 @@ def process():
         else:
             inbreeding_coeffs[i] = 0.0
         tank_stats[i]['inbreeding_f'] = inbreeding_coeffs[i]
+
+    # Scientifically Documented Filial Inbreeding Generation (F_n)
+    # Rules (Standardized Genetic Nomenclature / The Zebrafish Book / Falconer & Mackay):
+    # 1. Founder / Unknown Parents: F0
+    # 2. Inter-line Outcross (e.g. Casper x AB): Resets to F1 (inbreeding broken)
+    # 3. Within-line Outcross (Unrelated families / distant cousins, Kinship A[si][di] < 0.0625): Resets to F1
+    # 4. Sibling / Sibling-intercross Inbreeding (A[si][di] >= 0.0625 or si == di): 1 + max(F(si), F(di))
+    filial_gen = {}
+    def calc_filial(t, visited=None):
+        if visited is None: visited = set()
+        if t in filial_gen: return filial_gen[t]
+        if t in visited: return 0
+        visited.add(t)
+
+        s, d = parents_map.get(t, ('', ''))
+        if not s and not d:
+            filial_gen[t] = 0
+            return 0
+
+        fs = calc_filial(s, visited.copy()) if s and s in tank_stats else 0
+        fd = calc_filial(d, visited.copy()) if d and d in tank_stats else 0
+
+        line_s = tank_stats.get(s, {}).get('line', '')
+        line_d = tank_stats.get(d, {}).get('line', '')
+        is_diff_line = (line_s and line_d and line_s != line_d)
+
+        kinship = A[s][d] if (s and d and s in tank_stats and d in tank_stats) else 0.0
+        is_unrelated_within_line = (not is_diff_line and s != d and kinship < 0.0625)
+
+        if is_diff_line or is_unrelated_within_line:
+            filial_gen[t] = 1
+        else:
+            filial_gen[t] = 1 + max(fs, fd)
+
+        return filial_gen[t]
+
+    for t in tank_stats:
+        calc_filial(t)
+        tank_stats[t]['gen_depth'] = filial_gen[t]
+        tank_stats[t]['generation'] = filial_gen[t]
+        tank_stats[t]['filial_generation'] = filial_gen[t]
+        tank_stats[t]['gen'] = filial_gen[t]
 
     # 6. Compute Turnover Countdown, Aging Lifecycle & Compliance Alerts
     NOW = datetime(2026, 10, 6)

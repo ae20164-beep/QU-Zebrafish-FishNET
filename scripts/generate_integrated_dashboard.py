@@ -3183,7 +3183,7 @@ def generate_dashboard():
             activeTanks.forEach(t => {
                 const opt = document.createElement('option');
                 opt.value = t.tuid;
-                opt.textContent = `${t.tuid} [${t.line}] - Gen ${t.generation || 0} (${t.female}F/${t.male}M)`;
+                opt.textContent = `${t.tuid} [${t.line}] - Gen ${t.generation > 0 ? 'F' + t.generation : 'F0'} (${t.female}F/${t.male}M)`;
                 if (t.tuid === currentFocalTank) opt.selected = true;
                 sel.appendChild(opt);
             });
@@ -3230,7 +3230,7 @@ def generate_dashboard():
                         <span class="badge ${badgeClass}">${t.line}</span>
                     </div>
                     <div style="font-size: 11px; color: var(--text-secondary); margin-bottom: 4px;">
-                        Gen: <b style="color: var(--accent-blue);">G${t.generation || 0}</b> | F: <b style="color: ${inbr >= 0.25 ? 'var(--accent-rose)' : 'var(--accent-emerald)'};">${inbr}</b>
+                        Gen: <b style="color: var(--accent-blue);">${t.generation > 0 ? 'F' + t.generation : 'F0'}</b> | Inbreeding: <b style="color: ${inbr >= 0.25 ? 'var(--accent-rose)' : 'var(--accent-emerald)'};">${inbr}</b>
                     </div>
                     <div style="font-size: 11px; color: var(--text-secondary);">
                         Fish: <b style="color: #fff;">${t.total}</b> (${t.female}♀ / ${t.male}♂)
@@ -3253,7 +3253,7 @@ def generate_dashboard():
             }
             document.getElementById('focalBreadcrumbTrail').innerHTML = `<b>Lineage Trail:</b> ${trail}`;
 
-            document.getElementById('focalHeroGenBadge').innerText = `Gen G${focal.generation || 0}`;
+            document.getElementById('focalHeroGenBadge').innerText = focal.generation > 0 ? `Gen F${focal.generation}` : 'Gen F0 (Founder)';
             document.getElementById('treeColFocal').innerHTML = createMiniCard(focal.tuid, 'Focal Target Tank', true);
 
             const parentsDiv = document.getElementById('treeColParents');
@@ -3378,7 +3378,7 @@ def generate_dashboard():
                 tbody.innerHTML += `
                     <tr>
                         <td><strong>${t.tuid}</strong> <span class="badge ${badgeClass}" style="margin-left: 6px;">${t.line}</span></td>
-                        <td><span class="badge badge-active">G${t.generation || 0}</span></td>
+                        <td><span class="badge badge-active">${t.generation > 0 ? 'F' + t.generation : 'F0'}</span></td>
                         <td>${getStatusBadge(t.status)}</td>
                         <td>${t.female}♀ / ${t.male}♂ (<b>${t.total}</b>)</td>
                         <td><b style="color: ${inbr >= 0.25 ? 'var(--accent-rose)' : 'var(--accent-emerald)'};">${inbr}</b></td>
@@ -4359,8 +4359,8 @@ def generate_dashboard():
                         <div style="font-weight: bold; margin-top: 4px;">${t.turnover_date_resolved || t.turnover_date || '-'}</div>
                     </div>
                     <div style="background: rgba(15,23,42,0.6); padding: 12px; border-radius: 6px;">
-                        <span style="font-size: 11px; color: var(--text-secondary);">Generation & Inbreeding (F)</span>
-                        <div style="font-weight: bold; margin-top: 4px; color: var(--accent-blue);">G${t.generation || 0} (F = ${t.inbreeding_f !== undefined ? t.inbreeding_f.toFixed(3) : '0.000'})</div>
+                        <span style="font-size: 11px; color: var(--text-secondary);">Filial Generation & Inbreeding</span>
+                        <div style="font-weight: bold; margin-top: 4px; color: var(--accent-blue);">${t.generation > 0 ? 'F' + t.generation : 'F0 (Founder)'} (Inbreeding F = ${t.inbreeding_f !== undefined ? t.inbreeding_f.toFixed(3) : '0.000'})</div>
                     </div>
                 </div>
 

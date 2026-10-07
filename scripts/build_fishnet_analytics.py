@@ -169,30 +169,8 @@ for r in records:
     if m_valid and m_valid != p_valid:
         children_map[m_valid].append(tuid)
 
-# Generation Depth & Ancestors Calculation
-gen_depth = {}
-def calc_depth(t, visited=None):
-    if visited is None: visited = set()
-    if t in gen_depth:
-        return gen_depth[t]
-    if t in visited:
-        return explicit_gen.get(t, 0)
-    visited.add(t)
-    
-    base = explicit_gen.get(t, 0)
-    p, m = parents_map.get(t, ('', ''))
-    dp = calc_depth(p, visited.copy()) if p else 0
-    dm = calc_depth(m, visited.copy()) if m else 0
-    computed = (1 + max(dp, dm)) if (p or m) else 0
-    res = max(base, computed)
-    gen_depth[t] = res
-    return res
-
-for t in tanks_dict:
-    calc_depth(t)
-
 # Kinship Matrix & Inbreeding (Tabular Method)
-all_ids = sorted(list(tanks_dict.keys()), key=lambda x: (gen_depth[x], x))
+all_ids = sorted(list(tanks_dict.keys()))
 A = defaultdict(lambda: defaultdict(float))
 
 for i in all_ids:
@@ -223,6 +201,42 @@ for i in all_ids:
         inbreeding_coeffs[i] = round(0.5 * A[si][di], 4)
     else:
         inbreeding_coeffs[i] = 0.0
+
+# Scientifically Documented Filial Inbreeding Generation (F_n)
+filial_gen = {}
+def calc_filial(t, visited=None):
+    if visited is None: visited = set()
+    if t in filial_gen: return filial_gen[t]
+    if t in visited: return 0
+    visited.add(t)
+
+    s, d = parents_map.get(t, ('', ''))
+    if not s and not d:
+        filial_gen[t] = 0
+        return 0
+
+    fs = calc_filial(s, visited.copy()) if s and s in tanks_dict else 0
+    fd = calc_filial(d, visited.copy()) if d and d in tanks_dict else 0
+
+    notes_s = tanks_dict.get(s, {}).get('Notes') or tanks_dict.get(s, {}).get('NOTES') or ''
+    notes_d = tanks_dict.get(d, {}).get('Notes') or tanks_dict.get(d, {}).get('NOTES') or ''
+    line_s = categorize_line(notes_s)
+    line_d = categorize_line(notes_d)
+    is_diff_line = (line_s and line_d and line_s != line_d)
+
+    kinship = A[s][d] if (s and d) else 0.0
+    is_unrelated_within_line = (not is_diff_line and s != d and kinship < 0.0625)
+
+    if is_diff_line or is_unrelated_within_line:
+        filial_gen[t] = 1
+    else:
+        filial_gen[t] = 1 + max(fs, fd)
+
+    return filial_gen[t]
+
+for t in tanks_dict:
+    calc_filial(t)
+gen_depth = filial_gen
 
 # Process calculations
 for r in records:
