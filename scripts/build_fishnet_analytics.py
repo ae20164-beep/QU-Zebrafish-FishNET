@@ -831,6 +831,43 @@ html_template = """<!DOCTYPE html>
         ::-webkit-scrollbar-track { background: #0f172a; }
         ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #475569; }
+
+        /* Sortable Table Headers */
+        th {
+            cursor: pointer;
+            user-select: none;
+            position: relative;
+            transition: all 0.15s ease;
+        }
+        th:not(.no-sort):not(.no-export):hover {
+            background: rgba(20, 184, 166, 0.15);
+            color: #14b8a6;
+        }
+        th.no-sort, th.no-export {
+            cursor: default;
+        }
+        th:not(.no-sort):not(.no-export)::after {
+            content: " ⇅";
+            opacity: 0.35;
+            font-size: 11px;
+            margin-left: 6px;
+            display: inline-block;
+            transition: opacity 0.15s ease, color 0.15s ease;
+        }
+        th:not(.no-sort):not(.no-export):hover::after {
+            opacity: 0.9;
+            color: #14b8a6;
+        }
+        th.sorted-asc::after {
+            content: " ▲" !important;
+            opacity: 1 !important;
+            color: #14b8a6 !important;
+        }
+        th.sorted-desc::after {
+            content: " ▼" !important;
+            opacity: 1 !important;
+            color: #14b8a6 !important;
+        }
     </style>
 </head>
 <body class="min-h-screen">
@@ -1429,6 +1466,81 @@ html_template = """<!DOCTYPE html>
         let network = null;
         let selectedNodeId = null;
         let chartInstances = {};
+
+        // ==========================================
+        // 🔄 UNIVERSAL TABLE COLUMN SORTING ENGINE
+        // ==========================================
+        document.addEventListener('click', function (e) {
+            const th = e.target.closest('table thead th');
+            if (!th) return;
+            if (th.classList.contains('no-sort') || th.classList.contains('no-export')) return;
+
+            const table = th.closest('table');
+            if (!table) return;
+            const tbody = table.querySelector('tbody');
+            if (!tbody) return;
+
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+            if (rows.length <= 1) return;
+
+            const thIndex = Array.from(th.parentNode.children).indexOf(th);
+            const isCurrentAsc = th.classList.contains('sorted-asc');
+            const newDirection = isCurrentAsc ? 'desc' : 'asc';
+
+            // Clear sort classes from sibling th elements
+            th.parentNode.querySelectorAll('th').forEach(sibling => {
+                sibling.classList.remove('sorted-asc', 'sorted-desc');
+            });
+            th.classList.add(newDirection === 'asc' ? 'sorted-asc' : 'sorted-desc');
+
+            function getCellValue(tr, idx) {
+                const cell = tr.children[idx];
+                if (!cell) return '';
+                const input = cell.querySelector('input, select');
+                if (input) return input.value || '';
+                return cell.innerText || cell.textContent || '';
+            }
+
+            function parseSortVal(val) {
+                if (val === null || val === undefined) return { type: 'str', val: '' };
+                val = String(val).trim();
+
+                // Clean numbers with commas, percentage signs, unit suffixes
+                const cleanNum = val.replace(/,/g, '').replace(/%/g, '').replace(/eggs?/i, '').replace(/fish/i, '').replace(/days?/i, '').trim();
+                if (cleanNum !== '' && !isNaN(cleanNum) && !isNaN(parseFloat(cleanNum))) {
+                    return { type: 'num', val: parseFloat(cleanNum) };
+                }
+
+                // Parse dates (e.g. YYYY-MM-DD, DD.MM.YYYY, DD/MM/YYYY, Month D, Yr)
+                const dateParsed = Date.parse(val);
+                if (isNaN(cleanNum) && !isNaN(dateParsed) && (val.includes('-') || val.includes('/') || val.includes('.'))) {
+                    return { type: 'date', val: dateParsed };
+                }
+
+                return { type: 'str', val: val.toLowerCase() };
+            }
+
+            rows.sort((rowA, rowB) => {
+                const rawA = getCellValue(rowA, thIndex);
+                const rawB = getCellValue(rowB, thIndex);
+
+                const itemA = parseSortVal(rawA);
+                const itemB = parseSortVal(rawB);
+
+                let cmp = 0;
+                if (itemA.type === 'num' && itemB.type === 'num') {
+                    cmp = itemA.val - itemB.val;
+                } else if (itemA.type === 'date' && itemB.type === 'date') {
+                    cmp = itemA.val - itemB.val;
+                } else {
+                    cmp = String(itemA.val).localeCompare(String(itemB.val), undefined, { numeric: true, sensitivity: 'base' });
+                }
+
+                return newDirection === 'asc' ? cmp : -cmp;
+            });
+
+            rows.forEach(r => tbody.appendChild(r));
+        });
 
         // Reference Date (Oct 1, 2026 or Current Date)
         const REF_DATE = new Date(2026, 9, 1); // Oct 1, 2026
