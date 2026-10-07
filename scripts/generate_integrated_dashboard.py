@@ -1123,6 +1123,7 @@ def generate_dashboard():
                             <th>Nursery Fish Yield</th>
                             <th>Graduation Date</th>
                             <th>Resulting Offspring Tanks</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody id="crossesRegistryTableBody">
@@ -1635,6 +1636,7 @@ def generate_dashboard():
                             <th>24hpf SR (%)</th>
                             <th>Viable Embryos (24h)</th>
                             <th>Staff</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody id="rawEventsTableBody">
@@ -1823,6 +1825,37 @@ def generate_dashboard():
                     <div style="margin-top: 20px; display: flex; justify-content: flex-end; gap: 10px;">
                         <button type="button" class="btn btn-outline" onclick="closeAddTankModal()">Cancel</button>
                         <button type="submit" class="btn btn-purple" id="btnSubmitTank">💾 Create Tank in Google Sheet</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 4: UNIVERSAL ROW EDITOR WITH BIOLOGICAL CONFLICT VALIDATION -->
+    <div id="modalEditRow" class="modal-overlay" onclick="closeModal(event)">
+        <div class="modal-container" onclick="event.stopPropagation()" style="max-width: 680px;">
+            <div class="modal-header">
+                <div>
+                    <span class="modal-title" id="editModalTitle">✏️ Edit Facility Record</span>
+                    <p style="font-size: 12px; color: var(--text-secondary); margin-top: 2px;" id="editModalSubtitle">Relational updates will automatically cascade and validate against biological rules.</p>
+                </div>
+                <button class="close-btn" onclick="closeEditModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="editValidationAlert" style="display: none; background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.4); color: #fca5a5; padding: 12px 16px; border-radius: 6px; font-size: 13px; line-height: 1.5; margin-bottom: 16px;">
+                    <!-- Conflict message shown here -->
+                </div>
+                
+                <form id="formEditRecord" onsubmit="submitRowEdit(event)">
+                    <div id="editFormContent">
+                        <!-- Dynamically Populated based on Record Type: Tank, Cross, or Event -->
+                    </div>
+                    <div style="margin-top: 20px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-color); padding-top: 16px;">
+                        <span style="font-size: 11px; color: var(--text-muted);">Validated & synced across all 13 modules</span>
+                        <div style="display: flex; gap: 10px;">
+                            <button type="button" class="btn btn-outline" onclick="closeEditModal()">Cancel</button>
+                            <button type="submit" class="btn btn-blue" id="btnSaveRowEdit">💾 Validate & Save Changes</button>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -3483,7 +3516,12 @@ def generate_dashboard():
                         <td>${daysTxt}</td>
                         <td><span class="badge ${badgeClass}">${urg}</span></td>
                         <td>${actionTxt}</td>
-                        <td><button class="btn btn-sm btn-outline" onclick="openTankModal('${t.tuid}')">Inspect</button></td>
+                        <td class="no-export">
+                            <div style="display: flex; gap: 4px;">
+                                <button class="btn btn-sm btn-outline" onclick="openTankModal('${t.tuid}')">Inspect</button>
+                                <button class="btn btn-sm btn-blue" style="padding: 2px 6px; font-size: 11px;" onclick="openEditTankModal('${t.tuid}')">✏️ Edit</button>
+                            </div>
+                        </td>
                     </tr>
                 `;
             });
@@ -3516,6 +3554,9 @@ def generate_dashboard():
                         <td><b>${c.nursery_count || 0}</b> fish</td>
                         <td>${c.nursery_grad_date || '-'}</td>
                         <td style="color: var(--accent-emerald); font-weight: 600;">${offTanks}</td>
+                        <td class="no-export">
+                            <button class="btn btn-sm btn-blue" style="padding: 2px 6px; font-size: 11px;" onclick="openEditCrossModal('${c.cuid}')">✏️ Edit</button>
+                        </td>
                     </tr>
                 `;
             });
@@ -3826,7 +3867,10 @@ def generate_dashboard():
                         <td><strong>${t.total_live_24h.toLocaleString()}</strong></td>
                         <td>${t.last_spawn || '-'}</td>
                         <td class="no-export">
-                            <button class="btn btn-sm btn-outline" onclick="openTankModal('${t.tuid}')">Inspect</button>
+                            <div style="display: flex; gap: 4px;">
+                                <button class="btn btn-sm btn-outline" onclick="openTankModal('${t.tuid}')">Inspect</button>
+                                <button class="btn btn-sm btn-blue" style="padding: 2px 6px; font-size: 11px;" onclick="openEditTankModal('${t.tuid}')">✏️ Edit</button>
+                            </div>
                         </td>
                     </tr>
                 `;
@@ -3877,7 +3921,10 @@ def generate_dashboard():
                         <td>${t.total_spawns}</td>
                         <td>${t.total_eggs_0h.toLocaleString()}</td>
                         <td class="no-export">
-                            <button class="btn btn-sm btn-outline" onclick="openTankModal('${t.tuid}')">Profile</button>
+                            <div style="display: flex; gap: 4px;">
+                                <button class="btn btn-sm btn-outline" onclick="openTankModal('${t.tuid}')">Profile</button>
+                                <button class="btn btn-sm btn-blue" style="padding: 2px 6px; font-size: 11px;" onclick="openEditTankModal('${t.tuid}')">✏️ Edit</button>
+                            </div>
                         </td>
                     </tr>
                 `;
@@ -4203,10 +4250,13 @@ def generate_dashboard():
                         <td>${e.sr_24h}%</td>
                         <td><strong>${e.live_24h}</strong></td>
                         <td>${e.staff || '-'}</td>
+                        <td class="no-export">
+                            <button class="btn btn-sm btn-blue" style="padding: 2px 6px; font-size: 11px;" onclick="openEditEventModal(${currentEvents.indexOf(e)})">✏️ Edit</button>
+                        </td>
                     </tr>
                 `;
             });
-            tbody.innerHTML = htmlRows || '<tr><td colspan="9" style="text-align: center; color: var(--text-muted); padding: 20px;">No matching breeding records found.</td></tr>';
+            tbody.innerHTML = htmlRows || '<tr><td colspan="10" style="text-align: center; color: var(--text-muted); padding: 20px;">No matching breeding records found.</td></tr>';
 
             // Update Counts & Labels
             const headerCount = document.getElementById('rawHeaderCount');
@@ -4277,6 +4327,9 @@ def generate_dashboard():
             });
 
             mbody.innerHTML = `
+                <div style="display: flex; justify-content: flex-end; margin-bottom: 12px;">
+                    <button class="btn btn-sm btn-blue" onclick="openEditTankModal('${t.tuid}')">✏️ Edit Tank Details & Biometrics</button>
+                </div>
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px;">
                     <div style="background: rgba(15,23,42,0.6); padding: 12px; border-radius: 6px;">
                         <span style="font-size: 11px; color: var(--text-secondary);">Genotype / Strain</span>
@@ -4354,11 +4407,455 @@ def generate_dashboard():
             document.getElementById('tankModal').style.display = 'flex';
         }
 
+        // ==========================================
+        // ✏️ UNIVERSAL ROW EDITING & VALIDATION ENGINE
+        // ==========================================
+        let currentEditMode = null; // 'tank', 'cross', or 'event'
+        let currentEditTargetId = null;
+
+        function showValidationAlert(msg) {
+            const alertBox = document.getElementById('editValidationAlert');
+            if (alertBox) {
+                alertBox.innerHTML = `<strong>⚠️ Biological Conflict / Validation Error:</strong><br>${msg}`;
+                alertBox.style.display = 'block';
+            }
+        }
+
+        function clearValidationAlert() {
+            const alertBox = document.getElementById('editValidationAlert');
+            if (alertBox) {
+                alertBox.innerHTML = '';
+                alertBox.style.display = 'none';
+            }
+        }
+
+        function closeEditModal() {
+            document.getElementById('modalEditRow').style.display = 'none';
+            clearValidationAlert();
+            currentEditMode = null;
+            currentEditTargetId = null;
+        }
+
+        function openEditTankModal(tuid) {
+            const t = currentTanks[tuid];
+            if (!t) return;
+            currentEditMode = 'tank';
+            currentEditTargetId = tuid;
+            clearValidationAlert();
+
+            document.getElementById('editModalTitle').innerText = `✏️ Edit Tank ${tuid} [${t.line}]`;
+            document.getElementById('editModalSubtitle').innerText = `Update line, sex distribution, DOB, or tank size. Validation rules enforce welfare and breeding compatibility.`;
+
+            const formContent = document.getElementById('editFormContent');
+            formContent.innerHTML = `
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Tank ID (Read-Only):</label>
+                        <input type="text" id="editTankId" value="${t.tuid}" readonly style="background: rgba(255,255,255,0.05); color: var(--text-muted);">
+                    </div>
+                    <div class="form-group">
+                        <label>Line / Strain:</label>
+                        <select id="editTankLine" required>
+                            <option value="AB" ${t.line === 'AB' ? 'selected' : ''}>AB</option>
+                            <option value="Casper" ${t.line === 'Casper' ? 'selected' : ''}>Casper</option>
+                            <option value="Fli" ${t.line === 'Fli' ? 'selected' : ''}>Fli</option>
+                            <option value="Gata" ${t.line === 'Gata' ? 'selected' : ''}>Gata</option>
+                            <option value="DESMA" ${t.line === 'DESMA' ? 'selected' : ''}>DESMA</option>
+                            <option value="Other" ${t.line === 'Other' ? 'selected' : ''}>Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Status:</label>
+                        <select id="editTankStatus" required>
+                            <option value="Active" ${t.status === 'Active' ? 'selected' : ''}>Active</option>
+                            <option value="Terminated" ${t.status === 'Terminated' ? 'selected' : ''}>Terminated</option>
+                            <option value="Retired" ${t.status === 'Retired' ? 'selected' : ''}>Retired</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Female Count (♀):</label>
+                        <input type="number" id="editTankFemale" min="0" value="${t.female}" required oninput="recalcEditTankTotal()">
+                    </div>
+                    <div class="form-group">
+                        <label>Male Count (♂):</label>
+                        <input type="number" id="editTankMale" min="0" value="${t.male}" required oninput="recalcEditTankTotal()">
+                    </div>
+                    <div class="form-group">
+                        <label>Total Fish:</label>
+                        <input type="number" id="editTankTotal" min="0" value="${t.total}" readonly style="background: rgba(255,255,255,0.05); font-weight: bold;">
+                    </div>
+                    <div class="form-group">
+                        <label>Date of Birth (DOB):</label>
+                        <input type="date" id="editTankDob" value="${t.dob || ''}">
+                    </div>
+                    <div class="form-group">
+                        <label>Tank Size:</label>
+                        <select id="editTankSize">
+                            <option value="1.5L" ${t.tank_size === '1.5L' ? 'selected' : ''}>1.5L</option>
+                            <option value="1.8L" ${t.tank_size === '1.8L' ? 'selected' : ''}>1.8L</option>
+                            <option value="2.8L" ${t.tank_size === '2.8L' ? 'selected' : ''}>2.8L</option>
+                            <option value="3.5L" ${t.tank_size === '3.5L' || !t.tank_size ? 'selected' : ''}>3.5L</option>
+                            <option value="6L" ${t.tank_size === '6L' || t.tank_size === '6.0L' ? 'selected' : ''}>6.0L</option>
+                            <option value="8L" ${t.tank_size === '8L' || t.tank_size === '8.0L' ? 'selected' : ''}>8.0L</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="grid-column: 1 / -1;">
+                        <label>Lineage / Facility Notes:</label>
+                        <input type="text" id="editTankNotes" value="${t.notes || ''}">
+                    </div>
+                </div>
+            `;
+            document.getElementById('modalEditRow').style.display = 'flex';
+        }
+
+        function recalcEditTankTotal() {
+            const f = Number(document.getElementById('editTankFemale').value) || 0;
+            const m = Number(document.getElementById('editTankMale').value) || 0;
+            document.getElementById('editTankTotal').value = f + m;
+        }
+
+        function openEditCrossModal(cuid) {
+            const c = currentCrosses.find(x => x.cuid === cuid);
+            if (!c) return;
+            currentEditMode = 'cross';
+            currentEditTargetId = cuid;
+            clearValidationAlert();
+
+            document.getElementById('editModalTitle').innerText = `✏️ Edit Cross Record ${cuid}`;
+            document.getElementById('editModalSubtitle').innerText = `Modify parental cross pair (Dam x Sire) or linked nursery data with referential integrity checks.`;
+
+            const formContent = document.getElementById('editFormContent');
+            formContent.innerHTML = `
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Cross ID (Read-Only):</label>
+                        <input type="text" id="editCrossId" value="${c.cuid}" readonly style="background: rgba(255,255,255,0.05);">
+                    </div>
+                    <div class="form-group">
+                        <label>Mating Date:</label>
+                        <input type="date" id="editCrossDate" value="${c.mating_date}" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Dam (♀ Female Tank ID):</label>
+                        <input type="text" id="editCrossDam" value="${c.dam}" required placeholder="e.g. T0135">
+                    </div>
+                    <div class="form-group">
+                        <label>Sire (♂ Male Tank ID):</label>
+                        <input type="text" id="editCrossSire" value="${c.sire}" required placeholder="e.g. T0099">
+                    </div>
+                    <div class="form-group">
+                        <label>Nursery Fish Count (Yield):</label>
+                        <input type="number" id="editCrossNurseryCount" min="0" value="${c.nursery_count || 0}">
+                    </div>
+                    <div class="form-group">
+                        <label>Graduation Date:</label>
+                        <input type="date" id="editCrossGradDate" value="${c.nursery_grad_date || ''}">
+                    </div>
+                    <div class="form-group" style="grid-column: 1 / -1;">
+                        <label>Resulting Offspring Tank IDs (comma-separated):</label>
+                        <input type="text" id="editCrossOffspring" value="${(c.offspring_tanks || []).join(', ')}" placeholder="e.g. T0165, T0166">
+                    </div>
+                </div>
+            `;
+            document.getElementById('modalEditRow').style.display = 'flex';
+        }
+
+        function openEditEventModal(eventIndex) {
+            const ev = currentEvents[eventIndex];
+            if (!ev) return;
+            currentEditMode = 'event';
+            currentEditTargetId = eventIndex;
+            clearValidationAlert();
+
+            document.getElementById('editModalTitle').innerText = `✏️ Edit Spawning Event (${ev.date} - ${ev.tank_id})`;
+            document.getElementById('editModalSubtitle').innerText = `Update egg counts or 24hpf live embryo survival. Viability SR% will automatically re-calculate.`;
+
+            const formContent = document.getElementById('editFormContent');
+            formContent.innerHTML = `
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Spawning Date:</label>
+                        <input type="date" id="editEventDate" value="${ev.date}" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Tank / Pair ID:</label>
+                        <input type="text" id="editEventTank" value="${ev.tank_id}" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Line / Strain:</label>
+                        <select id="editEventLine">
+                            <option value="AB" ${ev.line === 'AB' ? 'selected' : ''}>AB</option>
+                            <option value="Casper" ${ev.line === 'Casper' ? 'selected' : ''}>Casper</option>
+                            <option value="Fli" ${ev.line === 'Fli' ? 'selected' : ''}>Fli</option>
+                            <option value="Gata" ${ev.line === 'Gata' ? 'selected' : ''}>Gata</option>
+                            <option value="DESMA" ${ev.line === 'DESMA' ? 'selected' : ''}>DESMA</option>
+                            <option value="Other" ${ev.line === 'Other' ? 'selected' : ''}>Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Total Eggs Spawned (0hpf):</label>
+                        <input type="number" id="editEventEggs" min="0" value="${ev.eggs_0h}" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Viable Live Embryos (24hpf):</label>
+                        <input type="number" id="editEventLive" min="0" value="${ev.live_24h}" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Staff / Operator:</label>
+                        <input type="text" id="editEventStaff" value="${ev.staff || ''}" placeholder="e.g. AA, MA">
+                    </div>
+                    <div class="form-group" style="grid-column: 1 / -1;">
+                        <label>Log Notes / Observations:</label>
+                        <input type="text" id="editEventNotes" value="${ev.notes || ''}">
+                    </div>
+                </div>
+            `;
+            document.getElementById('modalEditRow').style.display = 'flex';
+        }
+
+        function submitRowEdit(e) {
+            e.preventDefault();
+            clearValidationAlert();
+
+            if (currentEditMode === 'tank') {
+                saveTankEdit();
+            } else if (currentEditMode === 'cross') {
+                saveCrossEdit();
+            } else if (currentEditMode === 'event') {
+                saveEventEdit();
+            }
+        }
+
+        function saveTankEdit() {
+            const tuid = currentEditTargetId;
+            const t = currentTanks[tuid];
+            if (!t) return;
+
+            const newLine = document.getElementById('editTankLine').value;
+            const newStatus = document.getElementById('editTankStatus').value;
+            const newFemale = Number(document.getElementById('editTankFemale').value);
+            const newMale = Number(document.getElementById('editTankMale').value);
+            const newTotal = newFemale + newMale;
+            const newDob = document.getElementById('editTankDob').value;
+            const newSize = document.getElementById('editTankSize').value;
+            const newNotes = document.getElementById('editTankNotes').value.trim();
+
+            if (newFemale < 0 || newMale < 0) {
+                showValidationAlert('Fish counts cannot be negative.');
+                return;
+            }
+
+            if (newFemale === 0) {
+                const asDam = currentCrosses.find(c => c.dam === tuid);
+                if (asDam) {
+                    showValidationAlert(`Biological Incompatibility: Tank <strong>${tuid}</strong> is recorded as the Dam (Female Parent) in Cross <strong>${asDam.cuid}</strong>. A tank with 0 females cannot produce eggs. Please update the cross record or retain female breeders.`);
+                    return;
+                }
+            }
+
+            if (newMale === 0) {
+                const asSire = currentCrosses.find(c => c.sire === tuid);
+                if (asSire) {
+                    showValidationAlert(`Biological Incompatibility: Tank <strong>${tuid}</strong> is recorded as the Sire (Male Parent) in Cross <strong>${asSire.cuid}</strong>. A tank with 0 males cannot serve as Sire.`);
+                    return;
+                }
+            }
+
+            const sizeNum = parseFloat(newSize) || 3.5;
+            const density = (newTotal / sizeNum).toFixed(1);
+            if (density > 7.0 && newStatus === 'Active') {
+                if (!confirm(`⚠️ Welfare Warning: Total ${newTotal} fish in a ${sizeNum}L tank results in a density of ${density} fish/L (exceeds the facility threshold of 5.0-7.0 fish/L).\n\nDo you want to proceed?`)) {
+                    showValidationAlert(`Welfare threshold exceeded: Density of ${density} fish/L is above 7.0 fish/L maximum.`);
+                    return;
+                }
+            }
+
+            if (newDob && new Date(newDob) > new Date()) {
+                showValidationAlert('Chronological Conflict: Date of Birth (DOB) cannot be set in the future.');
+                return;
+            }
+
+            t.line = newLine;
+            t.status = newStatus;
+            t.female = newFemale;
+            t.male = newMale;
+            t.total = newTotal;
+            t.dob = newDob;
+            t.tank_size = newSize;
+            t.notes = newNotes;
+
+            if (newFemale > 0 && newMale === 0) t.sex_type = 'Female-Only';
+            else if (newFemale === 0 && newMale > 0) t.sex_type = 'Male-Only';
+            else if (newFemale > 0 && newMale > 0) t.sex_type = 'Mixed Colony';
+            else t.sex_type = 'Unsexed / Juvenile';
+
+            if (newDob) {
+                const dobDt = new Date(newDob);
+                const now = new Date();
+                const diffDays = Math.max(0, Math.floor((now - dobDt) / (1000 * 3600 * 24)));
+                t.age_days = diffDays;
+                t.age_months = Number((diffDays / 30.4).toFixed(1));
+                const turnDt = new Date(dobDt);
+                turnDt.setDate(turnDt.getDate() + 540);
+                t.turnover_date = turnDt.toISOString().substring(0, 10);
+                t.turnover_date_resolved = t.turnover_date;
+                const remDays = Math.floor((turnDt - now) / (1000 * 3600 * 24));
+                t.days_remaining = remDays;
+                if (remDays < 0) t.turnover_urgency = 'Turnover Overdue';
+                else if (remDays <= 30) t.turnover_urgency = 'Due Soon (<=30d)';
+                else if (remDays <= 90) t.turnover_urgency = 'Upcoming (31-90d)';
+                else t.turnover_urgency = 'Future (>90d)';
+            }
+
+            persistEdits();
+
+            renderInventory();
+            renderScorecards();
+            renderTurnoverTable();
+            renderAuditTab();
+            calculatePlanner();
+            renderBenchmarks();
+            populateFocalDropdown();
+
+            closeEditModal();
+            alert(`✅ Tank ${tuid} updated and synchronized across all modules!`);
+        }
+
+        function saveCrossEdit() {
+            const cuid = currentEditTargetId;
+            const c = currentCrosses.find(x => x.cuid === cuid);
+            if (!c) return;
+
+            const newDam = document.getElementById('editCrossDam').value.trim().toUpperCase();
+            const newSire = document.getElementById('editCrossSire').value.trim().toUpperCase();
+            const newDate = document.getElementById('editCrossDate').value;
+            const newNurseryCount = Number(document.getElementById('editCrossNurseryCount').value) || 0;
+            const newGradDate = document.getElementById('editCrossGradDate').value;
+            const newOffspringStr = document.getElementById('editCrossOffspring').value;
+            const newOffspring = newOffspringStr.split(',').map(s => s.trim().toUpperCase()).filter(s => s.length > 0);
+
+            if (!currentTanks[newDam]) {
+                showValidationAlert(`Integrity Conflict: Dam Tank <strong>${newDam}</strong> does not exist in the facility tank database.`);
+                return;
+            }
+            if (!currentTanks[newSire]) {
+                showValidationAlert(`Integrity Conflict: Sire Tank <strong>${newSire}</strong> does not exist in the facility tank database.`);
+                return;
+            }
+
+            if (currentTanks[newDam].female === 0) {
+                showValidationAlert(`Biological Conflict: Dam Tank <strong>${newDam}</strong> has 0 recorded females. A male-only tank cannot serve as the Dam.`);
+                return;
+            }
+            if (currentTanks[newSire].male === 0) {
+                showValidationAlert(`Biological Conflict: Sire Tank <strong>${newSire}</strong> has 0 recorded males. A female-only tank cannot serve as the Sire.`);
+                return;
+            }
+
+            if (newDate && new Date(newDate) > new Date()) {
+                showValidationAlert('Chronological Conflict: Cross mating date cannot be set in the future.');
+                return;
+            }
+
+            c.dam = newDam;
+            c.sire = newSire;
+            c.mating_date = newDate;
+            c.nursery_count = newNurseryCount;
+            c.nursery_grad_date = newGradDate;
+            c.offspring_tanks = newOffspring;
+            c.line_pair = `${currentTanks[newDam].line} x ${currentTanks[newSire].line}`;
+
+            persistEdits();
+
+            renderCrossesRegistry();
+            renderFocalPedigreeTree();
+            renderCrosses();
+            calculatePlanner();
+
+            closeEditModal();
+            alert(`✅ Cross ${cuid} updated and synced across pedigree and nursery registry!`);
+        }
+
+        function saveEventEdit() {
+            const eventIndex = currentEditTargetId;
+            const ev = currentEvents[eventIndex];
+            if (!ev) return;
+
+            const newDate = document.getElementById('editEventDate').value;
+            const newTank = document.getElementById('editEventTank').value.trim().toUpperCase();
+            const newLine = document.getElementById('editEventLine').value;
+            const newEggs = Number(document.getElementById('editEventEggs').value) || 0;
+            const newLive = Number(document.getElementById('editEventLive').value) || 0;
+            const newStaff = document.getElementById('editEventStaff').value.trim();
+            const newNotes = document.getElementById('editEventNotes').value.trim();
+
+            if (newEggs < 0 || newLive < 0) {
+                showValidationAlert('Egg and embryo counts cannot be negative.');
+                return;
+            }
+
+            if (newLive > newEggs) {
+                showValidationAlert(`Mathematical Impossibility: 24hpf Live Embryos (<strong>${newLive}</strong>) cannot exceed 0hpf Total Eggs Spawned (<strong>${newEggs}</strong>).`);
+                return;
+            }
+
+            if (newDate && new Date(newDate) > new Date()) {
+                showValidationAlert('Chronological Conflict: Spawning date cannot be set in the future.');
+                return;
+            }
+
+            ev.date = newDate;
+            ev.tank_id = newTank;
+            ev.line = newLine;
+            ev.eggs_0h = newEggs;
+            ev.live_24h = newLive;
+            ev.sr_24h = newEggs > 0 ? Number(((newLive / newEggs) * 100).toFixed(1)) : 0;
+            ev.staff = newStaff;
+            ev.notes = newNotes;
+
+            persistEdits();
+
+            renderRawEvents();
+            renderBenchmarks();
+            renderScorecards();
+            renderTrends();
+            calculatePlanner();
+
+            closeEditModal();
+            alert(`✅ Spawning record updated and re-computed across all performance charts!`);
+        }
+
+        function persistEdits() {
+            try {
+                localStorage.setItem('fishnet_persisted_tanks', JSON.stringify(currentTanks));
+                localStorage.setItem('fishnet_persisted_crosses', JSON.stringify(currentCrosses));
+                localStorage.setItem('fishnet_persisted_events', JSON.stringify(currentEvents));
+            } catch(e) {
+                console.warn('LocalStorage save error:', e);
+            }
+        }
+
+        function loadPersistedEdits() {
+            try {
+                const savedTanks = localStorage.getItem('fishnet_persisted_tanks');
+                if (savedTanks) currentTanks = JSON.parse(savedTanks);
+
+                const savedCrosses = localStorage.getItem('fishnet_persisted_crosses');
+                if (savedCrosses) currentCrosses = JSON.parse(savedCrosses);
+
+                const savedEvents = localStorage.getItem('fishnet_persisted_events');
+                if (savedEvents) currentEvents = JSON.parse(savedEvents);
+            } catch(e) {
+                console.warn('LocalStorage load error:', e);
+            }
+        }
+
         function closeModal(e) {
-            if (!e || e.target.id === 'tankModal' || e.target.id === 'modalLogSpawn' || e.target.id === 'modalAddTank' || e.target.className === 'close-btn') {
+            if (!e || e.target.id === 'tankModal' || e.target.id === 'modalLogSpawn' || e.target.id === 'modalAddTank' || e.target.id === 'modalEditRow' || e.target.className === 'close-btn') {
                 document.getElementById('tankModal').style.display = 'none';
                 document.getElementById('modalLogSpawn').style.display = 'none';
                 document.getElementById('modalAddTank').style.display = 'none';
+                if (document.getElementById('modalEditRow')) document.getElementById('modalEditRow').style.display = 'none';
             }
         }
 
@@ -4388,6 +4885,7 @@ def generate_dashboard():
         }
 
         window.onload = function() {
+            loadPersistedEdits();
             renderBenchmarks();
             populateFocalDropdown();
             renderFocalPedigreeTree();
