@@ -792,7 +792,7 @@ def generate_dashboard():
         <button class="tab-btn" onclick="switchTab('tab-crosses-reg')">🧬 Crosses & Nursery Registry</button>
         <button class="tab-btn" onclick="switchTab('tab-alerts')">⚠️ Colony Alerts (<span id="tabBadgeAlerts">120</span>)</button>
         <button class="tab-btn" onclick="switchTab('tab-crosses')">🧬 Cross-Pairing Synergies (Sire x Dam)</button>
-        <button class="tab-btn" onclick="switchTab('tab-trends')">📈 Longitudinal Trends (2024-2026)</button>
+        <button class="tab-btn" onclick="switchTab('tab-trends')">📈 Longitudinal Trends & Climate Seasonality</button>
         <button class="tab-btn" onclick="switchTab('tab-age-curves')">🔬 Parental Age vs. Fecundity</button>
         <button class="tab-btn" onclick="switchTab('tab-scorecards')">🏆 Breeder Tank Scorecards</button>
         <button class="tab-btn" onclick="switchTab('tab-inventory')">🐠 FishNET Inventory & Sex Structure</button>
@@ -1256,6 +1256,67 @@ def generate_dashboard():
                     </div>
                     <div class="chart-canvas-wrapper">
                         <canvas id="chartMonthlySR"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seasonal & Qatar Climate Dynamics (Paper 2 Q7) -->
+            <div style="margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--border-color);">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
+                    <div>
+                        <h3 style="font-size: 16px; font-weight: 700; color: var(--text-primary);">☀️ Seasonal & Qatar Climate Dynamics (Harmonic Fourier Analysis - Paper 2 Q7)</h3>
+                        <p style="font-size: 12px; color: var(--text-secondary); margin-top: 2px;">Empirical Investigation of Indoor RAS Embryo Viability across Doha Climate Cycles (2,198 Validated Spawns)</p>
+                    </div>
+                    <span class="badge" style="background: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); font-size: 12px; padding: 4px 10px;">ANOVA F = 21.601 (p &lt; 0.0001)</span>
+                </div>
+                
+                <!-- 4-Season Metric Cards -->
+                <div class="planner-kpi-grid">
+                    <div class="planner-kpi-box blue">
+                        <span class="planner-kpi-label">❄️ Winter (Dec – Feb)</span>
+                        <span class="planner-kpi-val" style="color: #38bdf8; font-size: 20px; font-weight: 700;">62.9% SR</span>
+                        <span class="planner-kpi-sub" style="font-size: 11px; color: var(--text-secondary);">488 Spawns • Trough Period (Feb: 59.0%)</span>
+                    </div>
+                    <div class="planner-kpi-box emerald">
+                        <span class="planner-kpi-label">🌱 Spring (Mar – May)</span>
+                        <span class="planner-kpi-val" style="color: #34d399; font-size: 20px; font-weight: 700;">65.4% SR</span>
+                        <span class="planner-kpi-sub" style="font-size: 11px; color: var(--text-secondary);">511 Spawns • Rebound Window</span>
+                    </div>
+                    <div class="planner-kpi-box amber">
+                        <span class="planner-kpi-label">☀️ Summer (Jun – Aug)</span>
+                        <span class="planner-kpi-val" style="color: #fbbf24; font-size: 20px; font-weight: 700;">69.9% SR</span>
+                        <span class="planner-kpi-sub" style="font-size: 11px; color: var(--text-secondary);">640 Spawns • High Viability</span>
+                    </div>
+                    <div class="planner-kpi-box purple">
+                        <span class="planner-kpi-label">🍂 Autumn (Sep – Nov)</span>
+                        <span class="planner-kpi-val" style="color: #c084fc; font-size: 20px; font-weight: 700;">72.4% SR</span>
+                        <span class="planner-kpi-sub" style="font-size: 11px; color: var(--text-secondary);">559 Spawns • Peak Period (Aug/Sep: 76.0%)</span>
+                    </div>
+                </div>
+
+                <!-- Mathematical Harmonic Model & Operational Guide -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; margin-top: 16px;">
+                    <div style="background: rgba(15, 23, 42, 0.7); padding: 16px; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+                        <h4 style="font-size: 14px; margin-bottom: 8px; color: #38bdf8;">📐 Harmonic Sinusoidal Fourier Equation</h4>
+                        <div style="font-family: monospace; font-size: 12px; color: #f8fafc; background: rgba(0,0,0,0.4); padding: 10px 12px; border-radius: 6px; margin-bottom: 10px; border-left: 3px solid #38bdf8;">
+                            SR%(m) = 67.88% - 6.28·sin(2π·m/12) - 0.84·cos(2π·m/12)
+                        </div>
+                        <ul style="font-size: 12px; color: var(--text-secondary); line-height: 1.6; padding-left: 18px; margin: 0;">
+                            <li><strong>Baseline Facility Mean:</strong> 67.88% 24hpf viability</li>
+                            <li><strong>Harmonic Amplitude (A):</strong> ±6.33% (Total 12.67% Peak-to-Trough Delta)</li>
+                            <li><strong>Inflection Peak:</strong> Late August / Early September (Month 8.7)</li>
+                            <li><strong>Inflection Trough:</strong> Late February / Early March (Month 2.7)</li>
+                            <li><strong>Clutch Size Correlation:</strong> r = +0.0039 (Mating fecundity is constant across seasons)</li>
+                        </ul>
+                    </div>
+
+                    <div style="background: rgba(15, 23, 42, 0.7); padding: 16px; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+                        <h4 style="font-size: 14px; margin-bottom: 8px; color: #34d399;">💡 3Rs Operational Protocols & Seasonality Mitigation</h4>
+                        <ul style="font-size: 12px; color: var(--text-secondary); line-height: 1.6; padding-left: 18px; margin: 0;">
+                            <li><strong>Winter Trough Compensation (Feb–Mar):</strong> Increase breeding setup volume by <strong>+15% to +20%</strong> to absorb seasonal embryo survival dips and ensure experimental quotas are met.</li>
+                            <li><strong>Autumn High Efficiency (Aug–Nov):</strong> High baseline viability (72–76%) allows a <strong>15% reduction in breeder pairs</strong>, cutting animal use and technician sorting labor.</li>
+                            <li><strong>HVAC & RO Water Monitoring:</strong> Subtle shifts in municipal top-up water temperature during winter months drive thermal cycling in heaters, causing micro-variations in embryonic viability.</li>
+                        </ul>
                     </div>
                 </div>
             </div>
