@@ -1,184 +1,184 @@
 TUID,Derivative_Cross,Genotype,Notes,Line,Sex_Structure,Female,Male,Total_Fish,Tank_Size,Protocol,DOB,Turnover_Deadline,Status,Operator
-T0001,,Mu (desmbkg155/kg155) [DESMA],DESMA -/-,DESMA,Unsexed / Juvenile,0,0,1,1.8L,QU-IACUC 008/2022-REN1,30-06-2024,22-12-25,Euthanized,Huseyin Cagatay Yalcin
-T0002,,Mu Mu (desmbkg155/kg155) [DESMA],DESMA -/-,DESMA,Unsexed / Juvenile,0,0,2,1.8L,QU-IACUC 008/2022,06-10-2024,30-03-26,Euthanized,Huseyin Cagatay Yalcin
-T0004,,Mu Mu (desmbkg155/+)/(desmbkg155/kg155) [DESMA],DESMA OldXNew,DESMA,Mixed Colony,2,2,4,2.8L,QU-IACUC-006/2023,10-06-2024,02-12-25,Euthanized,Huseyin Cagatay Yalcin
-T0005,,Mu Mu (desmbkg155/+),DESMA -/+,DESMA,Unsexed / Juvenile,0,0,8,1.8L,QU-IACUC 008/2022,30-06-2024,30-06-25,Euthanized,Huseyin Cagatay Yalcin
-T0006,,Mu Mu (desmbkg155/kg155),DESMA -/-,DESMA,Unsexed / Juvenile,0,0,2,1.8L,QU-IACUC 008/2022,06-10-2024,30-03-26,Euthanized,Huseyin Cagatay Yalcin
-T0007,,Mu Mu (desmbkg155/+),DESMA -/+,DESMA,Unsexed / Juvenile,0,0,10,1.8L,QU-IACUC 008/2022,30-06-2024,30-06-25,Euthanized,Huseyin Cagatay Yalcin
-T0008,,Mu Mu (desmbkg155/+)/(desmbkg155/+),DESMA Hetro,DESMA,Unsexed / Juvenile,0,0,8,1.8L,QU-IACUC 008/2022,30-06-2024,30-06-25,Euthanized,Huseyin Cagatay Yalcin
-T0009,,Mu Mu (desmbkg155/+)/(desmbkg155/+),DESMA from Hetro,DESMA,Unsexed / Juvenile,0,0,20,2.8L,QU-IACUC 008/2022,18-03-2024,27-06-25,Euthanized,Huseyin Cagatay Yalcin
-T0010,,Wt Wt Wt (desmbkg155/+)/AB,AB from DESMA,DESMA,Unsexed / Juvenile,0,0,6,1.8L,QU-IACUC 008/2022,30-06-2024,30-06-25,Euthanized,Huseyin Cagatay Yalcin
-T0011,,Tg Tg (fli1a:eGFP) Sidra,Fli (Sidra),Fli,Mixed Colony,9,3,12,2.8L,QU-IACUC 006/2023-AMM5,26-02-2023,25-06-2024,Active,Huseyin Cagatay Yalcin
-T0012,,Tg Tg (fli1a:eGFP) Sidra,Fli (Sidra) G1,Fli,Mixed Colony,8,6,14,2.8L,QU-IACUC-006/2023,30-07-2023,30-06-24,Euthanized,Huseyin Cagatay Yalcin
-T0013,,Tg Tg (fli1a:eGFP) Sidra,Fli (Sidra) G1,Fli,Mixed Colony,4,4,10,1.8L,QU-IACUC 006/2023-AMM5,13-09-2023,02-07-2024,Active,Huseyin Cagatay Yalcin
-T0014,,Tg Tg (fli1:EGFP),Fli,Fli,Mixed Colony,1,5,6,1.8L,QU-IACUC-006/2023,04-07-2023,25-12-24,Euthanized,Huseyin Cagatay Yalcin
-T0015,,Mu Mu (mitfaw2/w2; mpv17a9/a9),Casper,Casper,Mixed Colony,1,1,2,1.8L,QU-IACUC 006/2023-AMM5,16-04-2023,27-06-2024,Active,Huseyin Cagatay Yalcin
-T0016,,Tg Tg (myl7:GFP) [CMCL2],CMCL2,Other,Mixed Colony,4,4,8,1.8L,QU-IACUC-006/2023,04-05-2023,25-10-24,Euthanized,Huseyin Cagatay Yalcin
-T0017,,Tg Tg (myl7:GFP) [CMCL2],CMCL2,Other,Unsexed / Juvenile,0,0,17,2.8L,QU-IACUC-006/2023,18-07-2023,30-06-24,Euthanized,Huseyin Cagatay Yalcin
-T0018,,Tg Tg (myl7:GFP) [CMCL2],CMCL2,Other,Unsexed / Juvenile,0,0,13,2.8L,QU-IACUC-006/2023,15-08-2023,01-07-24,Euthanized,Huseyin Cagatay Yalcin
-T0019,,Tg Tg (gata1:dsRed) Sidra [Gata],Gata,Gata,Male-Only,0,1,1,1.8L,QU-IACUC-006/2023,20-02-2023,25-06-24,Euthanized,Huseyin Cagatay Yalcin
-T0020,,Tg Tg (gata1:dsRed) Sidra [Gata],Gata G1,Gata,Mixed Colony,2,1,4,1.8L,QU-IACUC 006/2023-AMM3,25-06-2023,29-06-24,Euthanized,Huseyin Cagatay Yalcin
-T0021,,Tg Tg (gata1:dsRed) Sidra [Gata],Gata G1,Gata,Mixed Colony,2,3,8,1.8L,QU-IACUC 006/2023-AMM5,25-09-2023,02-07-2024,Active,Huseyin Cagatay Yalcin
-T0022,,Wt Wt (AB),AB,AB,Mixed Colony,16,13,29,6L,QU-IACUC-006/2023,06-07-2023,27-12-24,Euthanized,Huseyin Cagatay Yalcin
-T0023,,Wt Wt (AB),AB,AB,Mixed Colony,12,15,27,6L,QU-IACUC-006/2023,06-07-2023,27-12-24,Euthanized,Huseyin Cagatay Yalcin
-T0024,,Wt Wt (AB),AB,AB,Mixed Colony,14,17,31,6L,QU-IACUC-006/2023,18-05-2023,28-06-24,Euthanized,Huseyin Cagatay Yalcin
-T0025,,Wt Wt (AB),AB,AB,Mixed Colony,7,4,11,2.8L,QU-IACUC-006/2023,03-12-2023,26-05-25,Euthanized,Huseyin Cagatay Yalcin
-T0026,,Wt Wt (AB),AB,AB,Mixed Colony,7,5,12,2.8L,QU-IACUC-006/2023,25-07-2023,30-06-24,Euthanized,Huseyin Cagatay Yalcin
-T0027,,Wt Wt (AB),AB,AB,Mixed Colony,8,6,14,2.8L,QU-IACUC-006/2023,25-07-2023,30-06-24,Euthanized,Huseyin Cagatay Yalcin
-T0028,,Wt Wt (AB),AB,AB,Male-Only,0,22,22,6L,QU-IACUC-006/2023,08-08-2023,29-01-25,Euthanized,Huseyin Cagatay Yalcin
-T0029,,Wt Wt (AB),AB,AB,Mixed Colony,18,12,30,6L,QU-IACUC-006/2023,04-09-2023,25-02-25,Euthanized,Huseyin Cagatay Yalcin
-T0030,,Wt Wt (AB),AB,AB,Mixed Colony,8,6,14,2.8L,QU-IACUC-006/2023,09-04-2023,30-09-24,Euthanized,Huseyin Cagatay Yalcin
-T0031,,Wt Wt (AB),AB,AB,Mixed Colony,5,3,8,1.8L,QU-IACUC-006/2023,09-04-2023,30-09-24,Euthanized,Huseyin Cagatay Yalcin
-T0032,,Wt Wt (AB),AB,AB,Mixed Colony,12,15,27,6L,QU-IACUC-006/2023,07-02-2023,31-07-24,Euthanized,Huseyin Cagatay Yalcin
-T0033,,Wt Wt (AB),AB,AB,Mixed Colony,1,1,2,1.8L,QU-IACUC-006/2023,19-08-2023,01-07-24,Euthanized,Huseyin Cagatay Yalcin
-T0034,,Wt Wt (AB),AB,AB,Mixed Colony,6,4,10,2.8L,QU-IACUC-006/2023,03-12-2023,26-05-25,Euthanized,Huseyin Cagatay Yalcin
-T0035,,Wt Wt (AB),AB,AB,Mixed Colony,8,6,14,2.8L,QU-IACUC-006/2023,14-08-2023,01-07-24,Euthanized,Huseyin Cagatay Yalcin
-T0036,,Wt Wt (AB),AB,AB,Mixed Colony,4,10,14,2.8L,QU-IACUC-006/2023,05-07-2023,26-12-24,Euthanized,Huseyin Cagatay Yalcin
-T0037,C0014,Wt Wt (AB) Sidra,AB G1,AB,Mixed Colony,2,3,5,1.8L,QU-IACUC-006/2023,28-08-2023,01-07-24,Euthanized,Huseyin Cagatay Yalcin
-T0038,,Wt Wt (AB) Sidra,AB,AB,Mixed Colony,5,9,14,2.8L,QU-IACUC-006/2023,20-02-2023,25-06-24,Euthanized,Huseyin Cagatay Yalcin
-T0039,C0015,Wt Wt (AB) Sidra,AB G1,AB,Mixed Colony,3,42,5,2.8L,QU-IACUC-006/2023,31-07-2023,30-06-24,Euthanized,Huseyin Cagatay Yalcin
-T0040,,Wt Wt (AB),AB,AB,Male-Only,0,10,10,6L,QU-IACUC 006/2023,14-08-2023,01-07-24,Euthanized,Huseyin Cagatay Yalcin
-T0041,,Wt Wt (AB),AB,AB,Male-Only,0,31,31,6L,QU-IACUC 006/2023,25-07-2023,30-06-24,Euthanized,Huseyin Cagatay Yalcin
-T0042,,Wt Wt (AB),AB (MIX),AB,Female-Only,14,0,14,6L,QU-IACUC 006/2023-AMM3,30-06-2024,30-06-25,Euthanized,Huseyin Cagatay Yalcin
-T0043,,Wt Wt (AB),AB (MIX),AB,Female-Only,4,0,4,1.8L,QU-IACUC 006/2023-AMM3,30-06-2024,30-06-25,Euthanized,Huseyin Cagatay Yalcin
-T0044,C0016,Wt Wt (AB) Sidra,AB G1,AB,Mixed Colony,19,21,40,8L,QU-IACUC-006/2023,13-09-2023,02-07-24,Euthanized,Huseyin Cagatay Yalcin
-T0045,,Tg Tg (myl7:GFP) [CMCL2],CMCL2 (not scr.),Other,Mixed Colony,13,1,13,3.5L,QU-IACUC-006/2023,06-09-2023,27-02-25,Euthanized,Huseyin Cagatay Yalcin
-T0046,C0001,Wt Wt (AB) Sidra,AB G1,AB,Mixed Colony,3,7,11,2.8L,QU-IACUC-006/2023,09-10-2024,25-07-25,Euthanized,Huseyin Cagatay Yalcin
-T0047,C0002,Tg Tg (fli1a:eGFP) Sidra [Fli],Fli G1,Fli,Mixed Colony,14,9,23,6L,QU-IACUC-006/2023,21-11-2023,04-07-24,Euthanized,Huseyin Cagatay Yalcin
-T0048,C0003,Tg Tg (fli1a:eGFP) Sidra [Fli],Fli G2,Fli,Mixed Colony,8,6,14,3.5L,QU-IACUC-006/2023,24-09-2023,02-07-24,Euthanized,Huseyin Cagatay Yalcin
-T0049,C0004,Tg Tg (gata1:dsRed) Sidra [Gata],Gata G2,Gata,Male-Only,0,5,5,3.5L,QU-IACUC 006/2023-AMM5,27-02-2024,26-06-2025,Active,Huseyin Cagatay Yalcin
-T0050,C0005,Tg Tg (gata1:dsRed) Sidra [Gata],Gata G2 (not scr.),Gata,Mixed Colony,2,1,3,3.5L,QU-IACUC-006/2023,23-10-2023,03-07-24,Euthanized,Huseyin Cagatay Yalcin
-T0051,C0006,Tg Tg (gata1:dsRed) Sidra [Gata],Gata G2,Gata,Male-Only,0,17,17,3.5L,QU-IACUC-006/2023,23-11-2023,04-07-24,Euthanized,Huseyin Cagatay Yalcin
-T0052,C0007,Tg Tg (fli1a:eGFP) Sidra [Fli],Fli G1 (Re-scr.),Fli,Mixed Colony,9,5,14,3.5L,QU-IACUC-006/2023,11-03-2024,27-04-26,Euthanized,Huseyin Cagatay Yalcin
-T0053,C0008,Tg Tg (fli1a:eGFP) Sidra [Fli],Fli G2,Fli,Female-Only,17,0,14,8L,QU-IACUC-006/2023,23-09-2023,02-07-24,Euthanized,Huseyin Cagatay Yalcin
-T0054,C0009,Tg Tg (fli1a:eGFP) Sidra [Fli],Fli G1,Fli,Mixed Colony,10,7,17,3.5L,QU-IACUC 006/2023-AMM5,25-08-2024,02-07-2025,Active,Huseyin Cagatay Yalcin
-T0055,,Wt Wt (AB),AB,AB,Male-Only,0,5,5,2.8L,QU-IACUC 006/2023,18-05-2023,28-06-24,Euthanized,Huseyin Cagatay Yalcin
-T0056,C0010,Wt Wt (AB),AB,AB,Mixed Colony,12,3,15,8L,QU-IACUC 006/2023-AMM5,01-09-2024,02-07-2025,Active,Huseyin Cagatay Yalcin
-T0057,C0011,Wt Wt (AB),AB,AB,Mixed Colony,9,8,17,6L,QU-IACUC-006/2023,12-05-2024,29-05-26,Euthanized,Huseyin Cagatay Yalcin
-T0058,C0012,Tg Tg (fli1a:eGFP) Sidra [Fli],Fli G1,Fli,Mixed Colony,9,2,11,3.5L,QU-IACUC-006/2023,26-06-2023,29-06-24,Euthanized,Huseyin Cagatay Yalcin
-T0059,,Wt Wt (AB),AB Mix,AB,Mixed Colony,12,8,20,6L,QU-IACUC 006/2023-AMM3,15-07-2024,01-07-25,Euthanized,Huseyin Cagatay Yalcin
-T0060,,Wt Wt (AB),AB (Mix+out-cross),AB,Mixed Colony,4,3,7,1.8L,QU-IACUC-006/2023,27-05-2024,29-06-25,Euthanized,Huseyin Cagatay Yalcin
-T0061,,Wt Wt (AB),AB Mix,AB,Mixed Colony,13,8,21,6L,QU-IACUC 006/2023-AMM5,07-07-2024,29-12-2025,Active,Huseyin Cagatay Yalcin
-T0062,,Wt Wt (AB),AB Mix,AB,Female-Only,7,0,7,2.8L,QU-IACUC 006/2023-AMM3,30-06-2024,30-06-25,Euthanized,Huseyin Cagatay Yalcin
-T0063,C0013,Wt Wt (AB) Sidra,AB G1,AB,Mixed Colony,7,10,17,6L,QU-IACUC-006/2023,31-07-2023,30-06-24,Euthanized,Huseyin Cagatay Yalcin
-T0064,,Wt Wt (AB),AB Mix,AB,Female-Only,8,0,8,2.8L,QU-IACUC 006/2023-AMM3,30-06-2024,30-06-25,Euthanized,Huseyin Cagatay Yalcin
-T0065,C0017,Wt Wt (AB),AB,AB,Female-Only,3,0,3,3.5L,QU-IACUC 006/2023-AMM5,30-09-2024,03-07-2025,Active,Huseyin Cagatay Yalcin
-T0066,C0024,Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB) Sidra,Cas/AB,Casper,Mixed Colony,11,1,12,2.8L,QU-IACUC 006/2023-AMM5,03-06-2024,28-08-2025,Active,Huseyin Cagatay Yalcin
-T0067,,Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB) Sidra,Casper X AB (Sidra),Casper,Mixed Colony,4,1,5,2.8L,QU-IACUC 006/2023-AMM5,29-10-2024,04-07-2025,Active,Huseyin Cagatay Yalcin
-T0068,C0025,Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper Pure,Casper,Male-Only,0,1,1,1.8L,QU-IACUC 006/2023-AMM5,18-11-2024,05-07-2025,Active,Huseyin Cagatay Yalcin
-T0069,C0026,Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB),Casper outcross X AB mix,Casper,Mixed Colony,15,4,19,6L,QU-IACUC 006/2023-AMM5,24-12-2024,06-07-2025,Active,Huseyin Cagatay Yalcin
-T0070,C0027,Tg Tg (fli1a:eGFP) Sidra [Fli],Fli G1 +ve from T11,Fli,Mixed Colony,4,3,7,1.8L,QU-IACUC 006/2023-AMM5,12-11-2024,04-06-2026,Active,Huseyin Cagatay Yalcin
-T0071,,Tg Tg (fli1a:eGFP) Sidra [Fli],Fli for Squeezing,Fli,Female-Only,17,0,17,8L,QU-IACUC 006/2023-AMM1,24-09-2023,02-07-24,Euthanized,Huseyin Cagatay Yalcin
-T0072,,Tg Tg (fli1a:eGFP) Sidra [Fli],Fli +ve,Fli,Mixed Colony,4,2,6,3.5L,QU-IACUC 006/2023-AMM5,03-05-2025,25-10-2026,Active,Huseyin Cagatay Yalcin
-T0073,C0028,Tg Tg (gata1:dsRed) Sidra [Gata],Gata outcross +ve,Gata,Mixed Colony,6,1,7,3.5L,QU-IACUC 006/2023-AMM5,17-02-2025,26-06-2026,Active,Huseyin Cagatay Yalcin
-T0074,,Wt Wt (AB),AB Mix,AB,Mixed Colony,7,7,14,6L,QU-IACUC 006/2023-AMM1,03-02-2025,28-07-26,Euthanized,Huseyin Cagatay Yalcin
-T0075,,Wt Wt (AB),AB Mix,AB,Female-Only,20,0,20,6L,QU-IACUC 006/2023-AMM5,03-02-2025,28-07-2026,Active,Huseyin Cagatay Yalcin
-T0076,,Wt Wt (AB),AB Mix,AB,Female-Only,5,0,5,2.8L,QU-IACUC 006/2023-AMM5,24-03-2025,27-06-2026,Active,Huseyin Cagatay Yalcin
-T0077,C0029,Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper,Casper,Male-Only,0,7,7,1.8L,QU-IACUC 006/2023-AMM5,05-03-2025,25-10-2026,Active,Huseyin Cagatay Yalcin
-T0078,,Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB),Casper X AB,Casper,Mixed Colony,3,5,8,1.8L,QU-IACUC 006/2023-AMM5,13-02-2025,26-06-2026,Active,Huseyin Cagatay Yalcin
-T0079,C0030,Tg Tg (gata1:dsRed) Sidra [Gata]; (AB),Gata x AB sidra (outcross) +ve,Gata,Female-Only,13,0,13,2.8L,QU-IACUC 006/2023-AMM5,27-02-2025,26-06-2026,Active,Huseyin Cagatay Yalcin
-T0080,,Wt Wt (AB) Sidra,AB (Sidra),AB,Mixed Colony,6,4,10,1.8L,QU-IACUC 006/2023-AMM5,13-11-2024,05-07-2025,Active,Huseyin Cagatay Yalcin
-T0081,,Wt Wt (AB) Sidra; (AB),AB Outcross,AB,Mixed Colony,3,4,8,2.8L,QU-IACUC 006/2023-AMM5,12-05-2024,03-11-2025,Active,Huseyin Cagatay Yalcin
-T0082,C0031,Tg Tg (fli1a:eGFP) Sidra [Fli],Fli X AB outcross,Fli,Mixed Colony,4,3,7,1.8L,QU-IACUC 006/2023-AMM5,16-03-2025,27-06-2026,Active,Huseyin Cagatay Yalcin
-T0083,,Wt Wt (AB),AB (Males Only),AB,Male-Only,0,23,23,6L,QU-IACUC 006/2023-AMM1,30-06-2024,30-06-25,Euthanized,Huseyin Cagatay Yalcin
-T0084,,Wt Wt (AB),AB (Males Only),AB,Male-Only,0,25,25,6L,QU-IACUC 006/2023-AMM1,05-12-2024,29-05-26,Euthanized,Huseyin Cagatay Yalcin
-T0085,,Wt Wt (AB),AB (Males Only),AB,Male-Only,0,23,23,6L,QU-IACUC 006/2023-AMM1,30-06-2024,30-06-25,Euthanized,Huseyin Cagatay Yalcin
-T0086,,Wt Wt (AB),AB Mix,AB,Mixed Colony,18,11,29,6L,QU-IACUC 006/2023-AMM5,22-12-2024,06-07-2025,Active,Huseyin Cagatay Yalcin
-T0087,,Wt Wt (AB),AB Mix,AB,Mixed Colony,6,4,10,2.8L,QU-IACUC 006/2023-AMM5,22-12-2024,06-07-2025,Active,Huseyin Cagatay Yalcin
-T0088,,Wt Wt (AB)/(AB) Sidra,AB outcross,AB,Female-Only,30,0,30,6L,QU-IACUC 006/2023-AMM1,27-04-2025,28-06-26,Euthanized,Huseyin Cagatay Yalcin
-T0089,,Wt Wt (AB),AB Mix,AB,Female-Only,15,0,15,6L,QU-IACUC 006/2023-AMM5,13-04-2025,28-06-2026,Active,Huseyin Cagatay Yalcin
-T0090,,Wt Wt (AB),AB Mix,AB,Mixed Colony,4,3,8,1.8L,QU-IACUC 006/2023-AMM5,13-11-2024,05-07-2025,Active,Huseyin Cagatay Yalcin
-T0091,,Wt Wt (AB),AB Mix,AB,Mixed Colony,4,2,6,1.8L,QU-IACUC 006/2023-AMM3,13-11-2024,05-07-25,Euthanized,Huseyin Cagatay Yalcin
-T0092,,Wt Wt (AB)/(AB) Sidra,AB outcross,AB,Male-Only,0,2,2,1.8L,QU-IACUC 006/2023-AMM1,13-11-2024,05-07-25,Euthanized,Huseyin Cagatay Yalcin
-T0093,,Wt Wt (AB),AB Mix (Males Only),AB,Male-Only,0,11,11,2.8L,QU-IACUC 006/2023-AMM5,22-12-2024,06-07-2025,Active,Huseyin Cagatay Yalcin
-T0094,,Wt Wt (AB),AB Mix,AB,Female-Only,27,0,27,6L,QU-IACUC 006/2023-AMM5,27-04-2025,28-06-2026,Active,Huseyin Cagatay Yalcin
-T0095,,Wt Wt (AB) Sidra,AB (Sidra),AB,Female-Only,4,0,4,1.8L,QU-IACUC 006/2023-AMM5,13-11-2024,05-07-2025,Active,Huseyin Cagatay Yalcin
-T0096,,Wt Wt (AB)/(AB) Sidra,AB outcross,AB,Mixed Colony,8,5,13,2.8L,QU-IACUC 006/2023-AMM5,27-04-2025,28-06-2026,Active,Huseyin Cagatay Yalcin
-T0097,,Wt Wt (AB)/(AB) Sidra,AB outcross,AB,Mixed Colony,2,1,3,1.8L,QU-IACUC 006/2023-AMM5,07-03-2025,29-08-2026,Active,Huseyin Cagatay Yalcin
-T0098,,Tg Tg (fli1:EGFP) [Fli],Fli From T52+54+82,Fli,Mixed Colony,2,7,9,2.8L,QU-IACUC 006/2023-AMM5,07-07-2025,29-12-2026,Active,Huseyin Cagatay Yalcin
-T0099,,Wt Wt (AB)/(AB) Sidra,AB outcross,AB,Female-Only,5,0,5,2.8L,QU-IACUC 006/2023-AMM5,05-05-2025,27-10-2026,Active,Huseyin Cagatay Yalcin
-T0100,,Tg Tg (fli1a:eGFP) Sidra [Fli]/(fli1:EGFP) [Fli],Fli outcross,Fli,Female-Only,1,0,1,1.8L,QU-IACUC 006/2023-AMM5,22-07-2025,01-07-2026,Active,Huseyin Cagatay Yalcin
-T0101,,Tg Tg (gata1:dsRed) Sidra [Gata]; (AB) Sidra,Gata x AB (Sidra),Gata,Mixed Colony,7,1,8,1.8L,QU-IACUC 006/2023-AMM5,05-01-2025,29-06-2026,Active,Huseyin Cagatay Yalcin
-T0102,,Tg Tg (gata1:dsRed) Sidra [Gata],Gata (Sidra) outcross,Gata,Male-Only,0,1,1,1.8L,QU-IACUC 006/2023-AMM5,21-07-2025,01-07-2026,Active,Huseyin Cagatay Yalcin
-T0103,,Wt Wt (AB)/(AB) Sidra,AB outcross,AB,Mixed Colony,7,6,13,6L,QU-IACUC 006/2023-AMM5,06-11-2025,30-04-2027,Active,Huseyin Cagatay Yalcin
-T0104,C0032,Tg Tg (fli1a:eGFP) Sidra [Fli],Fli From T72,Fli,Mixed Colony,2,2,4,3.5L,QU-IACUC 006/2023-AMM5,14-10-2025,01-07-2026,Active,Huseyin Cagatay Yalcin
-T0105,C0033,Tg Tg (fli1a:eGFP) Sidra [Fli],Fli From T82,Fli,Female-Only,5,0,5,3.5L,QU-IACUC 006/2023-AMM5,20-07-2025,01-07-2026,Active,Huseyin Cagatay Yalcin
-T0106,,Wt Wt (AB),AB mix from T95 x 93,AB,Female-Only,15,0,15,2.8L,QU-IACUC 006/2023-AMM5,08-12-2025,01-06-2027,Active,Huseyin Cagatay Yalcin
-T0107,C0034,Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper,Casper,Mixed Colony,4,3,7,1.8L,QU-IACUC 006/2023-AMM5,03-07-2025,29-08-2026,Active,Huseyin Cagatay Yalcin
-T0108,C0035,Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper,Casper,Mixed Colony,2,1,3,1.8L,QU-IACUC 006/2023-AMM5,03-07-2025,29-08-2026,Active,Huseyin Cagatay Yalcin
-T0109,C0036,Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper,Casper,Mixed Colony,2,1,3,1.8L,QU-IACUC 006/2023-AMM5,17-04-2025,28-06-2026,Active,Huseyin Cagatay Yalcin
-T0110,C0037,Tg Tg (gata1:dsRed) Sidra [Gata]; (AB) Sidra,GataxAB sidra,Gata,Mixed Colony,2,1,3,1.8L,QU-IACUC 006/2023-AMM5,26-02-2025,26-06-2026,Active,Huseyin Cagatay Yalcin
-T0111,C0038,Tg Tg (gata1:dsRed) Sidra [Gata],Gata From T73,Gata,Mixed Colony,10,7,17,6L,QU-IACUC 006/2023-AMM5,17-06-2025,30-06-2026,Active,Huseyin Cagatay Yalcin
-T0112,C0039,Tg Tg (gata1:dsRed) Sidra [Gata],Gata From T73,Gata,Mixed Colony,2,7,9,1.8L,QU-IACUC 006/2023-AMM5,23-06-2025,30-06-2026,Active,Huseyin Cagatay Yalcin
-T0113,,Tg Tg (gata1:dsRed) Sidra [Gata],Gata Mix,Gata,Mixed Colony,7,3,10,1.8L,QU-IACUC 006/2023-AMM5,26-02-2025,26-06-2026,Active,Huseyin Cagatay Yalcin
-T0114,C0040,Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper Pure from T69,Casper,Female-Only,1,0,1,1.8L,QU-IACUC 006/2023-AMM5,12-09-2025,03-05-2027,Active,Huseyin Cagatay Yalcin
-T0115,C0040,Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB),Casper From T69 Hetero,Casper,Mixed Colony,4,2,6,2.8L,QU-IACUC 006/2023-AMM5,12-09-2025,03-05-2027,Active,Huseyin Cagatay Yalcin
-T0116,,Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB),Casper from T69,Casper,Mixed Colony,13,4,17,2.8L,QU-IACUC 006/2023-AMM5,09-11-2025,03-05-2027,Active,Huseyin Cagatay Yalcin
-T0117,C0041,Wt Wt (AB); (AB) Sidra,AB crossout,AB,Mixed Colony,11,1,12,3.5L,QU-IACUC 006/2023-AMM5,04-09-2025,01-10-2026,Active,Huseyin Cagatay Yalcin
-T0118,C0042,Wt Wt (AB); (AB) Sidra,AB crossout,AB,Mixed Colony,19,2,21,3.5L,QU-IACUC 006/2023-AMM5,16-06-2025,30-06-2026,Active,Huseyin Cagatay Yalcin
-T0119,,Tg Tg (fli1:EGFP) [Fli],Fli From T82,Fli,Mixed Colony,4,2,6,2.8L,QU-IACUC 006/2023-AMM5,16-09-2025,03-07-2026,Active,Huseyin Cagatay Yalcin
-T0120,C0043,Tg Tg (gata1:dsRed) Sidra [Gata],Gata from T73/T49,Gata,Mixed Colony,5,4,9,2.8L,QU-IACUC 006/2023-AMM5,14-10-2025,04-07-2026,Active,Huseyin Cagatay Yalcin
-T0121,C0044,Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB) Sidra,Casper from T67/T15,Casper,Mixed Colony,13,2,15,2.8L,QU-IACUC 006/2023-AMM5,03-07-2025,29-08-2026,Active,Huseyin Cagatay Yalcin
-T0122,C0045,Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Cas from T77 Vs Spotted F,Casper,Mixed Colony,1,2,3,1.8L,QU-IACUC 006/2023-AMM5,11-02-2026,25-04-2028,Active,Huseyin Cagatay Yalcin
-T0123,C0046,Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from T0015/pure,Casper,Male-Only,0,6,6,1.8L,QU-IACUC 006/2023-AMM5,16-04-2025,28-06-2026,Active,Huseyin Cagatay Yalcin
-T0124,C0047,Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from T105/pure,Casper,Mixed Colony,1,1,2,1.8L,QU-IACUC 006/2023-AMM5,03-05-2026,25-05-2028,Active,Huseyin Cagatay Yalcin
-T0125,C0048,Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from T0115/pure,Casper,Unsexed / Juvenile,0,0,18,6L,QU-IACUC 006/2023-AMM5,11-02-2026,25-04-2028,Active,Huseyin Cagatay Yalcin
-T0126,C0049,Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from T114/T15 pure,Casper,Unsexed / Juvenile,0,0,15,6L,QU-IACUC 006/2023-AMM5,11-02-2026,25-04-2028,Active,Huseyin Cagatay Yalcin
-T0127,C0050,Tg Tg (gata1:dsRed) Sidra [Gata]; (AB) Sidra,Gata from T101,Gata,Mixed Colony,4,2,6,3.5L,QU-IACUC 006/2023-AMM5,26-01-2026,25-06-2027,Active,Huseyin Cagatay Yalcin
-T0128,,Wt Wt (AB),AB mix T86 & T87 & T96,AB,Mixed Colony,4,3,7,2.8L,QU-IACUC 006/2023-AMM5,14-12-2025,06-07-2026,Active,Huseyin Cagatay Yalcin
-T0129,,Wt Wt (AB),AB mix T87 & T96,AB,Mixed Colony,5,5,10,2.8L,QU-IACUC 006/2023-AMM5,12-07-2025,03-01-2027,Active,Huseyin Cagatay Yalcin
-T0130,,Wt Wt (AB),AB mix T87 & T96,AB,Male-Only,0,8,8,1.8L,QU-IACUC 006/2023-AMM5,12-07-2025,03-01-2027,Active,Huseyin Cagatay Yalcin
-T0131,C0051,Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB),Casper from T115/T109,Casper,Unsexed / Juvenile,0,0,10,6L,QU-IACUC 006/2023-AMM5,11-02-2026,25-04-2028,Active,Huseyin Cagatay Yalcin
-T0132,,Tg Tg (fli1:EGFP) [Fli],Fli mix T52 & T54 & T82,Fli,Mixed Colony,2,4,6,2.8L,QU-IACUC 006/2023-AMM5,07-07-2025,29-12-2026,Active,Huseyin Cagatay Yalcin
-T0133,C0052,Tg Tg (fli1a:eGFP) Sidra [Fli],Fli from T82,Fli,Mixed Colony,8,3,11,2.8L,QU-IACUC 006/2023-AMM5,24-11-2025,05-07-2026,Active,Huseyin Cagatay Yalcin
-T0134,C0053,Tg Tg (gata1:dsRed) Sidra [Gata]; (AB),Gata from T101/T93 (AB),Gata,Female-Only,14,0,14,2.8L,QU-IACUC 006/2023-AMM5,25-11-2025,05-07-2026,Active,Huseyin Cagatay Yalcin
-T0135,C0054,Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from T126 Pure,Casper,Mixed Colony,2,8,10,3.5L,QU-IACUC 006/2023-AMM5,29-06-2026,30-06-2027,Active,Huseyin Cagatay Yalcin
-T0136,C0055,Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from T69 (Hetero),Casper,Mixed Colony,7,1,8,3.5L,QU-IACUC 006/2023-AMM5,18-06-2026,30-06-2027,Active,Huseyin Cagatay Yalcin
-T0137,C0056,Tg Tg (gata1:dsRed) Sidra [Gata],Gata from T110,Gata,Unsexed / Juvenile,0,0,13,3.5L,QU-IACUC 006/2023-AMM5,30-06-2026,30-06-2027,Active,Huseyin Cagatay Yalcin
-T0138,C0056,Tg Tg (gata1:dsRed) Sidra [Gata],Gata from T110,Gata,Mixed Colony,10,7,17,3.5L,QU-IACUC 006/2023-AMM5,30-06-2026,30-06-2027,Active,Huseyin Cagatay Yalcin
-T0139,C0057,Tg Tg (gata1:dsRed) Sidra [Gata]; (AB),Gata Mix,Gata,Mixed Colony,5,3,8,3.5L,QU-IACUC 006/2023-AMM5,30-06-2026,30-06-2027,Active,Huseyin Cagatay Yalcin
-T0140,C0057,Tg Tg (gata1:dsRed) Sidra [Gata]; (AB),Gata T49 (M) x Gata T73 (F),Gata,Mixed Colony,4,3,7,3.5L,QU-IACUC 006/2023-AMM5,30-06-2026,29-11-2027,Active,Huseyin Cagatay Yalcin
-T0141,C0058,Tg Tg (fli1a:eGFP) Sidra [Fli],Fli T105 x AB T56,Fli,Mixed Colony,5,2,7,3.5L,QU-IACUC 006/2023-AMM5,28-04-2026,28-06-2027,Active,Huseyin Cagatay Yalcin
-T0142,,Wt Wt (AB),AB Mix,AB,Mixed Colony,10,6,16,3.5L,QU-IACUC 006/2023-AMM5,16-06-2026,30-06-2027,Active,Huseyin Cagatay Yalcin
-T0143,,Wt Wt (AB),AB Mix,AB,Mixed Colony,10,6,16,3.5L,QU-IACUC 006/2023-AMM5,16-06-2026,30-06-2027,Active,Huseyin Cagatay Yalcin
-T0144,,Wt Wt (AB),AB Mix,AB,Male-Only,0,15,15,3.5L,QU-IACUC 006/2023-AMM5,16-06-2026,30-06-2027,Active,Huseyin Cagatay Yalcin
-T0145,,Wt Wt (AB),AB Mix,AB,Mixed Colony,9,5,14,3.5L,QU-IACUC 006/2023-AMM5,16-06-2026,30-06-2027,Active,Huseyin Cagatay Yalcin
-T0146,C0059,Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from T121(F) vs T123(M),Casper,Mixed Colony,3,13,16,3.5L,QU-IACUC 006/2023-AMM5,18-06-2026,30-06-2027,Active,Huseyin Cagatay Yalcin
-T0147,C0059,Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from T121(F) vs T123(M),Casper,Mixed Colony,5,5,10,3.5L,QU-IACUC 006/2023-AMM5,18-06-2026,30-06-2027,Active,Huseyin Cagatay Yalcin
-T0148,C0055,Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper From T69 [Het. Parents],Casper,Mixed Colony,5,7,12,3.5L,QU-IACUC 006/2023-AMM5,18-06-2026,30-06-2027,Active,Huseyin Cagatay Yalcin
-T0149,C0060,Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from T108 Pure,Casper,Unsexed / Juvenile,0,0,14,3.5L,QU-IACUC 006/2023-AMM5,05-07-2026,29-10-2027,Active,Huseyin Cagatay Yalcin
-T0150,C0054,Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from T126 Pure,Casper,Mixed Colony,9,6,15,3.5L,QU-IACUC 006/2023-AMM5,29-06-2026,30-06-2027,Active,Huseyin Cagatay Yalcin
-T0151,C0054,Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from T126 Pure (P2),Casper,Mixed Colony,3,6,9,3.5L,QU-IACUC 006/2023-AMM5,29-06-2026,29-10-2027,Active,Huseyin Cagatay Yalcin
-T0152,C0055,Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from T69 [Hetero],Casper,Mixed Colony,12,3,15,3.5L,QU-IACUC 006/2023-AMM5,18-06-2026,30-06-2027,Active,Huseyin Cagatay Yalcin
-T0153,C0061,Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from T109 Pure,Casper,Mixed Colony,6,5,11,3.5L,QU-IACUC 006/2023-AMM5,14-06-2026,30-06-2027,Active,Huseyin Cagatay Yalcin
-T0154,C0055,Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from T69 [Hetero] (Not Bleached),Casper,Mixed Colony,12,8,20,8L,QU-IACUC 006/2023-AMM5,18-06-2026,30-06-2027,Active,Huseyin Cagatay Yalcin
-T0155,,Wt Wt (AB),AB Mix,AB,Unsexed / Juvenile,0,0,25,8L,QU-IACUC 006/2023-AMM5,16-06-2026,30-06-2027,Active,Huseyin Cagatay Yalcin
-T0156,C0054,Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from T126 Pure (P1),Casper,Unsexed / Juvenile,0,0,9,1.8L,QU-IACUC 006/2023-AMM5,29-06-2026,29-10-2027,Active,Huseyin Cagatay Yalcin
-T0157,C0062,Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from T115 (Silver Parents),Casper,Mixed Colony,8,4,12,3.5L,QU-IACUC 006/2023-AMM5,26-04-2026,28-06-2027,Active,Huseyin Cagatay Yalcin
-T0158,C0062,Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from T115 (Silver Parents),Casper,Mixed Colony,3,6,9,1.8L,QU-IACUC 006/2023-AMM5,26-04-2026,28-06-2027,Active,Huseyin Cagatay Yalcin
-T0159,C0062,Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from T115 (Silver Parents),Casper,Mixed Colony,6,3,9,1.8L,QU-IACUC 006/2023-AMM5,26-04-2026,28-06-2027,Active,Huseyin Cagatay Yalcin
-T0160,C0060,Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from T108,Casper,Unsexed / Juvenile,0,0,18,6L,QU-IACUC 006/2023-AMM5,05-07-2026,29-06-2027,Active,Huseyin Cagatay Yalcin
-T0161,C0054,Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from T126 Pure (3),Casper,Unsexed / Juvenile,0,0,9,1.8L,QU-IACUC 006/2023-AMM5,29-06-2026,30-06-2027,Active,Huseyin Cagatay Yalcin
-T0162,C0063,Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from,Casper,Unsexed / Juvenile,0,0,5,1.8L,QU-IACUC 006/2023-AMM5,14-06-2026,30-06-2027,Active,Huseyin Cagatay Yalcin
-T0163,C0061,Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from T109,Casper,Male-Only,0,1,1,1.8L,QU-IACUC 006/2023-AMM5,14-06-2026,29-06-2027,Active,Huseyin Cagatay Yalcin
-T0164,C0064,Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from T122,Casper,Unsexed / Juvenile,0,0,10,3.8L,QU-IACUC 006/2023-AMM5,15-06-2026,30-06-2027,Active,Huseyin Cagatay Yalcin
-T0165,C0060,Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from T108,Casper,Unsexed / Juvenile,0,0,17,6L,QU-IACUC 006/2023-AMM5,05-07-2026,30-06-2027,Active,Huseyin Cagatay Yalcin
-T0166,C0065,Wt Wt (AB),AB,AB,Mixed Colony,12,4,16,6L,QU-IACUC 006/2023-AMM5,12-05-2026,28-05-2028,Active,Huseyin Cagatay Yalcin
-T0167,C0065,Wt Wt (AB),AB,AB,Mixed Colony,13,3,16,6L,QU-IACUC 006/2023-AMM5,12-05-2026,28-05-2028,Active,Huseyin Cagatay Yalcin
-T0168,,Wt Wt (AB),AB Mix,AB,Female-Only,9,0,9,1.8L,QU-IACUC 006/2023-AMM5,05-12-2026,28-05-28,Larvae,Huseyin Cagatay Yalcin
-T0169,,Wt Wt (AB),AB Mix,AB,Unsexed / Juvenile,0,0,7,1.8L,QU-IACUC 006/2023-AMM5,05-12-2026,28-05-28,Larvae,Huseyin Cagatay Yalcin
-T0170,,Wt Wt (AB),AB Mix,AB,Mixed Colony,9,6,15,3.8L,QU-IACUC 006/2023-AMM5,05-12-2026,28-05-28,Larvae,Huseyin Cagatay Yalcin
-T0171,C0067,Tg Tg (fli1a:eGFP) Sidra [Fli],Fli T133 x Fli T98 (1),Fli,Unsexed / Juvenile,0,0,28,3.8L,QU-IACUC 006/2023-AMM5,17-08-2026,02-07-2027,Active,Huseyin Cagatay Yalcin
-T0172,C0067,Tg Tg (fli1a:eGFP) Sidra [Fli],Fli T133 x Fli T98 (2),Fli,Unsexed / Juvenile,0,0,27,3.8L,QU-IACUC 006/2023-AMM5,17-08-2026,02-07-2027,Active,Huseyin Cagatay Yalcin
-T0173,C0068,Tg Tg (fli1a:eGFP) Sidra [Fli],Fli,Fli,Unsexed / Juvenile,0,0,6,1.8L,QU-IACUC 006/2023-AMM5,16-08-2026,02-07-2027,Active,Huseyin Cagatay Yalcin
-T0174,C0069,Tg Tg (fli1a:eGFP) Sidra [Fli],Fli,Fli,Unsexed / Juvenile,0,0,9,1.8L,QU-IACUC 006/2023-AMM5,17-08-2026,02-07-2027,Active,Huseyin Cagatay Yalcin
-T0175,C0070,Tg Tg (fli1a:eGFP) Sidra [Fli],Fli,Fli,Unsexed / Juvenile,0,0,11,1.8L,QU-IACUC 006/2023-AMM5,16-08-2026,02-07-2027,Active,Huseyin Cagatay Yalcin
-T0176,C0070,Tg Tg (fli1a:eGFP) Sidra [Fli],Fli,Fli,Mixed Colony,7,4,11,3.8L,QU-IACUC 006/2023-AMM5,16-08-2026,26-12-2027,Active,Huseyin Cagatay Yalcin
-T0177,C0071,Tg Tg (fli1a:eGFP) Sidra [Fli],Fli,Fli,Mixed Colony,7,4,11,3.8L,QU-IACUC 006/2023-AMM5,07-04-2026,26-12-2027,Active,Huseyin Cagatay Yalcin
-T0178,C0055,Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from T69 [Hetero] (1) (Not bleached),Casper,Unsexed / Juvenile,0,0,12,3.5L,QU-IACUC 006/2023-AMM5,18-06-2026,30-06-2027,Active,Huseyin Cagatay Yalcin
-T0179,C0055,Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from T69 [Hetero] (2),Casper,Mixed Colony,8,5,13,3.5L,QU-IACUC 006/2023-AMM5,18-06-2026,30-06-2027,Active,Huseyin Cagatay Yalcin
-T0180,C0055,Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from T69 [Hetero],Casper,Mixed Colony,4,3,7,1.8L,QU-IACUC 006/2023-AMM5,18-06-2026,30-06-2027,Active,Huseyin Cagatay Yalcin
-T0181,C0055,Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from T69 [Hetero] (Suspected males),Casper,Male-Only,0,7,7,1.8L,QU-IACUC 006/2023-AMM5,18-06-2026,30-06-2027,Active,Huseyin Cagatay Yalcin
-T0182,C0072,Wt (AB),AB T128,AB,Unsexed / Juvenile,0,0,30,6L,QU-IACUC 006/2023-AMM5,10-08-2026,10-08-2028,Active,Huseyin Cagatay Yalcin
-T0183,C0072,Wt (AB),AB T128,AB,Unsexed / Juvenile,0,0,12,3.5L,QU-IACUC 006/2023-AMM5,10-08-2026,10-08-2028,Active,Huseyin Cagatay Yalcin
-T0184,,Wt Wt (AB),AB mix from T95 x 93,AB,Mixed Colony,2,1,3,1.8L,QU-IACUC 006/2023-AMM5,08-12-2025,01-06-2027,Active,Huseyin Cagatay Yalcin
+T0001,,Mu (desmbkg155/kg155) [DESMA],DESMA -/-,DESMA,Unsexed / Juvenile,0,0,1,1.8L,QU-IACUC 008/2022-REN1,30-06-2024,22-12-2025,Euthanized,Huseyin Cagatay Yalcin
+T0002,,Mu (desmbkg155/kg155) [DESMA],DESMA -/-,DESMA,Unsexed / Juvenile,0,0,2,1.8L,QU-IACUC 008/2022,10-06-2024,02-12-2025,Euthanized,Huseyin Cagatay Yalcin
+T0004,,Mu (desmbkg155/+)/(desmbkg155/kg155) [DESMA],DESMA OldXNew,DESMA,Mixed Colony,2,2,4,2.8L,QU-IACUC-006/2023,06-10-2024,30-03-2026,Euthanized,Huseyin Cagatay Yalcin
+T0005,,Mu (desmbkg155/+),DESMA -/+,DESMA,Unsexed / Juvenile,0,0,8,1.8L,QU-IACUC 008/2022,30-06-2024,22-12-2025,Euthanized,Huseyin Cagatay Yalcin
+T0006,,Mu (desmbkg155/kg155),DESMA -/-,DESMA,Unsexed / Juvenile,0,0,2,1.8L,QU-IACUC 008/2022,10-06-2024,02-12-2025,Euthanized,Huseyin Cagatay Yalcin
+T0007,,Mu (desmbkg155/+),DESMA -/+,DESMA,Unsexed / Juvenile,0,0,10,1.8L,QU-IACUC 008/2022,30-06-2024,22-12-2025,Euthanized,Huseyin Cagatay Yalcin
+T0008,,Mu (desmbkg155/+)/(desmbkg155/+),DESMA Hetro,DESMA,Unsexed / Juvenile,0,0,8,1.8L,QU-IACUC 008/2022,30-06-2024,22-12-2025,Euthanized,Huseyin Cagatay Yalcin
+T0009,,Mu (desmbkg155/+)/(desmbkg155/+),DESMA from Hetro,DESMA,Unsexed / Juvenile,0,0,20,2.8L,QU-IACUC 008/2022,18-03-2024,09-09-2025,Euthanized,Huseyin Cagatay Yalcin
+T0010,,Wt Wt (desmbkg155/+)/AB,AB from DESMA,DESMA,Unsexed / Juvenile,0,0,6,1.8L,QU-IACUC 008/2022,30-06-2024,22-12-2025,Euthanized,Huseyin Cagatay Yalcin
+T0011,,Tg (fli1a:eGFP) Sidra,Fli (Sidra),Fli,Mixed Colony,9,3,12,2.8L,QU-IACUC 006/2023-AMM5,26-02-2023,19-08-2024,Active,Huseyin Cagatay Yalcin
+T0012,,Tg (fli1a:eGFP) Sidra,Fli (Sidra) G1,Fli,Mixed Colony,8,6,14,2.8L,QU-IACUC-006/2023,30-07-2023,20-01-2025,Euthanized,Huseyin Cagatay Yalcin
+T0013,,Tg (fli1a:eGFP) Sidra,Fli (Sidra) G1,Fli,Mixed Colony,4,4,10,1.8L,QU-IACUC 006/2023-AMM5,13-09-2023,06-03-2025,Active,Huseyin Cagatay Yalcin
+T0014,,Tg (fli1:EGFP),Fli,Fli,Mixed Colony,1,5,6,1.8L,QU-IACUC-006/2023,07-04-2023,28-09-2024,Euthanized,Huseyin Cagatay Yalcin
+T0015,,Mu (mitfaw2/w2; mpv17a9/a9),Casper,Casper,Mixed Colony,1,1,2,1.8L,QU-IACUC 006/2023-AMM5,16-04-2023,07-10-2024,Active,Huseyin Cagatay Yalcin
+T0016,,Tg (myl7:GFP) [CMCL2],CMCL2,Other,Mixed Colony,4,4,8,1.8L,QU-IACUC-006/2023,05-04-2023,26-09-2024,Euthanized,Huseyin Cagatay Yalcin
+T0017,,Tg (myl7:GFP) [CMCL2],CMCL2,Other,Unsexed / Juvenile,0,0,17,2.8L,QU-IACUC-006/2023,18-07-2023,08-01-2025,Euthanized,Huseyin Cagatay Yalcin
+T0018,,Tg (myl7:GFP) [CMCL2],CMCL2,Other,Unsexed / Juvenile,0,0,13,2.8L,QU-IACUC-006/2023,15-08-2023,05-02-2025,Euthanized,Huseyin Cagatay Yalcin
+T0019,,Tg (gata1:dsRed) Sidra [Gata],Gata,Gata,Male-Only,0,1,1,1.8L,QU-IACUC-006/2023,20-02-2023,13-08-2024,Euthanized,Huseyin Cagatay Yalcin
+T0020,,Tg (gata1:dsRed) Sidra [Gata],Gata G1,Gata,Mixed Colony,2,1,4,1.8L,QU-IACUC 006/2023-AMM3,25-06-2023,16-12-2024,Euthanized,Huseyin Cagatay Yalcin
+T0021,,Tg (gata1:dsRed) Sidra [Gata],Gata G1,Gata,Mixed Colony,2,3,8,1.8L,QU-IACUC 006/2023-AMM5,25-09-2023,18-03-2025,Active,Huseyin Cagatay Yalcin
+T0022,,Wt (AB),AB,AB,Mixed Colony,16,13,29,6L,QU-IACUC-006/2023,07-06-2023,28-11-2024,Euthanized,Huseyin Cagatay Yalcin
+T0023,,Wt (AB),AB,AB,Mixed Colony,12,15,27,6L,QU-IACUC-006/2023,07-06-2023,28-11-2024,Euthanized,Huseyin Cagatay Yalcin
+T0024,,Wt (AB),AB,AB,Mixed Colony,14,17,31,6L,QU-IACUC-006/2023,18-05-2023,08-11-2024,Euthanized,Huseyin Cagatay Yalcin
+T0025,,Wt (AB),AB,AB,Mixed Colony,7,4,11,2.8L,QU-IACUC-006/2023,12-03-2023,02-09-2024,Euthanized,Huseyin Cagatay Yalcin
+T0026,,Wt (AB),AB,AB,Mixed Colony,7,5,12,2.8L,QU-IACUC-006/2023,25-07-2023,15-01-2025,Euthanized,Huseyin Cagatay Yalcin
+T0027,,Wt (AB),AB,AB,Mixed Colony,8,6,14,2.8L,QU-IACUC-006/2023,25-07-2023,15-01-2025,Euthanized,Huseyin Cagatay Yalcin
+T0028,,Wt (AB),AB,AB,Male-Only,0,22,22,6L,QU-IACUC-006/2023,08-08-2023,29-01-2025,Euthanized,Huseyin Cagatay Yalcin
+T0029,,Wt (AB),AB,AB,Mixed Colony,18,12,30,6L,QU-IACUC-006/2023,09-04-2023,30-09-2024,Euthanized,Huseyin Cagatay Yalcin
+T0030,,Wt (AB),AB,AB,Mixed Colony,8,6,14,2.8L,QU-IACUC-006/2023,04-09-2023,25-02-2025,Euthanized,Huseyin Cagatay Yalcin
+T0031,,Wt (AB),AB,AB,Mixed Colony,5,3,8,1.8L,QU-IACUC-006/2023,04-09-2023,25-02-2025,Euthanized,Huseyin Cagatay Yalcin
+T0032,,Wt (AB),AB,AB,Mixed Colony,12,15,27,6L,QU-IACUC-006/2023,02-07-2023,23-12-2024,Euthanized,Huseyin Cagatay Yalcin
+T0033,,Wt (AB),AB,AB,Mixed Colony,1,1,2,1.8L,QU-IACUC-006/2023,19-08-2023,09-02-2025,Euthanized,Huseyin Cagatay Yalcin
+T0034,,Wt (AB),AB,AB,Mixed Colony,6,4,10,2.8L,QU-IACUC-006/2023,12-03-2023,02-09-2024,Euthanized,Huseyin Cagatay Yalcin
+T0035,,Wt (AB),AB,AB,Mixed Colony,8,6,14,2.8L,QU-IACUC-006/2023,14-08-2023,04-02-2025,Euthanized,Huseyin Cagatay Yalcin
+T0036,,Wt (AB),AB,AB,Mixed Colony,4,10,14,2.8L,QU-IACUC-006/2023,07-05-2023,28-10-2024,Euthanized,Huseyin Cagatay Yalcin
+T0037,C0014,Wt (AB) Sidra,AB G1,AB,Mixed Colony,2,3,5,1.8L,QU-IACUC-006/2023,28-08-2023,18-02-2025,Euthanized,Huseyin Cagatay Yalcin
+T0038,,Wt (AB) Sidra,AB,AB,Mixed Colony,5,9,14,2.8L,QU-IACUC-006/2023,20-02-2023,13-08-2024,Euthanized,Huseyin Cagatay Yalcin
+T0039,C0015,Wt (AB) Sidra,AB G1,AB,Mixed Colony,3,42,5,2.8L,QU-IACUC-006/2023,31-07-2023,21-01-2025,Euthanized,Huseyin Cagatay Yalcin
+T0040,,Wt (AB),AB,AB,Male-Only,0,10,10,6L,QU-IACUC 006/2023,14-08-2023,04-02-2025,Euthanized,Huseyin Cagatay Yalcin
+T0041,,Wt (AB),AB,AB,Male-Only,0,31,31,6L,QU-IACUC 006/2023,25-07-2023,15-01-2025,Euthanized,Huseyin Cagatay Yalcin
+T0042,,Wt (AB),AB (MIX),AB,Female-Only,14,0,14,6L,QU-IACUC 006/2023-AMM3,30-06-2024,22-12-2025,Euthanized,Huseyin Cagatay Yalcin
+T0043,,Wt (AB),AB (MIX),AB,Female-Only,4,0,4,1.8L,QU-IACUC 006/2023-AMM3,30-06-2024,22-12-2025,Euthanized,Huseyin Cagatay Yalcin
+T0044,C0016,Wt (AB) Sidra,AB G1,AB,Mixed Colony,19,21,40,8L,QU-IACUC-006/2023,13-09-2023,06-03-2025,Euthanized,Huseyin Cagatay Yalcin
+T0045,,Tg (myl7:GFP) [CMCL2],CMCL2 (not scr.),Other,Mixed Colony,13,1,13,3.5L,QU-IACUC-006/2023,09-06-2023,30-11-2024,Euthanized,Huseyin Cagatay Yalcin
+T0046,C0001,Wt (AB) Sidra,AB G1,AB,Mixed Colony,3,7,11,2.8L,QU-IACUC-006/2023,09-10-2024,25-06-2025,Euthanized,Huseyin Cagatay Yalcin
+T0047,C0002,Tg (fli1a:eGFP) Sidra [Fli],Fli G1,Fli,Mixed Colony,14,9,23,6L,QU-IACUC-006/2023,21-11-2023,14-05-2025,Euthanized,Huseyin Cagatay Yalcin
+T0048,C0003,Tg (fli1a:eGFP) Sidra [Fli],Fli G2,Fli,Mixed Colony,8,6,14,3.5L,QU-IACUC-006/2023,24-09-2023,17-03-2025,Euthanized,Huseyin Cagatay Yalcin
+T0049,C0004,Tg (gata1:dsRed) Sidra [Gata],Gata G2,Gata,Male-Only,0,5,5,3.5L,QU-IACUC 006/2023-AMM5,27-02-2024,20-08-2025,Active,Huseyin Cagatay Yalcin
+T0050,C0005,Tg (gata1:dsRed) Sidra [Gata],Gata G2 (not scr.),Gata,Mixed Colony,2,1,3,3.5L,QU-IACUC-006/2023,23-10-2023,15-04-2025,Euthanized,Huseyin Cagatay Yalcin
+T0051,C0006,Tg (gata1:dsRed) Sidra [Gata],Gata G2,Gata,Male-Only,0,17,17,3.5L,QU-IACUC-006/2023,23-11-2023,16-05-2025,Euthanized,Huseyin Cagatay Yalcin
+T0052,C0007,Tg (fli1a:eGFP) Sidra [Fli],Fli G1 (Re-scr.),Fli,Mixed Colony,9,5,14,3.5L,QU-IACUC-006/2023,11-03-2024,02-09-2025,Euthanized,Huseyin Cagatay Yalcin
+T0053,C0008,Tg (fli1a:eGFP) Sidra [Fli],Fli G2,Fli,Female-Only,17,0,14,8L,QU-IACUC-006/2023,23-09-2023,16-03-2025,Euthanized,Huseyin Cagatay Yalcin
+T0054,C0009,Tg (fli1a:eGFP) Sidra [Fli],Fli G1,Fli,Mixed Colony,10,7,17,3.5L,QU-IACUC 006/2023-AMM5,25-08-2024,16-02-2026,Active,Huseyin Cagatay Yalcin
+T0055,,Wt (AB),AB,AB,Male-Only,0,5,5,2.8L,QU-IACUC 006/2023,18-05-2023,08-11-2024,Euthanized,Huseyin Cagatay Yalcin
+T0056,C0010,Wt (AB),AB,AB,Mixed Colony,12,3,15,8L,QU-IACUC 006/2023-AMM5,01-09-2024,23-02-2026,Active,Huseyin Cagatay Yalcin
+T0057,C0011,Wt (AB),AB,AB,Mixed Colony,9,8,17,6L,QU-IACUC-006/2023,12-05-2024,03-11-2025,Euthanized,Huseyin Cagatay Yalcin
+T0058,C0012,Tg (fli1a:eGFP) Sidra [Fli],Fli G1,Fli,Mixed Colony,9,2,11,3.5L,QU-IACUC-006/2023,26-06-2023,17-12-2024,Euthanized,Huseyin Cagatay Yalcin
+T0059,,Wt (AB),AB Mix,AB,Mixed Colony,12,8,20,6L,QU-IACUC 006/2023-AMM3,15-07-2024,06-01-2026,Euthanized,Huseyin Cagatay Yalcin
+T0060,,Wt (AB),AB (Mix+out-cross),AB,Mixed Colony,4,3,7,1.8L,QU-IACUC-006/2023,27-05-2024,18-11-2025,Euthanized,Huseyin Cagatay Yalcin
+T0061,,Wt (AB),AB Mix,AB,Mixed Colony,13,8,21,6L,QU-IACUC 006/2023-AMM5,07-07-2024,29-12-2025,Active,Huseyin Cagatay Yalcin
+T0062,,Wt (AB),AB Mix,AB,Female-Only,7,0,7,2.8L,QU-IACUC 006/2023-AMM3,30-06-2024,22-12-2025,Euthanized,Huseyin Cagatay Yalcin
+T0063,C0013,Wt (AB) Sidra,AB G1,AB,Mixed Colony,7,10,17,6L,QU-IACUC-006/2023,31-07-2023,21-01-2025,Euthanized,Huseyin Cagatay Yalcin
+T0064,,Wt (AB),AB Mix,AB,Female-Only,8,0,8,2.8L,QU-IACUC 006/2023-AMM3,30-06-2024,22-12-2025,Euthanized,Huseyin Cagatay Yalcin
+T0065,C0017,Wt (AB),AB,AB,Female-Only,3,0,3,3.5L,QU-IACUC 006/2023-AMM5,30-09-2024,24-03-2026,Active,Huseyin Cagatay Yalcin
+T0066,C0024,Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB) Sidra,Cas/AB,Casper,Mixed Colony,11,1,12,2.8L,QU-IACUC 006/2023-AMM5,03-06-2024,25-11-2025,Active,Huseyin Cagatay Yalcin
+T0067,,Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB) Sidra,Casper X AB (Sidra),Casper,Mixed Colony,4,1,5,2.8L,QU-IACUC 006/2023-AMM5,29-10-2024,22-04-2026,Active,Huseyin Cagatay Yalcin
+T0068,C0025,Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper Pure,Casper,Male-Only,0,1,1,1.8L,QU-IACUC 006/2023-AMM5,18-11-2024,12-05-2026,Active,Huseyin Cagatay Yalcin
+T0069,C0026,Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB),Casper outcross X AB mix,Casper,Mixed Colony,15,4,19,6L,QU-IACUC 006/2023-AMM5,24-12-2024,17-06-2026,Active,Huseyin Cagatay Yalcin
+T0070,C0027,Tg (fli1a:eGFP) Sidra [Fli],Fli G1 +ve from T11,Fli,Mixed Colony,4,3,7,1.8L,QU-IACUC 006/2023-AMM5,12-11-2024,06-05-2026,Active,Huseyin Cagatay Yalcin
+T0071,,Tg (fli1a:eGFP) Sidra [Fli],Fli for Squeezing,Fli,Female-Only,17,0,17,8L,QU-IACUC 006/2023-AMM1,24-09-2023,17-03-2025,Euthanized,Huseyin Cagatay Yalcin
+T0072,,Tg (fli1a:eGFP) Sidra [Fli],Fli +ve,Fli,Mixed Colony,4,2,6,3.5L,QU-IACUC 006/2023-AMM5,05-03-2025,27-08-2026,Active,Huseyin Cagatay Yalcin
+T0073,C0028,Tg (gata1:dsRed) Sidra [Gata],Gata outcross +ve,Gata,Mixed Colony,6,1,7,3.5L,QU-IACUC 006/2023-AMM5,17-02-2025,11-08-2026,Active,Huseyin Cagatay Yalcin
+T0074,,Wt (AB),AB Mix,AB,Mixed Colony,7,7,14,6L,QU-IACUC 006/2023-AMM1,02-03-2025,24-08-2026,Euthanized,Huseyin Cagatay Yalcin
+T0075,,Wt (AB),AB Mix,AB,Female-Only,20,0,20,6L,QU-IACUC 006/2023-AMM5,02-03-2025,24-08-2026,Active,Huseyin Cagatay Yalcin
+T0076,,Wt (AB),AB Mix,AB,Female-Only,5,0,5,2.8L,QU-IACUC 006/2023-AMM5,24-03-2025,15-09-2026,Active,Huseyin Cagatay Yalcin
+T0077,C0029,Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper,Casper,Male-Only,0,7,7,1.8L,QU-IACUC 006/2023-AMM5,05-03-2025,27-08-2026,Active,Huseyin Cagatay Yalcin
+T0078,,Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB),Casper X AB,Casper,Mixed Colony,3,5,8,1.8L,QU-IACUC 006/2023-AMM5,13-02-2025,07-08-2026,Active,Huseyin Cagatay Yalcin
+T0079,C0030,Tg (gata1:dsRed) Sidra [Gata]; (AB),Gata x AB sidra (outcross) +ve,Gata,Female-Only,13,0,13,2.8L,QU-IACUC 006/2023-AMM5,27-02-2025,20-08-2026,Active,Huseyin Cagatay Yalcin
+T0080,,Wt (AB) Sidra,AB (Sidra),AB,Mixed Colony,6,4,10,1.8L,QU-IACUC 006/2023-AMM5,13-11-2024,07-05-2026,Active,Huseyin Cagatay Yalcin
+T0081,,Wt (AB) Sidra; (AB),AB Outcross,AB,Mixed Colony,3,4,8,2.8L,QU-IACUC 006/2023-AMM5,05-12-2024,29-05-2026,Active,Huseyin Cagatay Yalcin
+T0082,C0031,Tg (fli1a:eGFP) Sidra [Fli],Fli X AB outcross,Fli,Mixed Colony,4,3,7,1.8L,QU-IACUC 006/2023-AMM5,16-03-2025,07-09-2026,Active,Huseyin Cagatay Yalcin
+T0083,,Wt (AB),AB (Males Only),AB,Male-Only,0,23,23,6L,QU-IACUC 006/2023-AMM1,30-06-2024,22-12-2025,Euthanized,Huseyin Cagatay Yalcin
+T0084,,Wt (AB),AB (Males Only),AB,Male-Only,0,25,25,6L,QU-IACUC 006/2023-AMM1,12-05-2024,03-11-2025,Euthanized,Huseyin Cagatay Yalcin
+T0085,,Wt (AB),AB (Males Only),AB,Male-Only,0,23,23,6L,QU-IACUC 006/2023-AMM1,30-06-2024,22-12-2025,Euthanized,Huseyin Cagatay Yalcin
+T0086,,Wt (AB),AB Mix,AB,Mixed Colony,18,11,29,6L,QU-IACUC 006/2023-AMM5,22-12-2024,15-06-2026,Active,Huseyin Cagatay Yalcin
+T0087,,Wt (AB),AB Mix,AB,Mixed Colony,6,4,10,2.8L,QU-IACUC 006/2023-AMM5,22-12-2024,15-06-2026,Active,Huseyin Cagatay Yalcin
+T0088,,Wt (AB)/(AB) Sidra,AB outcross,AB,Female-Only,30,0,30,6L,QU-IACUC 006/2023-AMM1,27-04-2025,19-10-2026,Euthanized,Huseyin Cagatay Yalcin
+T0089,,Wt (AB),AB Mix,AB,Female-Only,15,0,15,6L,QU-IACUC 006/2023-AMM5,13-04-2025,05-10-2026,Active,Huseyin Cagatay Yalcin
+T0090,,Wt (AB),AB Mix,AB,Mixed Colony,4,3,8,1.8L,QU-IACUC 006/2023-AMM5,13-11-2024,07-05-2026,Active,Huseyin Cagatay Yalcin
+T0091,,Wt (AB),AB Mix,AB,Mixed Colony,4,2,6,1.8L,QU-IACUC 006/2023-AMM3,13-11-2024,07-05-2026,Euthanized,Huseyin Cagatay Yalcin
+T0092,,Wt (AB)/(AB) Sidra,AB outcross,AB,Male-Only,0,2,2,1.8L,QU-IACUC 006/2023-AMM1,13-11-2024,07-05-2026,Euthanized,Huseyin Cagatay Yalcin
+T0093,,Wt (AB),AB Mix (Males Only),AB,Male-Only,0,11,11,2.8L,QU-IACUC 006/2023-AMM5,22-12-2024,15-06-2026,Active,Huseyin Cagatay Yalcin
+T0094,,Wt (AB),AB Mix,AB,Female-Only,27,0,27,6L,QU-IACUC 006/2023-AMM5,27-04-2025,19-10-2026,Active,Huseyin Cagatay Yalcin
+T0095,,Wt (AB) Sidra,AB (Sidra),AB,Female-Only,4,0,4,1.8L,QU-IACUC 006/2023-AMM5,13-11-2024,07-05-2026,Active,Huseyin Cagatay Yalcin
+T0096,,Wt (AB)/(AB) Sidra,AB outcross,AB,Mixed Colony,8,5,13,2.8L,QU-IACUC 006/2023-AMM5,27-04-2025,19-10-2026,Active,Huseyin Cagatay Yalcin
+T0097,,Wt (AB)/(AB) Sidra,AB outcross,AB,Mixed Colony,2,1,3,1.8L,QU-IACUC 006/2023-AMM5,03-07-2025,25-12-2026,Active,Huseyin Cagatay Yalcin
+T0098,,Tg (fli1:EGFP) [Fli],Fli From T52+54+82,Fli,Mixed Colony,2,7,9,2.8L,QU-IACUC 006/2023-AMM5,07-07-2025,29-12-2026,Active,Huseyin Cagatay Yalcin
+T0099,,Wt (AB)/(AB) Sidra,AB outcross,AB,Female-Only,5,0,5,2.8L,QU-IACUC 006/2023-AMM5,05-05-2025,27-10-2026,Active,Huseyin Cagatay Yalcin
+T0100,,Tg (fli1a:eGFP) Sidra [Fli]/(fli1:EGFP) [Fli],Fli outcross,Fli,Female-Only,1,0,1,1.8L,QU-IACUC 006/2023-AMM5,22-07-2025,13-01-2027,Active,Huseyin Cagatay Yalcin
+T0101,,Tg (gata1:dsRed) Sidra [Gata]; (AB) Sidra,Gata x AB (Sidra),Gata,Mixed Colony,7,1,8,1.8L,QU-IACUC 006/2023-AMM5,01-05-2025,23-10-2026,Active,Huseyin Cagatay Yalcin
+T0102,,Tg (gata1:dsRed) Sidra [Gata],Gata (Sidra) outcross,Gata,Male-Only,0,1,1,1.8L,QU-IACUC 006/2023-AMM5,21-07-2025,12-01-2027,Active,Huseyin Cagatay Yalcin
+T0103,,Wt (AB)/(AB) Sidra,AB outcross,AB,Mixed Colony,7,6,13,6L,QU-IACUC 006/2023-AMM5,11-06-2025,03-12-2026,Active,Huseyin Cagatay Yalcin
+T0104,C0032,Tg (fli1a:eGFP) Sidra [Fli],Fli From T72,Fli,Mixed Colony,2,2,4,3.5L,QU-IACUC 006/2023-AMM5,14-10-2025,11-01-2027,Active,Huseyin Cagatay Yalcin
+T0105,C0033,Tg (fli1a:eGFP) Sidra [Fli],Fli From T82,Fli,Female-Only,5,0,5,3.5L,QU-IACUC 006/2023-AMM5,20-07-2025,11-01-2027,Active,Huseyin Cagatay Yalcin
+T0106,,Wt (AB),AB mix from T95 x 93,AB,Female-Only,15,0,15,6L,QU-IACUC 006/2023-AMM5,12-08-2025,03-02-2027,Active,Huseyin Cagatay Yalcin
+T0107,C0034,Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper,Casper,Mixed Colony,4,3,7,1.8L,QU-IACUC 006/2023-AMM5,03-07-2025,25-12-2026,Active,Huseyin Cagatay Yalcin
+T0108,C0035,Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper,Casper,Mixed Colony,2,1,3,1.8L,QU-IACUC 006/2023-AMM5,03-07-2025,25-12-2026,Active,Huseyin Cagatay Yalcin
+T0109,C0036,Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper,Casper,Mixed Colony,2,1,3,1.8L,QU-IACUC 006/2023-AMM5,17-04-2025,08-10-2026,Active,Huseyin Cagatay Yalcin
+T0110,C0037,Tg (gata1:dsRed) Sidra [Gata]; (AB) Sidra,GataxAB sidra,Gata,Mixed Colony,2,1,3,1.8L,QU-IACUC 006/2023-AMM5,26-02-2025,20-08-2026,Active,Huseyin Cagatay Yalcin
+T0111,C0038,Tg (gata1:dsRed) Sidra [Gata],Gata From T73,Gata,Mixed Colony,10,7,17,6L,QU-IACUC 006/2023-AMM5,17-06-2025,08-12-2026,Active,Huseyin Cagatay Yalcin
+T0112,C0039,Tg (gata1:dsRed) Sidra [Gata],Gata From T73,Gata,Mixed Colony,2,7,9,1.8L,QU-IACUC 006/2023-AMM5,23-06-2025,14-12-2026,Active,Huseyin Cagatay Yalcin
+T0113,,Tg (gata1:dsRed) Sidra [Gata],Gata Mix,Gata,Mixed Colony,7,3,10,1.8L,QU-IACUC 006/2023-AMM5,26-02-2025,20-08-2026,Active,Huseyin Cagatay Yalcin
+T0114,C0040,Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper Pure from T69,Casper,Female-Only,1,0,1,1.8L,QU-IACUC 006/2023-AMM5,12-09-2025,05-03-2027,Active,Huseyin Cagatay Yalcin
+T0115,C0040,Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB),Casper From T69 Hetero,Casper,Mixed Colony,4,2,6,2.8L,QU-IACUC 006/2023-AMM5,12-09-2025,05-03-2027,Active,Huseyin Cagatay Yalcin
+T0116,,Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB),Casper from T69,Casper,Mixed Colony,13,4,17,2.8L,QU-IACUC 006/2023-AMM5,11-09-2025,05-03-2027,Active,Huseyin Cagatay Yalcin
+T0117,C0041,Wt (AB); (AB) Sidra,AB crossout,AB,Mixed Colony,11,1,12,3.5L,QU-IACUC 006/2023-AMM5,04-09-2025,26-02-2027,Active,Huseyin Cagatay Yalcin
+T0118,C0042,Wt (AB); (AB) Sidra,AB crossout,AB,Mixed Colony,19,2,21,3.5L,QU-IACUC 006/2023-AMM5,16-06-2025,08-12-2026,Active,Huseyin Cagatay Yalcin
+T0119,,Tg (fli1:EGFP) [Fli],Fli From T82,Fli,Mixed Colony,4,2,6,2.8L,QU-IACUC 006/2023-AMM5,16-09-2025,10-03-2027,Active,Huseyin Cagatay Yalcin
+T0120,C0043,Tg (gata1:dsRed) Sidra [Gata],Gata from T73/T49,Gata,Mixed Colony,5,4,9,2.8L,QU-IACUC 006/2023-AMM5,14-10-2025,07-04-2027,Active,Huseyin Cagatay Yalcin
+T0121,C0044,Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB) Sidra,Casper from T67/T15,Casper,Mixed Colony,13,2,15,2.8L,QU-IACUC 006/2023-AMM5,03-07-2025,25-12-2026,Active,Huseyin Cagatay Yalcin
+T0122,C0045,Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Cas from T77 Vs Spotted F,Casper,Mixed Colony,1,2,3,1.8L,QU-IACUC 006/2023-AMM5,11-02-2026,05-08-2027,Active,Huseyin Cagatay Yalcin
+T0123,C0046,Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from T0015/pure,Casper,Male-Only,0,6,6,1.8L,QU-IACUC 006/2023-AMM5,16-04-2025,08-10-2026,Active,Huseyin Cagatay Yalcin
+T0124,C0047,Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from T105/pure,Casper,Mixed Colony,1,1,2,1.8L,QU-IACUC 006/2023-AMM5,03-05-2026,06-08-2027,Active,Huseyin Cagatay Yalcin
+T0125,C0048,Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from T0115/pure,Casper,Unsexed / Juvenile,0,0,18,6L,QU-IACUC 006/2023-AMM5,11-02-2026,05-08-2027,Active,Huseyin Cagatay Yalcin
+T0126,C0049,Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from T114/T15 pure,Casper,Unsexed / Juvenile,0,0,15,6L,QU-IACUC 006/2023-AMM5,11-02-2026,05-08-2027,Active,Huseyin Cagatay Yalcin
+T0127,C0050,Tg (gata1:dsRed) Sidra [Gata]; (AB) Sidra,Gata from T101,Gata,Mixed Colony,4,2,6,3.5L,QU-IACUC 006/2023-AMM5,26-01-2026,20-07-2027,Active,Huseyin Cagatay Yalcin
+T0128,,Wt (AB),AB mix T86 & T87 & T96,AB,Mixed Colony,4,3,7,2.8L,QU-IACUC 006/2023-AMM5,14-12-2025,07-06-2027,Active,Huseyin Cagatay Yalcin
+T0129,,Wt (AB),AB mix T87 & T96,AB,Mixed Colony,5,5,10,2.8L,QU-IACUC 006/2023-AMM5,07-12-2025,31-05-2027,Active,Huseyin Cagatay Yalcin
+T0130,,Wt (AB),AB mix T87 & T96,AB,Male-Only,0,8,8,1.8L,QU-IACUC 006/2023-AMM5,07-12-2025,31-05-2027,Active,Huseyin Cagatay Yalcin
+T0131,C0051,Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB),Casper from T115/T109,Casper,Unsexed / Juvenile,0,0,10,6L,QU-IACUC 006/2023-AMM5,11-02-2026,05-08-2027,Active,Huseyin Cagatay Yalcin
+T0132,,Tg (fli1:EGFP) [Fli],Fli mix T52 & T54 & T82,Fli,Mixed Colony,2,4,6,2.8L,QU-IACUC 006/2023-AMM5,07-07-2025,29-12-2026,Active,Huseyin Cagatay Yalcin
+T0133,C0052,Tg (fli1a:eGFP) Sidra [Fli],Fli from T82,Fli,Mixed Colony,8,3,11,2.8L,QU-IACUC 006/2023-AMM5,24-11-2025,18-05-2027,Active,Huseyin Cagatay Yalcin
+T0134,C0053,Tg (gata1:dsRed) Sidra [Gata]; (AB),Gata from T101/T93 (AB),Gata,Female-Only,14,0,14,2.8L,QU-IACUC 006/2023-AMM5,25-11-2025,19-05-2027,Active,Huseyin Cagatay Yalcin
+T0135,C0054,Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from T126 Pure,Casper,Mixed Colony,2,8,10,3.5L,QU-IACUC 006/2023-AMM5,29-06-2026,21-12-2027,Active,Huseyin Cagatay Yalcin
+T0136,C0055,Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from T69 (Hetero),Casper,Mixed Colony,7,1,8,3.5L,QU-IACUC 006/2023-AMM5,18-06-2026,10-12-2027,Active,Huseyin Cagatay Yalcin
+T0137,C0056,Tg (gata1:dsRed) Sidra [Gata],Gata from T110,Gata,Unsexed / Juvenile,0,0,13,3.5L,QU-IACUC 006/2023-AMM5,30-06-2026,22-12-2027,Active,Huseyin Cagatay Yalcin
+T0138,C0056,Tg (gata1:dsRed) Sidra [Gata],Gata from T110,Gata,Mixed Colony,10,7,17,3.5L,QU-IACUC 006/2023-AMM5,30-06-2026,22-12-2027,Active,Huseyin Cagatay Yalcin
+T0139,C0057,Tg (gata1:dsRed) Sidra [Gata]; (AB),Gata Mix,Gata,Mixed Colony,5,3,8,3.5L,QU-IACUC 006/2023-AMM5,30-06-2026,22-12-2027,Active,Huseyin Cagatay Yalcin
+T0140,C0057,Tg (gata1:dsRed) Sidra [Gata]; (AB),Gata T49 (M) x Gata T73 (F),Gata,Mixed Colony,4,3,7,3.5L,QU-IACUC 006/2023-AMM5,30-06-2026,28-12-2027,Active,Huseyin Cagatay Yalcin
+T0141,C0058,Tg (fli1a:eGFP) Sidra [Fli],Fli T105 x AB T56,Fli,Mixed Colony,5,2,7,3.5L,QU-IACUC 006/2023-AMM5,28-04-2026,20-10-2027,Active,Huseyin Cagatay Yalcin
+T0142,,Wt (AB),AB Mix,AB,Mixed Colony,10,6,16,3.5L,QU-IACUC 006/2023-AMM5,16-06-2026,08-12-2027,Active,Huseyin Cagatay Yalcin
+T0143,,Wt (AB),AB Mix,AB,Mixed Colony,10,6,16,3.5L,QU-IACUC 006/2023-AMM5,16-06-2026,08-12-2027,Active,Huseyin Cagatay Yalcin
+T0144,,Wt (AB),AB Mix,AB,Male-Only,0,15,15,3.5L,QU-IACUC 006/2023-AMM5,16-06-2026,08-12-2027,Active,Huseyin Cagatay Yalcin
+T0145,,Wt (AB),AB Mix,AB,Mixed Colony,9,5,14,3.5L,QU-IACUC 006/2023-AMM5,16-06-2026,08-12-2027,Active,Huseyin Cagatay Yalcin
+T0146,C0059,Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from T121(F) vs T123(M),Casper,Mixed Colony,3,13,16,3.5L,QU-IACUC 006/2023-AMM5,18-06-2026,10-12-2027,Active,Huseyin Cagatay Yalcin
+T0147,C0059,Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from T121(F) vs T123(M),Casper,Mixed Colony,5,5,10,3.5L,QU-IACUC 006/2023-AMM5,18-06-2026,10-12-2027,Active,Huseyin Cagatay Yalcin
+T0148,C0055,Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper From T69 [Het. Parents],Casper,Mixed Colony,5,7,12,3.5L,QU-IACUC 006/2023-AMM5,18-06-2026,10-12-2027,Active,Huseyin Cagatay Yalcin
+T0149,C0060,Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from T108 Pure,Casper,Unsexed / Juvenile,0,0,14,3.5L,QU-IACUC 006/2023-AMM5,05-07-2026,27-12-2027,Active,Huseyin Cagatay Yalcin
+T0150,C0054,Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from T126 Pure,Casper,Mixed Colony,9,6,15,3.5L,QU-IACUC 006/2023-AMM5,29-06-2026,21-12-2027,Active,Huseyin Cagatay Yalcin
+T0151,C0054,Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from T126 Pure (P2),Casper,Mixed Colony,3,6,9,3.5L,QU-IACUC 006/2023-AMM5,29-06-2026,27-12-2027,Active,Huseyin Cagatay Yalcin
+T0152,C0055,Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from T69 [Hetero],Casper,Mixed Colony,12,3,15,3.5L,QU-IACUC 006/2023-AMM5,18-06-2026,10-12-2027,Active,Huseyin Cagatay Yalcin
+T0153,C0061,Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from T109 Pure,Casper,Mixed Colony,6,5,11,3.5L,QU-IACUC 006/2023-AMM5,14-06-2026,06-12-2027,Active,Huseyin Cagatay Yalcin
+T0154,C0055,Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from T69 [Hetero] (Not Bleached),Casper,Mixed Colony,12,8,20,8L,QU-IACUC 006/2023-AMM5,18-06-2026,10-12-2027,Active,Huseyin Cagatay Yalcin
+T0155,,Wt (AB),AB Mix,AB,Unsexed / Juvenile,0,0,25,8L,QU-IACUC 006/2023-AMM5,16-06-2026,08-12-2027,Active,Huseyin Cagatay Yalcin
+T0156,C0054,Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from T126 Pure (P1),Casper,Unsexed / Juvenile,0,0,9,1.8L,QU-IACUC 006/2023-AMM5,29-06-2026,27-12-2027,Active,Huseyin Cagatay Yalcin
+T0157,C0062,Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from T115 (Silver Parents),Casper,Mixed Colony,8,4,12,3.5L,QU-IACUC 006/2023-AMM5,26-04-2026,18-10-2027,Active,Huseyin Cagatay Yalcin
+T0158,C0062,Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from T115 (Silver Parents),Casper,Mixed Colony,3,6,9,1.8L,QU-IACUC 006/2023-AMM5,26-04-2026,18-10-2027,Active,Huseyin Cagatay Yalcin
+T0159,C0062,Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from T115 (Silver Parents),Casper,Mixed Colony,6,3,9,1.8L,QU-IACUC 006/2023-AMM5,26-04-2026,18-10-2027,Active,Huseyin Cagatay Yalcin
+T0160,C0060,Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from T108,Casper,Unsexed / Juvenile,0,0,18,6L,QU-IACUC 006/2023-AMM5,05-07-2026,08-11-2027,Active,Huseyin Cagatay Yalcin
+T0161,C0054,Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from T126 Pure (3),Casper,Unsexed / Juvenile,0,0,9,1.8L,QU-IACUC 006/2023-AMM5,29-06-2026,21-12-2027,Active,Huseyin Cagatay Yalcin
+T0162,C0063,Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from,Casper,Unsexed / Juvenile,0,0,5,1.8L,QU-IACUC 006/2023-AMM5,14-06-2026,06-12-2027,Active,Huseyin Cagatay Yalcin
+T0163,C0061,Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from T109,Casper,Male-Only,0,1,1,1.8L,QU-IACUC 006/2023-AMM5,14-06-2026,08-11-2027,Active,Huseyin Cagatay Yalcin
+T0164,C0064,Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from T122,Casper,Unsexed / Juvenile,0,0,10,3.8L,QU-IACUC 006/2023-AMM5,15-06-2026,07-12-2027,Active,Huseyin Cagatay Yalcin
+T0165,C0060,Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from T108,Casper,Unsexed / Juvenile,0,0,17,6L,QU-IACUC 006/2023-AMM5,05-07-2026,07-12-2027,Active,Huseyin Cagatay Yalcin
+T0166,C0065,Wt (AB),AB,AB,Mixed Colony,12,4,16,6L,QU-IACUC 006/2023-AMM5,12-05-2026,03-11-2027,Active,Huseyin Cagatay Yalcin
+T0167,C0065,Wt (AB),AB,AB,Mixed Colony,13,3,16,6L,QU-IACUC 006/2023-AMM5,12-05-2026,03-11-2027,Active,Huseyin Cagatay Yalcin
+T0168,,Wt (AB),AB Mix,AB,Female-Only,9,0,9,1.8L,QU-IACUC 006/2023-AMM5,12-05-2026,03-11-2027,Active,Huseyin Cagatay Yalcin
+T0169,,Wt (AB),AB Mix,AB,Unsexed / Juvenile,0,0,7,1.8L,QU-IACUC 006/2023-AMM5,12-05-2026,03-11-2027,Active,Huseyin Cagatay Yalcin
+T0170,,Wt (AB),AB Mix,AB,Mixed Colony,9,6,15,3.8L,QU-IACUC 006/2023-AMM5,12-05-2026,03-11-2027,Active,Huseyin Cagatay Yalcin
+T0171,C0067,Tg (fli1a:eGFP) Sidra [Fli],Fli T133 x Fli T98 (1),Fli,Unsexed / Juvenile,0,0,28,3.8L,QU-IACUC 006/2023-AMM5,17-08-2026,08-02-2028,Juvenile(<3 months old),Huseyin Cagatay Yalcin
+T0172,C0067,Tg (fli1a:eGFP) Sidra [Fli],Fli T133 x Fli T98 (2),Fli,Unsexed / Juvenile,0,0,27,3.8L,QU-IACUC 006/2023-AMM5,17-08-2026,08-02-2028,Juvenile(<3 months old),Huseyin Cagatay Yalcin
+T0173,C0068,Tg (fli1a:eGFP) Sidra [Fli],Fli,Fli,Unsexed / Juvenile,0,0,6,1.8L,QU-IACUC 006/2023-AMM5,16-08-2026,07-02-2028,Juvenile(<3 months old),Huseyin Cagatay Yalcin
+T0174,C0069,Tg (fli1a:eGFP) Sidra [Fli],Fli,Fli,Unsexed / Juvenile,0,0,9,1.8L,QU-IACUC 006/2023-AMM5,17-08-2026,08-02-2028,Juvenile(<3 months old),Huseyin Cagatay Yalcin
+T0175,C0070,Tg (fli1a:eGFP) Sidra [Fli],Fli,Fli,Unsexed / Juvenile,0,0,11,1.8L,QU-IACUC 006/2023-AMM5,16-08-2026,07-02-2028,Juvenile(<3 months old),Huseyin Cagatay Yalcin
+T0176,C0070,Tg (fli1a:eGFP) Sidra [Fli],Fli,Fli,Mixed Colony,7,4,11,3.8L,QU-IACUC 006/2023-AMM5,16-08-2026,29-09-2027,Active,Huseyin Cagatay Yalcin
+T0177,C0071,Tg (fli1a:eGFP) Sidra [Fli],Fli,Fli,Mixed Colony,7,4,11,3.8L,QU-IACUC 006/2023-AMM5,07-04-2026,29-09-2027,Active,Huseyin Cagatay Yalcin
+T0178,C0055,Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from T69 [Hetero] (1) (Not bleached),Casper,Unsexed / Juvenile,0,0,12,3.5L,QU-IACUC 006/2023-AMM5,18-06-2026,10-12-2027,Active,Huseyin Cagatay Yalcin
+T0179,C0055,Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from T69 [Hetero] (2),Casper,Mixed Colony,8,5,13,3.5L,QU-IACUC 006/2023-AMM5,18-06-2026,10-12-2027,Active,Huseyin Cagatay Yalcin
+T0180,C0055,Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from T69 [Hetero],Casper,Mixed Colony,4,3,7,1.8L,QU-IACUC 006/2023-AMM5,18-06-2026,10-12-2027,Active,Huseyin Cagatay Yalcin
+T0181,C0055,Mu (mitfaw2/w2; mpv17a9/a9) [Casper],Casper from T69 [Hetero] (Suspected males),Casper,Male-Only,0,7,7,1.8L,QU-IACUC 006/2023-AMM5,18-06-2026,10-12-2027,Active,Huseyin Cagatay Yalcin
+T0182,C0072,Mu Wt (AB),AB T128,AB,Unsexed / Juvenile,0,0,30,6L,QU-IACUC 006/2023-AMM5,10-08-2026,01-02-2028,Juvenile(<3 months old),Huseyin Cagatay Yalcin
+T0183,C0072,Wt Wt (AB),AB T128,AB,Unsexed / Juvenile,0,0,12,3.5L,QU-IACUC 006/2023-AMM5,10-08-2026,01-02-2028,Juvenile(<3 months old),Huseyin Cagatay Yalcin
+T0184,,Wt Wt Wt (AB),AB mix from T95 x 93,AB,Mixed Colony,2,1,3,1.8L,QU-IACUC 006/2023-AMM5,12-08-2025,03-02-2027,Active,Huseyin Cagatay Yalcin

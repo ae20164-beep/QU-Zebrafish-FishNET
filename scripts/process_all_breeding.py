@@ -269,6 +269,7 @@ def process():
         return None, str(raw_dob), ''
 
     # 3. Load FishNET Tanks with Sex Structure Analysis
+    # 3. Load FishNET Tanks with Sex Structure Analysis
     fishnet_tanks = {}
     tanks_tab_path = os.path.join(labels_dir, 'FishNet Exported Data', 'Tanks.tab')
     if not os.path.exists(tanks_tab_path):
@@ -276,30 +277,71 @@ def process():
 
     with open(tanks_tab_path, 'r', encoding='utf-8-sig', errors='ignore') as f:
         reader = list(csv.reader(f, delimiter='\t'))
-        for row in reader:
-            if not row or len(row) < 21:
+        
+    if reader:
+        header_row = reader[0]
+        has_header = ('TUID' in [c.strip().upper() for c in header_row] or 'STATUS' in [c.strip().upper() for c in header_row])
+        col_map = {col.strip().upper(): idx for idx, col in enumerate(header_row)} if has_header else {}
+        data_rows = reader[1:] if has_header else reader
+        
+        for row in data_rows:
+            if not row:
                 continue
-            # Col 21 (index 20): TUID
-            tuid = row[20].strip().upper()
-            if not tuid or not tuid.startswith('T'):
-                continue
-            
-            dob = row[0].strip()
-            dod = row[1].strip() if len(row) > 1 else ''
-            derivative_cross = row[2].strip() if len(row) > 2 else ''
-            facility = row[3].strip() if len(row) > 3 else ''
-            female = int(row[4].strip()) if len(row) > 4 and row[4].strip().isdigit() else 0
-            genotype = row[5].strip() if len(row) > 5 else ''
-            lab_member = row[6].strip() if len(row) > 6 else ''
-            male = int(row[7].strip()) if len(row) > 7 and row[7].strip().isdigit() else 0
-            notes = row[8].strip() if len(row) > 8 else ''
-            total = int(row[9].strip()) if len(row) > 9 and row[9].strip().isdigit() else (female + male)
-            protocol = row[10].strip() if len(row) > 10 else ''
-            room = row[12].strip() if len(row) > 12 else ''
-            status_raw = row[16].strip() if len(row) > 16 else 'Adult/Active'
-            tank_size = row[18].strip() if len(row) > 18 else ''
-            turnover_date = row[21].strip() if len(row) > 21 else ''
-            lab_name = row[22].strip() if len(row) > 22 else ''
+                
+            if has_header:
+                def get_val(col_name, default=''):
+                    idx = col_map.get(col_name.upper())
+                    if idx is not None and idx < len(row):
+                        return row[idx].strip()
+                    return default
+                    
+                tuid = get_val('TUID')
+                if not tuid or not tuid.upper().startswith('T'):
+                    continue
+                tuid = tuid.upper()
+                
+                dob = get_val('DOB') or get_val('DATE OF BIRTH')
+                dod = get_val('DATE OF DEATH') or get_val('DATE_OF_DEATH')
+                derivative_cross = get_val('DERIVATIVE_CROSS') or get_val('DERVITIVE CROSS')
+                facility = get_val('FACILITY', 'Zebrafish')
+                female_str = get_val('FEMALE') or get_val('FEMALES')
+                male_str = get_val('MALE') or get_val('MALES')
+                total_str = get_val('TOTAL_FISH') or get_val('NUMBER OF FISH') or get_val('TOTAL')
+                genotype = get_val('GENOTYPE')
+                notes = get_val('NOTES')
+                protocol = get_val('PROTOCOL')
+                status_raw = get_val('STATUS', 'Adult/Active')
+                tank_size = get_val('TANK_SIZE') or get_val('TANK SIZE')
+                turnover_date = get_val('TURNOVER_DEADLINE') or get_val('TURNOVER DATE')
+                lab_name = get_val('LABORATORIES::LAB NAME') or get_val('LAB NAME')
+                lab_member = get_val('LAB MEMBER')
+                room = get_val('ROOM', 'D126')
+            else:
+                if len(row) < 21:
+                    continue
+                tuid = row[20].strip().upper()
+                if not tuid or not tuid.startswith('T'):
+                    continue
+                dob = row[0].strip()
+                dod = row[1].strip() if len(row) > 1 else ''
+                derivative_cross = row[2].strip() if len(row) > 2 else ''
+                facility = row[3].strip() if len(row) > 3 else ''
+                female_str = row[4].strip() if len(row) > 4 else ''
+                genotype = row[5].strip() if len(row) > 5 else ''
+                lab_member = row[6].strip() if len(row) > 6 else ''
+                male_str = row[7].strip() if len(row) > 7 else ''
+                notes = row[8].strip() if len(row) > 8 else ''
+                total_str = row[9].strip() if len(row) > 9 else ''
+                protocol = row[10].strip() if len(row) > 10 else ''
+                room = row[12].strip() if len(row) > 12 else ''
+                status_raw = row[16].strip() if len(row) > 16 else 'Adult/Active'
+                tank_size = row[18].strip() if len(row) > 18 else ''
+                turnover_date = row[21].strip() if len(row) > 21 else ''
+                lab_name = row[22].strip() if len(row) > 22 else ''
+
+            female = int(female_str) if female_str.isdigit() else 0
+            male = int(male_str) if male_str.isdigit() else 0
+            total = int(total_str) if total_str.isdigit() else (female + male)
             
             # Accurate Line categorization
             g_upper = genotype.upper()
