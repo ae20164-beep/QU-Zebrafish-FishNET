@@ -1,0 +1,30 @@
+# Vercel Deployment Optimization Ignore File
+# Excludes heavy local datasets, raw images, and scripts from website deployments
+
+# Heavy training photos and camera RAW files (~330 MB)
+Training/
+*.dng
+*.RAW-*.jpg
+*.RAW-*.jpeg
+
+# Local data analysis, processing scripts & backups
+scripts/
+archive/
+google_sheets_import/
+FishNet Exported Data/
+
+# Local documents and database exports
+*.docx
+*.pptx
+*.pdf
+*.xlsx
+*.xls
+*.csv
+*.tab
+*.fmp12
+*.log
+google_sheets_live_sync.json
+
+# Documentation
+README.md
+SYSTEM_ARCHITECTURE_GUIDE.md

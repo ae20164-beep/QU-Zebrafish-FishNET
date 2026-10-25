@@ -5,3 +5,6 @@ temp_*
 *.tmp
 .DS_Store
 *.fmp12
+Training/
+*.dng
+google_sheets_live_sync.json
