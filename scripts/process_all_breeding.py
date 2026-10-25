@@ -446,6 +446,129 @@ def process():
 
     print(f'Loaded {len(unique_tanks)} unique tanks ({n_active} Active, {n_euth} Euthanized, {n_larvae} Larvae).')
     print(f'Sex Structure: {n_f_only} Female-Only, {n_m_only} Male-Only, {n_mixed} Mixed Colony.')
+    # Canonical Cross-Pairing Synergy (interchangeable setups unified)
+    def get_canonical_pair(t1, t2):
+        obj1 = unique_tanks.get(t1, {})
+        obj2 = unique_tanks.get(t2, {})
+        s1 = obj1.get('sex_type', '')
+        s2 = obj2.get('sex_type', '')
+        
+        if s1 == 'Female-Only' and s2 == 'Male-Only':
+            dam, sire = t1, t2
+        elif s2 == 'Female-Only' and s1 == 'Male-Only':
+            dam, sire = t2, t1
+        elif obj1.get('female', 0) > 0 and obj2.get('male', 0) > 0 and obj1.get('male', 0) == 0:
+            dam, sire = t1, t2
+        elif obj2.get('female', 0) > 0 and obj1.get('male', 0) > 0 and obj2.get('male', 0) == 0:
+            dam, sire = t2, t1
+        else:
+            psort = sorted([t1, t2])
+            dam, sire = psort[0], psort[1]
+            
+        p_key = f"{dam} x {sire}"
+        return p_key, dam, sire
+
+    def build_standard_event(year, date_iso, fishline, in_tank, eggs_raw, sr0_raw, live0_raw, sr24_raw, live24_raw=None, setup_staff='', collection_staff='', scoring_staff='', staff_summary='', source='', notes=''):
+        line, tanks = extract_line_and_tanks(fishline)
+        eggs_0h = max(0, parse_clean_int(eggs_raw))
+        sr_0h = parse_clean_float(sr0_raw)
+        if sr_0h > 100.0:
+            sr_0h = 100.0
+        if sr_0h < 0.0:
+            sr_0h = 0.0
+
+        live_0h = parse_clean_int(live0_raw) if live0_raw is not None and str(live0_raw).strip() != '' else 0
+        if live_0h <= 0 and eggs_0h > 0 and sr_0h > 0:
+            live_0h = int(round(eggs_0h * (sr_0h / 100.0)))
+        live_0h = min(eggs_0h, max(0, live_0h))
+
+        sr_24h = parse_clean_float(sr24_raw)
+        live_24h = parse_clean_int(live24_raw) if live24_raw is not None and str(live24_raw).strip() != '' else 0
+
+        # Handle outlier or column shift where live count was put in SR%
+        if sr_24h > 100.0:
+            if live_0h > 0 and sr_24h <= live_0h:
+                live_24h = int(round(sr_24h))
+                sr_24h = round((live_24h / live_0h) * 100.0, 1)
+            else:
+                sr_24h = 100.0
+                live_24h = live_0h
+        elif sr_24h < 0.0:
+            sr_24h = 0.0
+            live_24h = 0
+        else:
+            if live_24h <= 0 and live_0h > 0 and sr_24h > 0:
+                live_24h = int(round(live_0h * (sr_24h / 100.0)))
+            live_24h = min(live_0h, max(0, live_24h))
+
+        # Tank ID formatting
+        if len(tanks) == 1:
+            tank_id = tanks[0]
+        elif len(tanks) > 1:
+            tank_id = ' x '.join(tanks)
+        else:
+            tank_id = fishline.strip() or 'Unknown'
+
+        # Female / Male tank resolution for crosses
+        female_tank = ''
+        male_tank = ''
+        if len(tanks) >= 2:
+            fl_lower = fishline.lower()
+            m_f = re.search(r'([a-zA-Z0-9\.\-]+)\s*\(f\)', fl_lower)
+            m_m = re.search(r'([a-zA-Z0-9\.\-]+)\s*\(m\)', fl_lower)
+            if m_f:
+                _, f_tanks = extract_line_and_tanks(m_f.group(1))
+                if f_tanks: female_tank = f_tanks[0]
+            if m_m:
+                _, m_tanks = extract_line_and_tanks(m_m.group(1))
+                if m_tanks: male_tank = m_tanks[0]
+            if not female_tank or not male_tank:
+                t1, t2 = tanks[0], tanks[1]
+                obj1 = unique_tanks.get(t1, {})
+                obj2 = unique_tanks.get(t2, {})
+                s1 = obj1.get('sex_type', '')
+                s2 = obj2.get('sex_type', '')
+                if s1 == 'Female-Only' and s2 == 'Male-Only':
+                    female_tank, male_tank = t1, t2
+                elif s2 == 'Female-Only' and s1 == 'Male-Only':
+                    female_tank, male_tank = t2, t1
+                else:
+                    female_tank, male_tank = min(t1, t2), max(t1, t2)
+        elif len(tanks) == 1:
+            t_obj = unique_tanks.get(tanks[0], {})
+            if t_obj.get('sex_type') == 'Female-Only':
+                female_tank = tanks[0]
+            elif t_obj.get('sex_type') == 'Male-Only':
+                male_tank = tanks[0]
+
+        staff_clean = staff_summary or setup_staff or scoring_staff or collection_staff or 'Lab Staff'
+
+        return {
+            'year': year,
+            'date': date_iso,
+            'fishline': fishline,
+            'line': line,
+            'tanks': tanks,
+            'primary_tank': tanks[0] if tanks else '',
+            'tank_id': tank_id,
+            'female_tank': female_tank,
+            'male_tank': male_tank,
+            'in_tank': in_tank,
+            'mating_type': 'In-Tank' if in_tank else 'Pair-Wise',
+            'setup_staff': setup_staff,
+            'collection_staff': collection_staff,
+            'scoring_24h_staff': scoring_staff,
+            'staff_summary': staff_clean,
+            'staff': staff_clean,
+            'eggs_0h': eggs_0h,
+            'sr_0h': sr_0h,
+            'live_0h': live_0h,
+            'sr_24h': sr_24h,
+            'live_24h': live_24h,
+            'fertility_success': (live_24h > 0),
+            'notes': notes,
+            'source': source
+        }
 
     # 2. Parse 2026 Data from verified 2026_Updated.xlsx
     p26_events = []
@@ -480,35 +603,26 @@ def process():
             in_tank = bool(in_tank_val)
             if isinstance(in_tank_val, str):
                 in_tank = in_tank_val.strip().upper() in ['TRUE', 'YES', '1']
-                
-            line, tanks = extract_line_and_tanks(fl)
-            eggs_0h = parse_clean_int(eggs)
-            sr_0h = parse_clean_float(sr0)
-            live_0h = parse_clean_int(live0) if live0 else int(round(eggs_0h * (sr_0h / 100.0)))
-            sr_24h = parse_clean_float(sr24)
-            live_24h = int(round(live_0h * (sr_24h / 100.0))) if sr_24h > 0 else 0
+
+            ev_obj = build_standard_event(
+                year=2026,
+                date_iso=date_iso,
+                fishline=fl,
+                in_tank=in_tank,
+                eggs_raw=eggs,
+                sr0_raw=sr0,
+                live0_raw=live0,
+                sr24_raw=sr24,
+                live24_raw=None,
+                setup_staff='Lab Staff',
+                collection_staff='Lab Staff',
+                scoring_staff='Lab Staff',
+                staff_summary='Lab Staff',
+                source='2026_Updated'
+            )
             
-            csv_rows_to_save.append([date_iso, fl, in_tank, eggs_0h, sr_0h, live_0h, sr_24h])
-            
-            p26_events.append({
-                'year': 2026,
-                'date': date_iso,
-                'fishline': fl,
-                'line': line,
-                'tanks': tanks,
-                'primary_tank': tanks[0] if tanks else '',
-                'in_tank': in_tank,
-                'setup_staff': 'Lab Staff',
-                'collection_staff': 'Lab Staff',
-                'scoring_24h_staff': 'Lab Staff',
-                'staff_summary': 'Lab Staff',
-                'eggs_0h': eggs_0h,
-                'sr_0h': sr_0h,
-                'live_0h': live_0h,
-                'sr_24h': sr_24h,
-                'live_24h': live_24h,
-                'source': '2026_Updated'
-            })
+            csv_rows_to_save.append([ev_obj['date'], ev_obj['fishline'], ev_obj['in_tank'], ev_obj['eggs_0h'], ev_obj['sr_0h'], ev_obj['live_0h'], ev_obj['sr_24h']])
+            p26_events.append(ev_obj)
             
         with open(p26_csv_path, 'w', newline='', encoding='utf-8') as f:
             csv.writer(f).writerows(csv_rows_to_save)
@@ -522,33 +636,29 @@ def process():
                     continue
                 date_iso = parse_date(r[0], 2026)
                 fishline = r[1].strip()
-                line, tanks = extract_line_and_tanks(fishline)
                 in_tank = r[2].strip().upper() in ['TRUE', 'YES', '1'] if len(r) > 2 else ('intank' in fishline.lower())
-                eggs_0h = parse_clean_int(r[3]) if len(r) > 3 else 0
-                sr_0h = parse_clean_float(r[4]) if len(r) > 4 else 0.0
-                live_0h = parse_clean_int(r[5]) if len(r) > 5 else int(round(eggs_0h * (sr_0h / 100.0)))
-                sr_24h = parse_clean_float(r[6]) if len(r) > 6 else 0.0
-                live_24h = int(round(live_0h * (sr_24h / 100.0))) if sr_24h > 0 else 0
+                eggs_0h = r[3] if len(r) > 3 else 0
+                sr_0h = r[4] if len(r) > 4 else 0.0
+                live_0h = r[5] if len(r) > 5 else 0
+                sr_24h = r[6] if len(r) > 6 else 0.0
                 
-                p26_events.append({
-                    'year': 2026,
-                    'date': date_iso,
-                    'fishline': fishline,
-                    'line': line,
-                    'tanks': tanks,
-                    'primary_tank': tanks[0] if tanks else '',
-                    'in_tank': in_tank,
-                    'setup_staff': 'Lab Staff',
-                    'collection_staff': 'Lab Staff',
-                    'scoring_24h_staff': 'Lab Staff',
-                    'staff_summary': 'Lab Staff',
-                    'eggs_0h': eggs_0h,
-                    'sr_0h': sr_0h,
-                    'live_0h': live_0h,
-                    'sr_24h': sr_24h,
-                    'live_24h': live_24h,
-                    'source': '2026_Updated'
-                })
+                ev_obj = build_standard_event(
+                    year=2026,
+                    date_iso=date_iso,
+                    fishline=fishline,
+                    in_tank=in_tank,
+                    eggs_raw=eggs_0h,
+                    sr0_raw=sr_0h,
+                    live0_raw=live_0h,
+                    sr24_raw=sr_24h,
+                    live24_raw=None,
+                    setup_staff='Lab Staff',
+                    collection_staff='Lab Staff',
+                    scoring_staff='Lab Staff',
+                    staff_summary='Lab Staff',
+                    source='2026_Updated'
+                )
+                p26_events.append(ev_obj)
 
     # Sort 2026 events by date
     p26_events.sort(key=lambda x: x['date'] or '')
@@ -566,33 +676,26 @@ def process():
                 continue
             date_iso = parse_date(r[0], 2024)
             fishline = r[1].strip()
-            line, tanks = extract_line_and_tanks(fishline)
             in_tank = (r[2].strip().upper() == 'TRUE') or ('intank' in fishline.lower())
-            eggs_0h = parse_clean_int(r[3])
-            sr_0h = parse_clean_float(r[4])
-            live_0h = parse_clean_int(r[5]) if len(r) > 5 else int(round(eggs_0h * (sr_0h / 100.0)))
-            sr_24h = parse_clean_float(r[6]) if len(r) > 6 else 0.0
-            live_24h = parse_clean_int(r[7]) if len(r) > 7 else int(round(live_0h * (sr_24h / 100.0)))
+            eggs_0h = r[3]
+            sr_0h = r[4]
+            live_0h = r[5] if len(r) > 5 else None
+            sr_24h = r[6] if len(r) > 6 else 0.0
+            live_24h = r[7] if len(r) > 7 else None
             
-            all_events.append({
-                'year': 2024,
-                'date': date_iso,
-                'fishline': fishline,
-                'line': line,
-                'tanks': tanks,
-                'primary_tank': tanks[0] if tanks else '',
-                'in_tank': in_tank,
-                'setup_staff': '',
-                'collection_staff': '',
-                'scoring_24h_staff': '',
-                'staff_summary': '',
-                'eggs_0h': eggs_0h,
-                'sr_0h': sr_0h,
-                'live_0h': live_0h,
-                'sr_24h': sr_24h,
-                'live_24h': live_24h,
-                'source': '2024_master'
-            })
+            ev_obj = build_standard_event(
+                year=2024,
+                date_iso=date_iso,
+                fishline=fishline,
+                in_tank=in_tank,
+                eggs_raw=eggs_0h,
+                sr0_raw=sr_0h,
+                live0_raw=live_0h,
+                sr24_raw=sr_24h,
+                live24_raw=live_24h,
+                source='2024_master'
+            )
+            all_events.append(ev_obj)
 
     # 2025
     p25_path = os.path.join(done_dir, '25-including intank.xlsx')
@@ -602,36 +705,31 @@ def process():
             continue
         date_iso = parse_date(r[0], 2025)
         fishline = r[1].strip() if len(r) > 1 else ''
-        line, tanks = extract_line_and_tanks(fishline)
         in_tank = (r[2].strip() == '1' or r[2].strip().upper() == 'TRUE') if len(r) > 2 else False
-        eggs_0h = parse_clean_int(r[3]) if len(r) > 3 else 0
-        sr_0h = parse_clean_float(r[4]) if len(r) > 4 else 0.0
-        live_0h = parse_clean_int(r[5]) if len(r) > 5 else int(round(eggs_0h * (sr_0h / 100.0)))
-        sr_24h = parse_clean_float(r[6]) if len(r) > 6 else 0.0
-        live_24h = int(round(live_0h * (sr_24h / 100.0))) if sr_24h > 0 else 0
+        eggs_0h = r[3] if len(r) > 3 else 0
+        sr_0h = r[4] if len(r) > 4 else 0.0
+        live_0h = r[5] if len(r) > 5 else None
+        sr_24h = r[6] if len(r) > 6 else 0.0
+        live_24h = None
 
-        all_events.append({
-            'year': 2025,
-            'date': date_iso,
-            'fishline': fishline,
-            'line': line,
-            'tanks': tanks,
-            'primary_tank': tanks[0] if tanks else '',
-            'in_tank': in_tank,
-            'setup_staff': '',
-            'collection_staff': '',
-            'scoring_24h_staff': '',
-            'staff_summary': '',
-            'eggs_0h': eggs_0h,
-            'sr_0h': sr_0h,
-            'live_0h': live_0h,
-            'sr_24h': sr_24h,
-            'live_24h': live_24h,
-            'source': '2025_master'
-        })
+        ev_obj = build_standard_event(
+            year=2025,
+            date_iso=date_iso,
+            fishline=fishline,
+            in_tank=in_tank,
+            eggs_raw=eggs_0h,
+            sr0_raw=sr_0h,
+            live0_raw=live_0h,
+            sr24_raw=sr_24h,
+            live24_raw=live_24h,
+            source='2025_master'
+        )
+        all_events.append(ev_obj)
 
     all_events.extend(p26_events)
     all_events.sort(key=lambda x: x['date'] or '')
+    for idx, ev in enumerate(all_events, 1):
+        ev['event_id'] = f"EV-{idx:05d}"
     print(f'Total Grand Combined Events (2024-2026): {len(all_events)}')
 
     # 4. Compute Tank Breeding Metrics joined with FishNET.tab
@@ -657,27 +755,6 @@ def process():
         }
 
     # Canonical Cross-Pairing Synergy (interchangeable setups unified)
-    def get_canonical_pair(t1, t2):
-        obj1 = unique_tanks.get(t1, {})
-        obj2 = unique_tanks.get(t2, {})
-        s1 = obj1.get('sex_type', '')
-        s2 = obj2.get('sex_type', '')
-        
-        if s1 == 'Female-Only' and s2 == 'Male-Only':
-            dam, sire = t1, t2
-        elif s2 == 'Female-Only' and s1 == 'Male-Only':
-            dam, sire = t2, t1
-        elif obj1.get('female', 0) > 0 and obj2.get('male', 0) > 0 and obj1.get('male', 0) == 0:
-            dam, sire = t1, t2
-        elif obj2.get('female', 0) > 0 and obj1.get('male', 0) > 0 and obj2.get('male', 0) == 0:
-            dam, sire = t2, t1
-        else:
-            psort = sorted([t1, t2])
-            dam, sire = psort[0], psort[1]
-            
-        p_key = f"{dam} x {sire}"
-        return p_key, dam, sire
-
     pair_synergies = defaultdict(lambda: {
         'tank_a': '', 'tank_b': '', 'dam': '', 'sire': '', 'line': '', 'dam_line': '', 'sire_line': '', 'is_outcross': False,
         'spawns': 0, 'eggs': 0, 'live24h': 0, 'sr0_sum': 0, 'sr24_sum': 0
@@ -760,7 +837,7 @@ def process():
                     'live_24h': ev['live_24h'],
                     'in_tank': ev['in_tank'],
                     'age_months': age_months,
-                    'staff': ev.get('staff_summary', '')
+                    'staff': ev.get('staff', 'Lab Staff'), 'fishline': ev.get('fishline', ''), 'tank_id': ev.get('tank_id', '')
                 })
 
     for tuid, st in tank_stats.items():

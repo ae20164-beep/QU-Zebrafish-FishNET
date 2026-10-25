@@ -43,19 +43,23 @@ def export_for_google_sheets():
     events_csv = os.path.join(out_dir, '2_Breeding_Events.csv')
     with open(events_csv, 'w', newline='', encoding='utf-8') as f:
         writer = csv.writer(f)
-        writer.writerow(['Date', 'Line', 'Mating_Type', 'Tank_ID', 'Eggs_0H', 'SR_0H_Pct', 'SR_24H_Pct', 'Live_24H', 'Female_Tank', 'Male_Tank', 'Notes', 'Operator'])
+        writer.writerow(['Event_ID', 'Date', 'Fishline_Raw', 'Line', 'Mating_Type', 'Tank_ID', 'Eggs_0H', 'SR_0H_Pct', 'Live_0H', 'SR_24H_Pct', 'Live_24H', 'Female_Tank', 'Male_Tank', 'Fertility_Success', 'Notes', 'Operator'])
         for ev in events:
             writer.writerow([
+                ev.get('event_id', ''),
                 ev.get('date', ''),
+                ev.get('fishline', ''),
                 ev.get('line', 'AB'),
                 'In-Tank' if ev.get('in_tank') else 'Pair-Wise',
                 ev.get('tank_id', ''),
                 ev.get('eggs_0h', 0),
                 ev.get('sr_0h', 0),
+                ev.get('live_0h', 0),
                 ev.get('sr_24h', 0),
                 ev.get('live_24h', 0),
                 ev.get('female_tank', ''),
                 ev.get('male_tank', ''),
+                'Yes' if ev.get('live_24h', 0) > 0 else 'No',
                 ev.get('notes', ''),
                 ev.get('staff', 'Lab Staff')
             ])

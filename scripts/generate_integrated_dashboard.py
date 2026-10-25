@@ -790,7 +790,7 @@ def generate_dashboard():
         <button class="tab-btn" onclick="switchTab('tab-pedigree')">🌳 Pedigree Explorer</button>
         <button class="tab-btn" onclick="switchTab('tab-turnover')">⏳ Turnover & Colony Renewal</button>
         <button class="tab-btn" onclick="switchTab('tab-crosses-reg')">🧬 Crosses & Nursery Registry</button>
-        <button class="tab-btn" onclick="switchTab('tab-alerts')">⚠️ Colony Alerts (<span id="tabBadgeAlerts">120</span>)</button>
+        <button class="tab-btn" onclick="switchTab('tab-alerts')">⚠️ Colony Alerts (<span id="tabBadgeAlerts">98</span>)</button>
         <button class="tab-btn" onclick="switchTab('tab-crosses')">🧬 Cross-Pairing Synergies (Sire x Dam)</button>
         <button class="tab-btn" onclick="switchTab('tab-trends')">📈 Longitudinal Trends & Climate Seasonality</button>
         <button class="tab-btn" onclick="switchTab('tab-age-curves')">🔬 Parental Age vs. Fecundity</button>
@@ -798,7 +798,7 @@ def generate_dashboard():
         <button class="tab-btn" onclick="switchTab('tab-inventory')">🐠 FishNET Inventory & Sex Structure</button>
         <button class="tab-btn" onclick="switchTab('tab-audit')">🔍 Data Quality & Sex Consistency Audit</button>
         <button class="tab-btn" onclick="switchTab('tab-planner')">🎯 Intelligent Mating Planner</button>
-        <button class="tab-btn" onclick="switchTab('tab-raw-events')">📋 Master Breeding Log (2,233 Events)</button>
+        <button class="tab-btn" onclick="switchTab('tab-raw-events')">📋 Master Breeding Log (2,224 Events)</button>
     </div>
 
     <!-- TAB 1: 4-Line Benchmarks -->
@@ -1647,10 +1647,11 @@ def generate_dashboard():
         <div class="card">
             <div class="card-header">
                 <div>
-                    <span class="card-title">📋 Grand Master Spawning Event Log (<span id="rawHeaderCount">2,233</span> Events)</span>
-                    <span style="font-size: 12px; color: var(--text-secondary);">Full individual spawning log history with multi-page navigation</span>
+                    <span class="card-title">📋 Grand Master Spawning Event Log (<span id="rawHeaderCount">2,224</span> Events)</span>
+                    <span style="font-size: 12px; color: var(--text-secondary);">Full individual spawning log history with multi-page navigation and verified records</span>
                 </div>
-                <div class="card-header-actions">
+                <div class="card-header-actions" style="display: flex; gap: 8px;">
+                    <button class="btn btn-sm btn-outline" onclick="resetAllLocalEdits()" title="Reset to official facility server data">🔄 Reset to Server Data</button>
                     <button class="btn btn-sm btn-outline" onclick="exportTableToCSV('rawEventsTable', 'grand_master_breeding_events_2024_2026')">📥 Export Filtered Log (CSV)</button>
                 </div>
             </div>
@@ -1658,8 +1659,8 @@ def generate_dashboard():
                 <div class="filter-group">
                     <span class="filter-label">Year:</span>
                     <select id="rawYearFilter" onchange="renderRawEvents(true)">
-                        <option value="ALL">All Years (2024-2026)</option>
-                        <option value="2026">2026 (544 events)</option>
+                        <option value="ALL">All Years (2024-2026) — 2,224 events</option>
+                        <option value="2026">2026 (535 events)</option>
                         <option value="2025">2025 (1,229 events)</option>
                         <option value="2024">2024 (460 events)</option>
                     </select>
@@ -1684,16 +1685,20 @@ def generate_dashboard():
                 <table id="rawEventsTable">
                     <thead>
                         <tr>
+                            <th>ID</th>
                             <th>Date</th>
                             <th>Line</th>
+                            <th>Log Entry / Fishline</th>
                             <th>Mating Type</th>
                             <th>Tanks Involved</th>
-                            <th>Eggs (0hpf)</th>
-                            <th>0hpf SR (%)</th>
-                            <th>24hpf SR (%)</th>
-                            <th>Viable Embryos (24h)</th>
+                            <th style="text-align: right;">Eggs (0h)</th>
+                            <th style="text-align: right;">0h SR%</th>
+                            <th style="text-align: right;">Live (0h)</th>
+                            <th style="text-align: right;">24h SR%</th>
+                            <th style="text-align: right;">Live (24h)</th>
+                            <th>Fertility</th>
                             <th>Staff</th>
-                            <th>Action</th>
+                            <th class="no-export">Action</th>
                         </tr>
                     </thead>
                     <tbody id="rawEventsTableBody">
@@ -1705,7 +1710,7 @@ def generate_dashboard():
             <!-- Pagination & Rows-Per-Page Toolbar -->
             <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; border-top: 1px solid var(--border-color); flex-wrap: wrap; gap: 12px; background: rgba(15,23,42,0.3); margin-top: 8px; border-radius: 0 0 var(--radius-md) var(--radius-md);">
                 <div style="display: flex; align-items: center; gap: 14px; font-size: 12px; color: var(--text-secondary); flex-wrap: wrap;">
-                    <span>Showing <b id="rawPageRange" style="color: #fff;">1 - 50</b> of <b id="rawTotalCount" style="color: #fff;">2,233</b> events</span>
+                    <span>Showing <b id="rawPageRange" style="color: #fff;">1 - 50</b> of <b id="rawTotalCount" style="color: #fff;">2,224</b> events</span>
                     <div style="display: flex; align-items: center; gap: 6px;">
                         <span>Rows per page:</span>
                         <select id="rawPageSize" onchange="changeRawPageSize(this.value)" style="background: var(--bg-card); color: #fff; border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 4px 8px; font-size: 12px; cursor: pointer;">
@@ -1713,7 +1718,7 @@ def generate_dashboard():
                             <option value="100">100 rows</option>
                             <option value="200">200 rows</option>
                             <option value="500">500 rows</option>
-                            <option value="ALL">All rows (2,233)</option>
+                            <option value="ALL">All rows (2,224)</option>
                         </select>
                     </div>
                 </div>
@@ -3117,7 +3122,21 @@ def generate_dashboard():
             let list = currentEvents;
             if (year !== 'ALL') list = list.filter(e => e.year === parseInt(year));
             if (line !== 'ALL') list = list.filter(e => e.line === line);
-            if (search) list = list.filter(e => (e.tank_id && e.tank_id.toUpperCase().includes(search)) || (e.date && e.date.includes(search)) || (e.staff && e.staff.toUpperCase().includes(search)) || (e.notes && e.notes.toUpperCase().includes(search)));
+            if (search) {
+                list = list.filter(e => {
+                    const matchTank = (e.tank_id && e.tank_id.toUpperCase().includes(search)) ||
+                                      (e.primary_tank && e.primary_tank.toUpperCase().includes(search)) ||
+                                      (e.tanks && e.tanks.some(t => t.toUpperCase().includes(search)));
+                    const matchFishline = e.fishline && e.fishline.toUpperCase().includes(search);
+                    const matchDate = e.date && e.date.includes(search);
+                    const matchStaff = (e.staff && e.staff.toUpperCase().includes(search)) ||
+                                       (e.staff_summary && e.staff_summary.toUpperCase().includes(search));
+                    const matchLine = e.line && e.line.toUpperCase().includes(search);
+                    const matchEventId = e.event_id && e.event_id.toUpperCase().includes(search);
+                    const matchNotes = e.notes && e.notes.toUpperCase().includes(search);
+                    return matchTank || matchFishline || matchDate || matchStaff || matchLine || matchEventId || matchNotes;
+                });
+            }
 
             const totalFiltered = list.length;
             const pageSizeNum = rawPageSize === Infinity ? totalFiltered : rawPageSize;
@@ -3133,24 +3152,49 @@ def generate_dashboard():
             let htmlRows = '';
             pageItems.forEach(e => {
                 const badgeClass = `badge-${(e.line || 'other').toLowerCase()}`;
+                const globalIdx = currentEvents.indexOf(e);
+                const eventId = e.event_id || `EV-${String(globalIdx + 1).padStart(5, '0')}`;
+                
+                // Clickable Tanks
+                let tanksHtml = '';
+                if (e.tanks && e.tanks.length > 0) {
+                    tanksHtml = e.tanks.map(t => `<a href="javascript:void(0)" onclick="openTankModal('${t}')" style="text-decoration:none;"><span class="badge" style="background: rgba(59,130,246,0.18); color: #60a5fa; border: 1px solid rgba(59,130,246,0.35); font-weight: 600; cursor: pointer; padding: 2px 6px; font-size: 11px;">${t}</span></a>`).join(' ');
+                } else if (e.tank_id) {
+                    tanksHtml = `<strong>${e.tank_id}</strong>`;
+                } else {
+                    tanksHtml = '<span style="color: var(--text-muted);">-</span>';
+                }
+
+                // Viability Badge
+                const isFertile = (e.live_24h > 0);
+                const fertilityBadge = isFertile
+                    ? `<span class="badge" style="background: rgba(34,197,94,0.15); color: #4ade80; border: 1px solid rgba(34,197,94,0.3); font-size: 11px; padding: 2px 6px;">✓ Fertile</span>`
+                    : `<span class="badge" style="background: rgba(239,68,68,0.15); color: #f87171; border: 1px solid rgba(239,68,68,0.3); font-size: 11px; padding: 2px 6px;">✗ Zero Viable</span>`;
+
+                const live0Val = e.live_0h !== undefined ? e.live_0h : (e.eggs_0h ? Math.round(e.eggs_0h * e.sr_0h / 100) : 0);
+
                 htmlRows += `
                     <tr>
-                        <td>${e.date}</td>
+                        <td style="font-family: monospace; font-size: 11px; color: var(--text-secondary); white-space: nowrap;">${eventId}</td>
+                        <td style="white-space: nowrap;"><strong>${e.date}</strong></td>
                         <td><span class="badge ${badgeClass}">${e.line}</span></td>
-                        <td>${e.in_tank ? 'In-Tank' : 'Pair-Wise'}</td>
-                        <td><strong>${e.tank_id}</strong></td>
-                        <td>${e.eggs_0h}</td>
-                        <td>${e.sr_0h}%</td>
-                        <td>${e.sr_24h}%</td>
-                        <td><strong>${e.live_24h}</strong></td>
-                        <td>${e.staff || '-'}</td>
+                        <td style="max-width: 240px; font-size: 12px; color: #f1f5f9; word-break: break-word;" title="${e.fishline || ''}"><strong>${e.fishline || '-'}</strong></td>
+                        <td><span class="badge" style="background: ${e.in_tank ? 'rgba(168,85,247,0.15)' : 'rgba(59,130,246,0.15)'}; color: ${e.in_tank ? '#c084fc' : '#60a5fa'}; font-size: 11px; padding: 2px 6px;">${e.in_tank ? 'In-Tank' : 'Pair-Wise'}</span></td>
+                        <td>${tanksHtml}</td>
+                        <td style="text-align: right;">${e.eggs_0h ? e.eggs_0h.toLocaleString() : 0}</td>
+                        <td style="text-align: right;">${e.sr_0h}%</td>
+                        <td style="text-align: right;">${live0Val.toLocaleString()}</td>
+                        <td style="text-align: right;"><strong>${e.sr_24h}%</strong></td>
+                        <td style="text-align: right; color: #4ade80;"><strong>${e.live_24h ? e.live_24h.toLocaleString() : 0}</strong></td>
+                        <td>${fertilityBadge}</td>
+                        <td style="font-size: 12px; color: var(--text-secondary); white-space: nowrap;">${e.staff || e.staff_summary || 'Lab Staff'}</td>
                         <td class="no-export">
-                            <button class="btn btn-sm btn-blue" style="padding: 2px 6px; font-size: 11px;" onclick="openEditEventModal(${currentEvents.indexOf(e)})">✏️ Edit</button>
+                            <button class="btn btn-sm btn-blue" style="padding: 2px 6px; font-size: 11px;" onclick="openEditEventModal(${globalIdx})">✏️ Edit</button>
                         </td>
                     </tr>
                 `;
             });
-            tbody.innerHTML = htmlRows || '<tr><td colspan="10" style="text-align: center; color: var(--text-muted); padding: 20px;">No matching breeding records found.</td></tr>';
+            tbody.innerHTML = htmlRows || '<tr><td colspan="14" style="text-align: center; color: var(--text-muted); padding: 20px;">No matching breeding records found.</td></tr>';
 
             // Update Counts & Labels
             const headerCount = document.getElementById('rawHeaderCount');
@@ -3461,7 +3505,10 @@ def generate_dashboard():
             currentEditTargetId = eventIndex;
             clearValidationAlert();
 
-            document.getElementById('editModalTitle').innerText = `✏️ Edit Spawning Event (${ev.date} - ${ev.tank_id})`;
+            const evTankDisplay = ev.tank_id || (ev.tanks && ev.tanks.length ? ev.tanks.join(' x ') : (ev.primary_tank || ''));
+            const evStaffDisplay = ev.staff || ev.staff_summary || 'Lab Staff';
+
+            document.getElementById('editModalTitle').innerText = `✏️ Edit Spawning Event (${ev.date} - ${evTankDisplay})`;
             document.getElementById('editModalSubtitle').innerText = `Update egg counts or 24hpf live embryo survival. Viability SR% will automatically re-calculate.`;
 
             const formContent = document.getElementById('editFormContent');
@@ -3473,7 +3520,7 @@ def generate_dashboard():
                     </div>
                     <div class="form-group">
                         <label>Tank / Pair ID:</label>
-                        <input type="text" id="editEventTank" value="${ev.tank_id}" required>
+                        <input type="text" id="editEventTank" value="${evTankDisplay}" required>
                     </div>
                     <div class="form-group">
                         <label>Line / Strain:</label>
@@ -3487,6 +3534,10 @@ def generate_dashboard():
                         </select>
                     </div>
                     <div class="form-group">
+                        <label>Raw Fishline Log Entry:</label>
+                        <input type="text" id="editEventFishline" value="${ev.fishline || ''}">
+                    </div>
+                    <div class="form-group">
                         <label>Total Eggs Spawned (0hpf):</label>
                         <input type="number" id="editEventEggs" min="0" value="${ev.eggs_0h}" required>
                     </div>
@@ -3496,7 +3547,7 @@ def generate_dashboard():
                     </div>
                     <div class="form-group">
                         <label>Staff / Operator:</label>
-                        <input type="text" id="editEventStaff" value="${ev.staff || ''}" placeholder="e.g. AA, MA">
+                        <input type="text" id="editEventStaff" value="${evStaffDisplay}" placeholder="e.g. Enas, AE, AF, Sadique">
                     </div>
                     <div class="form-group" style="grid-column: 1 / -1;">
                         <label>Log Notes / Observations:</label>
@@ -3700,7 +3751,9 @@ def generate_dashboard():
 
             ev.date = newDate;
             ev.tank_id = newTank;
+            ev.primary_tank = newTank.split(' ')[0];
             ev.line = newLine;
+            ev.fishline = document.getElementById('editEventFishline') ? document.getElementById('editEventFishline').value : (ev.fishline || newTank);
             ev.eggs_0h = newEggs;
             ev.live_24h = newLive;
             ev.sr_24h = newEggs > 0 ? Number(((newLive / newEggs) * 100).toFixed(1)) : 0;
@@ -3723,12 +3776,13 @@ def generate_dashboard():
             try {
                 localStorage.setItem('fishnet_persisted_tanks', JSON.stringify(currentTanks));
                 localStorage.setItem('fishnet_persisted_crosses', JSON.stringify(currentCrosses));
-                localStorage.setItem('fishnet_persisted_events', JSON.stringify(currentEvents));
+                localStorage.setItem(CACHE_KEY_EVENTS, JSON.stringify(currentEvents));
             } catch(e) {
                 console.warn('LocalStorage save error:', e);
             }
         }
 
+        const CACHE_KEY_EVENTS = 'fishnet_persisted_events_v2026';
         function loadPersistedEdits() {
             try {
                 const savedTanks = localStorage.getItem('fishnet_persisted_tanks');
@@ -3737,10 +3791,25 @@ def generate_dashboard():
                 const savedCrosses = localStorage.getItem('fishnet_persisted_crosses');
                 if (savedCrosses) currentCrosses = JSON.parse(savedCrosses);
 
-                const savedEvents = localStorage.getItem('fishnet_persisted_events');
-                if (savedEvents) currentEvents = JSON.parse(savedEvents);
+                const savedEvents = localStorage.getItem(CACHE_KEY_EVENTS);
+                if (savedEvents) {
+                    const parsed = JSON.parse(savedEvents);
+                    if (Array.isArray(parsed) && parsed.length === (MASTER_DATA.events || []).length) {
+                        currentEvents = parsed;
+                    }
+                }
             } catch(e) {
                 console.warn('LocalStorage load error:', e);
+            }
+        }
+
+        function resetAllLocalEdits() {
+            if (confirm('Reset to official facility data and discard local browser changes?')) {
+                localStorage.removeItem('fishnet_persisted_tanks');
+                localStorage.removeItem('fishnet_persisted_crosses');
+                localStorage.removeItem(CACHE_KEY_EVENTS);
+                localStorage.removeItem('fishnet_persisted_events');
+                location.reload();
             }
         }
 
