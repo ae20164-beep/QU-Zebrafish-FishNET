@@ -1895,7 +1895,7 @@ def generate_dashboard():
         }
 
         function exportBreedingCSV() {
-            window.open('DONE/fishnet_master_breeding_2024_2026.csv', '_blank');
+            window.open('archive/DONE/fishnet_master_breeding_2024_2026.csv', '_blank');
         }
 
         function exportBreedingJSON() {

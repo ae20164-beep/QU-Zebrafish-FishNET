@@ -1,5 +1,4 @@
 Date,Line,Mating_Type,Tank_ID,Eggs_0H,SR_0H_Pct,SR_24H_Pct,Live_24H,Female_Tank,Male_Tank,Notes,Operator
-1/A,AB,Pair-Wise,,912,100.0,0.0,0,,,,Lab Staff
 2024-01-22,AB,Pair-Wise,,1252,100.0,86.3,1080,,,,Lab Staff
 2024-01-22,Fli,Pair-Wise,,22,100.0,0.0,0,,,,Lab Staff
 2024-01-22,Fli,Pair-Wise,,699,67.0,58.0,272,,,,Lab Staff
@@ -1689,49 +1688,48 @@ Date,Line,Mating_Type,Tank_ID,Eggs_0H,SR_0H_Pct,SR_24H_Pct,Live_24H,Female_Tank,
 2025-12-23,AB,Pair-Wise,,649,100.0,78.0,506,,,,Lab Staff
 2025-12-23,AB,Pair-Wise,,716,100.0,67.0,480,,,,Lab Staff
 2025-12-23,AB,Pair-Wise,,957,100.0,75.0,718,,,,Lab Staff
-2026-01-01,AB,Pair-Wise,,1696,100.0,0.0,0,,,,Lab Staff
-2026-01-01,AB,Pair-Wise,,433,100.0,92.8,402,,,,Lab Staff
-2026-01-01,AB,Pair-Wise,,1218,100.0,73.0,889,,,,Lab Staff
-2026-01-01,AB,Pair-Wise,,1783,100.0,78.0,1391,,,,Lab Staff
-2026-01-01,AB,Pair-Wise,,592,100.0,97.0,574,,,,Lab Staff
 2026-01-03,AB,In-Tank,,898,100.0,87.7,788,,,,Lab Staff
 2026-01-03,AB,In-Tank,,468,100.0,84.6,396,,,,Lab Staff
 2026-01-03,AB,In-Tank,,236,100.0,94.06,222,,,,Lab Staff
 2026-01-05,AB,Pair-Wise,,447,64.0,67.0,192,,,,Lab Staff
 2026-01-05,AB,Pair-Wise,,664,100.0,84.9,564,,,,Lab Staff
 2026-01-05,AB,In-Tank,,579,100.0,72.0,417,,,,Lab Staff
-2026-01-05,AB,In-Tank,,439,96.8,87.0,370,,,,Lab Staff
-2026-01-05,AB,In-Tank,,560,78.5,91.0,400,,,,Lab Staff
+2026-01-05,AB,In-Tank,,439,96.8,87.0,369,,,,Lab Staff
+2026-01-05,AB,In-Tank,,560,78.5,91.0,399,,,,Lab Staff
+2026-01-05,Fli,In-Tank,,50,20.0,0.0,0,,,,Lab Staff
+2026-01-06,Fli,In-Tank,,337,100.0,90.8,306,,,,Lab Staff
 2026-01-10,AB,Pair-Wise,,596,93.0,92.6,513,,,,Lab Staff
 2026-01-10,AB,In-Tank,,418,84.0,81.0,284,,,,Lab Staff
 2026-01-10,AB,Pair-Wise,,193,93.0,79.5,142,,,,Lab Staff
 2026-01-11,AB,In-Tank,,342,91.0,84.2,262,,,,Lab Staff
 2026-01-11,AB,In-Tank,,1437,98.0,88.7,1249,,,,Lab Staff
 2026-01-14,AB,Pair-Wise,,0,0.0,0.0,0,,,,Lab Staff
-2026-01-14,AB,Pair-Wise,,320,97.0,83.0,257,,,,Lab Staff
+2026-01-14,AB,Pair-Wise,,940,97.0,72.5,660,,,,Lab Staff
 2026-01-14,AB,Pair-Wise,,428,97.0,98.5,409,,,,Lab Staff
 2026-01-14,AB,In-Tank,,170,100.0,92.9,158,,,,Lab Staff
 2026-01-15,AB,Pair-Wise,,0,0.0,0.0,0,,,,Lab Staff
-2026-01-15,AB,In-Tank,,1076,0.0,93.0,0,,,,Lab Staff
+2026-01-15,AB,In-Tank,,1076,100.0,93.0,1001,,,,Lab Staff
 2026-01-16,AB,In-Tank,,0,0.0,0.0,0,,,,Lab Staff
 2026-01-16,AB,Pair-Wise,,120,85.0,85.0,87,,,,Lab Staff
-2026-01-16,AB,Pair-Wise,,126,0.0,0.0,0,,,,Lab Staff
+2026-01-16,AB,Pair-Wise,,126,100.0,0.0,0,,,,Lab Staff
 2026-01-16,AB,In-Tank,,0,0.0,0.0,0,,,,Lab Staff
-2026-01-17,AB,Pair-Wise,,703,90.0,95.0,601,,,,Lab Staff
-2026-01-17,AB,Pair-Wise,,246,95.0,90.0,211,,,,Lab Staff
+2026-01-17,AB,Pair-Wise,,703,90.0,95.0,600,,,,Lab Staff
+2026-01-17,AB,Pair-Wise,,246,95.0,90.0,210,,,,Lab Staff
 2026-01-17,AB,Pair-Wise,,309,100.0,57.9,179,,,,Lab Staff
-2026-01-17,AB,Pair-Wise,,24,100.0,58.33,14,,,,Lab Staff
-2026-01-18,AB,Pair-Wise,,701,97.0,0.0,0,,,,Lab Staff
-2026-01-19,AB,Pair-Wise,,898,100.0,0.0,0,,,,Lab Staff
+2026-01-17,AB,Pair-Wise,,146,100.0,58.33,85,,,,Lab Staff
 2026-01-24,AB,Pair-Wise,,455,100.0,86.0,391,,,,Lab Staff
 2026-01-24,AB,Pair-Wise,,1103,100.0,93.0,1026,,,,Lab Staff
 2026-01-24,AB,Pair-Wise,,985,100.0,89.0,877,,,,Lab Staff
-2026-01-25,AB,Pair-Wise,,389,100.0,94.0,366,,,,Lab Staff
+2026-01-25,AB,Pair-Wise,,789,100.0,94.0,742,,,,Lab Staff
 2026-01-25,AB,Pair-Wise,,439,100.0,92.0,404,,,,Lab Staff
 2026-01-25,Fli,Pair-Wise,,821,100.0,94.0,772,,,,Lab Staff
-2026-01-25,Fli,Pair-Wise,,546,100.0,71.0,388,,,,Lab Staff
+2026-01-25,Fli,Pair-Wise,,547,100.0,71.0,388,,,,Lab Staff
 2026-01-25,Gata,Pair-Wise,,598,100.0,86.6,518,,,,Lab Staff
 2026-01-25,AB,Pair-Wise,,1107,100.0,95.0,1052,,,,Lab Staff
+2026-01-26,AB,Pair-Wise,,433,100.0,92.8,402,,,,Lab Staff
+2026-01-26,AB,Pair-Wise,,1218,100.0,73.0,889,,,,Lab Staff
+2026-01-26,AB,Pair-Wise,,1783,100.0,78.0,1391,,,,Lab Staff
+2026-01-26,AB,Pair-Wise,,592,100.0,97.0,574,,,,Lab Staff
 2026-01-27,Gata,Pair-Wise,,122,100.0,34.0,41,,,,Lab Staff
 2026-01-27,Gata,Pair-Wise,,0,0.0,0.0,0,,,,Lab Staff
 2026-01-27,Gata,Pair-Wise,,1330,100.0,62.0,825,,,,Lab Staff
@@ -1744,11 +1742,10 @@ Date,Line,Mating_Type,Tank_ID,Eggs_0H,SR_0H_Pct,SR_24H_Pct,Live_24H,Female_Tank,
 2026-01-31,AB,Pair-Wise,,302,100.0,86.0,260,,,,Lab Staff
 2026-02-01,AB,Pair-Wise,,1359,100.0,88.0,1196,,,,Lab Staff
 2026-02-01,AB,Pair-Wise,,981,100.0,91.0,893,,,,Lab Staff
-2026-02-02,AB,Pair-Wise,,1008,98.0,89.0,879,,,,Lab Staff
+2026-02-02,AB,Pair-Wise,,1008,98.0,89.0,878,,,,Lab Staff
 2026-02-02,AB,Pair-Wise,,1124,72.0,0.0,0,,,,Lab Staff
-2026-02-02,AB,Pair-Wise,,937,99.0,96.0,891,,,,Lab Staff
+2026-02-02,AB,Pair-Wise,,937,99.0,96.0,890,,,,Lab Staff
 2026-02-02,AB,Pair-Wise,,172,81.0,54.0,75,,,,Lab Staff
-2026-02-02,Gata,Pair-Wise,,0,0.0,0.0,0,,,,Lab Staff
 2026-02-02,Gata,Pair-Wise,,1168,100.0,96.6,1128,,,,Lab Staff
 2026-02-02,AB,Pair-Wise,,0,0.0,0.0,0,,,,Lab Staff
 2026-02-02,AB,Pair-Wise,,0,0.0,0.0,0,,,,Lab Staff
@@ -1760,38 +1757,35 @@ Date,Line,Mating_Type,Tank_ID,Eggs_0H,SR_0H_Pct,SR_24H_Pct,Live_24H,Female_Tank,
 2026-02-03,Fli,Pair-Wise,,0,0.0,0.0,0,,,,Lab Staff
 2026-02-04,AB,Pair-Wise,,0,0.0,0.0,0,,,,Lab Staff
 2026-02-04,Fli,Pair-Wise,,419,100.0,66.1,277,,,,Lab Staff
-2026-02-04,Fli,Pair-Wise,,0,0.0,0.0,0,,,,Lab Staff
 2026-02-04,Casper,Pair-Wise,,0,0.0,0.0,0,,,,Lab Staff
 2026-02-04,Casper,Pair-Wise,,113,100.0,43.36,49,,,,Lab Staff
 2026-02-04,Casper,Pair-Wise,,54,100.0,0.0,0,,,,Lab Staff
 2026-02-04,Casper,Pair-Wise,,789,100.0,86.31,681,,,,Lab Staff
 2026-02-07,AB,Pair-Wise,,1628,100.0,88.19,1436,,,,Lab Staff
-2026-02-07,AB,Pair-Wise,,567,97.0,85.5,470,,,,Lab Staff
+2026-02-07,AB,Pair-Wise,,567,97.0,85.5,469,,,,Lab Staff
 2026-02-07,AB,In-Tank,,2544,100.0,90.6,2305,,,,Lab Staff
 2026-02-10,Casper,Pair-Wise,,0,0.0,0.0,0,,,,Lab Staff
 2026-02-10,Casper,Pair-Wise,,0,0.0,0.0,0,,,,Lab Staff
 2026-02-10,Casper,Pair-Wise,,52,100.0,92.3,48,,,,Lab Staff
 2026-02-10,Casper,Pair-Wise,,0,0.0,0.0,0,,,,Lab Staff
 2026-02-10,Casper,Pair-Wise,,0,0.0,0.0,0,,,,Lab Staff
-2026-02-10,Casper,Pair-Wise,,626,84.0,84.9,447,,,,Lab Staff
+2026-02-10,Casper,Pair-Wise,,626,84.0,84.9,446,,,,Lab Staff
 2026-02-10,Casper,Pair-Wise,,455,100.0,80.6,367,,,,Lab Staff
-2026-02-10,Casper,Pair-Wise,,398,99.7,84.57,336,,,,Lab Staff
+2026-02-10,Casper,Pair-Wise,,398,99.7,84.57,335,,,,Lab Staff
 2026-02-11,AB,Pair-Wise,,392,100.0,93.7,367,,,,Lab Staff
 2026-02-11,AB,Pair-Wise,,1638,100.0,81.7,1338,,,,Lab Staff
 2026-02-11,Casper,Pair-Wise,,32,100.0,0.0,0,,,,Lab Staff
 2026-02-11,Casper,Pair-Wise,,0,0.0,0.0,0,,,,Lab Staff
-2026-02-11,Casper,Pair-Wise,,0,0.0,0.0,0,,,,Lab Staff
 2026-02-11,Casper,Pair-Wise,,305,100.0,75.0,229,,,,Lab Staff
 2026-02-11,Casper,Pair-Wise,,0,0.0,0.0,0,,,,Lab Staff
 2026-02-11,AB,Pair-Wise,,192,100.0,96.8,186,,,,Lab Staff
-2026-02-11,AB,Pair-Wise,,509,98.62,97.9,491,,,,Lab Staff
+2026-02-11,AB,Pair-Wise,,509,98.62,97.9,490,,,,Lab Staff
 2026-02-14,AB,Pair-Wise,,892,99.77,0.0,0,,,,Lab Staff
 2026-02-14,AB,Pair-Wise,,304,100.0,79.61,242,,,,Lab Staff
 2026-02-15,AB,Pair-Wise,,168,100.0,97.02,163,,,,Lab Staff
 2026-02-15,AB,Pair-Wise,,760,100.0,97.5,741,,,,Lab Staff
 2026-02-16,AB,In-Tank,,482,100.0,84.85,409,,,,Lab Staff
 2026-02-16,AB,In-Tank,,830,100.0,90.12,748,,,,Lab Staff
-2026-02-16,AB,Pair-Wise,,0,0.0,0.0,0,,,,Lab Staff
 2026-02-18,AB,Pair-Wise,,1104,100.0,88.7,979,,,,Lab Staff
 2026-02-18,AB,Pair-Wise,,664,100.0,90.5,601,,,,Lab Staff
 2026-02-21,AB,Pair-Wise,,344,100.0,93.02,320,,,,Lab Staff
@@ -1803,7 +1797,7 @@ Date,Line,Mating_Type,Tank_ID,Eggs_0H,SR_0H_Pct,SR_24H_Pct,Live_24H,Female_Tank,
 2026-02-22,AB,Pair-Wise,,815,100.0,67.73,552,,,,Lab Staff
 2026-02-23,AB,In-Tank,,0,0.0,0.0,0,,,,Lab Staff
 2026-02-23,AB,In-Tank,,592,100.0,78.0,462,,,,Lab Staff
-2026-02-23,AB,In-Tank,,510,99.6,51.3,261,,,,Lab Staff
+2026-02-23,AB,In-Tank,,510,99.6,51.3,260,,,,Lab Staff
 2026-02-23,AB,In-Tank,,0,0.0,0.0,0,,,,Lab Staff
 2026-02-23,Fli,In-Tank,,464,100.0,50.0,232,,,,Lab Staff
 2026-02-24,Gata,In-Tank,,0,0.0,0.0,0,,,,Lab Staff
@@ -1812,22 +1806,22 @@ Date,Line,Mating_Type,Tank_ID,Eggs_0H,SR_0H_Pct,SR_24H_Pct,Live_24H,Female_Tank,
 2026-02-24,AB,In-Tank,,52,0.0,0.0,0,,,,Lab Staff
 2026-02-24,Fli,In-Tank,,66,62.12,0.0,0,,,,Lab Staff
 2026-03-02,AB,In-Tank,,751,93.6,80.0,562,,,,Lab Staff
-2026-03-02,AB,In-Tank,,513,99.4,82.0,418,,,,Lab Staff
+2026-03-02,AB,In-Tank,,513,99.4,82.0,417,,,,Lab Staff
 2026-03-02,AB,In-Tank,,196,100.0,85.0,167,,,,Lab Staff
-2026-03-02,AB,In-Tank,,775,93.16,67.0,484,,,,Lab Staff
+2026-03-02,AB,In-Tank,,775,93.16,67.0,483,,,,Lab Staff
 2026-03-02,AB,In-Tank,,0,0.0,0.0,0,,,,Lab Staff
 2026-03-03,AB,Pair-Wise,,451,100.0,92.9,419,,,,Lab Staff
 2026-03-03,AB,Pair-Wise,,303,100.0,79.0,239,,,,Lab Staff
 2026-03-03,AB,Pair-Wise,,720,100.0,92.6,667,,,,Lab Staff
-2026-03-08,AB,In-Tank,,810,96.0,86.0,669,,,,Lab Staff
+2026-03-08,AB,In-Tank,,810,96.0,86.0,668,,,,Lab Staff
 2026-03-08,AB,In-Tank,,325,100.0,84.0,273,,,,Lab Staff
-2026-03-08,AB,In-Tank,,210,96.0,81.6,165,,,,Lab Staff
+2026-03-08,AB,In-Tank,,210,96.0,81.6,164,,,,Lab Staff
 2026-03-09,AB,In-Tank,,772,100.0,87.82,678,,,,Lab Staff
 2026-03-09,AB,In-Tank,,156,100.0,85.25,133,,,,Lab Staff
 2026-03-09,AB,In-Tank,,473,100.0,90.48,428,,,,Lab Staff
 2026-03-09,AB,In-Tank,,22,100.0,45.45,10,,,,Lab Staff
 2026-03-09,AB,In-Tank,,115,100.0,85.34,98,,,,Lab Staff
-2026-03-10,AB,In-Tank,,165,98.78,96.9,158,,,,Lab Staff
+2026-03-10,AB,In-Tank,,165,98.78,96.9,157,,,,Lab Staff
 2026-03-10,Gata,In-Tank,,109,100.0,33.5,37,,,,Lab Staff
 2026-03-10,Gata,In-Tank,,582,100.0,89.6,521,,,,Lab Staff
 2026-03-10,Gata,In-Tank,,58,100.0,72.4,42,,,,Lab Staff
@@ -1837,8 +1831,6 @@ Date,Line,Mating_Type,Tank_ID,Eggs_0H,SR_0H_Pct,SR_24H_Pct,Live_24H,Female_Tank,
 2026-03-11,Fli,In-Tank,,0,0.0,0.0,0,,,,Lab Staff
 2026-03-11,Fli,Pair-Wise,,0,0.0,0.0,0,,,,Lab Staff
 2026-03-11,Fli,Pair-Wise,,0,0.0,0.0,0,,,,Lab Staff
-2026-03-12,AB,In-Tank,,492,0.0,0.0,0,,,,Lab Staff
-2026-03-12,Fli,In-Tank,,70,0.0,0.0,0,,,,Lab Staff
 2026-03-12,Fli,In-Tank,,0,0.0,0.0,0,,,,Lab Staff
 2026-03-12,Gata,In-Tank,,0,0.0,0.0,0,,,,Lab Staff
 2026-03-15,AB,In-Tank,,227,100.0,74.88,170,,,,Lab Staff
@@ -1853,9 +1845,9 @@ Date,Line,Mating_Type,Tank_ID,Eggs_0H,SR_0H_Pct,SR_24H_Pct,Live_24H,Female_Tank,
 2026-03-16,AB,In-Tank,,152,0.0,92.0,0,,,,Lab Staff
 2026-03-17,AB,In-Tank,,372,100.0,78.49,292,,,,Lab Staff
 2026-03-17,AB,In-Tank,,0,0.0,0.0,0,,,,Lab Staff
-2026-03-23,AB,In-Tank,,254,94.0,72.4,173,,,,Lab Staff
+2026-03-23,AB,In-Tank,,254,94.0,72.4,172,,,,Lab Staff
 2026-03-23,AB,Pair-Wise,,328,100.0,0.0,0,,,,Lab Staff
-2026-03-23,AB,Pair-Wise,,411,98.5,84.2,341,,,,Lab Staff
+2026-03-23,AB,Pair-Wise,,411,98.5,84.2,340,,,,Lab Staff
 2026-03-23,Casper,Pair-Wise,,439,99.5,0.0,0,,,,Lab Staff
 2026-03-24,AB,Pair-Wise,,300,100.0,90.0,270,,,,Lab Staff
 2026-03-24,AB,Pair-Wise,,532,100.0,90.0,479,,,,Lab Staff
@@ -1867,6 +1859,7 @@ Date,Line,Mating_Type,Tank_ID,Eggs_0H,SR_0H_Pct,SR_24H_Pct,Live_24H,Female_Tank,
 2026-03-25,Fli,Pair-Wise,,0,0.0,0.0,0,,,,Lab Staff
 2026-03-25,Fli,Pair-Wise,,655,100.0,71.9,471,,,,Lab Staff
 2026-03-25,Fli,Pair-Wise,,435,100.0,96.7,421,,,,Lab Staff
+2026-03-25,Fli,Pair-Wise,,298,100.0,66.0,197,,,,Lab Staff
 2026-03-25,Fli,Pair-Wise,,63,100.0,39.6,25,,,,Lab Staff
 2026-03-25,AB,Pair-Wise,,1572,100.0,72.6,1141,,,,Lab Staff
 2026-03-29,AB,Pair-Wise,,0,0.0,0.0,0,,,,Lab Staff
@@ -1878,15 +1871,14 @@ Date,Line,Mating_Type,Tank_ID,Eggs_0H,SR_0H_Pct,SR_24H_Pct,Live_24H,Female_Tank,
 2026-03-30,Fli,Pair-Wise,,427,100.0,88.0,376,,,,Lab Staff
 2026-03-30,Fli,Pair-Wise,,127,100.0,15.0,19,,,,Lab Staff
 2026-03-30,Fli,Pair-Wise,,121,100.0,75.0,91,,,,Lab Staff
-2026-03-30,Fli,Pair-Wise,,0,0.0,57.0,0,,,,Lab Staff
-2026-03-30,Other,Pair-Wise,,220,100.0,0.0,0,,,,Lab Staff
+2026-03-30,Fli,Pair-Wise,,220,100.0,57.0,125,,,,Lab Staff
 2026-03-31,AB,Pair-Wise,,0,0.0,0.0,0,,,,Lab Staff
 2026-03-31,Gata,Pair-Wise,,0,0.0,0.0,0,,,,Lab Staff
 2026-03-31,Gata,Pair-Wise,,280,98.0,27.0,74,,,,Lab Staff
 2026-03-31,Gata,Pair-Wise,,737,100.0,0.0,0,,,,Lab Staff
 2026-03-31,Gata,Pair-Wise,,37,100.0,0.0,0,,,,Lab Staff
 2026-03-31,Gata,Pair-Wise,,118,100.0,65.0,77,,,,Lab Staff
-2026-03-31,AB,Pair-Wise,,1682,0.0,88.6,0,,,,Lab Staff
+2026-03-31,AB,Pair-Wise,,1682,100.0,88.6,1490,,,,Lab Staff
 2026-03-31,Gata,Pair-Wise,,590,100.0,73.0,431,,,,Lab Staff
 2026-04-01,Gata,Pair-Wise,,885,100.0,84.0,743,,,,Lab Staff
 2026-04-01,Fli,Pair-Wise,,899,100.0,54.0,485,,,,Lab Staff
@@ -1928,17 +1920,18 @@ Date,Line,Mating_Type,Tank_ID,Eggs_0H,SR_0H_Pct,SR_24H_Pct,Live_24H,Female_Tank,
 2026-04-11,AB,Pair-Wise,,274,0.0,89.7,0,,,,Lab Staff
 2026-04-12,AB,Pair-Wise,,707,100.0,70.0,495,,,,Lab Staff
 2026-04-12,AB,Pair-Wise,,594,100.0,66.3,394,,,,Lab Staff
-2026-04-14,AB,Pair-Wise,,118,0.0,66.0,0,,,,Lab Staff
-2026-04-14,AB,Pair-Wise,,715,0.0,96.0,0,,,,Lab Staff
-2026-04-14,Gata,Pair-Wise,,1055,0.0,94.0,0,,,,Lab Staff
-2026-04-14,Gata,Pair-Wise,,259,0.0,88.4,0,,,,Lab Staff
-2026-04-14,Gata,Pair-Wise,,132,0.0,30.0,0,,,,Lab Staff
-2026-04-14,Gata,Pair-Wise,,376,0.0,76.0,0,,,,Lab Staff
-2026-04-14,Gata,Pair-Wise,,645,0.0,84.0,0,,,,Lab Staff
+2026-04-14,AB,Pair-Wise,,118,100.0,66.0,78,,,,Lab Staff
+2026-04-14,AB,Pair-Wise,,715,100.0,96.0,686,,,,Lab Staff
+2026-04-14,Gata,Pair-Wise,,1055,100.0,94.0,992,,,,Lab Staff
+2026-04-14,Gata,Pair-Wise,,259,100.0,88.4,229,,,,Lab Staff
+2026-04-14,Gata,Pair-Wise,,132,100.0,30.0,40,,,,Lab Staff
+2026-04-14,Gata,Pair-Wise,,376,100.0,76.0,286,,,,Lab Staff
+2026-04-14,Gata,Pair-Wise,,645,100.0,84.0,542,,,,Lab Staff
 2026-04-14,AB,Pair-Wise,,0,0.0,0.0,0,,,,Lab Staff
-2026-04-15,AB,Pair-Wise,,1130,0.0,93.57,0,,,,Lab Staff
-2026-04-15,AB,Pair-Wise,,1538,0.0,91.28,0,,,,Lab Staff
-2026-04-15,AB,Pair-Wise,,340,0.0,87.9,0,,,,Lab Staff
+2026-04-15,AB,Pair-Wise,,1130,100.0,93.57,1057,,,,Lab Staff
+2026-04-15,AB,Pair-Wise,,1538,100.0,91.28,1404,,,,Lab Staff
+2026-04-15,AB,Pair-Wise,,340,100.0,87.9,299,,,,Lab Staff
+2026-04-16,AB,Pair-Wise,,482,100.0,85.6,413,,,,Lab Staff
 2026-04-18,AB,Pair-Wise,,369,100.0,89.0,328,,,,Lab Staff
 2026-04-18,AB,Pair-Wise,,350,0.0,0.0,0,,,,Lab Staff
 2026-04-20,AB,Pair-Wise,,845,100.0,0.0,0,,,,Lab Staff
@@ -1948,32 +1941,39 @@ Date,Line,Mating_Type,Tank_ID,Eggs_0H,SR_0H_Pct,SR_24H_Pct,Live_24H,Female_Tank,
 2026-04-22,AB,Pair-Wise,,294,100.0,0.0,0,,,,Lab Staff
 2026-04-22,AB,Pair-Wise,,269,100.0,80.0,215,,,,Lab Staff
 2026-04-22,AB,Pair-Wise,,1461,100.0,83.0,1213,,,,Lab Staff
-2026-04-23,AB,Pair-Wise,,14,100.0,93.0,13,,,,Lab Staff
-2026-04-23,AB,Pair-Wise,,0,0.0,61.75,0,,,,Lab Staff
+2026-04-23,AB,Pair-Wise,,1170,100.0,93.0,1088,,,,Lab Staff
+2026-04-23,AB,Pair-Wise,,964,100.0,61.75,595,,,,Lab Staff
+2026-04-23,AB,Pair-Wise,,0,0.0,0.0,0,,,,Lab Staff
 2026-04-25,AB,Pair-Wise,,533,100.0,86.67,462,,,,Lab Staff
 2026-04-25,AB,Pair-Wise,,597,100.0,76.04,454,,,,Lab Staff
 2026-04-25,AB,Pair-Wise,,711,100.0,0.0,0,,,,Lab Staff
 2026-04-25,Casper,Pair-Wise,,0,0.0,0.0,0,,,,Lab Staff
 2026-04-25,Casper,In-Tank,,727,100.0,38.0,276,,,,Lab Staff
-2026-04-25,Casper,In-Tank,,0,0.0,0.0,0,,,,Lab Staff
-2026-04-27,AB,Pair-Wise,,364,0.0,81.0,0,,,,Lab Staff
-2026-04-27,AB,Pair-Wise,,150,0.0,73.0,0,,,,Lab Staff
-2026-04-27,AB,In-Tank,,119,0.0,74.7,0,,,,Lab Staff
-2026-04-27,AB,Pair-Wise,,364,0.0,80.0,0,,,,Lab Staff
-2026-04-27,AB,Pair-Wise,,464,0.0,85.5,0,,,,Lab Staff
-2026-04-29,AB,Pair-Wise,,1344,0.0,93.0,0,,,,Lab Staff
-2026-04-29,Gata,Pair-Wise,,774,0.0,79.0,0,,,,Lab Staff
-2026-04-29,AB,Pair-Wise,,849,0.0,92.0,0,,,,Lab Staff
-2026-04-29,Gata,Pair-Wise,,367,0.0,53.0,0,,,,Lab Staff
-2026-05-02,Other,Pair-Wise,,0,0.0,0.0,0,,,,Lab Staff
+2026-04-27,AB,Pair-Wise,,364,100.0,81.0,295,,,,Lab Staff
+2026-04-27,AB,Pair-Wise,,156,100.0,73.0,114,,,,Lab Staff
+2026-04-27,AB,In-Tank,,119,100.0,74.7,89,,,,Lab Staff
+2026-04-27,AB,Pair-Wise,,364,100.0,80.0,291,,,,Lab Staff
+2026-04-27,AB,Pair-Wise,,464,100.0,85.5,397,,,,Lab Staff
+2026-04-27,Fli,Pair-Wise,,877,100.0,57.0,500,,,,Lab Staff
+2026-04-27,Fli,Pair-Wise,,272,100.0,29.6,81,,,,Lab Staff
+2026-04-27,AB,Pair-Wise,,258,100.0,93.0,240,,,,Lab Staff
+2026-04-27,Fli,Pair-Wise,,0,100.0,0.0,0,,,,Lab Staff
+2026-04-29,AB,Pair-Wise,,1344,100.0,93.0,1250,,,,Lab Staff
+2026-04-29,Gata,Pair-Wise,,774,100.0,79.0,611,,,,Lab Staff
+2026-04-29,AB,Pair-Wise,,249,100.0,92.0,229,,,,Lab Staff
+2026-04-29,Gata,Pair-Wise,,367,100.0,53.0,195,,,,Lab Staff
 2026-05-04,AB,Pair-Wise,,180,80.0,88.0,127,,,,Lab Staff
-2026-05-09,AB,Pair-Wise,,198,0.0,77.0,0,,,,Lab Staff
-2026-05-09,AB,Pair-Wise,,622,0.0,85.0,0,,,,Lab Staff
+2026-05-06,AB,Pair-Wise,,328,100.0,89.6,294,,,,Lab Staff
+2026-05-06,AB,Pair-Wise,,735,99.7,84.4,618,,,,Lab Staff
+2026-05-06,AB,Pair-Wise,,69,98.5,80.8,54,,,,Lab Staff
+2026-05-06,AB,Pair-Wise,,191,98.5,96.8,182,,,,Lab Staff
+2026-05-09,AB,Pair-Wise,,198,100.0,77.0,152,,,,Lab Staff
+2026-05-09,AB,Pair-Wise,,622,100.0,85.0,529,,,,Lab Staff
 2026-05-10,AB,Pair-Wise,,482,100.0,87.0,419,,,,Lab Staff
 2026-05-10,AB,Pair-Wise,,300,100.0,79.0,237,,,,Lab Staff
-2026-05-10,AB,Pair-Wise,,1262,0.0,80.0,0,,,,Lab Staff
-2026-05-10,AB,Pair-Wise,,879,0.0,78.0,0,,,,Lab Staff
-2026-05-11,AB,Pair-Wise,,11,100.0,92.0,10,,,,Lab Staff
+2026-05-10,AB,Pair-Wise,,1262,100.0,80.0,1010,,,,Lab Staff
+2026-05-10,AB,Pair-Wise,,879,100.0,78.0,686,,,,Lab Staff
+2026-05-11,AB,Pair-Wise,,101,100.0,92.0,93,,,,Lab Staff
 2026-05-11,AB,Pair-Wise,,165,100.0,79.0,130,,,,Lab Staff
 2026-05-11,AB,Pair-Wise,,861,100.0,92.0,792,,,,Lab Staff
 2026-05-11,AB,Pair-Wise,,2678,100.0,82.0,2196,,,,Lab Staff
@@ -1985,12 +1985,15 @@ Date,Line,Mating_Type,Tank_ID,Eggs_0H,SR_0H_Pct,SR_24H_Pct,Live_24H,Female_Tank,
 2026-05-16,Casper,Pair-Wise,,4,100.0,25.0,1,,,,Lab Staff
 2026-05-16,Casper,Pair-Wise,,0,0.0,0.0,0,,,,Lab Staff
 2026-05-16,Casper,Pair-Wise,,89,100.0,93.0,83,,,,Lab Staff
-2026-05-16,Casper,Pair-Wise,,294,85.0,97.6,244,,,,Lab Staff
+2026-05-16,Casper,Pair-Wise,,294,85.0,97.6,243,,,,Lab Staff
 2026-05-16,AB,Pair-Wise,,327,100.0,0.0,0,,,,Lab Staff
 2026-05-16,AB,Pair-Wise,,60,100.0,96.6,58,,,,Lab Staff
 2026-05-18,AB,Pair-Wise,,823,100.0,0.0,0,,,,Lab Staff
 2026-05-18,AB,Pair-Wise,,946,100.0,0.0,0,,,,Lab Staff
 2026-05-18,AB,Pair-Wise,,663,100.0,0.0,0,,,,Lab Staff
+2026-05-19,Fli,Pair-Wise,,0,0.0,0.0,0,,,,Lab Staff
+2026-05-19,Fli,Pair-Wise,,0,0.0,0.0,0,,,,Lab Staff
+2026-05-19,Fli,Pair-Wise,,0,0.0,0.0,0,,,,Lab Staff
 2026-05-19,Fli,Pair-Wise,,132,100.0,0.0,0,,,,Lab Staff
 2026-05-19,Fli,Pair-Wise,,714,100.0,29.8,213,,,,Lab Staff
 2026-05-19,Fli,Pair-Wise,,225,100.0,77.7,175,,,,Lab Staff
@@ -1999,20 +2002,21 @@ Date,Line,Mating_Type,Tank_ID,Eggs_0H,SR_0H_Pct,SR_24H_Pct,Live_24H,Female_Tank,
 2026-05-19,Fli,Pair-Wise,,66,100.0,92.0,61,,,,Lab Staff
 2026-05-20,Gata,Pair-Wise,,677,100.0,82.0,555,,,,Lab Staff
 2026-05-20,Gata,Pair-Wise,,1056,100.0,68.0,718,,,,Lab Staff
-2026-05-24,Gata,Pair-Wise,,208,100.0,0.0,0,,,,Lab Staff
-2026-05-24,Gata,Pair-Wise,,1095,100.0,94.0,1029,,,,Lab Staff
-2026-05-24,Gata,Pair-Wise,,636,100.0,6.0,38,,,,Lab Staff
-2026-05-24,Gata,Pair-Wise,,411,90.0,50.0,185,,,,Lab Staff
-2026-05-26,AB,Pair-Wise,,452,100.0,76.0,344,,,,Lab Staff
-2026-05-26,AB,Pair-Wise,,1036,100.0,84.0,870,,,,Lab Staff
-2026-05-26,AB,Pair-Wise,,433,100.0,94.0,407,,,,Lab Staff
-2026-05-26,AB,Pair-Wise,,1214,100.0,80.0,971,,,,Lab Staff
-2026-05-29,AB,Pair-Wise,,346,100.0,87.0,301,,,,Lab Staff
-2026-05-29,AB,Pair-Wise,,1023,100.0,83.0,849,,,,Lab Staff
-2026-05-29,AB,Pair-Wise,,226,100.0,92.0,208,,,,Lab Staff
-2026-05-29,AB,Pair-Wise,,332,100.0,93.0,309,,,,Lab Staff
-2026-05-30,AB,Pair-Wise,,346,100.0,0.0,0,,,,Lab Staff
-2026-05-30,AB,Pair-Wise,,270,100.0,0.0,0,,,,Lab Staff
+2026-05-20,Gata,Pair-Wise,,208,100.0,0.0,0,,,,Lab Staff
+2026-05-20,Gata,Pair-Wise,,1095,100.0,94.0,1029,,,,Lab Staff
+2026-05-20,Gata,Pair-Wise,,637,100.0,6.0,38,,,,Lab Staff
+2026-05-20,Gata,Pair-Wise,,179,100.0,46.0,82,,,,Lab Staff
+2026-05-20,Gata,Pair-Wise,,411,90.0,50.0,184,,,,Lab Staff
+2026-05-21,AB,Pair-Wise,,452,100.0,78.0,353,,,,Lab Staff
+2026-05-21,AB,Pair-Wise,,1036,100.0,84.0,870,,,,Lab Staff
+2026-05-21,AB,Pair-Wise,,433,100.0,94.0,407,,,,Lab Staff
+2026-05-21,AB,Pair-Wise,,1214,100.0,80.0,971,,,,Lab Staff
+2026-05-24,AB,Pair-Wise,,346,100.0,87.0,301,,,,Lab Staff
+2026-05-24,AB,Pair-Wise,,1023,100.0,83.0,849,,,,Lab Staff
+2026-05-24,AB,Pair-Wise,,226,100.0,92.0,208,,,,Lab Staff
+2026-05-24,AB,Pair-Wise,,332,100.0,93.0,309,,,,Lab Staff
+2026-05-30,AB,Pair-Wise,,346,100.0,94.6,327,,,,Lab Staff
+2026-05-30,AB,Pair-Wise,,270,100.0,89.5,242,,,,Lab Staff
 2026-05-30,AB,Pair-Wise,,200,100.0,93.0,186,,,,Lab Staff
 2026-06-01,AB,Pair-Wise,,802,100.0,75.0,602,,,,Lab Staff
 2026-06-01,AB,Pair-Wise,,424,100.0,82.0,348,,,,Lab Staff
@@ -2021,11 +2025,10 @@ Date,Line,Mating_Type,Tank_ID,Eggs_0H,SR_0H_Pct,SR_24H_Pct,Live_24H,Female_Tank,
 2026-06-02,Gata,Pair-Wise,,142,100.0,57.0,81,,,,Lab Staff
 2026-06-02,Gata,Pair-Wise,,144,100.0,90.0,130,,,,Lab Staff
 2026-06-04,AB,Pair-Wise,,951,100.0,0.0,0,,,,Lab Staff
-2026-06-05,AB,Pair-Wise,,328,100.0,89.6,294,,,,Lab Staff
-2026-06-05,AB,Pair-Wise,,735,99.7,84.4,619,,,,Lab Staff
-2026-06-05,AB,Pair-Wise,,69,98.5,80.8,55,,,,Lab Staff
-2026-06-05,AB,Pair-Wise,,191,98.5,96.8,182,,,,Lab Staff
-2026-06-05,AB,Pair-Wise,,181,97.2,78.9,139,,,,Lab Staff
+2026-06-04,AB,Pair-Wise,,2,100.0,83.5,2,,,,Lab Staff
+2026-06-04,AB,Pair-Wise,,1025,100.0,73.3,751,,,,Lab Staff
+2026-06-04,AB,Pair-Wise,,554,100.0,95.6,530,,,,Lab Staff
+2026-06-04,AB,Pair-Wise,,421,100.0,85.0,358,,,,Lab Staff
 2026-06-06,AB,Pair-Wise,,511,100.0,70.0,358,,,,Lab Staff
 2026-06-06,Gata,Pair-Wise,,145,100.0,0.0,0,,,,Lab Staff
 2026-06-06,Gata,Pair-Wise,,489,100.0,67.0,328,,,,Lab Staff
@@ -2038,11 +2041,16 @@ Date,Line,Mating_Type,Tank_ID,Eggs_0H,SR_0H_Pct,SR_24H_Pct,Live_24H,Female_Tank,
 2026-06-08,AB,Pair-Wise,,1546,100.0,67.0,1036,,,,Lab Staff
 2026-06-08,AB,Pair-Wise,,429,100.0,83.0,356,,,,Lab Staff
 2026-06-08,AB,Pair-Wise,,922,100.0,68.0,627,,,,Lab Staff
+2026-06-09,AB,Pair-Wise,,1005,100.0,74.9,753,,,,Lab Staff
+2026-06-09,AB,Pair-Wise,,1005,100.0,74.9,753,,,,Lab Staff
+2026-06-09,Gata,Pair-Wise,,1081,100.0,89.0,962,,,,Lab Staff
+2026-06-09,AB,Pair-Wise,,455,100.0,81.7,372,,,,Lab Staff
+2026-06-09,AB,Pair-Wise,,144,100.0,90.0,130,,,,Lab Staff
 2026-06-10,Gata,Pair-Wise,,0,100.0,0.0,0,,,,Lab Staff
 2026-06-10,AB,In-Tank,,467,100.0,77.0,360,,,,Lab Staff
 2026-06-10,AB,In-Tank,,347,100.0,75.0,260,,,,Lab Staff
 2026-06-10,AB,In-Tank,,617,100.0,78.0,481,,,,Lab Staff
-2026-06-10,Other,In-Tank,,1055,100.0,70.0,738,,,,Lab Staff
+2026-06-10,AB,In-Tank,,1055,100.0,70.0,738,,,,Lab Staff
 2026-06-10,Gata,Pair-Wise,,131,100.0,0.0,0,,,,Lab Staff
 2026-06-13,AB,Pair-Wise,,403,100.0,0.0,0,,,,Lab Staff
 2026-06-13,AB,Pair-Wise,,238,100.0,85.0,202,,,,Lab Staff
@@ -2061,22 +2069,39 @@ Date,Line,Mating_Type,Tank_ID,Eggs_0H,SR_0H_Pct,SR_24H_Pct,Live_24H,Female_Tank,
 2026-06-14,Casper,Pair-Wise,,0,100.0,0.0,0,,,,Lab Staff
 2026-06-14,Casper,Pair-Wise,,0,100.0,0.0,0,,,,Lab Staff
 2026-06-14,Casper,Pair-Wise,,75,100.0,100.0,75,,,,Lab Staff
+2026-06-15,AB,Pair-Wise,,250,100.0,94.58,236,,,,Lab Staff
+2026-06-15,AB,Pair-Wise,,1155,100.0,83.29,962,,,,Lab Staff
+2026-06-15,AB,Pair-Wise,,721,100.0,62.0,447,,,,Lab Staff
+2026-06-15,AB,Pair-Wise,,385,100.0,84.0,323,,,,Lab Staff
+2026-06-15,AB,Pair-Wise,,51,100.0,94.0,48,,,,Lab Staff
+2026-06-15,AB,Pair-Wise,,501,100.0,0.0,0,,,,Lab Staff
+2026-06-15,AB,Pair-Wise,,1410,100.0,81.98,1156,,,,Lab Staff
+2026-06-15,AB,Pair-Wise,,807,100.0,0.0,0,,,,Lab Staff
 2026-06-16,AB,Pair-Wise,,408,100.0,88.23,360,,,,Lab Staff
 2026-06-16,AB,Pair-Wise,,637,100.0,113.0,720,,,,Lab Staff
-2026-06-17,AB,Pair-Wise,,1410,100.0,81.98,1156,,,,Lab Staff
 2026-06-17,Casper,In-Tank,,443,100.0,65.23,289,,,,Lab Staff
 2026-06-17,Casper,In-Tank,,1263,99.52,0.0,0,,,,Lab Staff
-2026-06-17,Casper,Pair-Wise,,0,100.0,0.0,0,,,,Lab Staff
-2026-06-17,Casper,Pair-Wise,,0,100.0,0.0,0,,,,Lab Staff
 2026-06-17,Casper,Pair-Wise,,357,100.0,79.55,284,,,,Lab Staff
-2026-06-20,Other,Pair-Wise,,0,100.0,0.0,0,,,,Lab Staff
+2026-06-17,Casper,In-Tank,,0,100.0,0.0,0,,,,Lab Staff
+2026-06-17,Casper,Pair-Wise,,0,100.0,0.0,0,,,,Lab Staff
 2026-06-21,AB,Pair-Wise,,333,100.0,87.58,292,,,,Lab Staff
 2026-06-21,AB,Pair-Wise,,242,100.0,84.29,204,,,,Lab Staff
 2026-06-21,AB,Pair-Wise,,649,100.0,84.5,548,,,,Lab Staff
-2026-06-21,AB,Pair-Wise,,135,100.0,84.4,114,,,,Lab Staff
+2026-06-21,Gata,Pair-Wise,,135,100.0,84.4,114,,,,Lab Staff
 2026-06-21,Gata,Pair-Wise,,865,100.0,83.0,718,,,,Lab Staff
-2026-06-21,AB,Pair-Wise,,479,100.0,64.0,307,,,,Lab Staff
-2026-06-21,AB,Pair-Wise,,192,100.0,88.5,170,,,,Lab Staff
+2026-06-21,Gata,Pair-Wise,,479,100.0,64.0,307,,,,Lab Staff
+2026-06-21,Gata,Pair-Wise,,192,100.0,88.5,170,,,,Lab Staff
+2026-06-22,Gata,Pair-Wise,,36,100.0,83.0,30,,,,Lab Staff
+2026-06-22,Gata,Pair-Wise,,381,100.0,23.0,88,,,,Lab Staff
+2026-06-22,Gata,Pair-Wise,,786,100.0,96.0,755,,,,Lab Staff
+2026-06-23,Gata,Pair-Wise,,490,100.0,84.08,412,,,,Lab Staff
+2026-06-23,AB,Pair-Wise,,1970,98.98,72.85,1421,,,,Lab Staff
+2026-06-23,Gata,Pair-Wise,,31,100.0,31.0,10,,,,Lab Staff
+2026-06-23,Gata,Pair-Wise,,751,100.0,41.94,315,,,,Lab Staff
+2026-06-23,Gata,Pair-Wise,,828,100.0,63.64,527,,,,Lab Staff
+2026-06-24,AB,In-Tank,,1101,100.0,79.83,879,,,,Lab Staff
+2026-06-24,AB,In-Tank,,574,100.0,67.59,388,,,,Lab Staff
+2026-06-24,AB,In-Tank,,3714,100.0,74.34,2761,,,,Lab Staff
 2026-06-26,Casper,In-Tank,,0,100.0,2.0,0,,,,Lab Staff
 2026-06-26,Casper,In-Tank,,99,100.0,0.0,0,,,,Lab Staff
 2026-06-26,Casper,In-Tank,,0,100.0,0.0,0,,,,Lab Staff
@@ -2108,7 +2133,7 @@ Date,Line,Mating_Type,Tank_ID,Eggs_0H,SR_0H_Pct,SR_24H_Pct,Live_24H,Female_Tank,
 2026-07-04,Casper,Pair-Wise,,0,0.0,0.0,0,,,,Lab Staff
 2026-07-04,Casper,Pair-Wise,,0,0.0,0.0,0,,,,Lab Staff
 2026-07-04,Casper,Pair-Wise,,0,0.0,0.0,0,,,,Lab Staff
-2026-07-04,Casper,Pair-Wise,,134,96.0,91.66,118,,,,Lab Staff
+2026-07-04,Casper,Pair-Wise,,134,96.0,91.66,117,,,,Lab Staff
 2026-07-04,Casper,In-Tank,,226,100.0,90.5,205,,,,Lab Staff
 2026-07-04,Casper,In-Tank,,231,100.0,79.2,183,,,,Lab Staff
 2026-07-04,Casper,In-Tank,,737,100.0,84.12,620,,,,Lab Staff
@@ -2131,9 +2156,9 @@ Date,Line,Mating_Type,Tank_ID,Eggs_0H,SR_0H_Pct,SR_24H_Pct,Live_24H,Female_Tank,
 2026-07-19,Gata,In-Tank,,32,100.0,62.0,20,,,,Lab Staff
 2026-07-20,Fli,In-Tank,,274,100.0,34.3,94,,,,Lab Staff
 2026-07-20,Fli,In-Tank,,624,100.0,77.8,485,,,,Lab Staff
-2026-07-20,Fli,In-Tank,,747,93.0,76.7,533,,,,Lab Staff
+2026-07-20,Fli,In-Tank,,747,93.0,76.7,532,,,,Lab Staff
 2026-07-20,Fli,In-Tank,,345,100.0,95.9,331,,,,Lab Staff
-2026-07-20,Fli,In-Tank,,163,58.0,84.2,80,,,,Lab Staff
+2026-07-20,Fli,In-Tank,,163,58.0,84.2,79,,,,Lab Staff
 2026-07-25,Gata,Pair-Wise,,0,0.0,0.0,0,,,,Lab Staff
 2026-07-25,Gata,Pair-Wise,,71,100.0,60.0,43,,,,Lab Staff
 2026-07-26,Gata,Pair-Wise,,897,100.0,22.0,197,,,,Lab Staff
@@ -2141,7 +2166,7 @@ Date,Line,Mating_Type,Tank_ID,Eggs_0H,SR_0H_Pct,SR_24H_Pct,Live_24H,Female_Tank,
 2026-07-26,Gata,Pair-Wise,,349,100.0,22.0,77,,,,Lab Staff
 2026-07-26,Gata,Pair-Wise,,666,100.0,44.0,293,,,,Lab Staff
 2026-07-26,Gata,Pair-Wise,,268,100.0,84.0,225,,,,Lab Staff
-2026-07-27,AB,Pair-Wise,,768,97.0,93.0,693,,,,Lab Staff
+2026-07-27,AB,Pair-Wise,,768,97.0,93.0,692,,,,Lab Staff
 2026-07-27,AB,Pair-Wise,,634,100.0,78.0,495,,,,Lab Staff
 2026-07-27,AB,Pair-Wise,,906,100.0,66.0,598,,,,Lab Staff
 2026-07-27,AB,Pair-Wise,,931,100.0,89.0,829,,,,Lab Staff
@@ -2198,37 +2223,3 @@ Date,Line,Mating_Type,Tank_ID,Eggs_0H,SR_0H_Pct,SR_24H_Pct,Live_24H,Female_Tank,
 2026-08-29,AB,Pair-Wise,,0,0.0,0.0,0,,,,Lab Staff
 2026-08-29,AB,Pair-Wise,,1244,100.0,86.2,1072,,,,Lab Staff
 2026-08-29,AB,Pair-Wise,,98,100.0,94.8,93,,,,Lab Staff
-5 Jan 26 / 6 Jan 26,Fli,In-Tank,,50,20.0,0.0,0,,,,Lab Staff
-6 Jan 26 / 5 Jan 26,Casper,In-Tank,,0,0.0,0.0,0,,,,Lab Staff
-APR27/26,Fli,Pair-Wise,,877,100.0,57.0,500,,,,Lab Staff
-APR27/26,Fli,Pair-Wise,,272,100.0,29.6,81,,,,Lab Staff
-APR27/26,AB,Pair-Wise,,258,100.0,93.0,240,,,,Lab Staff
-APR27/26,Fli,Pair-Wise,,0,0.0,0.0,0,,,,Lab Staff
-Collection: June 04,AB,Pair-Wise,,2,100.0,83.5,2,,,,Lab Staff
-Collection: June 04,AB,Pair-Wise,,1025,100.0,73.3,751,,,,Lab Staff
-Collection: June 04,AB,Pair-Wise,,554,100.0,95.6,530,,,,Lab Staff
-Collection: June 04,AB,Pair-Wise,,421,100.0,85.0,358,,,,Lab Staff
-"June 15, 26",AB,Pair-Wise,,250,100.0,94.58,236,,,,Lab Staff
-"June 15, 26",AB,Pair-Wise,,1155,100.0,83.29,962,,,,Lab Staff
-"June 15, 26",AB,Pair-Wise,,721,100.0,62.0,447,,,,Lab Staff
-"June 15, 26",AB,Pair-Wise,,385,100.0,84.0,323,,,,Lab Staff
-"June 15, 26",AB,Pair-Wise,,51,100.0,94.0,48,,,,Lab Staff
-"June 15, 26",AB,Pair-Wise,,501,100.0,0.0,0,,,,Lab Staff
-"June 15, 26",AB,Pair-Wise,,807,100.0,0.0,0,,,,Lab Staff
-June 17-26,Casper,In-Tank,,0,100.0,0.0,0,,,,Lab Staff
-June 17-26,Casper,Pair-Wise,,0,100.0,0.0,0,,,,Lab Staff
-"June 22, 26",Gata,Pair-Wise,,36,100.0,83.0,30,,,,Lab Staff
-"June 22, 26",Gata,Pair-Wise,,381,100.0,23.0,88,,,,Lab Staff
-"June 22, 26",Gata,Pair-Wise,,786,100.0,96.0,755,,,,Lab Staff
-"June 23-setup, June 24-counting",Gata,Pair-Wise,,490,100.0,84.08,412,,,,Lab Staff
-"June 23-setup, June 24-counting",AB,Pair-Wise,,1970,98.98,72.85,1421,,,,Lab Staff
-"June 23-setup, June 24-counting",Gata,Pair-Wise,,31,100.0,31.0,10,,,,Lab Staff
-"June 23-setup, June 24-counting",Gata,Pair-Wise,,751,100.0,41.94,315,,,,Lab Staff
-"June 23-setup, June 24-counting",Gata,Pair-Wise,,828,100.0,63.64,527,,,,Lab Staff
-"June 24-setup, June 25-counting",AB,In-Tank,,1101,100.0,79.83,879,,,,Lab Staff
-"June 24-setup, June 25-counting",AB,In-Tank,,574,100.0,67.59,388,,,,Lab Staff
-"June 24-setup, June 25-counting",AB,In-Tank,,3714,100.0,74.34,2761,,,,Lab Staff
-"June 9, 26",AB,Pair-Wise,,1005,100.0,74.9,753,,,,Lab Staff
-"June 9, 26",AB,Pair-Wise,,1081,100.0,89.0,962,,,,Lab Staff
-"June 9, 26",AB,Pair-Wise,,455,100.0,81.7,372,,,,Lab Staff
-"June 9, 26",AB,Pair-Wise,,144,100.0,90.0,130,,,,Lab Staff

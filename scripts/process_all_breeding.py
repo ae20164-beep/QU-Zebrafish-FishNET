@@ -65,8 +65,9 @@ def parse_clean_int(val):
 
 def extract_line_and_tanks(fishline_str):
     s = str(fishline_str).strip()
-    # Correct common OCR/typos like A13 -> AB
-    s_clean = re.sub(r'\bA13\b', 'AB', s)
+    # Correct common OCR/typos like A13 -> AB, A1B -> AB
+    s_clean = re.sub(r'\bA13\b', 'AB', s, flags=re.IGNORECASE)
+    s_clean = re.sub(r'\bA1B\b', 'AB', s_clean, flags=re.IGNORECASE)
     s_upper = s_clean.upper()
     
     line = 'Other'
@@ -79,13 +80,13 @@ def extract_line_and_tanks(fishline_str):
     elif 'GATA' in s_upper:
         line = 'Gata'
     
-    # Extract tank numbers matching T123, T-123, T.123, AB106, Gata101, Fli19, Tank 95, etc.
+    # Extract tank numbers matching T123, T-123, T.123, AB106, Gata101, Fli19, Tank 95, Cas.126, etc.
     res = []
     # Pattern 1: Tank/T prefix followed by digits
     for m in re.finditer(r'(?:Tank|T|T\.|T\-)\s*0*([0-9]{1,4})\b', s_clean, re.IGNORECASE):
         res.append(int(m.group(1)))
-    # Pattern 2: Strain prefix directly followed by digits (e.g. AB106, Gata101, Cas114)
-    for m in re.finditer(r'(?:AB|Fli|Gata|Casper|Casp|Cas)\s*0*([0-9]{1,4})\b', s_clean, re.IGNORECASE):
+    # Pattern 2: Strain prefix directly followed by digits (e.g. AB106, Gata101, Cas114, Cas.126)
+    for m in re.finditer(r'(?:AB|Fli|Gata|Casper|Casp|Cas)[\s\.\-]*0*([0-9]{1,4})\b', s_clean, re.IGNORECASE):
         val = int(m.group(1))
         if val not in res and val < 300:  # avoid years like 2025/2026
             res.append(val)
@@ -446,255 +447,108 @@ def process():
     print(f'Loaded {len(unique_tanks)} unique tanks ({n_active} Active, {n_euth} Euthanized, {n_larvae} Larvae).')
     print(f'Sex Structure: {n_f_only} Female-Only, {n_m_only} Male-Only, {n_mixed} Mixed Colony.')
 
-    # 2. Transcribe & Parse 2026 Data
+    # 2. Parse 2026 Data from verified 2026_Updated.xlsx
     p26_events = []
-    p26_csv_path = os.path.join(breeding_dir, '26.csv')
-    with open(p26_csv_path, 'r', encoding='utf-8-sig', errors='ignore') as f:
-        reader = list(csv.reader(f))
-        for r in reader[1:]:
-            if not r or len(r) < 3 or not r[0].strip():
-                continue
-            date_iso = parse_date(r[0], 2026)
-            fishline = r[1].strip()
-            line, tanks = extract_line_and_tanks(fishline)
-            in_tank = True if len(r) > 7 and 'YES' in r[7].strip().upper() else ('intank' in fishline.lower())
-            eggs_0h = parse_clean_int(r[2])
-            sr_0h = parse_clean_float(r[3])
-            sr_24h = parse_clean_float(r[4])
-            staff_initials = r[6].strip() if len(r) > 6 else ''
-            
-            live_0h = int(round(eggs_0h * (sr_0h / 100.0))) if sr_0h > 0 else 0
-            live_24h = int(round(live_0h * (sr_24h / 100.0))) if sr_24h > 0 else 0
-
-            p26_events.append({
-                'year': 2026,
-                'date': date_iso,
-                'fishline': fishline,
-                'line': line,
-                'tanks': tanks,
-                'primary_tank': tanks[0] if tanks else '',
-                'in_tank': in_tank,
-                'setup_staff': staff_initials,
-                'collection_staff': staff_initials,
-                'scoring_24h_staff': staff_initials,
-                'staff_summary': staff_initials,
-                'eggs_0h': eggs_0h,
-                'sr_0h': sr_0h,
-                'live_0h': live_0h,
-                'sr_24h': sr_24h,
-                'live_24h': live_24h,
-                'source': '2026_log_sheet_part1'
-            })
-
-    # Part 2: 26-1.csv
-    p26_1_path = os.path.join(breeding_dir, '26-1.csv')
-    with open(p26_1_path, 'r', encoding='utf-8-sig', errors='ignore') as f:
-        reader = list(csv.reader(f))
-        for r in reader[1:]:
-            if not r or len(r) < 2 or not r[0].strip():
-                continue
-            date_iso = parse_date(r[0], 2026)
-            fishline = r[1].strip()
-            line, tanks = extract_line_and_tanks(fishline)
-            in_tank = True if len(r) > 2 and 'YES' in r[2].strip().upper() else ('intank' in fishline.lower())
-            setup_staff = r[3].strip() if len(r) > 3 else ''
-            
-            raw_0h = r[4].strip() if len(r) > 4 else ''
-            eggs_0h = 0
-            sr_0h = 100.0
-            if '/' in raw_0h:
-                parts = raw_0h.split('/')
-                eggs_0h = parse_clean_int(parts[0])
-                sr_0h = parse_clean_float(parts[1])
-            else:
-                eggs_0h = parse_clean_int(raw_0h)
-            
-            raw_24h = r[5].strip() if len(r) > 5 else ''
-            sr_24h = 0.0
-            if 'SR%' in raw_24h or 'SR=' in raw_24h or 'SR%=' in raw_24h or 'SR' in raw_24h:
-                m = re.search(r'SR%?\s*=?\s*([0-9]+(?:\.[0-9]+)?)', raw_24h)
-                if m:
-                    sr_24h = float(m.group(1))
-            elif '%' in raw_24h:
-                sr_24h = parse_clean_float(raw_24h)
-            
-            staff_combined = r[6].strip() if len(r) > 6 else ''
-            col_staff = staff_combined
-            score_staff = staff_combined
-            if '/' in staff_combined:
-                sp_parts = [p.strip() for p in staff_combined.split('/')]
-                if len(sp_parts) >= 2:
-                    col_staff = sp_parts[0]
-                    score_staff = sp_parts[-1]
-
-            live_0h = int(round(eggs_0h * (sr_0h / 100.0))) if sr_0h > 0 else 0
-            live_24h = int(round(live_0h * (sr_24h / 100.0))) if sr_24h > 0 else 0
-
-            p26_events.append({
-                'year': 2026,
-                'date': date_iso,
-                'fishline': fishline,
-                'line': line,
-                'tanks': tanks,
-                'primary_tank': tanks[0] if tanks else '',
-                'in_tank': in_tank,
-                'setup_staff': setup_staff,
-                'collection_staff': col_staff,
-                'scoring_24h_staff': score_staff,
-                'staff_summary': f"{setup_staff} / {staff_combined}" if setup_staff else staff_combined,
-                'eggs_0h': eggs_0h,
-                'sr_0h': sr_0h,
-                'live_0h': live_0h,
-                'sr_24h': sr_24h,
-                'live_24h': live_24h,
-                'source': '2026_log_sheet_part2'
-            })
-
-    # Part 3: Newly transcribed pages 1-10
-    p3_transcriptions = [
-        ['29/06/2026', 'AB T99(F) x AB T130(M)', 'No', 'AE', '330', '100', 'AE', '89', 'AE'],
-        ['29/06/2026', 'Gata T110 (intank)', 'Yes', 'AG', '368', '100', 'AE', '95', 'AG'],
-        ['29/06/2026', 'Gata T111 (intank)', 'Yes', 'AG', '102', '100', 'AE', '63', 'AG'],
-        ['29/06/2026', 'Gata T120 (intank)', 'Yes', 'AG', '131', '100', 'AE', '78', 'AG'],
-        ['29/06/2026', 'Gata T113 (intank)', 'Yes', 'AG', '306', '100', 'AE', '23', 'AG'],
-        ['30/06/2026', 'Gata T73', 'No', 'AG', '0', '0', '', '0', ''],
-        ['30/06/2026', 'Gata T127', 'No', 'AG', '48', '100', 'AG', '75', 'AG'],
-        ['30/06/2026', 'Gata T111 (intank)', 'Yes', 'AG', '101', '100', 'AE', '92', 'AE'],
-        ['30/06/2026', 'Gata T49(M) x Gata T73(F)', 'No', 'AE', '911', '100', 'AE', '86', 'AG'],
-        ['04/07/2026', 'Casp T121 intank', 'Yes', 'AE', '0', '0', '', '0', ''],
-        ['04/07/2026', 'Casp T108 F,1 T77 M,1', 'No', 'AG', '0', '0', '', '0', ''],
-        ['04/07/2026', 'Casp T124 1F,1M', 'No', 'AG', '0', '0', '', '0', ''],
-        ['04/07/2026', 'Casp T109,F,1 T122,M,1', 'No', 'AG', '175', '99.4', 'AE', '33', 'AE'],
-        ['04/07/2026', 'Casp T109 1F,1M', 'No', 'AG', '0', '0', '', '0', ''],
-        ['04/07/2026', 'Casp T122 1F,1M', 'No', 'AG', '0', '0', '', '0', ''],
-        ['04/07/2026', 'Casp T131 1F,1M', 'No', 'AG', '0', '0', '', '0', ''],
-        ['04/07/2026', 'Casp T114,F,1 T77,M,1', 'No', 'AG', '0', '0', '', '0', ''],
-        ['04/07/2026', 'Casp T108 1F,1M', 'No', 'AG', '134', '96', 'AE', '91.66', 'AE'],
-        ['04/07/2026', 'Casp T126 In tank', 'Yes', 'AG', '226', '100', 'AE', '90.5', 'AE'],
-        ['04/07/2026', 'Casp T125 In tank', 'Yes', 'AG', '231', '100', 'AE', '79.2', 'AE'],
-        ['04/07/2026', 'Casp T115 intank', 'Yes', 'AG', '737', '100', 'AE', '84.12', 'AE'],
-        ['05/07/2026', 'AB T86', 'No', 'AE', '955', '100', 'AE', '93', 'AE'],
-        ['05/07/2026', 'AB T96', 'No', 'AE', '744', '100', 'AE', '82', 'AE'],
-        ['05/07/2026', 'AB T99(F) x AB T130(M)', 'No', 'AE', '411', '100', 'AE', '92', 'AE'],
-        ['05/07/2026', 'AB T76(F) x AB T130(M)', 'No', 'AE', '487', '100', 'AE', '94', 'AE'],
-        ['06/07/2026', 'Gata T49(M) x Gata T73(F)', 'No', 'AE', '546', '100', 'AE', '94', 'AE'],
-        ['06/07/2026', 'Gata T127', 'No', 'AE', '0', '0', '', '0', ''],
-        ['07/07/2026', 'Gata T127', 'No', 'AE', '471', '100', 'AE', '72', 'AE'],
-        ['11/07/2026', 'AB T87', 'No', 'AE', '0', '0', '', '0', ''],
-        ['11/07/2026', 'AB T86', 'No', 'AE', '228', '100', 'AG', '73', 'AG'],
-        ['18/07/2026', 'AB T86 intank', 'Yes', 'AG', '391', '100', 'AE', '84', 'AG'],
-        ['18/07/2026', 'AB T129 intank', 'Yes', 'AG', '421', '100', 'AE', '75', 'AG'],
-        ['18/07/2026', 'AB T96 intank', 'Yes', 'AG', '387', '100', 'AE', '74', 'AG'],
-        ['19/07/2026', 'AB T106 intank', 'Yes', 'AG', '333', '100', 'AE', '90', 'AG'],
-        ['19/07/2026', 'AB T81 intank', 'Yes', 'AG', '598', '100', 'AE', '83', 'AG'],
-        ['19/07/2026', 'AB T80 intank', 'Yes', 'AG', '331', '100', 'AE', '61', 'AG'],
-        ['19/07/2026', 'Gata T110 intank', 'Yes', 'AG', '76', '100', 'AE', '94', 'AG'],
-        ['19/07/2026', 'Gata T120 intank', 'Yes', 'AG', '32', '100', 'AE', '62', 'AG'],
-        ['20/07/2026', 'Fli T98 intank', 'Yes', 'AG', '274', '100', 'AE', '34.3', 'AG'],
-        ['20/07/2026', 'Fli T83 intank', 'Yes', 'AG', '624', '100', 'AE', '77.8', 'AG'],
-        ['20/07/2026', 'Fli T133 intank', 'Yes', 'AG', '747', '93', 'AE', '76.7', 'AG'],
-        ['20/07/2026', 'Fli T119 intank', 'Yes', 'AG', '345', '100', 'AE', '95.9', 'AE'],
-        ['20/07/2026', 'Fli T132 intank', 'Yes', 'AG', '163', '58', 'AE', '84.2', 'AE'],
-        ['25/07/2026', 'Gata T110', 'No', 'AE', '0', '0', '', '0', ''],
-        ['25/07/2026', 'Gata T120', 'No', 'AG', '71', '100', 'AE', '60', 'AG'],
-        ['26/07/2026', 'Gata T111', 'No', 'AE', '897', '100', 'AG', '22', 'AG'],
-        ['26/07/2026', 'Gata T113', 'No', 'AE', '138', '100', 'AE', '0', 'AE'],
-        ['26/07/2026', 'Gata T113(F) x Gata T112(M)', 'No', 'AE', '349', '100', 'AE', '22', 'AG'],
-        ['26/07/2026', 'Gata T112(M) x Gata T101(F)', 'No', 'AE', '666', '100', 'AE', '44', 'AE'],
-        ['26/07/2026', 'Gata T101(M) x Gata T113(F)', 'No', 'AE', '268', '100', 'AG', '84', 'AG'],
-        ['27/07/2026', 'AB T87', 'No', 'AE', '768', '97', 'AG', '93', 'AE'],
-        ['27/07/2026', 'AB T83', 'No', 'AG', '634', '100', 'AE', '78', 'AE'],
-        ['27/07/2026', 'AB T106', 'No', 'AE', '906', '100', 'AG', '66', 'AG'],
-        ['27/07/2026', 'AB T86', 'No', 'AE', '931', '100', 'AG', '89', 'AE'],
-        ['28/07/2026', 'AB T99(F) x AB T130(M)', 'No', 'AE', '947', '100', 'AE', '76', 'AE'],
-        ['28/07/2026', 'AB T79(F) x AB T130(M)', 'No', 'AE', '2080', '100', 'AE', '79', 'AG'],
-        ['28/07/2026', 'AB T93(M) x AB T95(F)', 'No', 'AE', '681', '100', 'AG', '73', 'AG'],
-        ['28/07/2026', 'AB T97', 'No', 'AE', '159', '100', 'AE', '81', 'AE'],
-        ['28/07/2026', 'AB T87', 'No', 'AE', '760', '100', 'AE', '83', 'AE'],
-        ['28/07/2026', 'AB T128', 'No', 'AE', '317', '100', 'AG', '68', 'AG'],
-        ['03/08/2026', 'AB T129', 'No', 'AG', '625', '100', 'AE', '95.2', 'AE'],
-        ['03/08/2026', 'AB T96', 'No', 'AE', '774', '100', 'AE', '81', 'AG'],
-        ['03/08/2026', 'AB T86', 'No', 'AE', '1007', '100', 'AG', '87.6', 'AE'],
-        ['03/08/2026', 'AB T80', 'No', 'AE', '387', '100', 'AE', '78', 'AE'],
-        ['03/08/2026', 'AB T106', 'No', 'AG', '1722', '100', 'AG', '71', 'AE'],
-        ['04/08/2026', 'AB T128', 'No', 'AE', '528', '100', 'AE', '82.9', 'AG'],
-        ['04/08/2026', 'AB T93(M) x AB T95(F)', 'No', 'AE', '1017', '100', 'AE', '91', 'AE'],
-        ['04/08/2026', 'AB T99(F) x AB T130(M)', 'No', 'AE', '409', '100', 'AG', '79', 'AE'],
-        ['04/08/2026', 'AB T97', 'No', 'AE', '502', '100', 'AE', '91', 'AG'],
-        ['04/08/2026', 'AB T87', 'No', 'AE', '298', '100', 'AG', '68', 'AG'],
-        ['04/08/2026', 'AB T129', 'No', 'AE', '147', '100', 'AG', '97', 'AG'],
-        ['04/08/2026', 'AB T76(F) x AB T130(M)', 'No', 'AG', '210', '100', 'AE', '96', 'AE'],
-        ['08/08/2026', 'AB T129', 'No', 'AG', '61', '100', 'AE', '78', 'AE'],
-        ['08/08/2026', 'AB T128', 'No', 'AE', '374', '100', 'AG', '95.1', 'AG'],
-        ['10/08/2026', 'AB T97', 'No', 'AE', '201', '100', 'AE', '73', 'AE'],
-        ['11/08/2026', 'Fli T98', 'No', 'AE', '60', '100', 'AE', '10', 'AE'],
-        ['11/08/2026', 'Fli T82', 'No', 'AG', '466', '100', 'AE', '96.5', 'AE'],
-        ['11/08/2026', 'Fli T133', 'No', 'AE', '177', '100', 'AE', '87.5', 'AE'],
-        ['11/08/2026', 'Fli T119', 'No', 'AG', '516', '100', 'AE', '88', 'AE'],
-        ['11/08/2026', 'Fli T70', 'No', 'AE', '355', '100', 'AE', '7', 'AE'],
-        ['11/08/2026', 'AB T80 intank', 'Yes', 'AE', '211', '100', 'AE', '72.9', 'AE'],
-        ['11/08/2026', 'Fli T133(F) x Fli T98(M)', 'No', 'AG', '71', '100', 'AG', '73', 'AG'],
-        ['11/08/2026', 'AB T81 intank', 'Yes', 'AG', '597', '100', 'AG', '87', 'AE'],
-        ['11/08/2026', 'AB T86 intank', 'Yes', 'AG', '567', '100', 'AG', '89.9', 'AE'],
-        ['15/08/2026', 'Fli T82', 'No', 'AG', '506', '100', 'AG', '91', 'AE'],
-        ['15/08/2026', 'Fli T119', 'No', 'AG', '872', '100', 'AE', '95', 'AG'],
-        ['16/08/2026', 'Fli T133', 'No', 'AE', '306', '100', 'AE', '77', 'AG'],
-        ['16/08/2026', 'Fli T133(F) x Fli T98(M)', 'No', 'AG', '282', '100', 'AE', '83', 'AE'],
-        ['16/08/2026', 'Fli T132', 'No', 'AE', '237', '100', 'AE', '91', 'AE'],
-        ['16/08/2026', 'Fli T70', 'No', 'AE', '350', '100', 'AE', '14', 'AE'],
-        ['16/08/2026', 'Fli T98', 'No', 'AE', '57', '100', 'AG', '0', 'AE'],
-        ['22/08/2026', 'AB T129 In tank', 'Yes', 'EA', '122', '100', 'AE', '81.9', 'AE'],
-        ['22/08/2026', 'AB T87', 'No', 'EA', '699', '100', 'AG', '86', 'AE'],
-        ['23/08/2026', 'AB T99(F) x AB T130(M)', 'No', 'EA', '361', '100', 'AG', '96', 'EA'],
-        ['23/08/2026', 'AB T80', 'No', 'EA', '392', '100', 'AG', '67', 'EA'],
-        ['24/08/2026', 'AB T128', 'No', 'EA', '303', '100', 'AE', '92', 'AF'],
-        ['24/08/2026', 'AB T95(F) x AB T93(M)', 'No', 'AE', '1312', '100', 'AE', '74.92', 'AF'],
-        ['25/08/2026', 'AB T97', 'No', 'AE', '0', '0', '', '0', ''],
-        ['25/08/2026', 'AB T81', 'No', 'AE', '759', '100', 'AG', '69.2', 'EA'],
-        ['25/08/2026', 'AB T106', 'No', 'AE', '2252', '74', 'AG', '84.6', 'EA'],
-        ['26/08/2026', 'Fli T119', 'No', 'AE', '467', '100', 'AE+AF', '93.61', 'MF'],
-        ['28/08/2026', 'Fli T119', 'No', '', '508', '100', 'MF', '88.6', 'MF'],
-        ['29/08/2026', 'AB T129', 'No', 'AF', '320', '100', 'AE+AF', '97.8', 'AF'],
-        ['29/08/2026', 'AB T128', 'No', 'AE', '185', '100', '', '70.27', 'AF'],
-        ['29/08/2026', 'AB T87', 'No', 'AF', '0', '0', 'AE+AF', '0', ''],
-        ['29/08/2026', 'AB T86', 'No', 'AF', '1244', '100', 'AE+AF', '86.2', 'AF'],
-        ['29/08/2026', 'AB T86 + AB T93(F)(M)', 'No', 'AF', '98', '100', 'AF', '94.8', 'AF']
-    ]
-
-    for p3 in p3_transcriptions:
-        date_iso = parse_date(p3[0], 2026)
-        fishline = p3[1]
-        line, tanks = extract_line_and_tanks(fishline)
-        in_tank = (p3[2].lower() == 'yes') or ('intank' in fishline.lower())
-        setup_staff = p3[3]
-        eggs_0h = parse_clean_int(p3[4])
-        sr_0h = parse_clean_float(p3[5])
-        col_staff = p3[6]
-        sr_24h = parse_clean_float(p3[7])
-        score_staff = p3[8]
+    p26_updated_xlsx = os.path.join(done_dir, '2026_Updated.xlsx')
+    p26_csv_path = os.path.join(done_dir, '2026_breeding_complete.csv')
+    
+    if os.path.exists(p26_updated_xlsx):
+        print(f"Loading 2026 data directly from verified update: {p26_updated_xlsx}")
+        import openpyxl
+        wb26 = openpyxl.load_workbook(p26_updated_xlsx, data_only=True)
+        ws26 = wb26.active
         
-        live_0h = int(round(eggs_0h * (sr_0h / 100.0))) if sr_0h > 0 else 0
-        live_24h = int(round(live_0h * (sr_24h / 100.0))) if sr_24h > 0 else 0
-
-        p26_events.append({
-            'year': 2026,
-            'date': date_iso,
-            'fishline': fishline,
-            'line': line,
-            'tanks': tanks,
-            'primary_tank': tanks[0] if tanks else '',
-            'in_tank': in_tank,
-            'setup_staff': setup_staff,
-            'collection_staff': col_staff,
-            'scoring_24h_staff': score_staff,
-            'staff_summary': f"Setup: {setup_staff} | Col: {col_staff} | 24H: {score_staff}",
-            'eggs_0h': eggs_0h,
-            'sr_0h': sr_0h,
-            'live_0h': live_0h,
-            'sr_24h': sr_24h,
-            'live_24h': live_24h,
-            'source': '2026_log_sheet_part3'
-        })
+        csv_rows_to_save = [['Date', 'Fishline', 'In_Tank', 'Total_Eggs_0H', 'Survival_Rate_0H', 'Live_Embryos_0H', 'Survival_Rate_24H']]
+        
+        for r in range(2, ws26.max_row + 1):
+            d_val = ws26.cell(r, 1).value
+            fl = str(ws26.cell(r, 2).value or '').strip()
+            in_tank_val = ws26.cell(r, 3).value
+            eggs = ws26.cell(r, 4).value or 0
+            sr0 = ws26.cell(r, 5).value or 0.0
+            live0 = ws26.cell(r, 6).value or 0
+            sr24 = ws26.cell(r, 7).value or 0.0
+            
+            if not fl and not d_val:
+                continue
+                
+            if isinstance(d_val, datetime):
+                date_iso = d_val.strftime('%Y-%m-%d')
+            else:
+                date_iso = parse_date(d_val, 2026)
+                
+            in_tank = bool(in_tank_val)
+            if isinstance(in_tank_val, str):
+                in_tank = in_tank_val.strip().upper() in ['TRUE', 'YES', '1']
+                
+            line, tanks = extract_line_and_tanks(fl)
+            eggs_0h = parse_clean_int(eggs)
+            sr_0h = parse_clean_float(sr0)
+            live_0h = parse_clean_int(live0) if live0 else int(round(eggs_0h * (sr_0h / 100.0)))
+            sr_24h = parse_clean_float(sr24)
+            live_24h = int(round(live_0h * (sr_24h / 100.0))) if sr_24h > 0 else 0
+            
+            csv_rows_to_save.append([date_iso, fl, in_tank, eggs_0h, sr_0h, live_0h, sr_24h])
+            
+            p26_events.append({
+                'year': 2026,
+                'date': date_iso,
+                'fishline': fl,
+                'line': line,
+                'tanks': tanks,
+                'primary_tank': tanks[0] if tanks else '',
+                'in_tank': in_tank,
+                'setup_staff': 'Lab Staff',
+                'collection_staff': 'Lab Staff',
+                'scoring_24h_staff': 'Lab Staff',
+                'staff_summary': 'Lab Staff',
+                'eggs_0h': eggs_0h,
+                'sr_0h': sr_0h,
+                'live_0h': live_0h,
+                'sr_24h': sr_24h,
+                'live_24h': live_24h,
+                'source': '2026_Updated'
+            })
+            
+        with open(p26_csv_path, 'w', newline='', encoding='utf-8') as f:
+            csv.writer(f).writerows(csv_rows_to_save)
+        print(f"Synchronized {p26_csv_path} with {len(p26_events)} rows.")
+    elif os.path.exists(p26_csv_path):
+        print(f"Loading 2026 data from {p26_csv_path}...")
+        with open(p26_csv_path, 'r', encoding='utf-8-sig', errors='ignore') as f:
+            reader = list(csv.reader(f))
+            for r in reader[1:]:
+                if not r or len(r) < 2 or not r[0].strip():
+                    continue
+                date_iso = parse_date(r[0], 2026)
+                fishline = r[1].strip()
+                line, tanks = extract_line_and_tanks(fishline)
+                in_tank = r[2].strip().upper() in ['TRUE', 'YES', '1'] if len(r) > 2 else ('intank' in fishline.lower())
+                eggs_0h = parse_clean_int(r[3]) if len(r) > 3 else 0
+                sr_0h = parse_clean_float(r[4]) if len(r) > 4 else 0.0
+                live_0h = parse_clean_int(r[5]) if len(r) > 5 else int(round(eggs_0h * (sr_0h / 100.0)))
+                sr_24h = parse_clean_float(r[6]) if len(r) > 6 else 0.0
+                live_24h = int(round(live_0h * (sr_24h / 100.0))) if sr_24h > 0 else 0
+                
+                p26_events.append({
+                    'year': 2026,
+                    'date': date_iso,
+                    'fishline': fishline,
+                    'line': line,
+                    'tanks': tanks,
+                    'primary_tank': tanks[0] if tanks else '',
+                    'in_tank': in_tank,
+                    'setup_staff': 'Lab Staff',
+                    'collection_staff': 'Lab Staff',
+                    'scoring_24h_staff': 'Lab Staff',
+                    'staff_summary': 'Lab Staff',
+                    'eggs_0h': eggs_0h,
+                    'sr_0h': sr_0h,
+                    'live_0h': live_0h,
+                    'sr_24h': sr_24h,
+                    'live_24h': live_24h,
+                    'source': '2026_Updated'
+                })
 
     # Sort 2026 events by date
     p26_events.sort(key=lambda x: x['date'] or '')
@@ -1228,6 +1082,45 @@ def process():
     with open(os.path.join(labels_dir, 'breeding_dashboard_data.json'), 'w', encoding='utf-8') as f:
         json.dump(summary_data, f)
     print(f'Saved breeding_dashboard_data.json with pedigree, turnover, crosses, and {len(alerts)} alerts.')
+
+    # Synchronize grand master CSV
+    master_csv_path = os.path.join(labels_dir, 'archive', 'DONE', 'fishnet_master_breeding_2024_2026.csv')
+    try:
+        with open(master_csv_path, 'w', newline='', encoding='utf-8-sig') as f:
+            w = csv.writer(f)
+            w.writerow([
+                'Event_ID', 'Year', 'Spawn_Date', 'Fishline_Raw', 'Standard_Line',
+                'Tanks_Involved', 'Primary_Tank', 'In_Tank', 'Setup_Staff_Initial',
+                'Collection_0H_Staff_Initial', 'Scoring_24H_Staff_Initial',
+                'Total_Eggs_0H', 'Survival_Rate_0H', 'Live_Embryos_0H',
+                'Survival_Rate_24H', 'Live_Embryos_24H', 'Fertility_Success', 'Source'
+            ])
+            for i, ev in enumerate(all_events, 1):
+                t_str = ';'.join(ev['tanks'])
+                p_tank = ev['primary_tank'] if ev['primary_tank'] else (ev['tanks'][0] if ev['tanks'] else '')
+                w.writerow([
+                    f"EV-{i:05d}",
+                    str(ev['year']),
+                    ev['date'],
+                    ev['fishline'],
+                    ev['line'],
+                    t_str,
+                    p_tank,
+                    'Yes' if ev['in_tank'] else 'No',
+                    ev.get('setup_staff', ''),
+                    ev.get('collection_staff', ''),
+                    ev.get('scoring_24h_staff', ''),
+                    ev['eggs_0h'],
+                    ev['sr_0h'],
+                    ev.get('live_0h', int(round(ev['eggs_0h'] * ev['sr_0h'] / 100.0))),
+                    ev['sr_24h'],
+                    ev['live_24h'],
+                    'Yes' if ev['live_24h'] > 0 else 'No',
+                    ev.get('source', '')
+                ])
+        print(f"Synchronized {master_csv_path} with {len(all_events)} master events.")
+    except Exception as e:
+        print(f"Warning: could not write {master_csv_path}: {e}")
 
 if __name__ == '__main__':
     process()
