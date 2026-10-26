@@ -47,4 +47,10 @@ try:
 except Exception as e:
     print(f"[NOTE] Web distribution handled directly by generator: {e}")
 
-print("\n*** ALL MASTER FILES & DASHBOARDS ARE 100% SYNCHRONIZED! ***")
+# 5. Export Google Sheets CSVs & Push to Cloud
+print("\nStep 5: Exporting Google Sheets clean files & syncing cloud...")
+if run_step('export_to_google_sheets_format.py'):
+    print("[OK] Google Sheets import CSV files regenerated.")
+    run_step('push_to_google_sheets.py')
+
+print("\n*** ALL MASTER FILES, GOOGLE SHEETS & DASHBOARDS ARE 100% SYNCHRONIZED! ***")

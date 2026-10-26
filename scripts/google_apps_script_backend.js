@@ -45,7 +45,33 @@ function doPost(e) {
     var operator = data.operator || "Staff";
     var now = new Date();
 
-    if (action === "ADD_SPAWNING_EVENT") {
+    if (action === "SYNC_ALL_BREEDING_EVENTS") {
+      var sEvents = ss.getSheetByName("Breeding_Events");
+      if (!sEvents) {
+        sEvents = ss.insertSheet("Breeding_Events");
+      }
+      var rows = data.rows;
+      if (rows && rows.length > 0) {
+        sEvents.clearContents();
+        sEvents.getRange(1, 1, rows.length, rows[0].length).setValues(rows);
+        recordAudit(ss, operator, "SYNC_EVENTS", "Synchronized " + (rows.length - 1) + " master breeding events");
+      }
+      return ContentService.createTextOutput(JSON.stringify({ status: "success", updated_events: rows ? rows.length : 0 }))
+        .setMimeType(ContentService.MimeType.JSON);
+    } else if (action === "SYNC_ALL_TANKS") {
+      var sTanks = ss.getSheetByName("Tanks");
+      if (!sTanks) {
+        sTanks = ss.insertSheet("Tanks");
+      }
+      var rows = data.rows;
+      if (rows && rows.length > 0) {
+        sTanks.clearContents();
+        sTanks.getRange(1, 1, rows.length, rows[0].length).setValues(rows);
+        recordAudit(ss, operator, "SYNC_TANKS", "Synchronized " + (rows.length - 1) + " master tanks");
+      }
+      return ContentService.createTextOutput(JSON.stringify({ status: "success", updated_tanks: rows ? rows.length : 0 }))
+        .setMimeType(ContentService.MimeType.JSON);
+    } else if (action === "ADD_SPAWNING_EVENT") {
       var sEvents = ss.getSheetByName("Breeding_Events");
       sEvents.appendRow([
         data.date || Utilities.formatDate(now, "GMT+3", "yyyy-MM-dd"),

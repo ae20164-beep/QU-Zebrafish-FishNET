@@ -573,15 +573,12 @@ def process():
     # 2. Parse 2026 Data from verified 2026_Updated.xlsx
     p26_events = []
     p26_updated_xlsx = os.path.join(done_dir, '2026_Updated.xlsx')
-    p26_csv_path = os.path.join(done_dir, '2026_breeding_complete.csv')
     
     if os.path.exists(p26_updated_xlsx):
         print(f"Loading 2026 data directly from verified update: {p26_updated_xlsx}")
         import openpyxl
         wb26 = openpyxl.load_workbook(p26_updated_xlsx, data_only=True)
         ws26 = wb26.active
-        
-        csv_rows_to_save = [['Date', 'Fishline', 'In_Tank', 'Total_Eggs_0H', 'Survival_Rate_0H', 'Live_Embryos_0H', 'Survival_Rate_24H']]
         
         for r in range(2, ws26.max_row + 1):
             d_val = ws26.cell(r, 1).value
@@ -620,45 +617,7 @@ def process():
                 staff_summary='Lab Staff',
                 source='2026_Updated'
             )
-            
-            csv_rows_to_save.append([ev_obj['date'], ev_obj['fishline'], ev_obj['in_tank'], ev_obj['eggs_0h'], ev_obj['sr_0h'], ev_obj['live_0h'], ev_obj['sr_24h']])
             p26_events.append(ev_obj)
-            
-        with open(p26_csv_path, 'w', newline='', encoding='utf-8') as f:
-            csv.writer(f).writerows(csv_rows_to_save)
-        print(f"Synchronized {p26_csv_path} with {len(p26_events)} rows.")
-    elif os.path.exists(p26_csv_path):
-        print(f"Loading 2026 data from {p26_csv_path}...")
-        with open(p26_csv_path, 'r', encoding='utf-8-sig', errors='ignore') as f:
-            reader = list(csv.reader(f))
-            for r in reader[1:]:
-                if not r or len(r) < 2 or not r[0].strip():
-                    continue
-                date_iso = parse_date(r[0], 2026)
-                fishline = r[1].strip()
-                in_tank = r[2].strip().upper() in ['TRUE', 'YES', '1'] if len(r) > 2 else ('intank' in fishline.lower())
-                eggs_0h = r[3] if len(r) > 3 else 0
-                sr_0h = r[4] if len(r) > 4 else 0.0
-                live_0h = r[5] if len(r) > 5 else 0
-                sr_24h = r[6] if len(r) > 6 else 0.0
-                
-                ev_obj = build_standard_event(
-                    year=2026,
-                    date_iso=date_iso,
-                    fishline=fishline,
-                    in_tank=in_tank,
-                    eggs_raw=eggs_0h,
-                    sr0_raw=sr_0h,
-                    live0_raw=live_0h,
-                    sr24_raw=sr_24h,
-                    live24_raw=None,
-                    setup_staff='Lab Staff',
-                    collection_staff='Lab Staff',
-                    scoring_staff='Lab Staff',
-                    staff_summary='Lab Staff',
-                    source='2026_Updated'
-                )
-                p26_events.append(ev_obj)
 
     # Sort 2026 events by date
     p26_events.sort(key=lambda x: x['date'] or '')
