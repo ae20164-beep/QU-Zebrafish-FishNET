@@ -798,7 +798,7 @@ def generate_dashboard():
         <button class="tab-btn" onclick="switchTab('tab-inventory')">🐠 FishNET Inventory & Sex Structure</button>
         <button class="tab-btn" onclick="switchTab('tab-audit')">🔍 Data Quality & Sex Consistency Audit</button>
         <button class="tab-btn" onclick="switchTab('tab-planner')">🎯 Intelligent Mating Planner</button>
-        <button class="tab-btn" onclick="switchTab('tab-raw-events')">📋 Master Breeding Log (2,224 Events)</button>
+        <button class="tab-btn" onclick="switchTab('tab-raw-events')">📋 Master Breeding Log (2,221 Events)</button>
     </div>
 
     <!-- TAB 1: 4-Line Benchmarks -->
@@ -1647,7 +1647,7 @@ def generate_dashboard():
         <div class="card">
             <div class="card-header">
                 <div>
-                    <span class="card-title">📋 Grand Master Spawning Event Log (<span id="rawHeaderCount">2,224</span> Events)</span>
+                    <span class="card-title">📋 Grand Master Spawning Event Log (<span id="rawHeaderCount">2,221</span> Events)</span>
                     <span style="font-size: 12px; color: var(--text-secondary);">Full individual spawning log history with multi-page navigation and verified records</span>
                 </div>
                 <div class="card-header-actions" style="display: flex; gap: 8px;">
@@ -1659,9 +1659,9 @@ def generate_dashboard():
                 <div class="filter-group">
                     <span class="filter-label">Year:</span>
                     <select id="rawYearFilter" onchange="renderRawEvents(true)">
-                        <option value="ALL">All Years (2024-2026) — 2,224 events</option>
-                        <option value="2026">2026 (535 events)</option>
-                        <option value="2025">2025 (1,229 events)</option>
+                        <option value="ALL">All Years (2024-2026) — 2,221 events</option>
+                        <option value="2026">2026 (533 events)</option>
+                        <option value="2025">2025 (1,228 events)</option>
                         <option value="2024">2024 (460 events)</option>
                     </select>
                 </div>
@@ -1710,7 +1710,7 @@ def generate_dashboard():
             <!-- Pagination & Rows-Per-Page Toolbar -->
             <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; border-top: 1px solid var(--border-color); flex-wrap: wrap; gap: 12px; background: rgba(15,23,42,0.3); margin-top: 8px; border-radius: 0 0 var(--radius-md) var(--radius-md);">
                 <div style="display: flex; align-items: center; gap: 14px; font-size: 12px; color: var(--text-secondary); flex-wrap: wrap;">
-                    <span>Showing <b id="rawPageRange" style="color: #fff;">1 - 50</b> of <b id="rawTotalCount" style="color: #fff;">2,224</b> events</span>
+                    <span>Showing <b id="rawPageRange" style="color: #fff;">1 - 50</b> of <b id="rawTotalCount" style="color: #fff;">2,221</b> events</span>
                     <div style="display: flex; align-items: center; gap: 6px;">
                         <span>Rows per page:</span>
                         <select id="rawPageSize" onchange="changeRawPageSize(this.value)" style="background: var(--bg-card); color: #fff; border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 4px 8px; font-size: 12px; cursor: pointer;">
@@ -1718,7 +1718,7 @@ def generate_dashboard():
                             <option value="100">100 rows</option>
                             <option value="200">200 rows</option>
                             <option value="500">500 rows</option>
-                            <option value="ALL">All rows (2,224)</option>
+                            <option value="ALL">All rows (2,221)</option>
                         </select>
                     </div>
                 </div>
@@ -3782,7 +3782,7 @@ def generate_dashboard():
             }
         }
 
-        const CACHE_KEY_EVENTS = 'fishnet_persisted_events_v2026';
+        const CACHE_KEY_EVENTS = 'fishnet_persisted_events_v2026_oct26';
         function loadPersistedEdits() {
             try {
                 const savedTanks = localStorage.getItem('fishnet_persisted_tanks');
