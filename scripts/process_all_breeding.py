@@ -259,7 +259,7 @@ def process():
             except:
                 pass
         
-        for fmt in ['%d-%b-%y', '%d-%m-%y', '%d-%b-%Y', '%d/%m/%Y', '%Y-%m-%d', '%d-%m-%Y']:
+        for fmt in ['%d-%b-%y', '%d-%m-%y', '%d-%b-%Y', '%d/%m/%Y', '%Y-%m-%d', '%d-%m-%Y', '%m/%d/%Y', '%m/%d/%y', '%d/%m/%y', '%m-%d-%Y']:
             try:
                 dt = datetime.strptime(raw_dob, fmt)
                 if dt.year > 2030:
@@ -985,7 +985,7 @@ def process():
         # Turnover date parsing
         turn_str = st.get('turnover_date', '')
         turn_dt = None
-        for fmt in ['%d-%m-%Y', '%d/%m/%Y', '%d-%b-%y', '%d-%b-%Y', '%d-%m-%y']:
+        for fmt in ['%d-%m-%Y', '%d/%m/%Y', '%d-%b-%y', '%d-%b-%Y', '%d-%m-%y', '%m/%d/%Y', '%m/%d/%y', '%d/%m/%y', '%m-%d-%Y']:
             try:
                 turn_dt = datetime.strptime(turn_str, fmt)
                 if turn_dt.year > 2030: turn_dt = turn_dt.replace(year=turn_dt.year - 100)

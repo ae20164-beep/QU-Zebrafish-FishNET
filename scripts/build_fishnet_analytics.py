@@ -9,7 +9,7 @@ from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 from openpyxl.utils import get_column_letter
 
 # Reference date (Current date: Oct 1, 2026)
-NOW = datetime(2026, 10, 1)
+NOW = datetime(2026, 11, 1)
 
 LABELS_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if not os.path.exists(os.path.join(LABELS_DIR, 'FishNet Exported Data')):
@@ -27,7 +27,7 @@ def parse_date(d_str):
     if not d_str or not isinstance(d_str, str):
         return None
     d_str = d_str.strip()
-    for fmt in ['%d-%b-%y', '%d-%m-%y', '%d/%m/%y', '%Y-%m-%d', '%d-%b-%Y', '%d-%m-%Y']:
+    for fmt in ['%d-%b-%y', '%d-%m-%y', '%d/%m/%y', '%Y-%m-%d', '%d-%b-%Y', '%d-%m-%Y', '%m/%d/%Y', '%d/%m/%Y', '%m/%d/%y', '%m-%d-%Y']:
         try:
             return datetime.strptime(d_str, fmt)
         except ValueError:
@@ -257,9 +257,9 @@ for r in records:
     r['Progeny_Tanks'] = ', '.join(children_map[tuid])
     
     # Counts
-    fem_str = r.get('Females') or r.get('FEMALE') or ''
-    male_str = r.get('Males') or r.get('MALE') or ''
-    tot_str = r.get('Number of Fish') or r.get('TOTAL') or r.get('Total') or ''
+    fem_str = r.get('Females') or r.get('FEMALE') or r.get('Female') or ''
+    male_str = r.get('Males') or r.get('MALE') or r.get('Male') or ''
+    tot_str = r.get('Number of Fish') or r.get('TOTAL') or r.get('Total') or r.get('Total_Fish') or ''
     
     r['Female_Count'] = int(fem_str) if fem_str.isdigit() else 0
     r['Male_Count'] = int(male_str) if male_str.isdigit() else 0
@@ -273,9 +273,9 @@ for r in records:
     r['STATUS'] = st_raw
     r['NOTES'] = notes_val
     r['DOB'] = r.get('Date of Birth') or r.get('DOB') or ''
-    r['TURNOVER'] = r.get('Turnover Date') or r.get('TURNOVER') or ''
-    r['DOD'] = r.get('Date of Death') or r.get('DOD') or ''
-    r['TANK'] = r.get('Tank Size') or r.get('TANK') or ''
+    r['TURNOVER'] = r.get('Turnover Date') or r.get('TURNOVER') or r.get('Turnover_Deadline') or ''
+    r['DOD'] = r.get('Date of Death') or r.get('DOD') or r.get('Date of death') or ''
+    r['TANK'] = r.get('Tank Size') or r.get('TANK') or r.get('Tank_Size') or ''
     
     # Dates & Age
     dob = parse_date(r['DOB'])
