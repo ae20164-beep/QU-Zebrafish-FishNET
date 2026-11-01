@@ -28,6 +28,8 @@ run_step('build_comprehensive_projects_and_labs.py')
 print("\nStep 1: Synchronizing FileMaker Master Exports...")
 if run_step('build_fishnet_analytics.py'):
     print("[OK] Colony Analytics & Dashboards regenerated.")
+if run_step('generate_color_coded_tanks_excel.py'):
+    print("[OK] Color-Coded Dynamic Tanks Excel updated.")
 
 # 2. Process all breeding records & update breeding data
 print("\nStep 2: Processing breeding & reproductive intelligence...")
