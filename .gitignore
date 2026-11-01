@@ -8,3 +8,4 @@ temp_*
 Training/
 *.dng
 google_sheets_live_sync.json
+.vercel
