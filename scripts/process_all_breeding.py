@@ -592,7 +592,7 @@ def process():
             if not fl and not d_val:
                 continue
                 
-            if isinstance(d_val, datetime):
+            if hasattr(d_val, 'strftime'):
                 date_iso = d_val.strftime('%Y-%m-%d')
             else:
                 date_iso = parse_date(d_val, 2026)
