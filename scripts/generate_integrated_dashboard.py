@@ -740,7 +740,7 @@ def generate_dashboard():
     <header>
         <div class="header-title">
             <h1><span>🐠</span> FishNET Facility Reproductive & Colony Intelligence System</h1>
-            <p>Unified Zebrafish Platform (2024–2026) | 183 Tanks • 2,233 Spawning Events • 1,252,045 Eggs • 72 Crosses • Live Cloud Database</p>
+            <p id="headerSubtext">Unified Zebrafish Platform (2024–2026) | 183 Tanks • 2,224 Spawning Events • 1,253,907 Eggs • 71 Crosses • Live Cloud Database</p>
         </div>
         <div class="header-controls">
             <span class="cloud-badge" id="cloudStatusBadge">🟢 Cloud: Google Sheets Live</span>
@@ -755,32 +755,32 @@ def generate_dashboard():
         <div class="kpi-card kpi-blue">
             <span class="kpi-label">Total Tanks</span>
             <span class="kpi-value" id="kpiTotalTanks">183</span>
-            <span class="kpi-subtext" id="kpiTankStatusSub">117 Active | 63 Euthanized | 3 Larvae</span>
+            <span class="kpi-subtext" id="kpiTankStatusSub">104 Active | 72 Euthanized | 0 Larvae</span>
         </div>
         <div class="kpi-card kpi-emerald">
             <span class="kpi-label">Breeding Events</span>
-            <span class="kpi-value" id="kpiTotalEvents">2,233</span>
-            <span class="kpi-subtext">2024: 460 | 2025: 1,229 | 2026: 544</span>
+            <span class="kpi-value" id="kpiTotalEvents">2,224</span>
+            <span class="kpi-subtext" id="kpiEventsSub">2024: 460 | 2025: 1,228 | 2026: 536</span>
         </div>
         <div class="kpi-card kpi-amber">
             <span class="kpi-label">Lifetime Eggs Spawned</span>
-            <span class="kpi-value" id="kpiTotalEggs">1,252,045</span>
-            <span class="kpi-subtext">Avg 560.7 eggs / spawn</span>
+            <span class="kpi-value" id="kpiTotalEggs">1,253,907</span>
+            <span class="kpi-subtext" id="kpiEggsSub">Avg 563.8 eggs / spawn</span>
         </div>
         <div class="kpi-card kpi-indigo">
             <span class="kpi-label">Viable Embryos (24hpf)</span>
-            <span class="kpi-value" id="kpiLive24h">971,919</span>
-            <span class="kpi-subtext">77.6% Global Colony Viability</span>
+            <span class="kpi-value" id="kpiLive24h">994,827</span>
+            <span class="kpi-subtext" id="kpiLiveSub">79.3% Global Colony Viability</span>
         </div>
         <div class="kpi-card kpi-rose">
             <span class="kpi-label">Single-Sex Reservoirs</span>
-            <span class="kpi-value">41 Tanks</span>
-            <span class="kpi-subtext">21 ♀ Female-Only | 20 ♂ Male-Only</span>
+            <span class="kpi-value" id="kpiSingleSex">41 Tanks</span>
+            <span class="kpi-subtext" id="kpiSingleSexSub">21 ♀ Female-Only | 20 ♂ Male-Only</span>
         </div>
         <div class="kpi-card kpi-purple">
             <span class="kpi-label">Crosses & Alerts</span>
-            <span class="kpi-value" id="kpiCrossAlerts">72 / 120</span>
-            <span class="kpi-subtext">72 Crosses | 120 Active Alerts</span>
+            <span class="kpi-value" id="kpiCrossAlerts">71 / 88</span>
+            <span class="kpi-subtext" id="kpiCrossSub">71 Crosses | 88 Active Alerts</span>
         </div>
     </div>
 
@@ -798,7 +798,7 @@ def generate_dashboard():
         <button class="tab-btn" onclick="switchTab('tab-inventory')">🐠 FishNET Inventory & Sex Structure</button>
         <button class="tab-btn" onclick="switchTab('tab-audit')">🔍 Data Quality & Sex Consistency Audit</button>
         <button class="tab-btn" onclick="switchTab('tab-planner')">🎯 Intelligent Mating Planner</button>
-        <button class="tab-btn" onclick="switchTab('tab-raw-events')">📋 Master Breeding Log (2,221 Events)</button>
+        <button class="tab-btn" onclick="switchTab('tab-raw-events')">📋 Master Breeding Log (2,224 Events)</button>
     </div>
 
     <!-- TAB 1: 4-Line Benchmarks -->
@@ -1664,8 +1664,8 @@ def generate_dashboard():
         <div class="card">
             <div class="card-header">
                 <div>
-                    <span class="card-title">📋 Grand Master Spawning Event Log (<span id="rawHeaderCount">2,221</span> Events)</span>
-                    <span style="font-size: 12px; color: var(--text-secondary);">Full individual spawning log history with multi-page navigation and verified records</span>
+                    <span class="card-title">📋 Grand Master Spawning Event Log (<span id="rawHeaderCount">2,224</span> Events)</span>
+                    <span style="font-size: 12px; color: var(--text-secondary);">13-column master cloud database synchronized with verified breeding events</span>
                 </div>
                 <div class="card-header-actions" style="display: flex; gap: 8px;">
                     <button class="btn btn-sm btn-outline" onclick="resetAllLocalEdits()" title="Reset to official facility server data">🔄 Reset to Server Data</button>
@@ -1676,8 +1676,8 @@ def generate_dashboard():
                 <div class="filter-group">
                     <span class="filter-label">Year:</span>
                     <select id="rawYearFilter" onchange="renderRawEvents(true)">
-                        <option value="ALL">All Years (2024-2026) — 2,221 events</option>
-                        <option value="2026">2026 (533 events)</option>
+                        <option value="ALL">All Years (2024-2026) — 2,224 events</option>
+                        <option value="2026">2026 (536 events)</option>
                         <option value="2025">2025 (1,228 events)</option>
                         <option value="2024">2024 (460 events)</option>
                     </select>
@@ -1694,7 +1694,7 @@ def generate_dashboard():
                     </select>
                 </div>
                 <div class="filter-group">
-                    <input type="text" id="rawSearch" placeholder="Search Tank, Date, Staff, Cross..." oninput="renderRawEvents(true)">
+                    <input type="text" id="rawSearch" placeholder="Search Tank, Fishline, Date, Cross..." oninput="renderRawEvents(true)">
                 </div>
             </div>
             
@@ -1702,19 +1702,19 @@ def generate_dashboard():
                 <table id="rawEventsTable">
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>Event ID</th>
                             <th>Date</th>
+                            <th>Fishline (Raw / Strain)</th>
                             <th>Line</th>
-                            <th>Log Entry / Fishline</th>
                             <th>Mating Type</th>
-                            <th>Tanks Involved</th>
+                            <th>Tank ID (Sheet Entry)</th>
                             <th style="text-align: right;">Eggs (0h)</th>
                             <th style="text-align: right;">0h SR%</th>
                             <th style="text-align: right;">Live (0h)</th>
                             <th style="text-align: right;">24h SR%</th>
                             <th style="text-align: right;">Live (24h)</th>
-                            <th>Fertility</th>
-                            <th>Staff</th>
+                            <th>Female Tank (♀)</th>
+                            <th>Male Tank (♂)</th>
                             <th class="no-export">Action</th>
                         </tr>
                     </thead>
@@ -3505,6 +3505,110 @@ def generate_dashboard():
             renderRawEvents(false);
         }
 
+                function cleanFishlineNoTanks(raw) {
+            if (!raw) return 'AB';
+            let s = String(raw).trim();
+            s = s.replace(/\bA13\b/gi, 'AB');
+            s = s.replace(/\bA1B\b/gi, 'AB');
+            s = s.replace(/\bGli\b/gi, 'Fli');
+            s = s.replace(/\bGaba\b/gi, 'Gata');
+            s = s.replace(/\bGatat\b/gi, 'Gata');
+            s = s.replace(/\bART\b/gi, 'AB');
+            s = s.replace(/\(?\bIn[\-\s_]*Tank\b\)?/gi, '');
+            s = s.replace(/\(\s*\d{1,2}[\/\-]\d{1,2}[\/\-]\d{2,4}\s*\)/g, '');
+            s = s.replace(/\b\d{1,2}\/\d{1,2}\b/g, '');
+            s = s.replace(/F2\+/gi, 'F2');
+            s = s.replace(/(?<!\()\+(?!ve\))/gi, ' x ');
+            s = s.replace(/\b(?:Tank|T|T\.|T\-)\s*0*([0-9]{1,4})\b/gi, '');
+            s = s.replace(/\b(AB|Fli|Gata|Casper|Casp|Cas)T?\s*0*([0-9]{1,4})\b/gi, '$1');
+            s = s.replace(/\b\d{1,4}\b/g, '');
+            s = s.replace(/\b(?:Casp|Cas)\b/gi, 'Casper');
+            s = s.replace(/[\.,/_]+/g, ' ');
+            s = s.replace(/\b(?:vs|x)\b/gi, ' x ');
+            s = s.replace(/\bxAB\b/gi, 'x AB');
+            s = s.replace(/\(\s*\)/g, '');
+            s = s.replace(/\(\s*([FfMm])\s*\)/g, '($1)');
+            s = s.replace(/\(([FfMm])\)\s+(?!(?:x|vs)\b)([A-Za-z]+)/gi, '($1) x $2');
+            s = s.replace(/\bfrom\b/gi, '');
+            s = s.replace(/\s+/g, ' ').trim();
+            s = s.replace(/\s*x\s+x\s*/gi, ' x ');
+            s = s.replace(/^\s*x\s*/gi, '');
+            s = s.replace(/\s*x\s*$/gi, '');
+            s = s.replace(/^(AB|Casper|Fli|Gata)\s*(\([FfMm]\))\s*x\s*(\([FfMm]\))$/gi, '$1 $2 x $1 $3');
+            s = s.replace(/^AB\s*x\s*AB$/gi, 'AB');
+            s = s.replace(/\s+/g, ' ').trim();
+            if (!s || ['x', 'xx', 'tank', 'from'].includes(s.toLowerCase())) return 'AB';
+            return s;
+        }
+
+        function updateGlobalKPICards() {
+            const totalTanks = Object.keys(currentTanks).length;
+            let activeCount = 0, euthCount = 0, larvaeCount = 0;
+            let femaleOnly = 0, maleOnly = 0;
+            Object.values(currentTanks).forEach(t => {
+                if (t.status === 'Active') activeCount++;
+                else if (t.status === 'Euthanized') euthCount++;
+                else if (t.status === 'Larvae') larvaeCount++;
+                if (t.sex_type === 'Female-Only') femaleOnly++;
+                else if (t.sex_type === 'Male-Only') maleOnly++;
+            });
+
+            const totalEv = currentEvents.length;
+            let c24 = 0, c25 = 0, c26 = 0;
+            let totalEggs = 0, totalLive24 = 0;
+            currentEvents.forEach(e => {
+                if (e.year === 2024) c24++;
+                else if (e.year === 2025) c25++;
+                else if (e.year === 2026) c26++;
+                totalEggs += (e.eggs_0h || 0);
+                totalLive24 += (e.live_24h || 0);
+            });
+
+            const globalSR = totalEggs > 0 ? ((totalLive24 / totalEggs) * 100).toFixed(1) : '0.0';
+            const avgEggs = totalEv > 0 ? (totalEggs / totalEv).toFixed(1) : '0';
+
+            const elTotalTanks = document.getElementById('kpiTotalTanks');
+            if (elTotalTanks) elTotalTanks.textContent = totalTanks;
+
+            const elTankSub = document.getElementById('kpiTankStatusSub');
+            if (elTankSub) elTankSub.textContent = `${activeCount} Active | ${euthCount} Euthanized | ${larvaeCount} Larvae`;
+
+            const elTotalEvents = document.getElementById('kpiTotalEvents');
+            if (elTotalEvents) elTotalEvents.textContent = totalEv.toLocaleString();
+
+            const elEventsSub = document.getElementById('kpiEventsSub');
+            if (elEventsSub) elEventsSub.textContent = `2024: ${c24} | 2025: ${c25} | 2026: ${c26}`;
+
+            const elTotalEggs = document.getElementById('kpiTotalEggs');
+            if (elTotalEggs) elTotalEggs.textContent = totalEggs.toLocaleString();
+
+            const elEggsSub = document.getElementById('kpiEggsSub');
+            if (elEggsSub) elEggsSub.textContent = `Avg ${avgEggs} eggs / spawn`;
+
+            const elLive24 = document.getElementById('kpiLive24h');
+            if (elLive24) elLive24.textContent = totalLive24.toLocaleString();
+
+            const elLiveSub = document.getElementById('kpiLiveSub');
+            if (elLiveSub) elLiveSub.textContent = `${globalSR}% Global Colony Viability`;
+
+            const elSingleSex = document.getElementById('kpiSingleSex');
+            if (elSingleSex) elSingleSex.textContent = `${femaleOnly + maleOnly} Tanks`;
+
+            const elSingleSexSub = document.getElementById('kpiSingleSexSub');
+            if (elSingleSexSub) elSingleSexSub.textContent = `${femaleOnly} ♀ Female-Only | ${maleOnly} ♂ Male-Only`;
+
+            const elCrossAlerts = document.getElementById('kpiCrossAlerts');
+            if (elCrossAlerts) elCrossAlerts.textContent = `${currentCrosses.length} / ${(MASTER_DATA.alerts || []).length}`;
+
+            const elCrossSub = document.getElementById('kpiCrossSub');
+            if (elCrossSub) elCrossSub.textContent = `${currentCrosses.length} Crosses | ${(MASTER_DATA.alerts || []).length} Active Alerts`;
+            
+            const headerSub = document.getElementById('headerSubtext');
+            if (headerSub) {
+                headerSub.textContent = `Unified Zebrafish Platform (2024–2026) | ${totalTanks} Tanks • ${totalEv.toLocaleString()} Spawning Events • ${totalEggs.toLocaleString()} Eggs • ${currentCrosses.length} Crosses • Live Cloud Database`;
+            }
+        }
+
         function renderRawEvents(resetPage = false) {
             const tbody = document.getElementById('rawEventsTableBody');
             if (!tbody) return;
@@ -3552,39 +3656,29 @@ def generate_dashboard():
                 const globalIdx = currentEvents.indexOf(e);
                 const eventId = e.event_id || `EV-${String(globalIdx + 1).padStart(5, '0')}`;
                 
-                // Clickable Tanks
-                let tanksHtml = '';
-                if (e.tanks && e.tanks.length > 0) {
-                    tanksHtml = e.tanks.map(t => `<a href="javascript:void(0)" onclick="openTankModal('${t}')" style="text-decoration:none;"><span class="badge" style="background: rgba(59,130,246,0.18); color: #60a5fa; border: 1px solid rgba(59,130,246,0.35); font-weight: 600; cursor: pointer; padding: 2px 6px; font-size: 11px;">${t}</span></a>`).join(' ');
-                } else if (e.tank_id) {
-                    tanksHtml = `<strong>${e.tank_id}</strong>`;
-                } else {
-                    tanksHtml = '<span style="color: var(--text-muted);">-</span>';
-                }
-
-                // Viability Badge
-                const isFertile = (e.live_24h > 0);
-                const fertilityBadge = isFertile
-                    ? `<span class="badge" style="background: rgba(34,197,94,0.15); color: #4ade80; border: 1px solid rgba(34,197,94,0.3); font-size: 11px; padding: 2px 6px;">✓ Fertile</span>`
-                    : `<span class="badge" style="background: rgba(239,68,68,0.15); color: #f87171; border: 1px solid rgba(239,68,68,0.3); font-size: 11px; padding: 2px 6px;">✗ Zero Viable</span>`;
-
+                const rawFishline = e.fishline_raw || cleanFishlineNoTanks(e.fishline);
                 const live0Val = e.live_0h !== undefined ? e.live_0h : (e.eggs_0h ? Math.round(e.eggs_0h * e.sr_0h / 100) : 0);
+
+                const fTank = e.female_tank || (e.tanks && e.tanks[0]) || '';
+                const mTank = e.male_tank || (e.tanks && e.tanks[0]) || '';
+                const femaleTankHtml = fTank ? `<a href="javascript:void(0)" onclick="openTankModal('${fTank}')" style="text-decoration:none;"><span class="badge" style="background: rgba(236,72,153,0.18); color: #f472b6; border: 1px solid rgba(236,72,153,0.35); font-weight: 600; cursor: pointer; padding: 2px 6px; font-size: 11px;">♀ ${fTank}</span></a>` : '<span style="color: var(--text-muted);">-</span>';
+                const maleTankHtml = mTank ? `<a href="javascript:void(0)" onclick="openTankModal('${mTank}')" style="text-decoration:none;"><span class="badge" style="background: rgba(59,130,246,0.18); color: #60a5fa; border: 1px solid rgba(59,130,246,0.35); font-weight: 600; cursor: pointer; padding: 2px 6px; font-size: 11px;">♂ ${mTank}</span></a>` : '<span style="color: var(--text-muted);">-</span>';
 
                 htmlRows += `
                     <tr>
                         <td style="font-family: monospace; font-size: 11px; color: var(--text-secondary); white-space: nowrap;">${eventId}</td>
                         <td style="white-space: nowrap;"><strong>${e.date}</strong></td>
+                        <td style="font-weight: 600; color: #38bdf8; max-width: 200px; word-break: break-word;">${rawFishline}</td>
                         <td><span class="badge ${badgeClass}">${e.line}</span></td>
-                        <td style="max-width: 240px; font-size: 12px; color: #f1f5f9; word-break: break-word;" title="${e.fishline || ''}"><strong>${e.fishline || '-'}</strong></td>
                         <td><span class="badge" style="background: ${e.in_tank ? 'rgba(168,85,247,0.15)' : 'rgba(59,130,246,0.15)'}; color: ${e.in_tank ? '#c084fc' : '#60a5fa'}; font-size: 11px; padding: 2px 6px;">${e.in_tank ? 'In-Tank' : 'Pair-Wise'}</span></td>
-                        <td>${tanksHtml}</td>
+                        <td style="max-width: 220px; font-size: 12px; color: #f1f5f9; word-break: break-word;" title="${e.fishline || ''}"><strong>${e.fishline || '-'}</strong></td>
                         <td style="text-align: right;">${e.eggs_0h ? e.eggs_0h.toLocaleString() : 0}</td>
                         <td style="text-align: right;">${e.sr_0h}%</td>
                         <td style="text-align: right;">${live0Val.toLocaleString()}</td>
                         <td style="text-align: right;"><strong>${e.sr_24h}%</strong></td>
                         <td style="text-align: right; color: #4ade80;"><strong>${e.live_24h ? e.live_24h.toLocaleString() : 0}</strong></td>
-                        <td>${fertilityBadge}</td>
-                        <td style="font-size: 12px; color: var(--text-secondary); white-space: nowrap;">${e.staff || e.staff_summary || 'Lab Staff'}</td>
+                        <td>${femaleTankHtml}</td>
+                        <td>${maleTankHtml}</td>
                         <td class="no-export">
                             <button class="btn btn-sm btn-blue" style="padding: 2px 6px; font-size: 11px;" onclick="openEditEventModal(${globalIdx})">✏️ Edit</button>
                         </td>
@@ -4244,6 +4338,7 @@ def generate_dashboard():
 
         window.onload = function() {
             loadPersistedEdits();
+            updateGlobalKPICards();
             renderBenchmarks();
             populateFocalDropdown();
             renderFocalPedigreeTree();

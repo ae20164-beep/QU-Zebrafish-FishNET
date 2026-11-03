@@ -468,6 +468,43 @@ def process():
         p_key = f"{dam} x {sire}"
         return p_key, dam, sire
 
+    def clean_fishline_no_tanks(raw):
+        if not raw:
+            return 'AB'
+        s = str(raw).strip()
+        s = re.sub(r'\bA13\b', 'AB', s, flags=re.I)
+        s = re.sub(r'\bA1B\b', 'AB', s, flags=re.I)
+        s = re.sub(r'\bGli\b', 'Fli', s, flags=re.I)
+        s = re.sub(r'\bGaba\b', 'Gata', s, flags=re.I)
+        s = re.sub(r'\bGatat\b', 'Gata', s, flags=re.I)
+        s = re.sub(r'\bART\b', 'AB', s, flags=re.I)
+        s = re.sub(r'\(?\bIn[\-\s_]*Tank\b\)?', '', s, flags=re.I)
+        s = re.sub(r'\(\s*\d{1,2}[\/\-]\d{1,2}[\/\-]\d{2,4}\s*\)', '', s)
+        s = re.sub(r'\b\d{1,2}/\d{1,2}\b', '', s)
+        s = re.sub(r'F2\+', 'F2', s, flags=re.I)
+        s = re.sub(r'(?<!\()\+(?!ve\))', ' x ', s, flags=re.I)
+        s = re.sub(r'\b(?:Tank|T|T\.|T\-)\s*0*([0-9]{1,4})\b', '', s, flags=re.I)
+        s = re.sub(r'\b(AB|Fli|Gata|Casper|Casp|Cas)T?\s*0*([0-9]{1,4})\b', r'\1', s, flags=re.I)
+        s = re.sub(r'\b\d{1,4}\b', '', s)
+        s = re.sub(r'\b(?:Casp|Cas)\b', 'Casper', s, flags=re.I)
+        s = re.sub(r'[\.,/_]+', ' ', s)
+        s = re.sub(r'\b(?:vs|x)\b', ' x ', s, flags=re.I)
+        s = re.sub(r'\bxAB\b', 'x AB', s, flags=re.I)
+        s = re.sub(r'\(\s*\)', '', s)
+        s = re.sub(r'\(\s*([FfMm])\s*\)', r'(\1)', s)
+        s = re.sub(r'\(([FfMm])\)\s+(?!(?:x|vs)\b)([A-Za-z]+)', r'(\1) x \2', s, flags=re.I)
+        s = re.sub(r'\bfrom\b', '', s, flags=re.I)
+        s = re.sub(r'\s+', ' ', s).strip()
+        s = re.sub(r'\s*x\s+x\s*', ' x ', s, flags=re.I)
+        s = re.sub(r'^\s*x\s*', '', s, flags=re.I)
+        s = re.sub(r'\s*x\s*$', '', s, flags=re.I)
+        s = re.sub(r'^(AB|Casper|Fli|Gata)\s*(\([FfMm]\))\s*x\s*(\([FfMm]\))$', r'\1 \2 x \1 \3', s, flags=re.I)
+        s = re.sub(r'^AB\s*x\s*AB$', 'AB', s, flags=re.I)
+        s = re.sub(r'\s+', ' ', s).strip()
+        if not s or s.lower() in ['x', 'xx', 'tank', 'from']:
+            return 'AB'
+        return s
+
     def build_standard_event(year, date_iso, fishline, in_tank, eggs_raw, sr0_raw, live0_raw, sr24_raw, live24_raw=None, setup_staff='', collection_staff='', scoring_staff='', staff_summary='', source='', notes=''):
         line, tanks = extract_line_and_tanks(fishline)
         eggs_0h = max(0, parse_clean_int(eggs_raw))
@@ -544,6 +581,7 @@ def process():
             'year': year,
             'date': date_iso,
             'fishline': fishline,
+            'fishline_raw': clean_fishline_no_tanks(fishline),
             'line': line,
             'tanks': tanks,
             'primary_tank': tanks[0] if tanks else '',
