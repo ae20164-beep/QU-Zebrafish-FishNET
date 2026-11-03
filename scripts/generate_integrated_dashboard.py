@@ -1292,7 +1292,7 @@ def generate_dashboard():
                         <h3 style="font-size: 16px; font-weight: 700; color: var(--text-primary);">☀️ Seasonal & Qatar Climate Dynamics (Harmonic Fourier Analysis)</h3>
                         <p style="font-size: 12px; color: var(--text-secondary); margin-top: 2px;">Empirical Investigation of Indoor RAS Embryo Viability across Doha Climate Cycles (2,224 Master Spawns)</p>
                     </div>
-                    <span class="badge" style="background: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); font-size: 12px; padding: 4px 10px;">ANOVA F = 21.601 (p &lt; 0.0001)</span>
+                    <span class="badge" style="background: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); font-size: 12px; padding: 4px 10px;">ANOVA F = 18.809 (p &lt; 0.0001)</span>
                 </div>
                 
                 <!-- Dynamic Confounder & Sampling Balance Warning Banner -->
@@ -2829,10 +2829,10 @@ def generate_dashboard():
                     insightEl.innerHTML = `
                         <h4 style="font-size: 14px; margin-bottom: 8px; color: #38bdf8;">📊 Multi-Line Comparative Strain Phenotypes</h4>
                         <ul style="font-size: 12px; color: var(--text-secondary); line-height: 1.6; padding-left: 18px; margin: 0;">
-                            <li><strong style="color: #38bdf8;">AB (Wild-Type Baseline):</strong> 1,642 spawns. Highly stable viability (78.6% – 83.8%) and large clutches (avg 640 eggs) across all 4 seasons.</li>
-                            <li><strong style="color: #fbbf24;">Casper (Double Mutant roy-/-; nacre-/-):</strong> 88 spawns. Marked seasonal thermal sensitivity; peaks in summer (71.4% SR), but dips severely in winter/spring (49–59% SR) with smaller clutches (130–260 eggs).</li>
-                            <li><strong style="color: #34d399;">Fli (Transgenic fli1a:EGFP):</strong> 304 spawns. Steady clutch size (avg 420–550 eggs) with robust summer survival (72.4% SR) and consistent autumn viability (67.4% SR).</li>
-                            <li><strong style="color: #f43f5e;">Gata (Transgenic gata1a:dsRed):</strong> 183 spawns. Modest clutch sizes (160–310 eggs), peaking in autumn (73.5% SR) and sensitive to spring temperature changes (56.8% SR).</li>
+                            <li><strong style="color: #38bdf8;">AB (Wild-Type Baseline):</strong> 1,642 spawns. Progressive seasonal gradient (Winter 69.2% → Autumn 78.8% SR) with large clutches (avg 643 eggs). Most stable line; thermal influence is real but mild.</li>
+                            <li><strong style="color: #fbbf24;">Casper (Double Mutant roy-/-; nacre-/-):</strong> 88 spawns. Consistently low viability across all seasons (Summer 30.9%, Winter 26.8%, Spring 23.8%, Autumn 21.1%). Smaller clutches (127–260 eggs). Double-mutant burden is the dominant driver — thermal influence is secondary.</li>
+                            <li><strong style="color: #34d399;">Fli (Transgenic fli1a:EGFP):</strong> 304 spawns. Moderate clutch sizes (avg 387–547 eggs). Peaks in Summer (66.8% SR) and Winter (63.1% SR); Spring is the low-performance season (50.6% SR). Plan additional setups in spring for Fli-dependent assays.</li>
+                            <li><strong style="color: #f43f5e;">Gata (Transgenic gata1a:dsRed):</strong> 183 spawns. Modest clutch sizes (162–307 eggs). Peaks in Summer (55.6% SR); consistently lower in other seasons (Autumn 31.8%, Spring 37.9%, Winter 27.9%). Schedule intensive Gata collections in summer.</li>
                         </ul>
                     `;
                 } else if (selectedLine === 'AB') {
@@ -2840,7 +2840,7 @@ def generate_dashboard():
                         <h4 style="font-size: 14px; margin-bottom: 8px; color: #38bdf8;">🟦 AB Line Production Profile</h4>
                         <ul style="font-size: 12px; color: var(--text-secondary); line-height: 1.6; padding-left: 18px; margin: 0;">
                             <li><strong>Baseline Fecundity:</strong> 1,642 total spawns recorded with a high average clutch size of ~645 eggs/spawn.</li>
-                            <li><strong>Thermal Resilience:</strong> Remarkable survival rate stability across seasons (Autumn 83.8%, Summer 82.9%, Winter 80.5%, Spring 78.6%).</li>
+                            <li><strong>Thermal Resilience:</strong> Highest survival in Autumn (78.8% SR), Summer (76.5% SR), Spring (74.1% SR) and Winter (69.2% SR) — a stable but seasonally progressive gradient consistent with thermal influence on embryo viability.</li>
                             <li><strong>Recommendation:</strong> AB provides the gold-standard stable embryo supply for high-throughput pharmacological and developmental screens year-round.</li>
                         </ul>
                     `;
@@ -2848,8 +2848,8 @@ def generate_dashboard():
                     insightEl.innerHTML = `
                         <h4 style="font-size: 14px; margin-bottom: 8px; color: #fbbf24;">🟨 Casper (roy-/-; nacre-/-) Strain Sensitivity</h4>
                         <ul style="font-size: 12px; color: var(--text-secondary); line-height: 1.6; padding-left: 18px; margin: 0;">
-                            <li><strong>Clutch Output:</strong> Lower fecundity (avg 130–260 eggs/spawn) due to physiological burdens of the double pigment mutation.</li>
-                            <li><strong>Climate Seasonality:</strong> Highest survival in Summer (71.4% SR), but experiences substantial mortality during cooler months (Winter 59.0%, Spring 51.1%).</li>
+                            <li><strong>Clutch Output:</strong> Lower fecundity (avg 127–260 eggs/spawn) due to physiological burdens of the double pigment mutation; summer clutches are smaller (127 eggs), autumn largest (260 eggs).</li>
+                            <li><strong>Climate Seasonality:</strong> Consistently low viability across all seasons (Summer 30.9%, Winter 26.8%, Spring 23.8%, Autumn 21.1%), reflecting the inherent double-mutant physiological burden rather than a thermal effect. No season rescues Casper to AB-level performance.</li>
                             <li><strong>Protocol Adjustment:</strong> Pair Casper in larger group tanks or increase breeding setups by +30% in Winter/Spring to meet embryo quotas for imaging assays.</li>
                         </ul>
                     `;
@@ -2858,7 +2858,7 @@ def generate_dashboard():
                         <h4 style="font-size: 14px; margin-bottom: 8px; color: #34d399;">🟩 Fli (fli1a:EGFP) Line Dynamics</h4>
                         <ul style="font-size: 12px; color: var(--text-secondary); line-height: 1.6; padding-left: 18px; margin: 0;">
                             <li><strong>Angiogenesis Screen Baseline:</strong> 304 recorded spawns yielding an average of 450 eggs/spawn.</li>
-                            <li><strong>Survival Stability:</strong> Summer viability peaks at 72.4% SR; maintains ~66% SR across Winter, Spring, and Autumn.</li>
+                            <li><strong>Survival Stability:</strong> Peaks in Summer (66.8% SR) and Winter (63.1% SR); notably lower in Spring (50.6% SR) and Autumn (62.3% SR). Spring represents a vulnerability window for transgenic embryo supply.</li>
                             <li><strong>Recommendation:</strong> Maintain single-sex female and male donor tanks (e.g. T0011, T0054) to preserve fluorescence intensity and maximize clutch yield.</li>
                         </ul>
                     `;
@@ -2867,7 +2867,7 @@ def generate_dashboard():
                         <h4 style="font-size: 14px; margin-bottom: 8px; color: #f43f5e;">🟥 Gata (gata1a:dsRed) Line Dynamics</h4>
                         <ul style="font-size: 12px; color: var(--text-secondary); line-height: 1.6; padding-left: 18px; margin: 0;">
                             <li><strong>Hematopoiesis Screen Baseline:</strong> 183 validated spawns with moderate clutch sizes (160–310 eggs/spawn).</li>
-                            <li><strong>Seasonal Variance:</strong> Excellent performance in Autumn (73.5% SR) and Winter (71.1% SR), with a temporary dip in Spring (56.8% SR).</li>
+                            <li><strong>Seasonal Variance:</strong> Peaks in Summer (55.6% SR), with moderate but consistent performance in Spring (37.9% SR), Autumn (31.8% SR) and Winter (27.9% SR). Summer is the optimal collection window for Gata transgenic embryos.</li>
                             <li><strong>Recommendation:</strong> Schedule intensive transgenic egg collections in autumn/winter windows.</li>
                         </ul>
                     `;
