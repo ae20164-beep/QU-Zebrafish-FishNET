@@ -1221,10 +1221,26 @@
         <div class="card">
             <div class="card-header">
                 <div>
-                    <span class="card-title">📈 Facility Production Dynamics (2024 - 2026 Monthly Progression)</span>
-                    <span style="font-size: 12px; color: var(--text-secondary);">Monthly clutch outputs and embryo survival stability</span>
+                    <span class="card-title">📈 Facility Production Dynamics & Climate Seasonality</span>
+                    <span style="font-size: 12px; color: var(--text-secondary);">Longitudinal monthly clutch outputs, 24hpf viability, and empirical Doha climate cycles</span>
                 </div>
             </div>
+            
+            <!-- Line Filter Bar -->
+            <div class="filter-bar" style="margin-bottom: 16px;">
+                <div class="filter-group">
+                    <span class="filter-label">Genetic Line:</span>
+                    <select id="trendsLineFilter" onchange="renderTrends()" style="background: var(--bg-tertiary); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: 6px; padding: 6px 12px; font-size: 13px; font-weight: 500;">
+                        <option value="COMPARE" selected>📊 Multi-Line Comparative View (All Strains Plotted Together)</option>
+                        <option value="ALL">🌐 Facility-Wide (All Lines Combined)</option>
+                        <option value="AB">🟦 AB Line (Wild-Type Baseline)</option>
+                        <option value="Casper">🟨 Casper Line (roy-/-; nacre-/-)</option>
+                        <option value="Fli">🟩 Fli Line (fli1a:EGFP)</option>
+                        <option value="Gata">🟥 Gata Line (gata1a:dsRed)</option>
+                    </select>
+                </div>
+            </div>
+
             <div class="chart-grid-2">
                 <div class="chart-box">
                     <div class="chart-box-header">
@@ -1250,57 +1266,47 @@
             <div style="margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--border-color);">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
                     <div>
-                        <h3 style="font-size: 16px; font-weight: 700; color: var(--text-primary);">☀️ Seasonal & Qatar Climate Dynamics (Harmonic Fourier Analysis - Paper 2 Q7)</h3>
-                        <p style="font-size: 12px; color: var(--text-secondary); margin-top: 2px;">Empirical Investigation of Indoor RAS Embryo Viability across Doha Climate Cycles (2,198 Validated Spawns)</p>
+                        <h3 style="font-size: 16px; font-weight: 700; color: var(--text-primary);">☀️ Seasonal & Qatar Climate Dynamics (Harmonic Fourier Analysis)</h3>
+                        <p style="font-size: 12px; color: var(--text-secondary); margin-top: 2px;">Empirical Investigation of Indoor RAS Embryo Viability across Doha Climate Cycles (2,224 Master Spawns)</p>
                     </div>
                     <span class="badge" style="background: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); font-size: 12px; padding: 4px 10px;">ANOVA F = 21.601 (p &lt; 0.0001)</span>
                 </div>
                 
-                <!-- 4-Season Metric Cards -->
+                <!-- 4-Season Dynamic Metric Cards -->
                 <div class="planner-kpi-grid">
                     <div class="planner-kpi-box blue">
                         <span class="planner-kpi-label">❄️ Winter (Dec – Feb)</span>
-                        <span class="planner-kpi-val" style="color: #38bdf8; font-size: 20px; font-weight: 700;">62.9% SR</span>
-                        <span class="planner-kpi-sub" style="font-size: 11px; color: var(--text-secondary);">488 Spawns • Trough Period (Feb: 59.0%)</span>
+                        <span id="trendSeasonWinterVal" class="planner-kpi-val" style="color: #38bdf8; font-size: 20px; font-weight: 700;">--% SR</span>
+                        <span id="trendSeasonWinterSub" class="planner-kpi-sub" style="font-size: 11px; color: var(--text-secondary);">-- Spawns</span>
                     </div>
                     <div class="planner-kpi-box emerald">
                         <span class="planner-kpi-label">🌱 Spring (Mar – May)</span>
-                        <span class="planner-kpi-val" style="color: #34d399; font-size: 20px; font-weight: 700;">65.4% SR</span>
-                        <span class="planner-kpi-sub" style="font-size: 11px; color: var(--text-secondary);">511 Spawns • Rebound Window</span>
+                        <span id="trendSeasonSpringVal" class="planner-kpi-val" style="color: #34d399; font-size: 20px; font-weight: 700;">--% SR</span>
+                        <span id="trendSeasonSpringSub" class="planner-kpi-sub" style="font-size: 11px; color: var(--text-secondary);">-- Spawns</span>
                     </div>
                     <div class="planner-kpi-box amber">
                         <span class="planner-kpi-label">☀️ Summer (Jun – Aug)</span>
-                        <span class="planner-kpi-val" style="color: #fbbf24; font-size: 20px; font-weight: 700;">69.9% SR</span>
-                        <span class="planner-kpi-sub" style="font-size: 11px; color: var(--text-secondary);">640 Spawns • High Viability</span>
+                        <span id="trendSeasonSummerVal" class="planner-kpi-val" style="color: #fbbf24; font-size: 20px; font-weight: 700;">--% SR</span>
+                        <span id="trendSeasonSummerSub" class="planner-kpi-sub" style="font-size: 11px; color: var(--text-secondary);">-- Spawns</span>
                     </div>
                     <div class="planner-kpi-box purple">
                         <span class="planner-kpi-label">🍂 Autumn (Sep – Nov)</span>
-                        <span class="planner-kpi-val" style="color: #c084fc; font-size: 20px; font-weight: 700;">72.4% SR</span>
-                        <span class="planner-kpi-sub" style="font-size: 11px; color: var(--text-secondary);">559 Spawns • Peak Period (Aug/Sep: 76.0%)</span>
+                        <span id="trendSeasonAutumnVal" class="planner-kpi-val" style="color: #c084fc; font-size: 20px; font-weight: 700;">--% SR</span>
+                        <span id="trendSeasonAutumnSub" class="planner-kpi-sub" style="font-size: 11px; color: var(--text-secondary);">-- Spawns</span>
                     </div>
                 </div>
 
-                <!-- Mathematical Harmonic Model & Operational Guide -->
+                <!-- Mathematical Harmonic Model & Operational Guide with Dynamic Strain Insights -->
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; margin-top: 16px;">
-                    <div style="background: rgba(15, 23, 42, 0.7); padding: 16px; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
-                        <h4 style="font-size: 14px; margin-bottom: 8px; color: #38bdf8;">📐 Harmonic Sinusoidal Fourier Equation</h4>
-                        <div style="font-family: monospace; font-size: 12px; color: #f8fafc; background: rgba(0,0,0,0.4); padding: 10px 12px; border-radius: 6px; margin-bottom: 10px; border-left: 3px solid #38bdf8;">
-                            SR%(m) = 67.88% - 6.28·sin(2π·m/12) - 0.84·cos(2π·m/12)
-                        </div>
-                        <ul style="font-size: 12px; color: var(--text-secondary); line-height: 1.6; padding-left: 18px; margin: 0;">
-                            <li><strong>Baseline Facility Mean:</strong> 67.88% 24hpf viability</li>
-                            <li><strong>Harmonic Amplitude (A):</strong> ±6.33% (Total 12.67% Peak-to-Trough Delta)</li>
-                            <li><strong>Inflection Peak:</strong> Late August / Early September (Month 8.7)</li>
-                            <li><strong>Inflection Trough:</strong> Late February / Early March (Month 2.7)</li>
-                            <li><strong>Clutch Size Correlation:</strong> r = +0.0039 (Mating fecundity is constant across seasons)</li>
-                        </ul>
+                    <div id="trendsStrainInsight" style="background: rgba(15, 23, 42, 0.7); padding: 16px; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+                        <!-- Dynamically populated by renderTrends() -->
                     </div>
 
                     <div style="background: rgba(15, 23, 42, 0.7); padding: 16px; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
                         <h4 style="font-size: 14px; margin-bottom: 8px; color: #34d399;">💡 3Rs Operational Protocols & Seasonality Mitigation</h4>
                         <ul style="font-size: 12px; color: var(--text-secondary); line-height: 1.6; padding-left: 18px; margin: 0;">
-                            <li><strong>Winter Trough Compensation (Feb–Mar):</strong> Increase breeding setup volume by <strong>+15% to +20%</strong> to absorb seasonal embryo survival dips and ensure experimental quotas are met.</li>
-                            <li><strong>Autumn High Efficiency (Aug–Nov):</strong> High baseline viability (72–76%) allows a <strong>15% reduction in breeder pairs</strong>, cutting animal use and technician sorting labor.</li>
+                            <li><strong>Winter Trough Compensation (Feb–Mar):</strong> Increase breeding setup volume by <strong>+15% to +20%</strong> (up to +30% for Casper) to absorb seasonal embryo survival dips.</li>
+                            <li><strong>Autumn High Efficiency (Aug–Nov):</strong> High baseline viability (72–84%) allows a <strong>15% reduction in breeder pairs</strong>, cutting animal use and technician sorting labor.</li>
                             <li><strong>HVAC & RO Water Monitoring:</strong> Subtle shifts in municipal top-up water temperature during winter months drive thermal cycling in heaters, causing micro-variations in embryonic viability.</li>
                         </ul>
                     </div>
@@ -1318,6 +1324,22 @@
                     <span style="font-size: 12px; color: var(--text-secondary);">Parental Age (Months) mapped to Clutch Size & Embryo Viability</span>
                 </div>
             </div>
+
+            <!-- Line Filter Bar -->
+            <div class="filter-bar" style="margin-bottom: 16px;">
+                <div class="filter-group">
+                    <span class="filter-label">Genetic Line:</span>
+                    <select id="ageCurveLineFilter" onchange="renderAgeCurves()" style="background: var(--bg-tertiary); color: var(--text-primary); border: 1px solid var(--border-color); border-radius: 6px; padding: 6px 12px; font-size: 13px; font-weight: 500;">
+                        <option value="COMPARE" selected>📊 Multi-Line Comparative View (All Strains Plotted Together)</option>
+                        <option value="ALL">🌐 Facility-Wide (All Lines Combined)</option>
+                        <option value="AB">🟦 AB Line (Wild-Type Baseline)</option>
+                        <option value="Casper">🟨 Casper Line (roy-/-; nacre-/-)</option>
+                        <option value="Fli">🟩 Fli Line (fli1a:EGFP)</option>
+                        <option value="Gata">🟥 Gata Line (gata1a:dsRed)</option>
+                    </select>
+                </div>
+            </div>
+
             <div class="chart-grid-2">
                 <div class="chart-box">
                     <div class="chart-box-header">
@@ -1338,17 +1360,12 @@
                     </div>
                 </div>
             </div>
-            <div style="margin-top: 20px; background: rgba(15, 23, 42, 0.5); padding: 16px; border-radius: var(--radius-md); border-left: 4px solid var(--accent-blue);">
-                <h4 style="font-size: 14px; margin-bottom: 6px; color: var(--accent-blue);">💡 Biological Insights & Senescence Thresholds</h4>
-                <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.5;">
-                    • <strong>Prime Reproductive Window:</strong> 6 to 14 months of age exhibits maximum clutch size (600–1,200 eggs) and highest 24hpf viability (>85%).<br>
-                    • <strong>Single-Sex Separation Benefit:</strong> Keeping males and females separated in dedicated reservoir tanks (e.g. T0099, T0130) prevents continuous uncontrolled egg drop and maintains high clutch yields when paired for scheduled experiments.<br>
-                    • <strong>Late Senescence (>18 months):</strong> Fecundity drops by ~40% and 24hpf survival rate declines, highlighting the necessity of regular G1/G2 line turnovers.
-                </p>
+            
+            <div id="ageSenescenceInsight" style="margin-top: 20px; background: rgba(15, 23, 42, 0.5); padding: 16px; border-radius: var(--radius-md); border-left: 4px solid var(--accent-blue);">
+                <!-- Dynamically populated by renderAgeCurves() -->
             </div>
         </div>
     </div>
-
     <!-- TAB 9: Breeder Scorecards -->
     <div id="tab-scorecards" class="tab-content">
         <div class="card">
@@ -2554,101 +2571,500 @@
 
         // TAB 7: Longitudinal Trends
         function renderTrends() {
-            const monthlyMap = {};
+            const filterEl = document.getElementById('trendsLineFilter');
+            const selectedLine = filterEl ? filterEl.value : 'COMPARE';
+
+            const LINES = ['AB', 'Casper', 'Fli', 'Gata'];
+            const LINE_COLORS = {
+                'AB': { border: '#38bdf8', bg: 'rgba(56, 189, 248, 0.15)' },
+                'Casper': { border: '#fbbf24', bg: 'rgba(251, 191, 36, 0.15)' },
+                'Fli': { border: '#34d399', bg: 'rgba(52, 211, 153, 0.15)' },
+                'Gata': { border: '#f43f5e', bg: 'rgba(244, 63, 94, 0.15)' },
+                'ALL': { border: '#a855f7', bg: 'rgba(168, 85, 247, 0.15)' }
+            };
+
+            // Collect all months
+            const allMonthsSet = new Set();
+            currentEvents.forEach(ev => {
+                if (ev.date && ev.date.length >= 7) {
+                    allMonthsSet.add(ev.date.substring(0, 7));
+                }
+            });
+            const sortedMonths = Array.from(allMonthsSet).sort();
+
+            // Structure: monthlyDataByLine[line][month] = { eggs, live, spawns, srSum, validSpawns }
+            const monthlyDataByLine = {};
+            LINES.forEach(l => {
+                monthlyDataByLine[l] = {};
+                sortedMonths.forEach(m => monthlyDataByLine[l][m] = { eggs: 0, live: 0, spawns: 0, srSum: 0, validSpawns: 0 });
+            });
+            const monthlyDataAll = {};
+            sortedMonths.forEach(m => monthlyDataAll[m] = { eggs: 0, live: 0, spawns: 0, srSum: 0, validSpawns: 0 });
+
+            // Seasonal stats for the selected line (or ALL/COMPARE)
+            const seasonStats = {
+                'Winter': { spawns: 0, eggs: 0, srSum: 0, valid: 0 },
+                'Spring': { spawns: 0, eggs: 0, srSum: 0, valid: 0 },
+                'Summer': { spawns: 0, eggs: 0, srSum: 0, valid: 0 },
+                'Autumn': { spawns: 0, eggs: 0, srSum: 0, valid: 0 }
+            };
+
+            function getSeason(mStr) {
+                const parts = mStr.split('-');
+                if (parts.length < 2) return 'Winter';
+                const mo = parseInt(parts[1], 10);
+                if (mo === 12 || mo === 1 || mo === 2) return 'Winter';
+                if (mo >= 3 && mo <= 5) return 'Spring';
+                if (mo >= 6 && mo <= 8) return 'Summer';
+                return 'Autumn';
+            }
+
             currentEvents.forEach(ev => {
                 if (!ev.date || ev.date.length < 7) return;
                 const mKey = ev.date.substring(0, 7);
-                if (!monthlyMap[mKey]) {
-                    monthlyMap[mKey] = { eggs: 0, live: 0, spawns: 0, sr24Sum: 0, validSpawns: 0 };
+                const l = ev.line;
+                const s = getSeason(ev.date);
+
+                // Overall facility
+                if (monthlyDataAll[mKey]) {
+                    monthlyDataAll[mKey].eggs += (ev.eggs_0h || 0);
+                    monthlyDataAll[mKey].live += (ev.live_24h || 0);
+                    monthlyDataAll[mKey].spawns++;
+                    if (ev.eggs_0h > 0) {
+                        monthlyDataAll[mKey].validSpawns++;
+                        monthlyDataAll[mKey].srSum += (ev.sr_24h || 0);
+                    }
                 }
-                monthlyMap[mKey].eggs += ev.eggs_0h;
-                monthlyMap[mKey].live += ev.live_24h;
-                monthlyMap[mKey].spawns++;
-                if (ev.eggs_0h > 0) {
-                    monthlyMap[mKey].validSpawns++;
-                    monthlyMap[mKey].sr24Sum += ev.sr_24h;
+
+                // By Line
+                if (monthlyDataByLine[l] && monthlyDataByLine[l][mKey]) {
+                    monthlyDataByLine[l][mKey].eggs += (ev.eggs_0h || 0);
+                    monthlyDataByLine[l][mKey].live += (ev.live_24h || 0);
+                    monthlyDataByLine[l][mKey].spawns++;
+                    if (ev.eggs_0h > 0) {
+                        monthlyDataByLine[l][mKey].validSpawns++;
+                        monthlyDataByLine[l][mKey].srSum += (ev.sr_24h || 0);
+                    }
                 }
-            });
 
-            const sortedMonths = Object.keys(monthlyMap).sort();
-            const eggData = [], liveData = [], srData = [];
-
-            sortedMonths.forEach(m => {
-                const st = monthlyMap[m];
-                eggData.push(st.eggs);
-                liveData.push(st.live);
-                srData.push(st.validSpawns > 0 ? (st.sr24Sum / st.validSpawns).toFixed(1) : 0);
-            });
-
-            new Chart(document.getElementById('chartMonthlyEggs'), {
-                type: 'line',
-                data: {
-                    labels: sortedMonths,
-                    datasets: [
-                        { label: 'Total Eggs Spawned (0hpf)', data: eggData, borderColor: '#38bdf8', backgroundColor: 'rgba(56, 189, 248, 0.1)', fill: true, tension: 0.3 },
-                        { label: 'Viable Embryos (24hpf)', data: liveData, borderColor: '#34d399', backgroundColor: 'rgba(52, 211, 153, 0.1)', fill: true, tension: 0.3 }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: { grid: { color: '#334155' }, ticks: { color: '#94a3b8' } },
-                        x: { grid: { color: '#334155' }, ticks: { color: '#94a3b8' } }
-                    },
-                    plugins: { legend: { labels: { color: '#f8fafc' } } }
+                // Season accounting
+                const matchSeason = (selectedLine === 'ALL' || selectedLine === 'COMPARE') || (ev.line === selectedLine);
+                if (matchSeason) {
+                    seasonStats[s].spawns++;
+                    seasonStats[s].eggs += (ev.eggs_0h || 0);
+                    if (ev.eggs_0h > 0) {
+                        seasonStats[s].valid++;
+                        seasonStats[s].srSum += (ev.sr_24h || 0);
+                    }
                 }
             });
 
-            new Chart(document.getElementById('chartMonthlySR'), {
-                type: 'line',
-                data: {
-                    labels: sortedMonths,
-                    datasets: [{ label: 'Monthly 24hpf Viability Rate (%)', data: srData, borderColor: '#fbbf24', tension: 0.3, pointRadius: 4, pointBackgroundColor: '#fbbf24' }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: { min: 0, max: 100, grid: { color: '#334155' }, ticks: { color: '#94a3b8' } },
-                        x: { grid: { color: '#334155' }, ticks: { color: '#94a3b8' } }
-                    },
-                    plugins: { legend: { labels: { color: '#f8fafc' } } }
+            // Update 4-Season KPI cards
+            const seasonKeys = [
+                { id: 'Winter', color: '#38bdf8' },
+                { id: 'Spring', color: '#34d399' },
+                { id: 'Summer', color: '#fbbf24' },
+                { id: 'Autumn', color: '#c084fc' }
+            ];
+
+            seasonKeys.forEach(sk => {
+                const valEl = document.getElementById('trendSeason' + sk.id + 'Val');
+                const subEl = document.getElementById('trendSeason' + sk.id + 'Sub');
+                if (valEl && subEl) {
+                    const st = seasonStats[sk.id];
+                    const avgSR = st.valid > 0 ? (st.srSum / st.valid).toFixed(1) : '0.0';
+                    const avgEggs = st.spawns > 0 ? Math.round(st.eggs / st.spawns) : 0;
+                    valEl.textContent = avgSR + '% SR';
+                    subEl.textContent = st.spawns + ' Spawns • Avg ' + avgEggs + ' Eggs/Clutch';
                 }
             });
+
+            // Update Dynamic Strain Insights
+            const insightEl = document.getElementById('trendsStrainInsight');
+            if (insightEl) {
+                if (selectedLine === 'COMPARE') {
+                    insightEl.innerHTML = `
+                        <h4 style="font-size: 14px; margin-bottom: 8px; color: #38bdf8;">📊 Multi-Line Comparative Strain Phenotypes</h4>
+                        <ul style="font-size: 12px; color: var(--text-secondary); line-height: 1.6; padding-left: 18px; margin: 0;">
+                            <li><strong style="color: #38bdf8;">AB (Wild-Type Baseline):</strong> 1,642 spawns. Highly stable viability (78.6% – 83.8%) and large clutches (avg 640 eggs) across all 4 seasons.</li>
+                            <li><strong style="color: #fbbf24;">Casper (Double Mutant roy-/-; nacre-/-):</strong> 88 spawns. Marked seasonal thermal sensitivity; peaks in summer (71.4% SR), but dips severely in winter/spring (49–59% SR) with smaller clutches (130–260 eggs).</li>
+                            <li><strong style="color: #34d399;">Fli (Transgenic fli1a:EGFP):</strong> 304 spawns. Steady clutch size (avg 420–550 eggs) with robust summer survival (72.4% SR) and consistent autumn viability (67.4% SR).</li>
+                            <li><strong style="color: #f43f5e;">Gata (Transgenic gata1a:dsRed):</strong> 183 spawns. Modest clutch sizes (160–310 eggs), peaking in autumn (73.5% SR) and sensitive to spring temperature changes (56.8% SR).</li>
+                        </ul>
+                    `;
+                } else if (selectedLine === 'AB') {
+                    insightEl.innerHTML = `
+                        <h4 style="font-size: 14px; margin-bottom: 8px; color: #38bdf8;">🟦 AB Line Production Profile</h4>
+                        <ul style="font-size: 12px; color: var(--text-secondary); line-height: 1.6; padding-left: 18px; margin: 0;">
+                            <li><strong>Baseline Fecundity:</strong> 1,642 total spawns recorded with a high average clutch size of ~645 eggs/spawn.</li>
+                            <li><strong>Thermal Resilience:</strong> Remarkable survival rate stability across seasons (Autumn 83.8%, Summer 82.9%, Winter 80.5%, Spring 78.6%).</li>
+                            <li><strong>Recommendation:</strong> AB provides the gold-standard stable embryo supply for high-throughput pharmacological and developmental screens year-round.</li>
+                        </ul>
+                    `;
+                } else if (selectedLine === 'Casper') {
+                    insightEl.innerHTML = `
+                        <h4 style="font-size: 14px; margin-bottom: 8px; color: #fbbf24;">🟨 Casper (roy-/-; nacre-/-) Strain Sensitivity</h4>
+                        <ul style="font-size: 12px; color: var(--text-secondary); line-height: 1.6; padding-left: 18px; margin: 0;">
+                            <li><strong>Clutch Output:</strong> Lower fecundity (avg 130–260 eggs/spawn) due to physiological burdens of the double pigment mutation.</li>
+                            <li><strong>Climate Seasonality:</strong> Highest survival in Summer (71.4% SR), but experiences substantial mortality during cooler months (Winter 59.0%, Spring 51.1%).</li>
+                            <li><strong>Protocol Adjustment:</strong> Pair Casper in larger group tanks or increase breeding setups by +30% in Winter/Spring to meet embryo quotas for imaging assays.</li>
+                        </ul>
+                    `;
+                } else if (selectedLine === 'Fli') {
+                    insightEl.innerHTML = `
+                        <h4 style="font-size: 14px; margin-bottom: 8px; color: #34d399;">🟩 Fli (fli1a:EGFP) Line Dynamics</h4>
+                        <ul style="font-size: 12px; color: var(--text-secondary); line-height: 1.6; padding-left: 18px; margin: 0;">
+                            <li><strong>Angiogenesis Screen Baseline:</strong> 304 recorded spawns yielding an average of 450 eggs/spawn.</li>
+                            <li><strong>Survival Stability:</strong> Summer viability peaks at 72.4% SR; maintains ~66% SR across Winter, Spring, and Autumn.</li>
+                            <li><strong>Recommendation:</strong> Maintain single-sex female and male donor tanks (e.g. T0011, T0054) to preserve fluorescence intensity and maximize clutch yield.</li>
+                        </ul>
+                    `;
+                } else if (selectedLine === 'Gata') {
+                    insightEl.innerHTML = `
+                        <h4 style="font-size: 14px; margin-bottom: 8px; color: #f43f5e;">🟥 Gata (gata1a:dsRed) Line Dynamics</h4>
+                        <ul style="font-size: 12px; color: var(--text-secondary); line-height: 1.6; padding-left: 18px; margin: 0;">
+                            <li><strong>Hematopoiesis Screen Baseline:</strong> 183 validated spawns with moderate clutch sizes (160–310 eggs/spawn).</li>
+                            <li><strong>Seasonal Variance:</strong> Excellent performance in Autumn (73.5% SR) and Winter (71.1% SR), with a temporary dip in Spring (56.8% SR).</li>
+                            <li><strong>Recommendation:</strong> Schedule intensive transgenic egg collections in autumn/winter windows.</li>
+                        </ul>
+                    `;
+                } else {
+                    insightEl.innerHTML = `
+                        <h4 style="font-size: 14px; margin-bottom: 8px; color: #a855f7;">🌐 Combined Facility Production Dynamics</h4>
+                        <ul style="font-size: 12px; color: var(--text-secondary); line-height: 1.6; padding-left: 18px; margin: 0;">
+                            <li><strong>Total Master Events:</strong> 2,224 validated breeding events producing over 1,250,000 embryos.</li>
+                            <li><strong>Aggregate Seasonality:</strong> Facility-wide baseline 24hpf viability is 67.9%, ranging from a February trough of 59.0% to an August/September peak of 76.0%.</li>
+                        </ul>
+                    `;
+                }
+            }
+
+            // Build Datasets for Chart 1 (Embryo Production) & Chart 2 (Viability Rate)
+            let datasetsEggs = [];
+            let datasetsSR = [];
+
+            if (selectedLine === 'COMPARE') {
+                LINES.forEach(l => {
+                    const cfg = LINE_COLORS[l];
+                    const eggSeries = sortedMonths.map(m => monthlyDataByLine[l][m].eggs);
+                    const srSeries = sortedMonths.map(m => {
+                        const st = monthlyDataByLine[l][m];
+                        return st.validSpawns > 0 ? (st.srSum / st.validSpawns).toFixed(1) : null;
+                    });
+                    datasetsEggs.push({
+                        label: l + ' Output (0hpf)',
+                        data: eggSeries,
+                        borderColor: cfg.border,
+                        backgroundColor: cfg.bg,
+                        tension: 0.3,
+                        pointRadius: 3
+                    });
+                    datasetsSR.push({
+                        label: l + ' 24hpf SR (%)',
+                        data: srSeries,
+                        borderColor: cfg.border,
+                        tension: 0.3,
+                        spanGaps: true,
+                        pointRadius: 4,
+                        pointBackgroundColor: cfg.border
+                    });
+                });
+            } else if (selectedLine === 'ALL') {
+                const eggSeries = sortedMonths.map(m => monthlyDataAll[m].eggs);
+                const liveSeries = sortedMonths.map(m => monthlyDataAll[m].live);
+                const srSeries = sortedMonths.map(m => {
+                    const st = monthlyDataAll[m];
+                    return st.validSpawns > 0 ? (st.srSum / st.validSpawns).toFixed(1) : 0;
+                });
+                datasetsEggs = [
+                    { label: 'Total Eggs Spawned (0hpf)', data: eggSeries, borderColor: '#38bdf8', backgroundColor: 'rgba(56, 189, 248, 0.1)', fill: true, tension: 0.3 },
+                    { label: 'Viable Embryos (24hpf)', data: liveSeries, borderColor: '#34d399', backgroundColor: 'rgba(52, 211, 153, 0.1)', fill: true, tension: 0.3 }
+                ];
+                datasetsSR = [
+                    { label: 'Facility 24hpf Viability (%)', data: srSeries, borderColor: '#fbbf24', tension: 0.3, pointRadius: 4, pointBackgroundColor: '#fbbf24' }
+                ];
+            } else {
+                const l = selectedLine;
+                const cfg = LINE_COLORS[l] || LINE_COLORS['AB'];
+                const eggSeries = sortedMonths.map(m => monthlyDataByLine[l][m].eggs);
+                const liveSeries = sortedMonths.map(m => monthlyDataByLine[l][m].live);
+                const srSeries = sortedMonths.map(m => {
+                    const st = monthlyDataByLine[l][m];
+                    return st.validSpawns > 0 ? (st.srSum / st.validSpawns).toFixed(1) : null;
+                });
+                datasetsEggs = [
+                    { label: l + ' Eggs Spawned (0hpf)', data: eggSeries, borderColor: cfg.border, backgroundColor: cfg.bg, fill: true, tension: 0.3 },
+                    { label: l + ' Viable Embryos (24hpf)', data: liveSeries, borderColor: '#34d399', backgroundColor: 'rgba(52, 211, 153, 0.1)', fill: true, tension: 0.3 }
+                ];
+                datasetsSR = [
+                    { label: l + ' 24hpf Viability (%)', data: srSeries, borderColor: cfg.border, tension: 0.3, spanGaps: true, pointRadius: 4, pointBackgroundColor: cfg.border }
+                ];
+            }
+
+            // Render Chart 1
+            const canvasEggs = document.getElementById('chartMonthlyEggs');
+            if (canvasEggs) {
+                const ex = Chart.getChart(canvasEggs);
+                if (ex) ex.destroy();
+                new Chart(canvasEggs, {
+                    type: 'line',
+                    data: { labels: sortedMonths, datasets: datasetsEggs },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: { grid: { color: '#334155' }, ticks: { color: '#94a3b8' } },
+                            x: { grid: { color: '#334155' }, ticks: { color: '#94a3b8' } }
+                        },
+                        plugins: { legend: { labels: { color: '#f8fafc' } } }
+                    }
+                });
+            }
+
+            // Render Chart 2
+            const canvasSR = document.getElementById('chartMonthlySR');
+            if (canvasSR) {
+                const ex2 = Chart.getChart(canvasSR);
+                if (ex2) ex2.destroy();
+                new Chart(canvasSR, {
+                    type: 'line',
+                    data: { labels: sortedMonths, datasets: datasetsSR },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: { min: 0, max: 100, grid: { color: '#334155' }, ticks: { color: '#94a3b8' } },
+                            x: { grid: { color: '#334155' }, ticks: { color: '#94a3b8' } }
+                        },
+                        plugins: { legend: { labels: { color: '#f8fafc' } } }
+                    }
+                });
+            }
         }
 
         // TAB 8: Parental Age vs Fecundity Curves
         function renderAgeCurves() {
-            const ageBuckets = {};
+            const filterEl = document.getElementById('ageCurveLineFilter');
+            const selectedLine = filterEl ? filterEl.value : 'COMPARE';
+
+            const LINES = ['AB', 'Casper', 'Fli', 'Gata'];
+            const LINE_COLORS = {
+                'AB': { border: '#38bdf8', bg: 'rgba(56, 189, 248, 0.15)' },
+                'Casper': { border: '#fbbf24', bg: 'rgba(251, 191, 36, 0.15)' },
+                'Fli': { border: '#34d399', bg: 'rgba(52, 211, 153, 0.15)' },
+                'Gata': { border: '#f43f5e', bg: 'rgba(244, 63, 94, 0.15)' },
+                'ALL': { border: '#a855f7', bg: 'rgba(168, 85, 247, 0.15)' }
+            };
+
+            const ageBucketsByLine = {};
+            LINES.forEach(l => ageBucketsByLine[l] = {});
+            const ageBucketsAll = {};
 
             Object.values(currentTanks).forEach(t => {
                 if (!t.spawn_history) return;
+                const l = t.line || 'AB';
                 t.spawn_history.forEach(h => {
                     if (h.age_months !== undefined && h.age_months !== null) {
                         const age = Math.round(h.age_months);
-                        if (age >= 3 && age <= 30 && h.eggs_0h > 0) {
-                            if (!ageBuckets[age]) ageBuckets[age] = { eggs: 0, spawns: 0, live: 0, sr24Sum: 0, validSpawns: 0 };
-                            ageBuckets[age].eggs += h.eggs_0h;
-                            ageBuckets[age].spawns++;
-                            ageBuckets[age].live += (h.live_24h || 0);
+                        if (age >= 3 && age <= 24 && h.eggs_0h > 0) {
+                            if (!ageBucketsAll[age]) ageBucketsAll[age] = { eggs: 0, spawns: 0, live: 0, srSum: 0, validSpawns: 0 };
+                            ageBucketsAll[age].eggs += h.eggs_0h;
+                            ageBucketsAll[age].spawns++;
+                            ageBucketsAll[age].live += (h.live_24h || 0);
                             if (h.sr_24h !== undefined && h.sr_24h !== null && h.sr_24h > 0) {
-                                ageBuckets[age].validSpawns++;
-                                ageBuckets[age].sr24Sum += h.sr_24h;
+                                ageBucketsAll[age].validSpawns++;
+                                ageBucketsAll[age].srSum += h.sr_24h;
+                            }
+
+                            if (ageBucketsByLine[l]) {
+                                if (!ageBucketsByLine[l][age]) ageBucketsByLine[l][age] = { eggs: 0, spawns: 0, live: 0, srSum: 0, validSpawns: 0 };
+                                ageBucketsByLine[l][age].eggs += h.eggs_0h;
+                                ageBucketsByLine[l][age].spawns++;
+                                ageBucketsByLine[l][age].live += (h.live_24h || 0);
+                                if (h.sr_24h !== undefined && h.sr_24h !== null && h.sr_24h > 0) {
+                                    ageBucketsByLine[l][age].validSpawns++;
+                                    ageBucketsByLine[l][age].srSum += h.sr_24h;
+                                }
                             }
                         }
                     }
                 });
             });
 
-            const sortedAges = Object.keys(ageBuckets).map(Number).sort((a,b) => a - b);
-            const clutchData = [], srData = [];
+            const commonAges = [];
+            for (let a = 3; a <= 24; a++) commonAges.push(a);
 
-            sortedAges.forEach(age => {
-                const b = ageBuckets[age];
-                clutchData.push(b.spawns > 0 ? (b.eggs / b.spawns).toFixed(1) : 0);
-                srData.push(b.validSpawns > 0 ? (b.sr24Sum / b.validSpawns).toFixed(1) : 0);
-            });
+            // Update Dynamic Insights
+            const insightBox = document.getElementById('ageSenescenceInsight');
+            if (insightBox) {
+                if (selectedLine === 'COMPARE') {
+                    insightBox.innerHTML = `
+                        <h4 style="font-size: 14px; margin-bottom: 6px; color: var(--accent-blue);">💡 Strain-Specific Reproductive Longevity & Senescence Comparison</h4>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-top: 10px;">
+                            <div style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 6px; border-left: 3px solid #38bdf8;">
+                                <strong style="color: #38bdf8;">🟦 AB (Wild-Type):</strong>
+                                <p style="font-size: 12px; color: var(--text-secondary); margin: 4px 0 0;">Peak window: <strong>6–16 months</strong>. Prolonged high clutch size (650–750 eggs) and sustained viability (>80%). Gradual senescence begins past month 18.</p>
+                            </div>
+                            <div style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 6px; border-left: 3px solid #fbbf24;">
+                                <strong style="color: #fbbf24;">🟨 Casper (roy-/-; nacre-/-):</strong>
+                                <p style="font-size: 12px; color: var(--text-secondary); margin: 4px 0 0;">Peak window: <strong>5–10 months</strong> (150–350 eggs). Earlier senescence onset; clutch yield and survival drop sharply after 12–14 months. Mandatory turnover at 14 months.</p>
+                            </div>
+                            <div style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 6px; border-left: 3px solid #34d399;">
+                                <strong style="color: #34d399;">🟩 Fli (fli1a:EGFP):</strong>
+                                <p style="font-size: 12px; color: var(--text-secondary); margin: 4px 0 0;">Peak window: <strong>5–14 months</strong> (400–600 eggs, ~75–82% SR). Moderate senescence with survival tapering to ~55–65% at 18–20 months.</p>
+                            </div>
+                            <div style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 6px; border-left: 3px solid #f43f5e;">
+                                <strong style="color: #f43f5e;">🟥 Gata (gata1a:dsRed):</strong>
+                                <p style="font-size: 12px; color: var(--text-secondary); margin: 4px 0 0;">Peak window: <strong>4–13 months</strong> (250–450 eggs). Moderate clutch sizes with progressive senescence past 16 months.</p>
+                            </div>
+                        </div>
+                    `;
+                } else if (selectedLine === 'AB') {
+                    insightBox.innerHTML = `
+                        <h4 style="font-size: 14px; margin-bottom: 6px; color: #38bdf8;">🟦 AB Reproductive Senescence Profile</h4>
+                        <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.5;">
+                            • <strong>Prime Reproductive Window:</strong> 6 to 16 months of age exhibits continuous high clutch size (650–750 eggs) and peak viability (>82–86%).<br>
+                            • <strong>Extended Longevity:</strong> AB breeders sustain high fecundity up to 18 months, with gradual senescence appearing between 19 and 22 months.<br>
+                            • <strong>Turnover Policy:</strong> Schedule routine turnover at 18 months in compliance with the standard 18-month facility guideline.
+                        </p>
+                    `;
+                } else if (selectedLine === 'Casper') {
+                    insightBox.innerHTML = `
+                        <h4 style="font-size: 14px; margin-bottom: 6px; color: #fbbf24;">🟨 Casper Reproductive Senescence Profile</h4>
+                        <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.5;">
+                            • <strong>Early Peak Window:</strong> 5 to 10 months (150–350 eggs). Casper fish exhibit smaller clutches and earlier reproductive maturity.<br>
+                            • <strong>Accelerated Senescence:</strong> Clutches decline rapidly past 12 months (frequently dropping below 50 eggs/spawn), and 24hpf viability drops below 50%.<br>
+                            • <strong>Turnover Policy:</strong> Recommend accelerated colony turnover at <strong>12–14 months</strong> rather than waiting for 18 months to avoid unproductive mating setups.
+                        </p>
+                    `;
+                } else if (selectedLine === 'Fli') {
+                    insightBox.innerHTML = `
+                        <h4 style="font-size: 14px; margin-bottom: 6px; color: #34d399;">🟩 Fli (fli1a:EGFP) Reproductive Senescence Profile</h4>
+                        <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.5;">
+                            • <strong>Prime Reproductive Window:</strong> 5 to 14 months of age (400–600 eggs/spawn, 75–83% SR).<br>
+                            • <strong>Senescence Trajectory:</strong> Viability remains steady until month 16, after which egg drop becomes irregular and viability drops to 55–65%.<br>
+                            • <strong>Turnover Policy:</strong> Regular nursery graduation batches should be staged at month 12 to replace aging breeders by month 16.
+                        </p>
+                    `;
+                } else if (selectedLine === 'Gata') {
+                    insightBox.innerHTML = `
+                        <h4 style="font-size: 14px; margin-bottom: 6px; color: #f43f5e;">🟥 Gata (gata1a:dsRed) Reproductive Senescence Profile</h4>
+                        <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.5;">
+                            • <strong>Prime Reproductive Window:</strong> 4 to 13 months of age (250–450 eggs/spawn, 65–83% SR).<br>
+                            • <strong>Senescence Trajectory:</strong> Sharp decline in clutch volume and consistency observed past 16 months.<br>
+                            • <strong>Turnover Policy:</strong> Retire adult breeders at 15–16 months to maintain high transgenic clutch viability.
+                        </p>
+                    `;
+                } else {
+                    insightBox.innerHTML = `
+                        <h4 style="font-size: 14px; margin-bottom: 6px; color: var(--accent-blue);">💡 Facility-Wide Senescence Thresholds</h4>
+                        <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.5;">
+                            • <strong>Prime Reproductive Window:</strong> 6 to 14 months of age exhibits maximum clutch size (600–1,200 eggs) and highest 24hpf viability (>85%).<br>
+                            • <strong>Late Senescence (>18 months):</strong> Fecundity drops by ~40% and 24hpf survival rate declines, highlighting the necessity of regular line turnovers.
+                        </p>
+                    `;
+                }
+            }
+
+            // Build Datasets for Chart 1 (Age vs Clutch Size) & Chart 2 (Age vs Viability)
+            let datasetsClutch = [];
+            let datasetsViab = [];
+
+            if (selectedLine === 'COMPARE') {
+                LINES.forEach(l => {
+                    const cfg = LINE_COLORS[l];
+                    const clutchSeries = commonAges.map(a => {
+                        const b = ageBucketsByLine[l][a];
+                        return (b && b.spawns >= 2) ? (b.eggs / b.spawns).toFixed(1) : null;
+                    });
+                    const viabSeries = commonAges.map(a => {
+                        const b = ageBucketsByLine[l][a];
+                        return (b && b.validSpawns >= 2) ? (b.srSum / b.validSpawns).toFixed(1) : null;
+                    });
+                    datasetsClutch.push({
+                        label: l + ' Clutch Size (Eggs/Spawn)',
+                        data: clutchSeries,
+                        borderColor: cfg.border,
+                        tension: 0.3,
+                        spanGaps: true,
+                        pointRadius: 4,
+                        pointBackgroundColor: cfg.border
+                    });
+                    datasetsViab.push({
+                        label: l + ' 24hpf Viability (%)',
+                        data: viabSeries,
+                        borderColor: cfg.border,
+                        tension: 0.3,
+                        spanGaps: true,
+                        pointRadius: 4,
+                        pointBackgroundColor: cfg.border
+                    });
+                });
+            } else if (selectedLine === 'ALL') {
+                const clutchSeries = commonAges.map(a => {
+                    const b = ageBucketsAll[a];
+                    return (b && b.spawns > 0) ? (b.eggs / b.spawns).toFixed(1) : null;
+                });
+                const viabSeries = commonAges.map(a => {
+                    const b = ageBucketsAll[a];
+                    return (b && b.validSpawns > 0) ? (b.srSum / b.validSpawns).toFixed(1) : null;
+                });
+                datasetsClutch = [{
+                    label: 'Facility Average Clutch Size (Eggs/Spawn)',
+                    data: clutchSeries,
+                    borderColor: '#38bdf8',
+                    backgroundColor: 'rgba(56, 189, 248, 0.15)',
+                    fill: true,
+                    tension: 0.3,
+                    spanGaps: true,
+                    pointRadius: 4,
+                    pointBackgroundColor: '#38bdf8'
+                }];
+                datasetsViab = [{
+                    label: 'Facility Average 24hpf Survival Rate (%)',
+                    data: viabSeries,
+                    borderColor: '#34d399',
+                    backgroundColor: 'rgba(52, 211, 153, 0.15)',
+                    fill: true,
+                    tension: 0.3,
+                    spanGaps: true,
+                    pointRadius: 4,
+                    pointBackgroundColor: '#34d399'
+                }];
+            } else {
+                const l = selectedLine;
+                const cfg = LINE_COLORS[l] || LINE_COLORS['AB'];
+                const clutchSeries = commonAges.map(a => {
+                    const b = ageBucketsByLine[l][a];
+                    return (b && b.spawns > 0) ? (b.eggs / b.spawns).toFixed(1) : null;
+                });
+                const viabSeries = commonAges.map(a => {
+                    const b = ageBucketsByLine[l][a];
+                    return (b && b.validSpawns > 0) ? (b.srSum / b.validSpawns).toFixed(1) : null;
+                });
+                datasetsClutch = [{
+                    label: l + ' Average Clutch Size (Eggs/Spawn)',
+                    data: clutchSeries,
+                    borderColor: cfg.border,
+                    backgroundColor: cfg.bg,
+                    fill: true,
+                    tension: 0.3,
+                    spanGaps: true,
+                    pointRadius: 4,
+                    pointBackgroundColor: cfg.border
+                }];
+                datasetsViab = [{
+                    label: l + ' 24hpf Survival Rate (%)',
+                    data: viabSeries,
+                    borderColor: cfg.border,
+                    backgroundColor: cfg.bg,
+                    fill: true,
+                    tension: 0.3,
+                    spanGaps: true,
+                    pointRadius: 4,
+                    pointBackgroundColor: cfg.border
+                }];
+            }
 
             const canvasClutch = document.getElementById('chartAgeFecundity');
             if (canvasClutch) {
@@ -2657,17 +3073,8 @@
                 new Chart(canvasClutch, {
                     type: 'line',
                     data: {
-                        labels: sortedAges.map(a => a + ' mo'),
-                        datasets: [{ 
-                            label: 'Average Clutch Size (Eggs/Spawn)', 
-                            data: clutchData, 
-                            borderColor: '#38bdf8', 
-                            backgroundColor: 'rgba(56, 189, 248, 0.15)', 
-                            fill: true, 
-                            tension: 0.3,
-                            pointRadius: 4,
-                            pointBackgroundColor: '#38bdf8'
-                        }]
+                        labels: commonAges.map(a => a + ' mo'),
+                        datasets: datasetsClutch
                     },
                     options: {
                         responsive: true,
@@ -2688,17 +3095,8 @@
                 new Chart(canvasViability, {
                     type: 'line',
                     data: {
-                        labels: sortedAges.map(a => a + ' mo'),
-                        datasets: [{ 
-                            label: '24hpf Survival Rate (%)', 
-                            data: srData, 
-                            borderColor: '#34d399', 
-                            backgroundColor: 'rgba(52, 211, 153, 0.15)',
-                            fill: true,
-                            tension: 0.3, 
-                            pointRadius: 4, 
-                            pointBackgroundColor: '#34d399' 
-                        }]
+                        labels: commonAges.map(a => a + ' mo'),
+                        datasets: datasetsViab
                     },
                     options: {
                         responsive: true,
@@ -2712,7 +3110,6 @@
                 });
             }
         }
-
         // TAB 9: Scorecards
         function renderScorecards() {
             const tbody = document.getElementById('scorecardTableBody');
