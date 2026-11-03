@@ -535,11 +535,8 @@ def process():
                 else:
                     female_tank, male_tank = min(t1, t2), max(t1, t2)
         elif len(tanks) == 1:
-            t_obj = unique_tanks.get(tanks[0], {})
-            if t_obj.get('sex_type') == 'Female-Only':
-                female_tank = tanks[0]
-            elif t_obj.get('sex_type') == 'Male-Only':
-                male_tank = tanks[0]
+            female_tank = tanks[0]
+            male_tank = tanks[0]
 
         staff_clean = staff_summary or setup_staff or scoring_staff or collection_staff or 'Lab Staff'
 

@@ -73,21 +73,29 @@ function doPost(e) {
         .setMimeType(ContentService.MimeType.JSON);
     } else if (action === "ADD_SPAWNING_EVENT") {
       var sEvents = ss.getSheetByName("Breeding_Events");
+      var eggs = Number(data.eggs_0h) || 0;
+      var sr0 = Number(data.sr_0h) || 100;
+      var live0 = Number(data.live_0h) || Math.round(eggs * (sr0 / 100.0));
+      var sr24 = Number(data.sr_24h) || 0;
+      var live24 = Number(data.live_24h) || Math.round(live0 * (sr24 / 100.0));
+      var fTank = data.female_tank || (data.tanks && data.tanks[0]) || "";
+      var mTank = data.male_tank || (data.tanks && data.tanks[0]) || "";
       sEvents.appendRow([
+        data.event_id || ("EV-" + Date.now()),
         data.date || Utilities.formatDate(now, "GMT+3", "yyyy-MM-dd"),
+        data.fishline_raw || data.line || "AB",
         data.line || "AB",
         data.in_tank ? "In-Tank" : "Pair-Wise",
         data.tank_id || "",
-        Number(data.eggs_0h) || 0,
-        Number(data.sr_0h) || 0,
-        Number(data.sr_24h) || 0,
-        Number(data.live_24h) || 0,
-        data.female_tank || "",
-        data.male_tank || "",
-        data.notes || "",
-        operator
+        eggs,
+        sr0,
+        live0,
+        sr24,
+        live24,
+        fTank,
+        mTank
       ]);
-      recordAudit(ss, operator, "SPAWN", "Logged spawn for " + data.tank_id);
+      recordAudit(ss, operator, "SPAWN", "Logged spawn for " + (data.tank_id || data.line));
     } else if (action === "ADD_TANK") {
       var sTanks = ss.getSheetByName("Tanks");
       var nextId = "T" + String(sTanks.getLastRow()).padStart(4, "0");
