@@ -842,6 +842,35 @@ def process():
             st['avg_sr_0h'] = round(sum(valid_sr0) / len(valid_sr0), 1) if valid_sr0 else 0.0
             st['avg_sr_24h'] = round(sum(valid_sr24) / len(valid_sr24), 1) if valid_sr24 else 0.0
 
+    # Calculate age_months and interval_days for every event in all_events
+    tank_last_spawn = {}
+    for ev in all_events:
+        p_tank = ev.get('primary_tank') or (ev.get('tanks')[0] if ev.get('tanks') else '')
+        ev['age_months'] = None
+        ev['interval_days'] = None
+        if p_tank and p_tank in tank_stats:
+            dob = tank_stats[p_tank].get('dob_dt')
+            if dob and ev.get('date'):
+                try:
+                    sp_dt = datetime.strptime(ev['date'], '%Y-%m-%d')
+                    ev['age_months'] = round((sp_dt - dob).days / 30.4375, 1)
+                except:
+                    pass
+            if p_tank in tank_last_spawn and ev.get('date'):
+                try:
+                    sp_dt = datetime.strptime(ev['date'], '%Y-%m-%d')
+                    prev_dt = tank_last_spawn[p_tank]
+                    delta = (sp_dt - prev_dt).days
+                    if delta > 0:
+                        ev['interval_days'] = delta
+                except:
+                    pass
+            if ev.get('date'):
+                try:
+                    tank_last_spawn[p_tank] = datetime.strptime(ev['date'], '%Y-%m-%d')
+                except:
+                    pass
+
     # Format pair synergies list
     pair_list = []
     for k, v in pair_synergies.items():
