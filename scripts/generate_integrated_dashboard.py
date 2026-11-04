@@ -790,7 +790,7 @@ def generate_dashboard():
         <button class="tab-btn" onclick="switchTab('tab-pedigree')">🌳 Pedigree Explorer</button>
         <button class="tab-btn" onclick="switchTab('tab-turnover')">⏳ Turnover & Colony Renewal</button>
         <button class="tab-btn" onclick="switchTab('tab-crosses-reg')">🧬 Crosses & Nursery Registry</button>
-        <button class="tab-btn" onclick="switchTab('tab-alerts')">⚠️ Colony Alerts (<span id="tabBadgeAlerts">98</span>)</button>
+        <button class="tab-btn" onclick="switchTab('tab-alerts')">⚠️ Colony Alerts (<span id="tabBadgeAlerts">88</span>)</button>
         <button class="tab-btn" onclick="switchTab('tab-crosses')">🧬 Cross-Pairing Synergies (Sire x Dam)</button>
         <button class="tab-btn" onclick="switchTab('tab-trends')">📈 Longitudinal Trends & Climate Seasonality</button>
         <button class="tab-btn" onclick="switchTab('tab-age-curves')">🔬 Parental Age vs. Fecundity</button>
@@ -1586,9 +1586,9 @@ def generate_dashboard():
                     <span class="filter-label">Status:</span>
                     <select id="invStatusFilter" onchange="renderInventory()">
                         <option value="ALL">All Statuses (183)</option>
-                        <option value="Active" selected>Active / Adult (117)</option>
-                        <option value="Euthanized">Euthanized (63)</option>
-                        <option value="Larvae">Larvae (&lt;2 weeks) (3)</option>
+                        <option value="Active" selected>Active / Adult (104)</option>
+                        <option value="Euthanized">Euthanized (72)</option>
+                        <option value="Juvenile">Juvenile (&lt;3 months old) (7)</option>
                     </select>
                 </div>
                 <div class="filter-group">
@@ -1830,7 +1830,7 @@ def generate_dashboard():
                             <option value="100">100 rows</option>
                             <option value="200">200 rows</option>
                             <option value="500">500 rows</option>
-                            <option value="ALL">All rows (2,221)</option>
+                            <option value="ALL">All rows (2,224)</option>
                         </select>
                     </div>
                 </div>
@@ -2124,7 +2124,12 @@ def generate_dashboard():
                 `;
             });
 
-            new Chart(document.getElementById('chartLineClutch'), {
+            const canvasClutchEl = document.getElementById('chartLineClutch');
+            if (canvasClutchEl) {
+                const ex1 = Chart.getChart(canvasClutchEl);
+                if (ex1) ex1.destroy();
+            }
+            new Chart(canvasClutchEl, {
                 type: 'bar',
                 data: {
                     labels: lineLabels,
@@ -2146,7 +2151,12 @@ def generate_dashboard():
                 }
             });
 
-            new Chart(document.getElementById('chartLineSurvival'), {
+            const canvasSurvEl = document.getElementById('chartLineSurvival');
+            if (canvasSurvEl) {
+                const ex2 = Chart.getChart(canvasSurvEl);
+                if (ex2) ex2.destroy();
+            }
+            new Chart(canvasSurvEl, {
                 type: 'bar',
                 data: {
                     labels: lineLabels,
@@ -2291,7 +2301,7 @@ def generate_dashboard():
                 offList.forEach(ctuid => offDiv.innerHTML += createMiniCard(ctuid, 'F1 Offspring'));
             }
 
-            const gcDiv = document.getElementById('treeColGrandgrandchildren');
+            const gcDiv = document.getElementById('treeColGrandchildren');
             if (gcDiv) {
                 gcDiv.innerHTML = '';
                 const gcList = focal.grandchildren || [];
@@ -3006,7 +3016,7 @@ def generate_dashboard():
             Object.values(currentTanks).forEach(t => {
                 if (!t.spawn_history) return;
                 const l = t.line || 'AB';
-                t.spawn_history.forEach(h => {
+                (t.spawn_history || []).forEach(h => {
                     if (h.age_months !== undefined && h.age_months !== null) {
                         const age = Math.round(h.age_months);
                         if (age >= 3 && age <= 24 && h.eggs_0h > 0) {
@@ -3267,7 +3277,13 @@ def generate_dashboard():
             let list = Object.values(currentTanks);
             if (lineFilter !== 'ALL') list = list.filter(t => t.line === lineFilter);
             if (sexFilter !== 'ALL') list = list.filter(t => t.sex_type === sexFilter);
-            if (statusFilter !== 'ALL') list = list.filter(t => t.status === statusFilter);
+            if (statusFilter !== 'ALL') {
+                if (statusFilter === 'Juvenile') {
+                    list = list.filter(t => (t.status && t.status.includes('Juvenile')) || t.status === 'Larvae');
+                } else {
+                    list = list.filter(t => t.status === statusFilter);
+                }
+            }
             if (search) list = list.filter(t => t.tuid.includes(search));
 
             list.sort((a, b) => b.total_live_24h - a.total_live_24h);
@@ -3287,7 +3303,7 @@ def generate_dashboard():
                         <td>${t.female}♀ / ${t.male}♂ (<b>${t.total}</b>)</td>
                         <td>${t.total_spawns}</td>
                         <td>${t.total_eggs_0h.toLocaleString()}</td>
-                        <td><strong>${t.avg_clutch}</strong></td>
+                        <td><strong>${t.avg_eggs_per_spawn !== undefined ? Math.round(t.avg_eggs_per_spawn) : '-'}</strong></td>
                         <td><span style="color: var(--accent-emerald); font-weight: bold;">${t.avg_sr_24h}%</span></td>
                         <td><strong>${t.total_live_24h.toLocaleString()}</strong></td>
                         <td>${t.last_spawn || '-'}</td>
@@ -3316,7 +3332,13 @@ def generate_dashboard():
             let list = Object.values(currentTanks);
             if (lineFilter !== 'ALL') list = list.filter(t => t.line === lineFilter);
             if (sexFilter !== 'ALL') list = list.filter(t => t.sex_type === sexFilter);
-            if (statusFilter !== 'ALL') list = list.filter(t => t.status === statusFilter);
+            if (statusFilter !== 'ALL') {
+                if (statusFilter === 'Juvenile') {
+                    list = list.filter(t => (t.status && t.status.includes('Juvenile')) || t.status === 'Larvae');
+                } else {
+                    list = list.filter(t => t.status === statusFilter);
+                }
+            }
             if (search) list = list.filter(t => t.tuid.includes(search) || (t.notes && t.notes.toUpperCase().includes(search)) || (t.genotype && t.genotype.toUpperCase().includes(search)) || (t.derivative_cross && t.derivative_cross.toUpperCase().includes(search)));
 
             list.sort((a, b) => a.tuid.localeCompare(b.tuid));
@@ -3341,7 +3363,7 @@ def generate_dashboard():
                         <td>${t.protocol || '-'}</td>
                         <td>${t.dob || '-'}</td>
                         <td>${t.turnover_date || '-'}</td>
-                        <td>${t.age_months !== null ? t.age_months + ' mo' : '-'}</td>
+                        <td>${(t.age_months_now !== undefined && t.age_months_now !== null) ? t.age_months_now + ' mo' : ((t.age_months !== undefined && t.age_months !== null) ? t.age_months + ' mo' : '-')}</td>
                         <td>${statusBadge}</td>
                         <td>${t.total_spawns}</td>
                         <td>${t.total_eggs_0h.toLocaleString()}</td>
@@ -3371,7 +3393,7 @@ def generate_dashboard():
                 const lineBadge = `<span class="badge badge-${t.line.toLowerCase()}">${t.line}</span>`;
 
                 const partners = {};
-                t.spawn_history.forEach(h => {
+                (t.spawn_history || []).forEach(h => {
                     const mate = h.in_tank ? 'In-Tank' : 'Pair-Wise Cross';
                     partners[mate] = (partners[mate] || 0) + 1;
                 });
@@ -3431,9 +3453,9 @@ def generate_dashboard():
             const lineTanks = Object.values(currentTanks).filter(t => t.line === line && t.status === 'Active');
 
             // All candidate female & male sources
-            const femaleTanks = lineTanks.filter(t => t.female > 0).sort((a, b) => (b.breeder_score || b.avg_clutch || 0) - (a.breeder_score || a.avg_clutch || 0));
-            const maleTanks = lineTanks.filter(t => t.male > 0).sort((a, b) => (b.breeder_score || b.avg_clutch || 0) - (a.breeder_score || a.avg_clutch || 0));
-            const mixedTanks = lineTanks.filter(t => t.female > 0 && t.male > 0).sort((a, b) => (b.breeder_score || b.avg_clutch || 0) - (a.breeder_score || a.avg_clutch || 0));
+            const femaleTanks = lineTanks.filter(t => t.female > 0).sort((a, b) => (b.avg_eggs_per_spawn || b.total_eggs_0h || 0) - (a.avg_eggs_per_spawn || a.total_eggs_0h || 0));
+            const maleTanks = lineTanks.filter(t => t.male > 0).sort((a, b) => (b.avg_eggs_per_spawn || b.total_eggs_0h || 0) - (a.avg_eggs_per_spawn || a.total_eggs_0h || 0));
+            const mixedTanks = lineTanks.filter(t => t.female > 0 && t.male > 0).sort((a, b) => (b.avg_eggs_per_spawn || b.total_eggs_0h || 0) - (a.avg_eggs_per_spawn || a.total_eggs_0h || 0));
 
             // Benchmark metrics for line
             let avgClutch = 350;
@@ -3603,7 +3625,7 @@ def generate_dashboard():
                                             <td>${ageMonths} mo</td>
                                             <td><span class="badge badge-active">${t.turnover_urgency || 'Active'}</span></td>
                                             <td>${t.total_spawns}</td>
-                                            <td>${t.avg_clutch || '-'}</td>
+                                            <td>${t.avg_eggs_per_spawn !== undefined && t.avg_eggs_per_spawn > 0 ? Math.round(t.avg_eggs_per_spawn) : '-'}</td>
                                             <td>
                                                 <button class="btn btn-sm btn-outline" style="padding: 2px 8px; font-size: 11px;" onclick="openTankModal('${t.tuid}')">Inspect</button>
                                             </td>
@@ -3870,7 +3892,7 @@ def generate_dashboard():
             const mbody = document.getElementById('modalBody');
 
             let historyRows = '';
-            t.spawn_history.forEach(h => {
+            (t.spawn_history || []).forEach(h => {
                 historyRows += `
                     <tr>
                         <td>${h.date}</td>
@@ -4259,17 +4281,18 @@ def generate_dashboard():
                 const now = new Date();
                 const diffDays = Math.max(0, Math.floor((now - dobDt) / (1000 * 3600 * 24)));
                 t.age_days = diffDays;
-                t.age_months = Number((diffDays / 30.4).toFixed(1));
+                t.age_months_now = Number((diffDays / 30.4).toFixed(1));
+                t.age_months = t.age_months_now;
                 const turnDt = new Date(dobDt);
                 turnDt.setDate(turnDt.getDate() + 540);
                 t.turnover_date = turnDt.toISOString().substring(0, 10);
                 t.turnover_date_resolved = t.turnover_date;
                 const remDays = Math.floor((turnDt - now) / (1000 * 3600 * 24));
                 t.days_remaining = remDays;
-                if (remDays < 0) t.turnover_urgency = 'Turnover Overdue';
-                else if (remDays <= 30) t.turnover_urgency = 'Due Soon (<=30d)';
-                else if (remDays <= 90) t.turnover_urgency = 'Upcoming (31-90d)';
-                else t.turnover_urgency = 'Future (>90d)';
+                if (remDays < 0) t.turnover_urgency = 'OVERDUE';
+                else if (remDays <= 30) t.turnover_urgency = 'DUE SOON (<=30d)';
+                else if (remDays <= 90) t.turnover_urgency = 'UPCOMING (31-90d)';
+                else t.turnover_urgency = 'FUTURE (>90d)';
             }
 
             persistEdits();
