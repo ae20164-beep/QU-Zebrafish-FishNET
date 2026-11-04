@@ -782,7 +782,6 @@
         <button class="tab-btn" onclick="switchTab('tab-age-curves')">🔬 Parental Age vs. Fecundity</button>
         <button class="tab-btn" onclick="switchTab('tab-scorecards')">🏆 Breeder Tank Scorecards</button>
         <button class="tab-btn" onclick="switchTab('tab-inventory')">🐠 FishNET Inventory & Sex Structure</button>
-        <button class="tab-btn" onclick="switchTab('tab-audit')">🔍 Data Quality & Sex Consistency Audit</button>
         <button class="tab-btn" onclick="switchTab('tab-planner')">🎯 Intelligent Mating Planner</button>
         <button class="tab-btn" onclick="switchTab('tab-raw-events')">📋 Master Breeding Log (2,224 Events)</button>
     </div>
@@ -1613,83 +1612,7 @@
         </div>
     </div>
 
-    <!-- TAB 11: Data Audit & Sex Consistency -->
-    <div id="tab-audit" class="tab-content">
-        <div class="card">
-            <div class="card-header">
-                <div>
-                    <span class="card-title">🔍 Data Quality, Single-Sex Reservoirs & Population Audit</span>
-                    <span style="font-size: 12px; color: var(--text-secondary);">Cross-validation between FishNET inventory and physical breeding sheets</span>
-                </div>
-                <div class="card-header-actions">
-                    <button class="btn btn-sm btn-outline" onclick="exportTableToCSV('auditReservoirTable', 'single_sex_reservoirs_audit')">📥 Export Reservoirs (CSV)</button>
-                    <button class="btn btn-sm btn-outline" onclick="exportTableToCSV('auditDiscrepancyTable', 'discrepancies_and_corrections_log')">📥 Export Discrepancies (CSV)</button>
-                </div>
-            </div>
-
-            <h4 style="font-size: 14px; margin-bottom: 12px; color: var(--accent-blue);">1. Single-Sex Reservoir Tanks (41 Tanks: 21 Female-Only, 20 Male-Only)</h4>
-            <div class="table-responsive" style="margin-bottom: 24px;">
-                <table id="auditReservoirTable">
-                    <thead>
-                        <tr>
-                            <th>Tank ID</th>
-                            <th>Line</th>
-                            <th>Sex Structure</th>
-                            <th>Adult Counts</th>
-                            <th>Status</th>
-                            <th>Notes</th>
-                            <th>Primary Cross Partners</th>
-                            <th>Total Lifetime Spawns</th>
-                            <th>Total Eggs Spawned</th>
-                        </tr>
-                    </thead>
-                    <tbody id="auditReservoirTableBody">
-                        <!-- Populated by JS -->
-                    </tbody>
-                </table>
-            </div>
-
-            <h4 style="font-size: 14px; margin-bottom: 12px; color: var(--accent-amber);">2. Population Discrepancy & Handwriting Resolution Log</h4>
-            <div class="table-responsive">
-                <table id="auditDiscrepancyTable">
-                    <thead>
-                        <tr>
-                            <th>Date / Scope</th>
-                            <th>Logged String</th>
-                            <th>Detected Conflict</th>
-                            <th>Scientific & Physical Resolution</th>
-                            <th>Verification Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>2026-07-04</strong></td>
-                            <td><code>Casp T144,F,1 T77,M,1</code></td>
-                            <td>FishNET T0144 is an AB (Males-Only) tank. Cannot be a Casper female.</td>
-                            <td>Corrected handwriting ambiguity to <strong>Casper T0114 (F) x T0077 (M)</strong>.</td>
-                            <td><span class="badge badge-active">Resolved</span></td>
-                        </tr>
-                        <tr>
-                            <td><strong>2026-07-20</strong></td>
-                            <td><code>Fli T83 intank (624 eggs)</code></td>
-                            <td>FishNET T0083 is an AB (Males-Only) tank. A male tank cannot lay eggs alone.</td>
-                            <td>Corrected tank ID typo to <strong>Fli T0082</strong> (active mixed colony tank with 4F/3M).</td>
-                            <td><span class="badge badge-active">Resolved</span></td>
-                        </tr>
-                        <tr>
-                            <td><strong>2026-06-23</strong></td>
-                            <td><code>Gata T49(F) x ABT93(M) (1,970 eggs)</code></td>
-                            <td>FishNET registered T0049 as Male-Only (5M, 0F). Yet females were physically spawned.</td>
-                            <td>Flagged database registration error in FishNET; females were verified physically in log.</td>
-                            <td><span class="badge badge-medium">Flagged</span></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-    <!-- TAB 12: Intelligent Mating Planner -->
+    <!-- TAB 11: Intelligent Mating Planner -->
     <div id="tab-planner" class="tab-content">
         <div class="card">
             <div class="card-header">
@@ -1740,7 +1663,7 @@
         </div>
     </div>
 
-    <!-- TAB 13: Master Breeding Log -->
+    <!-- TAB 12: Master Breeding Log -->
     <div id="tab-raw-events" class="tab-content">
         <div class="card">
             <div class="card-header">
@@ -2067,7 +1990,6 @@
                         renderColonyAlerts();
                         renderInventory();
                         renderScorecards();
-                        renderAuditTab();
                         calculatePlanner();
 
                         if (badge) {
@@ -3414,27 +3336,7 @@ Could not reach Google Sheets API directly from your browser (${err.message}). L
                     </tr>
                 `;
             });
-        }
-
-        // TAB 11: Audit Tab
-        function renderAuditTab() {
-            const tbody = document.getElementById('auditReservoirTableBody');
-            if (!tbody) return;
-            tbody.innerHTML = '';
-
-            const singleSex = Object.values(currentTanks).filter(t => t.sex_type === 'Female-Only' || t.sex_type === 'Male-Only');
-            singleSex.sort((a, b) => a.tuid.localeCompare(b.tuid));
-
-            singleSex.forEach(t => {
-                const sexBadge = getSexBadge(t.sex_type);
-                const statusBadge = getStatusBadge(t.status);
-                const lineBadge = `<span class="badge badge-${t.line.toLowerCase()}">${t.line}</span>`;
-
-                const partners = {};
-                (t.spawn_history || []).forEach(h => {
-                    const mate = h.in_tank ? 'In-Tank' : 'Pair-Wise Cross';
-                    partners[mate] = (partners[mate] || 0) + 1;
-                });
+        });
                 const pKeys = Object.keys(partners).slice(0, 3).join(', ') || 'None recorded';
 
                 tbody.innerHTML += `
@@ -3453,7 +3355,7 @@ Could not reach Google Sheets API directly from your browser (${err.message}). L
             });
         }
 
-        // TAB 12: Mating Planner
+        // TAB 11: Mating Planner
         function setQuickEmbryoTarget(target) {
             const input = document.getElementById('planEmbryoTarget');
             if (input) {
@@ -3679,7 +3581,7 @@ Could not reach Google Sheets API directly from your browser (${err.message}). L
             document.getElementById('plannerResultBox').innerHTML = html;
         }
 
-        // TAB 13: Raw Events State & Pagination
+        // TAB 12: Raw Events State & Pagination
         let rawCurrentPage = 1;
         let rawPageSize = 50;
 
@@ -3954,7 +3856,6 @@ This will:
             renderScorecards();
             renderTurnoverTable();
             renderColonyAlerts();
-            renderAuditTab();
             calculatePlanner();
             renderBenchmarks();
             populateFocalDropdown();
@@ -4382,7 +4283,6 @@ Do you want to proceed?`)) {
             renderInventory();
             renderScorecards();
             renderTurnoverTable();
-            renderAuditTab();
             calculatePlanner();
             renderBenchmarks();
             populateFocalDropdown();
@@ -4565,7 +4465,6 @@ Do you want to proceed?`)) {
             else if (tabId === 'tab-age-curves') renderAgeCurves();
             else if (tabId === 'tab-scorecards') renderScorecards();
             else if (tabId === 'tab-inventory') renderInventory();
-            else if (tabId === 'tab-audit') renderAuditTab();
             else if (tabId === 'tab-planner') calculatePlanner();
             else if (tabId === 'tab-raw-events') renderRawEvents();
         }
@@ -4584,7 +4483,6 @@ Do you want to proceed?`)) {
             renderAgeCurves();
             renderScorecards();
             renderInventory();
-            renderAuditTab();
             renderRawEvents();
             calculatePlanner();
         };
