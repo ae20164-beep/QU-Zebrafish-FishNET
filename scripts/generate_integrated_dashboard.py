@@ -3343,23 +3343,6 @@ def generate_dashboard():
                     </tr>
                 `;
             });
-        });
-                const pKeys = Object.keys(partners).slice(0, 3).join(', ') || 'None recorded';
-
-                tbody.innerHTML += `
-                    <tr>
-                        <td><strong>${t.tuid}</strong></td>
-                        <td>${lineBadge}</td>
-                        <td>${sexBadge}</td>
-                        <td>${t.female}♀ / ${t.male}♂ (<b>${t.total}</b>)</td>
-                        <td>${statusBadge}</td>
-                        <td style="max-width: 140px; overflow: hidden; text-overflow: ellipsis;" title="${t.notes || ''}">${t.notes || '-'}</td>
-                        <td>${pKeys}</td>
-                        <td><strong>${t.total_spawns}</strong></td>
-                        <td>${t.total_eggs_0h.toLocaleString()}</td>
-                    </tr>
-                `;
-            });
         }
 
         // TAB 11: Mating Planner
