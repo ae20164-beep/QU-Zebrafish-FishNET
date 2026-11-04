@@ -19,8 +19,9 @@ def run_step(script_name):
         return False
     return True
 
-# 0. Sync RA Registries and Build Projects/Labs Tables
-print("\nStep 0: Synchronizing RAs & FileMaker Projects/Labs...")
+# 0. Sync Cloud Updates & RA Registries
+print("\nStep 0: Synchronizing Cloud Edits, RAs & FileMaker Projects/Labs...")
+run_step('sync_cloud_to_local.py')
 run_step('sync_ra_team_registry.py')
 run_step('build_comprehensive_projects_and_labs.py')
 

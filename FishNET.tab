@@ -7,9 +7,9 @@
 30-06-24	13-10-25		Zebrafish		Mu Mu (desmbkg155/+)/(desmbkg155/+)	Himanshu Lajpat		DESMA Hetro	8	 QU-IACUC 008/2022		D126				Euthanized		1.8L		T0008	30-06-25	Dr. Huseyin Yalcin Lab	1
 18-03-24	13-10-25		Zebrafish		Mu Mu (desmbkg155/+)/(desmbkg155/+)	Himanshu Lajpat		DESMA from Hetro	20	 QU-IACUC 008/2022		D126				Euthanized		2.8L		T0009	27-06-25	Dr. Huseyin Yalcin Lab	1
 30-06-24	13-10-25		Zebrafish		Wt Wt Wt (desmbkg155/+)/AB	Himanshu Lajpat		AB from DESMA 	6	 QU-IACUC 008/2022		D126				Euthanized		1.8L		T0010	30-06-25	Dr. Huseyin Yalcin Lab	1
-26-02-23			Zebrafish	9	Tg Tg (fli1a:eGFP) Sidra	Huseyin Cagatay Yalcin	3	Fli (Sidra)	12	QU-IACUC 006/2023-AMM5		D126				Adult/Active		2.8L		T0011	25-06-24	Zebrafish facility	1
+26-02-23			Zebrafish	9	Tg Tg (fli1a:eGFP) Sidra	Huseyin Cagatay Yalcin	3	Fli (Sidra)	12	QU-IACUC 006/2023-AMM5		D126				Euthanized		2.8L		T0011	25-06-24	Zebrafish facility	1
 30-07-23	07-06-25		Zebrafish	8	Tg Tg (fli1a:eGFP) Sidra	Huseyin Cagatay Yalcin	6	Fli (Sidra) G1	14	QU-IACUC-006/2023		D126				Euthanized		2.8L		T0012	30-06-24	Zebrafish facility	1
-13-09-23			Zebrafish	4	Tg Tg (fli1a:eGFP) Sidra	Huseyin Cagatay Yalcin	4	Fli (Sidra) G1	10	QU-IACUC 006/2023-AMM5		D126				Adult/Active		1.8L		T0013	02-07-24	Zebrafish facility	1
+13-09-23			Zebrafish	4	Tg Tg (fli1a:eGFP) Sidra	Huseyin Cagatay Yalcin	4	Fli (Sidra) G1	10	QU-IACUC 006/2023-AMM5		D126				Euthanized		1.8L		T0013	02-07-24	Zebrafish facility	1
 04-07-23	16-01-25		Zebrafish	1	Tg Tg (fli1:EGFP)	Huseyin Cagatay Yalcin	5	Fli	6	QU-IACUC-006/2023		D126				Euthanized		1.8L		T0014	25-12-24	Zebrafish facility	1
 16-04-23			Zebrafish	1	Mu Mu (mitfaw2/w2; mpv17a9/a9)	Huseyin Cagatay Yalcin	1	Casper	2	QU-IACUC 006/2023-AMM5		D126				Adult/Active		1.8L		T0015	27-06-24	Zebrafish facility	1
 04-05-23	07-06-25		Zebrafish	4	Tg Tg (myl7:GFP) [CMCL2]	Huseyin Cagatay Yalcin	4	CMCL2	8	QU-IACUC-006/2023		D126				Euthanized		1.8L		T0016	25-10-24	Zebrafish facility	1
@@ -17,7 +17,7 @@
 15-08-23	07-06-25		Zebrafish		Tg Tg (myl7:GFP) [CMCL2]	Huseyin Cagatay Yalcin		CMCL2	13	QU-IACUC-006/2023		D126				Euthanized		2.8L		T0018	01-07-24	Zebrafish facility	1
 20-02-23	07-06-25		Zebrafish		Tg Tg (gata1:dsRed) Sidra [Gata]	Huseyin Cagatay Yalcin	1	Gata	1	QU-IACUC-006/2023		D126				Euthanized		1.8L		T0019	25-06-24	Zebrafish facility	1
 25-06-23	05-03-26		Zebrafish	2	Tg Tg (gata1:dsRed) Sidra [Gata]	Huseyin Cagatay Yalcin	1	Gata G1	4	QU-IACUC 006/2023-AMM3		D126				Euthanized		1.8L		T0020	29-06-24	Zebrafish facility	1
-25-09-23			Zebrafish	2	Tg Tg (gata1:dsRed) Sidra [Gata]	Huseyin Cagatay Yalcin	3	Gata G1	8	QU-IACUC 006/2023-AMM5		D126				Adult/Active		1.8L		T0021	02-07-24	Zebrafish facility	1
+25-09-23			Zebrafish	2	Tg Tg (gata1:dsRed) Sidra [Gata]	Huseyin Cagatay Yalcin	3	Gata G1	8	QU-IACUC 006/2023-AMM5		D126				Euthanized		1.8L		T0021	02-07-24	Zebrafish facility	1
 06-07-23	07-06-25		Zebrafish	16	Wt Wt (AB)	Huseyin Cagatay Yalcin	13	AB	29	QU-IACUC-006/2023		D126				Euthanized		6L		T0022	27-12-24	Zebrafish facility	1
 06-07-23	12-03-24		Zebrafish	12	Wt Wt (AB)	Huseyin Cagatay Yalcin	15	AB	27	QU-IACUC-006/2023		D126				Euthanized		6L		T0023	27-12-24	Zebrafish facility	1
 18-05-23	12-02-24		Zebrafish	14	Wt Wt (AB)	Huseyin Cagatay Yalcin	17	AB	31	QU-IACUC-006/2023		D126				Euthanized		6L		T0024	28-06-24	Zebrafish facility	1
@@ -52,26 +52,26 @@
 23-09-23	07-06-25	C0008	Zebrafish	17	Tg Tg (fli1a:eGFP) Sidra [Fli]	Huseyin Cagatay Yalcin		Fli G2	14	QU-IACUC-006/2023		D126				Euthanized		8L		T0053	02-07-24	Zebrafish facility	1
 25-08-24		C0009	Zebrafish	10	Tg Tg (fli1a:eGFP) Sidra [Fli]	Huseyin Cagatay Yalcin	7	Fli G1	17	QU-IACUC 006/2023-AMM5		D126				Adult/Active		3.5L		T0054	02-07-25	Zebrafish facility	1
 18-05-23	12-03-24		Zebrafish		Wt Wt (AB)	Huseyin Cagatay Yalcin	5	AB	5	QU-IACUC 006/2023		D126				Euthanized		2.8L		T0055	28-06-24	Zebrafish facility	1
-09-01-24		C0010	Zebrafish	12	Wt Wt (AB)	Huseyin Cagatay Yalcin	3	AB	15	QU-IACUC 006/2023-AMM5		D126				Adult/Active		8L		T0056	02-07-25	Zebrafish facility	1
+09-01-24		C0010	Zebrafish	12	Wt Wt (AB)	Huseyin Cagatay Yalcin	3	AB	15	QU-IACUC 006/2023-AMM5		D126				Euthanized		8L		T0056	02-07-25	Zebrafish facility	1
 05-12-24	11-11-25	C0011	Zebrafish	9	Wt Wt (AB)	Huseyin Cagatay Yalcin	8	AB	17	QU-IACUC-006/2023		D126				Euthanized		6L		T0057	29-05-26	Zebrafish facility	1
 26-06-23	07-06-25	C0012	Zebrafish	9	Tg Tg (fli1a:eGFP) Sidra [Fli]	Huseyin Cagatay Yalcin	2	Fli G1	11	QU-IACUC-006/2023		D126				Euthanized		3.5L		T0058	29-06-24	Zebrafish facility	1
 15-07-24	05-03-26		Zebrafish	12	Wt Wt (AB)	Huseyin Cagatay Yalcin	8	AB Mix	20	QU-IACUC 006/2023-AMM3		D126				Euthanized		6L		T0059	01-07-25	Zebrafish facility	1
 27-05-24	14-12-25		Zebrafish	4	Wt Wt (AB)	Huseyin Cagatay Yalcin	3	AB (Mix+out-cross)	7	QU-IACUC-006/2023		D126				Euthanized		1.8L		T0060	29-06-25	Zebrafish facility	1
-07-07-24			Zebrafish	13	Wt Wt (AB)	Huseyin Cagatay Yalcin	8	AB Mix	21	QU-IACUC 006/2023-AMM5		D126				Adult/Active		6L		T0061	29-12-25	Zebrafish facility	1
+07-07-24			Zebrafish	13	Wt Wt (AB)	Huseyin Cagatay Yalcin	8	AB Mix	21	QU-IACUC 006/2023-AMM5		D126				Euthanized		6L		T0061	29-12-25	Zebrafish facility	1
 30-06-24	05-03-26		Zebrafish	7	Wt Wt (AB)	Huseyin Cagatay Yalcin		AB Mix	7	QU-IACUC 006/2023-AMM3		D126				Euthanized		2.8L		T0062	30-06-25	Zebrafish facility	1
 31-07-23	07-06-25	C0013	Zebrafish	7	Wt Wt (AB) Sidra	Huseyin Cagatay Yalcin	10	AB G1	17	QU-IACUC-006/2023		D126				Euthanized		6L		T0063	30-06-24	Zebrafish facility	1
 30-06-24	05-03-26		Zebrafish	8	Wt Wt (AB)	Huseyin Cagatay Yalcin		AB Mix	8	QU-IACUC 006/2023-AMM3		D126				Euthanized		2.8L		T0064	30-06-25	Zebrafish facility	1
-30-09-24		C0017	Zebrafish	3	Wt Wt (AB)	Huseyin Cagatay Yalcin		AB	3	QU-IACUC 006/2023-AMM5		D126				Adult/Active		3.5L		T0065	03-07-25	Zebrafish facility	1
+30-09-24		C0017	Zebrafish	3	Wt Wt (AB)	Huseyin Cagatay Yalcin		AB	3	QU-IACUC 006/2023-AMM5		D126				Euthanized		3.5L		T0065	03-07-25	Zebrafish facility	1
 06-03-24		C0024	Zebrafish	11	Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB) Sidra	Huseyin Cagatay Yalcin	1	Cas/AB	12	QU-IACUC 006/2023-AMM5		D126				Adult/Active		2.8L		T0066	28-08-25	Zebrafish facility	1
 29-10-24			Zebrafish	4	Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB) Sidra	Huseyin Cagatay Yalcin	1	Casper X AB (Sidra)	5	QU-IACUC 006/2023-AMM5		D126				Adult/Active		2.8L		T0067	04-07-25	Zebrafish facility	1
 18-11-24		C0025	Zebrafish		Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Huseyin Cagatay Yalcin	1	Casper Pure	1	QU-IACUC 006/2023-AMM5		D126				Adult/Active		1.8L		T0068	05-07-25	Zebrafish facility	1
-24-12-24		C0026	Zebrafish	15	Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB)	Huseyin Cagatay Yalcin	4	Casper outcross X AB mix	19	QU-IACUC 006/2023-AMM5		D126				Adult/Active		6L		T0069	06-07-25	Zebrafish facility	1
+24-12-24		C0026	Zebrafish	15	Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB)	Huseyin Cagatay Yalcin	4	Casper outcross X AB mix	19	QU-IACUC 006/2023-AMM5		D126				Euthanized		6L		T0069	06-07-25	Zebrafish facility	1
 11-12-24		C0027	Zebrafish	4	Tg Tg (fli1a:eGFP) Sidra [Fli]	Huseyin Cagatay Yalcin	3	Fli G1 +ve from T11	7	QU-IACUC 006/2023-AMM5		D126				Adult/Active		1.8L		T0070	04-06-26	Zebrafish facility	1
 24-09-23	07-06-25		Zebrafish	17	Tg Tg (fli1a:eGFP) Sidra [Fli]	Huseyin Cagatay Yalcin		Fli for Squeezing	17	QU-IACUC 006/2023-AMM1						Euthanized		8L		T0071	02-07-24	Zebrafish facility	1
 03-05-25			Zebrafish	4	Tg Tg (fli1a:eGFP) Sidra [Fli]	Huseyin Cagatay Yalcin	2	Fli +ve	6	QU-IACUC 006/2023-AMM5		D126				Adult/Active		3.5L		T0072	25-10-26	Zebrafish facility	1
 17-02-25		C0028	Zebrafish	6	Tg Tg (gata1:dsRed) Sidra [Gata]	Huseyin Cagatay Yalcin	1	Gata outcross +ve	7	QU-IACUC 006/2023-AMM5		D126				Adult/Active		3.5L		T0073	26-06-26	Zebrafish facility	1
 03-02-25	14-12-25		Zebrafish	7	Wt Wt (AB)	Huseyin Cagatay Yalcin	7	AB Mix	14	QU-IACUC 006/2023-AMM1		D126				Euthanized		6L		T0074	28-07-26	Zebrafish facility	1
-03-02-25			Zebrafish	20	Wt Wt (AB)	Huseyin Cagatay Yalcin		AB Mix	20	QU-IACUC 006/2023-AMM5		D126				Adult/Active		6L		T0075	28-07-26	Zebrafish facility	1
+03-02-25			Zebrafish	20	Wt Wt (AB)	Huseyin Cagatay Yalcin		AB Mix	20	QU-IACUC 006/2023-AMM5		D126				Euthanized		6L		T0075	28-07-26	Zebrafish facility	1
 24-03-25			Zebrafish	5	Wt Wt (AB)	Huseyin Cagatay Yalcin		AB Mix	5	QU-IACUC 006/2023-AMM5		D126				Adult/Active		2.8L		T0076	27-06-26	Zebrafish facility	1
 03-05-25		C0029	Zebrafish		Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Huseyin Cagatay Yalcin	7	Casper	7	QU-IACUC 006/2023-AMM5		D126				Adult/Active		1.8L		T0077	25-10-26	Zebrafish facility	1
 13-02-25			Zebrafish	3	Mu Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB)	Huseyin Cagatay Yalcin	5	Casper X AB	8	QU-IACUC 006/2023-AMM5		D126				Adult/Active		1.8L		T0078	26-06-26	Zebrafish facility	1
@@ -82,8 +82,8 @@
 30-06-24	14-12-25		Zebrafish		Wt Wt (AB)	Huseyin Cagatay Yalcin	23	AB (Males Only)	23	QU-IACUC 006/2023-AMM1		D126				Euthanized		6L		T0083	30-06-25	Zebrafish facility	1
 05-12-24	14-12-25		Zebrafish		Wt Wt (AB)	Huseyin Cagatay Yalcin	25	AB (Males Only)	25	QU-IACUC 006/2023-AMM1		D126				Euthanized		6L		T0084	29-05-26	Zebrafish facility	1
 30-06-24	14-12-25		Zebrafish		Wt Wt (AB)	Huseyin Cagatay Yalcin	23	AB (Males Only)	23	QU-IACUC 006/2023-AMM1		D126				Euthanized		6L		T0085	30-06-25	Zebrafish facility	1
-22-12-24			Zebrafish	18	Wt Wt (AB)	Huseyin Cagatay Yalcin	11	AB Mix	29	QU-IACUC 006/2023-AMM5		D126				Adult/Active		6L		T0086	06-07-25	Zebrafish facility	1
-22-12-24			Zebrafish	6	Wt Wt (AB)	Huseyin Cagatay Yalcin	4	AB Mix	10	QU-IACUC 006/2023-AMM5		D126				Adult/Active		2.8L		T0087	06-07-25	Zebrafish facility	1
+22-12-24			Zebrafish	18	Wt Wt (AB)	Huseyin Cagatay Yalcin	11	AB Mix	29	QU-IACUC 006/2023-AMM5		D126				Euthanized		6L		T0086	06-07-25	Zebrafish facility	1
+22-12-24			Zebrafish	6	Wt Wt (AB)	Huseyin Cagatay Yalcin	4	AB Mix	10	QU-IACUC 006/2023-AMM5		D126				Euthanized		2.8L		T0087	06-07-25	Zebrafish facility	1
 27-04-25	14-12-25		Zebrafish	30	Wt Wt (AB)/(AB) Sidra	Huseyin Cagatay Yalcin		AB outcross	30	QU-IACUC 006/2023-AMM1		D126				Euthanized		6L		T0088	28-06-26	Zebrafish facility	1
 13-04-25			Zebrafish	15	Wt Wt (AB)	Huseyin Cagatay Yalcin		AB Mix	15	QU-IACUC 006/2023-AMM5		D126				Adult/Active		6L		T0089	28-06-26	Zebrafish facility	1
 13-11-24			Zebrafish	4	Wt Wt (AB)	Huseyin Cagatay Yalcin	3	AB Mix	8	QU-IACUC 006/2023-AMM5		D126				Adult/Active		1.8L		T0090	05-07-25	Zebrafish facility	1

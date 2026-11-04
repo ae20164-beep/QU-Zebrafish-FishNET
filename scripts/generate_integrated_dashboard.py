@@ -755,7 +755,7 @@ def generate_dashboard():
         <div class="kpi-card kpi-blue">
             <span class="kpi-label">Total Tanks</span>
             <span class="kpi-value" id="kpiTotalTanks">183</span>
-            <span class="kpi-subtext" id="kpiTankStatusSub">104 Active | 72 Euthanized | 0 Larvae</span>
+            <span class="kpi-subtext" id="kpiTankStatusSub">103 Active | 73 Euthanized | 0 Larvae</span>
         </div>
         <div class="kpi-card kpi-emerald">
             <span class="kpi-label">Breeding Events</span>
@@ -779,8 +779,8 @@ def generate_dashboard():
         </div>
         <div class="kpi-card kpi-purple">
             <span class="kpi-label">Crosses & Alerts</span>
-            <span class="kpi-value" id="kpiCrossAlerts">71 / 88</span>
-            <span class="kpi-subtext" id="kpiCrossSub">71 Crosses | 88 Active Alerts</span>
+            <span class="kpi-value" id="kpiCrossAlerts">71 / 86</span>
+            <span class="kpi-subtext" id="kpiCrossSub">71 Crosses | 86 Active Alerts</span>
         </div>
     </div>
 
@@ -790,7 +790,7 @@ def generate_dashboard():
         <button class="tab-btn" onclick="switchTab('tab-pedigree')">🌳 Pedigree Explorer</button>
         <button class="tab-btn" onclick="switchTab('tab-turnover')">⏳ Turnover & Colony Renewal</button>
         <button class="tab-btn" onclick="switchTab('tab-crosses-reg')">🧬 Crosses & Nursery Registry</button>
-        <button class="tab-btn" onclick="switchTab('tab-alerts')">⚠️ Colony Alerts (<span id="tabBadgeAlerts">88</span>)</button>
+        <button class="tab-btn" onclick="switchTab('tab-alerts')">⚠️ Colony Alerts (<span id="tabBadgeAlerts">86</span>)</button>
         <button class="tab-btn" onclick="switchTab('tab-crosses')">🧬 Cross-Pairing Synergies (Sire x Dam)</button>
         <button class="tab-btn" onclick="switchTab('tab-trends')">📈 Longitudinal Trends & Climate Seasonality</button>
         <button class="tab-btn" onclick="switchTab('tab-age-curves')">🔬 Parental Age vs. Fecundity</button>
@@ -3749,10 +3749,10 @@ def generate_dashboard():
             if (elSingleSexSub) elSingleSexSub.textContent = `${femaleOnly} ♀ Female-Only | ${maleOnly} ♂ Male-Only`;
 
             const elCrossAlerts = document.getElementById('kpiCrossAlerts');
-            if (elCrossAlerts) elCrossAlerts.textContent = `${currentCrosses.length} / ${(MASTER_DATA.alerts || []).length}`;
+            if (elCrossAlerts) elCrossAlerts.textContent = `${currentCrosses.length} / ${currentAlerts.length}`;
 
             const elCrossSub = document.getElementById('kpiCrossSub');
-            if (elCrossSub) elCrossSub.textContent = `${currentCrosses.length} Crosses | ${(MASTER_DATA.alerts || []).length} Active Alerts`;
+            if (elCrossSub) elCrossSub.textContent = `${currentCrosses.length} Crosses | ${currentAlerts.length} Active Alerts`;
             
             const headerSub = document.getElementById('headerSubtext');
             if (headerSub) {
@@ -3884,6 +3884,41 @@ def generate_dashboard():
         }
 
         // Modal for Tank Profile
+        function quickEuthanizeTank(tuid) {
+            const t = currentTanks[tuid];
+            if (!t) return;
+            if (!confirm(`🚨 EUTHANASIA PROTOCOL CONFIRMATION:\n\nAre you sure you want to mark Tank ${tuid} (${t.line}) as EUTHANIZED?\n\nThis will:\n• Update tank status to 'Euthanized'\n• Clear active turnover alerts from Colony Alerts\n• Remove from active mating recommendations\n• Preserve all historical spawning logs and pedigree depth`)) {
+                return;
+            }
+
+            t.status = 'Euthanized';
+            t.female = 0;
+            t.male = 0;
+            t.total = 0;
+            t.turnover_urgency = 'EUTHANIZED';
+            t.days_to_turnover = null;
+
+            // Remove any active alerts for this tank
+            currentAlerts = currentAlerts.filter(a => a.tuid !== tuid);
+
+            persistEdits();
+
+            updateGlobalKPICards();
+            renderInventory();
+            renderScorecards();
+            renderTurnoverTable();
+            renderColonyAlerts();
+            renderAuditTab();
+            calculatePlanner();
+            renderBenchmarks();
+            populateFocalDropdown();
+
+            closeModal();
+            closeEditModal();
+
+            alert(`✅ Tank ${tuid} [${t.line}] has been successfully recorded as EUTHANIZED in the colony registry.`);
+        }
+
         function openTankModal(tuid) {
             const t = currentTanks[tuid];
             if (!t) return;
@@ -3907,7 +3942,8 @@ def generate_dashboard():
             });
 
             mbody.innerHTML = `
-                <div style="display: flex; justify-content: flex-end; margin-bottom: 12px;">
+                <div style="display: flex; justify-content: flex-end; margin-bottom: 12px; gap: 8px;">
+                    ${t.status === 'Active' ? `<button class="btn btn-sm" style="background: rgba(244,63,94,0.18); color: #f43f5e; border: 1px solid rgba(244,63,94,0.4); font-weight: 600;" onclick="quickEuthanizeTank('${t.tuid}')">💀 Euthanize Tank</button>` : `<span class="badge badge-critical" style="padding: 4px 10px; font-size: 12px;">Euthanized</span>`}
                     <button class="btn btn-sm btn-blue" onclick="openEditTankModal('${t.tuid}')">✏️ Edit Tank Details & Biometrics</button>
                 </div>
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px;">
@@ -4048,8 +4084,8 @@ def generate_dashboard():
                         <label>Status:</label>
                         <select id="editTankStatus" required>
                             <option value="Active" ${t.status === 'Active' ? 'selected' : ''}>Active</option>
-                            <option value="Terminated" ${t.status === 'Terminated' ? 'selected' : ''}>Terminated</option>
-                            <option value="Retired" ${t.status === 'Retired' ? 'selected' : ''}>Retired</option>
+                            <option value="Euthanized" ${t.status === 'Euthanized' ? 'selected' : ''}>Euthanized</option>
+                            <option value="Juvenile(<3 months old)" ${t.status === 'Juvenile(<3 months old)' || (t.status && t.status.includes('Juvenile')) ? 'selected' : ''}>Juvenile (&lt;3 months old)</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -4232,18 +4268,9 @@ def generate_dashboard():
                 return;
             }
 
-            if (newFemale === 0) {
-                const asDam = currentCrosses.find(c => c.dam === tuid);
-                if (asDam) {
-                    showValidationAlert(`Biological Incompatibility: Tank <strong>${tuid}</strong> is recorded as the Dam (Female Parent) in Cross <strong>${asDam.cuid}</strong>. A tank with 0 females cannot produce eggs. Please update the cross record or retain female breeders.`);
-                    return;
-                }
-            }
-
-            if (newMale === 0) {
-                const asSire = currentCrosses.find(c => c.sire === tuid);
-                if (asSire) {
-                    showValidationAlert(`Biological Incompatibility: Tank <strong>${tuid}</strong> is recorded as the Sire (Male Parent) in Cross <strong>${asSire.cuid}</strong>. A tank with 0 males cannot serve as Sire.`);
+            if (newStatus === 'Active') {
+                if (newFemale === 0 && newMale === 0) {
+                    showValidationAlert(`An Active tank must contain fish biomass. If all fish have been culled or harvested, please set status to 'Euthanized'.`);
                     return;
                 }
             }
@@ -4270,6 +4297,13 @@ def generate_dashboard():
             t.dob = newDob;
             t.tank_size = newSize;
             t.notes = newNotes;
+
+            if (newStatus === 'Euthanized') {
+                t.turnover_urgency = 'EUTHANIZED';
+                t.days_to_turnover = null;
+                // Clear any turnover alerts for this euthanized tank
+                currentAlerts = currentAlerts.filter(a => a.tuid !== tuid);
+            }
 
             if (newFemale > 0 && newMale === 0) t.sex_type = 'Female-Only';
             else if (newFemale === 0 && newMale > 0) t.sex_type = 'Male-Only';
