@@ -938,34 +938,64 @@ def process():
                 if gc_id not in gc:
                     gc.append(gc_id)
         st['grandchildren'] = gc
-    # Tabular Kinship & Inbreeding (Henderson's Numerator Relationship Matrix A)
-    all_ids = sorted(list(tank_stats.keys()))
+    # Tabular Kinship & Inbreeding (Canonical Henderson Numerator Relationship Matrix A with Topological Sort)
+    # Reference: Henderson CR (1976) Biometrics 32(1):69-83; Mrode RA (2014) Linear Models for the Prediction of Animal Breeding Values, Ch. 2; Falconer & Mackay (1996)
+    # Order individuals topologically so parents strictly precede progeny
+    visited_topo = {}
+    sorted_order = []
+
+    def visit_topo(node):
+        if visited_topo.get(node) == 1:
+            return
+        if visited_topo.get(node) == -1:
+            return # Guard against cycles
+        visited_topo[node] = -1
+        s_p, d_p = parents_map.get(node, ('', ''))
+        if s_p and s_p in tank_stats:
+            visit_topo(s_p)
+        if d_p and d_p in tank_stats and d_p != s_p:
+            visit_topo(d_p)
+        visited_topo[node] = 1
+        sorted_order.append(node)
+
+    for node_id in sorted(list(tank_stats.keys())):
+        if node_id not in visited_topo:
+            visit_topo(node_id)
+
     A = defaultdict(lambda: defaultdict(float))
-    for i in all_ids:
+    for i in sorted_order:
         si, di = parents_map.get(i, ('', ''))
-        if si and di and si in tank_stats and di in tank_stats:
-            A[i][i] = 1.0 + 0.5 * A[si][di]
-        else:
-            A[i][i] = 1.0
-        for j in all_ids:
-            if i == j: continue
-            sj, dj = parents_map.get(j, ('', ''))
-            if sj and dj and sj in tank_stats and dj in tank_stats:
-                val = 0.5 * (A[i][sj] + A[i][dj])
-            elif sj and sj in tank_stats:
-                val = 0.5 * A[i][sj]
-            elif dj and dj in tank_stats:
-                val = 0.5 * A[i][dj]
+        si_valid = si if si in tank_stats else ''
+        di_valid = di if di in tank_stats else ''
+
+        # Compute off-diagonal elements A[i][j] = A[j][i] for all previously processed ancestors/relatives j
+        for j in sorted_order:
+            if j == i:
+                break # Only process j preceding i in topological order
+            if si_valid and di_valid:
+                val = 0.5 * (A[si_valid][j] + A[di_valid][j])
+            elif si_valid:
+                val = 0.5 * A[si_valid][j]
+            elif di_valid:
+                val = 0.5 * A[di_valid][j]
             else:
                 val = 0.0
             A[i][j] = val
             A[j][i] = val
 
+        # Diagonal element A[i][i] = 1.0 + 0.5 * A[si][di] = 1.0 + F_i
+        if si_valid and di_valid:
+            A[i][i] = 1.0 + 0.5 * A[si_valid][di_valid]
+        else:
+            A[i][i] = 1.0
+
     inbreeding_coeffs = {}
-    for i in all_ids:
+    for i in sorted_order:
         si, di = parents_map.get(i, ('', ''))
-        if si and di and si in tank_stats and di in tank_stats:
-            inbreeding_coeffs[i] = round(0.5 * A[si][di], 4)
+        si_valid = si if si in tank_stats else ''
+        di_valid = di if di in tank_stats else ''
+        if si_valid and di_valid:
+            inbreeding_coeffs[i] = round(0.5 * A[si_valid][di_valid], 4)
         else:
             inbreeding_coeffs[i] = 0.0
         tank_stats[i]['inbreeding_f'] = inbreeding_coeffs[i]

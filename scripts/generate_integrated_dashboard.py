@@ -779,8 +779,8 @@ def generate_dashboard():
         </div>
         <div class="kpi-card kpi-purple">
             <span class="kpi-label">Crosses & Alerts</span>
-            <span class="kpi-value" id="kpiCrossAlerts">71 / 86</span>
-            <span class="kpi-subtext" id="kpiCrossSub">71 Crosses | 86 Active Alerts</span>
+            <span class="kpi-value" id="kpiCrossAlerts">71 / 93</span>
+            <span class="kpi-subtext" id="kpiCrossSub">71 Crosses | 93 Active Alerts</span>
         </div>
     </div>
 
@@ -790,7 +790,7 @@ def generate_dashboard():
         <button class="tab-btn" onclick="switchTab('tab-pedigree')">🌳 Pedigree Explorer</button>
         <button class="tab-btn" onclick="switchTab('tab-turnover')">⏳ Turnover & Colony Renewal</button>
         <button class="tab-btn" onclick="switchTab('tab-crosses-reg')">🧬 Crosses & Nursery Registry</button>
-        <button class="tab-btn" onclick="switchTab('tab-alerts')">⚠️ Colony Alerts (<span id="tabBadgeAlerts">86</span>)</button>
+        <button class="tab-btn" onclick="switchTab('tab-alerts')">⚠️ Colony Alerts (<span id="tabBadgeAlerts">93</span>)</button>
         <button class="tab-btn" onclick="switchTab('tab-crosses')">🧬 Cross-Pairing Synergies (Sire x Dam)</button>
         <button class="tab-btn" onclick="switchTab('tab-trends')">📈 Longitudinal Trends & Climate Seasonality</button>
         <button class="tab-btn" onclick="switchTab('tab-age-curves')">🔬 Parental Age vs. Fecundity</button>
@@ -2038,24 +2038,69 @@ def generate_dashboard():
             return '<span class="badge badge-larvae">Larvae</span>';
         }
 
-        // Live Cloud Data Fetching
+        // Live Cloud Data Fetching & Real-Time Sync
         function fetchLatestCloudData() {
             const badge = document.getElementById('cloudStatusBadge');
-            badge.innerText = '🔄 Syncing Google Sheets...';
-            badge.style.color = '#fbbf24';
+            if (badge) {
+                badge.innerText = '🔄 Syncing Google Sheets...';
+                badge.style.color = '#fbbf24';
+            }
 
             fetch(CLOUD_API_URL)
                 .then(res => res.json())
                 .then(resp => {
                     if (resp.status === 'success' && resp.data) {
-                        badge.innerText = '🟢 Cloud: Google Sheets Live';
-                        badge.style.color = '#34d399';
-                        alert('Successfully synced live records with Master Google Sheet!');
+                        const cloudTanks = resp.data.tanks || [];
+                        let updatedTanksCount = 0;
+
+                        cloudTanks.forEach(ct => {
+                            const tuid = ct.TUID;
+                            if (tuid && currentTanks[tuid]) {
+                                const target = currentTanks[tuid];
+                                const cloudStatus = ct.Status || ct.status;
+                                if (cloudStatus && cloudStatus !== target.status) {
+                                    target.status = cloudStatus;
+                                    updatedTanksCount++;
+                                    if (cloudStatus === 'Euthanized') {
+                                        target.turnover_urgency = 'EUTHANIZED';
+                                        target.days_to_turnover = null;
+                                        currentAlerts = currentAlerts.filter(a => a.tuid !== tuid);
+                                    }
+                                }
+                                if (ct.Female !== undefined && ct.Female !== '') target.female = parseInt(ct.Female) || 0;
+                                if (ct.Male !== undefined && ct.Male !== '') target.male = parseInt(ct.Male) || 0;
+                                if (ct.Total_Fish !== undefined && ct.Total_Fish !== '') target.total = parseInt(ct.Total_Fish) || (target.female + target.male);
+                            }
+                        });
+
+                        persistEdits();
+
+                        updateGlobalKPICards();
+                        renderBenchmarks();
+                        renderTurnoverTable();
+                        renderColonyAlerts();
+                        renderInventory();
+                        renderScorecards();
+                        renderAuditTab();
+                        calculatePlanner();
+
+                        if (badge) {
+                            badge.innerText = '🟢 Cloud: Google Sheets Live';
+                            badge.style.color = '#34d399';
+                        }
+
+                        alert(`✅ Cloud Sync Complete!\n\nSuccessfully pulled real-time records from Google Sheets.\n• Tanks synced: ${cloudTanks.length}\n• Status updates applied: ${updatedTanksCount}\nAll dashboard KPIs, inventory, and alerts have been recalculated!`);
+                    } else {
+                        throw new Error(resp.message || 'Malformed API response');
                     }
                 })
                 .catch(err => {
-                    badge.innerText = '🟢 Cloud Ready (Offline Cache)';
-                    badge.style.color = '#38bdf8';
+                    console.warn('Cloud sync error:', err);
+                    if (badge) {
+                        badge.innerText = '🟢 Cloud Ready (Offline Cache)';
+                        badge.style.color = '#38bdf8';
+                    }
+                    alert(`⚠️ Cloud Sync Notice:\n\nCould not reach Google Sheets API directly from your browser (${err.message}). Local cached records are active and preserved.`);
                 });
         }
 
