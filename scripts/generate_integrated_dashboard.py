@@ -745,6 +745,7 @@ def generate_dashboard():
         <div class="header-controls">
             <span class="cloud-badge" id="cloudStatusBadge">🟢 Cloud: Google Sheets Live</span>
             <button class="btn btn-outline" onclick="fetchLatestCloudData()">🔄 Refresh Cloud</button>
+            <button class="btn btn-outline" onclick="resetAllLocalEdits()" title="Clear browser cache and reload official facility data">🧹 Reset Cache</button>
             <button class="btn btn-outline" onclick="exportBreedingJSON()">💾 Export JSON</button>
             <button class="btn btn-outline" onclick="exportBreedingCSV()">📥 Export Master CSV</button>
         </div>
@@ -1955,10 +1956,20 @@ def generate_dashboard():
             return '<span class="badge" style="background: rgba(148, 163, 184, 0.2); color: #94a3b8;">Unsexed</span>';
         }
 
+        function normalizeStatus(st) {
+            if (!st) return 'Active';
+            const s = String(st).toUpperCase();
+            if (s.includes('EUTH') || s.includes('DEAD')) return 'Euthanized';
+            if (s.includes('JUVENILE') || s.includes('LARVAE')) return 'Juvenile(<3 months old)';
+            if (s.includes('ACTIVE') || s.includes('ADULT')) return 'Active';
+            return st;
+        }
+
         function getStatusBadge(status) {
-            if (status === 'Active') return '<span class="badge badge-active">Active</span>';
-            if (status === 'Euthanized') return '<span class="badge badge-euthanized">Euthanized</span>';
-            return '<span class="badge badge-larvae">Larvae</span>';
+            const st = normalizeStatus(status);
+            if (st === 'Active') return '<span class="badge badge-active">Active</span>';
+            if (st === 'Euthanized') return '<span class="badge badge-euthanized">Euthanized</span>';
+            return '<span class="badge badge-larvae">Juvenile</span>';
         }
 
         // Live Cloud Data Fetching & Real-Time Sync
@@ -1980,7 +1991,8 @@ def generate_dashboard():
                             const tuid = ct.TUID;
                             if (tuid && currentTanks[tuid]) {
                                 const target = currentTanks[tuid];
-                                const cloudStatus = ct.Status || ct.status;
+                                const rawStatus = ct.Status || ct.status;
+                                const cloudStatus = normalizeStatus(rawStatus);
                                 if (cloudStatus && cloudStatus !== target.status) {
                                     target.status = cloudStatus;
                                     updatedTanksCount++;
@@ -4387,34 +4399,54 @@ def generate_dashboard():
             }
         }
 
-        const CACHE_KEY_EVENTS = 'fishnet_persisted_events_v2026_oct26';
+        const BUILD_VERSION = '2026-11-05-Tanks-v4';
+        const CACHE_KEY_EVENTS = 'fishnet_persisted_events_' + BUILD_VERSION;
+        
         function loadPersistedEdits() {
             try {
-                const savedTanks = localStorage.getItem('fishnet_persisted_tanks');
-                if (savedTanks) currentTanks = JSON.parse(savedTanks);
+                const storedVersion = localStorage.getItem('fishnet_build_version');
+                if (storedVersion !== BUILD_VERSION) {
+                    // Stale cache from previous build detected: clear old tank snapshots
+                    // so new official tank exports (e.g. T0185, new counts) take effect immediately!
+                    localStorage.removeItem('fishnet_persisted_tanks');
+                    localStorage.removeItem('fishnet_persisted_crosses');
+                    localStorage.removeItem('fishnet_persisted_events');
+                    localStorage.removeItem('fishnet_persisted_events_v2026_oct26');
+                    localStorage.removeItem(CACHE_KEY_EVENTS);
+                    localStorage.setItem('fishnet_build_version', BUILD_VERSION);
+                    console.log('FishNET: Updated to new official data build', BUILD_VERSION);
+                }
 
-                const savedCrosses = localStorage.getItem('fishnet_persisted_crosses');
-                if (savedCrosses) currentCrosses = JSON.parse(savedCrosses);
-
-                const savedEvents = localStorage.getItem(CACHE_KEY_EVENTS);
-                if (savedEvents) {
-                    const parsed = JSON.parse(savedEvents);
-                    if (Array.isArray(parsed) && parsed.length === (MASTER_DATA.events || []).length) {
-                        currentEvents = parsed;
-                    }
+                // Apply explicit user overrides if present
+                const savedOverrides = localStorage.getItem('fishnet_user_tank_overrides');
+                if (savedOverrides) {
+                    const overrides = JSON.parse(savedOverrides);
+                    Object.keys(overrides).forEach(tuid => {
+                        if (currentTanks[tuid]) {
+                            Object.assign(currentTanks[tuid], overrides[tuid]);
+                        }
+                    });
                 }
             } catch(e) {
                 console.warn('LocalStorage load error:', e);
             }
+
+            // Always ensure all statuses are normalized
+            Object.values(currentTanks).forEach(t => {
+                t.status = normalizeStatus(t.status);
+            });
         }
 
         function resetAllLocalEdits() {
-            if (confirm('Reset to official facility data and discard local browser changes?')) {
+            if (confirm('Reset to official facility data and clear local browser cache?')) {
                 localStorage.removeItem('fishnet_persisted_tanks');
                 localStorage.removeItem('fishnet_persisted_crosses');
-                localStorage.removeItem(CACHE_KEY_EVENTS);
                 localStorage.removeItem('fishnet_persisted_events');
-                location.reload();
+                localStorage.removeItem('fishnet_user_tank_overrides');
+                localStorage.removeItem('fishnet_persisted_events_v2026_oct26');
+                localStorage.removeItem(CACHE_KEY_EVENTS);
+                localStorage.removeItem('fishnet_build_version');
+                location.reload(true);
             }
         }
 
