@@ -755,7 +755,7 @@ def generate_dashboard():
         <div class="kpi-card kpi-blue">
             <span class="kpi-label">Total Tanks</span>
             <span class="kpi-value" id="kpiTotalTanks">183</span>
-            <span class="kpi-subtext" id="kpiTankStatusSub">103 Active | 73 Euthanized | 0 Larvae</span>
+            <span class="kpi-subtext" id="kpiTankStatusSub">99 Active | 78 Euthanized | 0 Larvae</span>
         </div>
         <div class="kpi-card kpi-emerald">
             <span class="kpi-label">Breeding Events</span>
@@ -774,13 +774,13 @@ def generate_dashboard():
         </div>
         <div class="kpi-card kpi-rose">
             <span class="kpi-label">Single-Sex Reservoirs</span>
-            <span class="kpi-value" id="kpiSingleSex">41 Tanks</span>
-            <span class="kpi-subtext" id="kpiSingleSexSub">21 ♀ Female-Only | 20 ♂ Male-Only</span>
+            <span class="kpi-value" id="kpiSingleSex">42 Tanks</span>
+            <span class="kpi-subtext" id="kpiSingleSexSub">24 ♀ Female-Only | 18 ♂ Male-Only</span>
         </div>
         <div class="kpi-card kpi-purple">
             <span class="kpi-label">Crosses & Alerts</span>
-            <span class="kpi-value" id="kpiCrossAlerts">71 / 93</span>
-            <span class="kpi-subtext" id="kpiCrossSub">71 Crosses | 93 Active Alerts</span>
+            <span class="kpi-value" id="kpiCrossAlerts">71 / 87</span>
+            <span class="kpi-subtext" id="kpiCrossSub">71 Crosses | 87 Active Alerts</span>
         </div>
     </div>
 
@@ -790,7 +790,7 @@ def generate_dashboard():
         <button class="tab-btn" onclick="switchTab('tab-pedigree')">🌳 Pedigree Explorer</button>
         <button class="tab-btn" onclick="switchTab('tab-turnover')">⏳ Turnover & Colony Renewal</button>
         <button class="tab-btn" onclick="switchTab('tab-crosses-reg')">🧬 Crosses & Nursery Registry</button>
-        <button class="tab-btn" onclick="switchTab('tab-alerts')">⚠️ Colony Alerts (<span id="tabBadgeAlerts">93</span>)</button>
+        <button class="tab-btn" onclick="switchTab('tab-alerts')">⚠️ Colony Alerts (<span id="tabBadgeAlerts">87</span>)</button>
         <button class="tab-btn" onclick="switchTab('tab-crosses')">🧬 Cross-Pairing Synergies (Sire x Dam)</button>
         <button class="tab-btn" onclick="switchTab('tab-trends')">📈 Longitudinal Trends & Climate Seasonality</button>
         <button class="tab-btn" onclick="switchTab('tab-age-curves')">🔬 Parental Age vs. Fecundity</button>
@@ -1587,7 +1587,7 @@ def generate_dashboard():
                         <option value="ALL">All Statuses (183)</option>
                         <option value="Active" selected>Active / Adult (104)</option>
                         <option value="Euthanized">Euthanized (72)</option>
-                        <option value="Juvenile">Juvenile (&lt;3 months old) (7)</option>
+                        <option value="Juvenile">Juvenile (&lt;3 months old) (6)</option>
                     </select>
                 </div>
                 <div class="filter-group">

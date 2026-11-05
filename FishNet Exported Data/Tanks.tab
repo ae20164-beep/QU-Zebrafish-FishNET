@@ -1,184 +1,184 @@
-TUID	Notes	Genotype	Prefix	Allele	DOB	Date of death	Turnover_Deadline	Derivative_Cross	Female	Male	Total_Fish	Tank_Size	Status	Protocol
-T0001	DESMA -/-	Mu (desmbkg155/kg155) [DESMA]	Mu	(desmbkg155/kg155) [DESMA]	6/30/2024	10/13/2025	12/22/2025				1	1.8L	Euthanized	QU-IACUC 008/2022-REN1
-T0002	DESMA -/-	Mu (desmbkg155/kg155) [DESMA]	Mu	(desmbkg155/kg155) [DESMA]	6/10/2024	10/13/2025	12/2/2025				2	1.8L	Euthanized	 QU-IACUC 008/2022
-T0004	DESMA OldXNew	Mu (desmbkg155/+)/(desmbkg155/kg155) [DESMA]	Mu	(desmbkg155/+)/(desmbkg155/kg155) [DESMA]	10/6/2024	10/13/2025	3/30/2026		2	2	4	2.8L	Euthanized	QU-IACUC-006/2023
-T0005	DESMA -/+	Mu (desmbkg155/+)	Mu	(desmbkg155/+)	6/30/2024	10/13/2025	12/22/2025				8	1.8L	Euthanized	 QU-IACUC 008/2022
-T0006	DESMA -/-	Mu (desmbkg155/kg155)	Mu	(desmbkg155/kg155)	6/10/2024	10/13/2025	12/2/2025				2	1.8L	Euthanized	 QU-IACUC 008/2022
-T0007	DESMA -/+	Mu (desmbkg155/+)	Mu	(desmbkg155/+)	6/30/2024	10/13/2025	12/22/2025				10	1.8L	Euthanized	 QU-IACUC 008/2022
-T0008	DESMA Hetro	Mu (desmbkg155/+)/(desmbkg155/+)	Mu	(desmbkg155/+)/(desmbkg155/+)	6/30/2024	10/13/2025	12/22/2025				8	1.8L	Euthanized	 QU-IACUC 008/2022
-T0009	DESMA from Hetro	Mu (desmbkg155/+)/(desmbkg155/+)	Mu	(desmbkg155/+)/(desmbkg155/+)	3/18/2024	10/13/2025	9/9/2025				20	2.8L	Euthanized	 QU-IACUC 008/2022
-T0010	AB from DESMA 	Wt Wt (desmbkg155/+)/AB	Wt	Wt (desmbkg155/+)/AB	6/30/2024	10/13/2025	12/22/2025				6	1.8L	Euthanized	 QU-IACUC 008/2022
-T0011	Fli (Sidra)	Tg (fli1a:eGFP) Sidra	Tg	(fli1a:eGFP) Sidra	2/26/2023	11/1/2026	8/19/2024		9	3	12	2.8L	Euthanized	QU-IACUC 006/2023-AMM5
-T0012	Fli (Sidra) G1	Tg (fli1a:eGFP) Sidra	Tg	(fli1a:eGFP) Sidra	7/30/2023	7/6/2025	1/20/2025		8	6	14	2.8L	Euthanized	QU-IACUC-006/2023
-T0013	Fli (Sidra) G1	Tg (fli1a:eGFP) Sidra	Tg	(fli1a:eGFP) Sidra	9/13/2023	11/1/2026	3/6/2025		4	4	10	1.8L	Euthanized	QU-IACUC 006/2023-AMM5
-T0014	Fli	Tg (fli1:EGFP)	Tg	(fli1:EGFP)	4/7/2023	1/16/2025	9/28/2024		1	5	6	1.8L	Euthanized	QU-IACUC-006/2023
-T0015	Casper	Mu (mitfaw2/w2; mpv17a9/a9)	Mu	(mitfaw2/w2; mpv17a9/a9)	4/16/2023		10/7/2024		1	1	2	1.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0016	CMCL2	Tg (myl7:GFP) [CMCL2]	Tg	(myl7:GFP) [CMCL2]	4/5/2023	7/6/2025	9/26/2024		4	4	8	1.8L	Euthanized	QU-IACUC-006/2023
-T0017	CMCL2	Tg (myl7:GFP) [CMCL2]	Tg	(myl7:GFP) [CMCL2]	7/18/2023	7/6/2025	1/8/2025				17	2.8L	Euthanized	QU-IACUC-006/2023
-T0018	CMCL2	Tg (myl7:GFP) [CMCL2]	Tg	(myl7:GFP) [CMCL2]	8/15/2023	7/6/2025	2/5/2025				13	2.8L	Euthanized	QU-IACUC-006/2023
-T0019	Gata	Tg (gata1:dsRed) Sidra [Gata]	Tg	(gata1:dsRed) Sidra [Gata]	2/20/2023	7/6/2025	8/13/2024			1	1	1.8L	Euthanized	QU-IACUC-006/2023
-T0020	Gata G1	Tg (gata1:dsRed) Sidra [Gata]	Tg	(gata1:dsRed) Sidra [Gata]	6/25/2023	5/3/2026	12/16/2024		2	1	4	1.8L	Euthanized	QU-IACUC 006/2023-AMM3
-T0021	Gata G1	Tg (gata1:dsRed) Sidra [Gata]	Tg	(gata1:dsRed) Sidra [Gata]	9/25/2023	11/1/2026	3/18/2025		2	3	8	1.8L	Euthanized	QU-IACUC 006/2023-AMM5
-T0022	AB	Wt (AB)	Wt	(AB)	6/7/2023	7/6/2025	11/28/2024		16	13	29	6L	Euthanized	QU-IACUC-006/2023
-T0023	AB	Wt (AB)	Wt	(AB)	6/7/2023	12/3/2024	11/28/2024		12	15	27	6L	Euthanized	QU-IACUC-006/2023
-T0024	AB	Wt (AB)	Wt	(AB)	5/18/2023	12/2/2024	11/8/2024		14	17	31	6L	Euthanized	QU-IACUC-006/2023
-T0025	AB	Wt (AB)	Wt	(AB)	3/12/2023	10/20/2024	9/2/2024		7	4	11	2.8L	Euthanized	QU-IACUC-006/2023
-T0026	AB	Wt (AB)	Wt	(AB)	7/25/2023	3/27/2025	1/15/2025		7	5	12	2.8L	Euthanized	QU-IACUC-006/2023
-T0027	AB	Wt (AB)	Wt	(AB)	7/25/2023	3/27/2025	1/15/2025		8	6	14	2.8L	Euthanized	QU-IACUC-006/2023
-T0028	AB	Wt (AB)	Wt	(AB)	8/8/2023	7/6/2025	1/29/2025			22	22	6L	Euthanized	QU-IACUC-006/2023
-T0029	AB	Wt (AB)	Wt	(AB)	4/9/2023	10/20/2024	9/30/2024		18	12	30	6L	Euthanized	QU-IACUC-006/2023
-T0030	AB	Wt (AB)	Wt	(AB)	9/4/2023	3/27/2025	2/25/2025		8	6	14	2.8L	Euthanized	QU-IACUC-006/2023
-T0031	AB	Wt (AB)	Wt	(AB)	9/4/2023	3/27/2025	2/25/2025		5	3	8	1.8L	Euthanized	QU-IACUC-006/2023
-T0032	AB	Wt (AB)	Wt	(AB)	7/2/2023	3/27/2025	12/23/2024		12	15	27	6L	Euthanized	QU-IACUC-006/2023
-T0033	AB	Wt (AB)	Wt	(AB)	8/19/2023	12/1/2024	2/9/2025		1	1	2	1.8L	Euthanized	QU-IACUC-006/2023
-T0034	AB	Wt (AB)	Wt	(AB)	3/12/2023	10/20/2024	9/2/2024		6	4	10	2.8L	Euthanized	QU-IACUC-006/2023
-T0035	AB	Wt (AB)	Wt	(AB)	8/14/2023	7/6/2025	2/4/2025		8	6	14	2.8L	Euthanized	QU-IACUC-006/2023
-T0036	AB	Wt (AB)	Wt	(AB)	5/7/2023	12/1/2024	10/28/2024		4	10	14	2.8L	Euthanized	QU-IACUC-006/2023
-T0037	AB G1	Wt (AB) Sidra	Wt	(AB) Sidra	8/28/2023	7/6/2025	2/18/2025	C0014	2	3	5	1.8L	Euthanized	QU-IACUC-006/2023
-T0038	AB	Wt (AB) Sidra	Wt	(AB) Sidra	2/20/2023	1/16/2025	8/13/2024		5	9	14	2.8L	Euthanized	QU-IACUC-006/2023
-T0039	AB G1	Wt (AB) Sidra	Wt	(AB) Sidra	7/31/2023	7/6/2025	1/21/2025	C0015	3	42	5	2.8L	Euthanized	QU-IACUC-006/2023
-T0040	AB	Wt (AB)	Wt	(AB)	8/14/2023	1/16/2025	2/4/2025			10	10	6L	Euthanized	QU-IACUC 006/2023
-T0041	AB	Wt (AB)	Wt	(AB)	7/25/2023	1/16/2025	1/15/2025			31	31	6L	Euthanized	QU-IACUC 006/2023
-T0042	AB (MIX)	Wt (AB)	Wt	(AB)	6/30/2024	5/3/2026	12/22/2025		14		14	6L	Euthanized	QU-IACUC 006/2023-AMM3
-T0043	AB (MIX)	Wt (AB)	Wt	(AB)	6/30/2024	5/3/2026	12/22/2025		4		4	1.8L	Euthanized	QU-IACUC 006/2023-AMM3
-T0044	AB G1	Wt (AB) Sidra	Wt	(AB) Sidra	9/13/2023	7/6/2025	3/6/2025	C0016	19	21	40	8L	Euthanized	QU-IACUC-006/2023
-T0045	CMCL2 (not scr.)	Tg (myl7:GFP) [CMCL2]	Tg	(myl7:GFP) [CMCL2]	6/9/2023	7/6/2025	11/30/2024		13	1	13	3.5L	Euthanized	QU-IACUC-006/2023
-T0046	AB G1	Wt (AB) Sidra	Wt	(AB) Sidra	1/2/2024	8/6/2025	6/25/2025	C0001	3	7	11	2.8L	Euthanized	QU-IACUC-006/2023
-T0047	Fli G1	Tg (fli1a:eGFP) Sidra [Fli]	Tg	(fli1a:eGFP) Sidra [Fli]	11/21/2023	7/6/2025	5/14/2025	C0002	14	9	23	6L	Euthanized	QU-IACUC-006/2023
-T0048	Fli G2	Tg (fli1a:eGFP) Sidra [Fli]	Tg	(fli1a:eGFP) Sidra [Fli]	9/24/2023	7/6/2025	3/17/2025	C0003	8	6	14	3.5L	Euthanized	QU-IACUC-006/2023
-T0049	Gata G2	Tg (gata1:dsRed) Sidra [Gata]	Tg	(gata1:dsRed) Sidra [Gata]	2/27/2024		8/20/2025	C0004		5	5	3.5L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0050	Gata G2 (not scr.)	Tg (gata1:dsRed) Sidra [Gata]	Tg	(gata1:dsRed) Sidra [Gata]	10/23/2023	7/6/2025	4/15/2025	C0005	2	1	3	3.5L	Euthanized	QU-IACUC-006/2023
-T0051	Gata G2	Tg (gata1:dsRed) Sidra [Gata]	Tg	(gata1:dsRed) Sidra [Gata]	11/23/2023	7/6/2025	5/16/2025	C0006		17	17	3.5L	Euthanized	QU-IACUC-006/2023
-T0052	Fli G1 (Re-scr.)	Tg (fli1a:eGFP) Sidra [Fli]	Tg	(fli1a:eGFP) Sidra [Fli]	3/11/2024	10/27/2025	9/2/2025	C0007	9	5	14	3.5L	Euthanized	QU-IACUC-006/2023
-T0053	Fli G2	Tg (fli1a:eGFP) Sidra [Fli]	Tg	(fli1a:eGFP) Sidra [Fli]	9/23/2023	7/6/2025	3/16/2025	C0008	17		14	8L	Euthanized	QU-IACUC-006/2023
-T0054	Fli G1	Tg (fli1a:eGFP) Sidra [Fli]	Tg	(fli1a:eGFP) Sidra [Fli]	8/25/2024		2/16/2026	C0009	10	7	17	3.5L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0055	AB	Wt (AB)	Wt	(AB)	5/18/2023	12/3/2024	11/8/2024			5	5	2.8L	Euthanized	QU-IACUC 006/2023
-T0056	AB	Wt (AB)	Wt	(AB)	9/1/2024		2/23/2026	C0010	12	3	15	8L	Euthanized	QU-IACUC 006/2023-AMM5
-T0057	AB	Wt (AB)	Wt	(AB)	5/12/2024	11/11/2025	11/3/2025	C0011	9	8	17	6L	Euthanized	QU-IACUC-006/2023
-T0058	Fli G1	Tg (fli1a:eGFP) Sidra [Fli]	Tg	(fli1a:eGFP) Sidra [Fli]	6/26/2023	7/6/2025	12/17/2024	C0012	9	2	11	3.5L	Euthanized	QU-IACUC-006/2023
-T0059	AB Mix	Wt (AB)	Wt	(AB)	7/15/2024	5/3/2026	1/6/2026		12	8	20	6L	Euthanized	QU-IACUC 006/2023-AMM3
-T0060	AB (Mix+out-cross)	Wt (AB)	Wt	(AB)	5/27/2024	12/14/2025	11/18/2025		4	3	7	1.8L	Euthanized	QU-IACUC-006/2023
-T0061	AB Mix	Wt (AB)	Wt	(AB)	7/7/2024	11/1/2026	12/29/2025		13	8	21	6L	Euthanized	QU-IACUC 006/2023-AMM5
-T0062	AB Mix	Wt (AB)	Wt	(AB)	6/30/2024	5/3/2026	12/22/2025		7		7	2.8L	Euthanized	QU-IACUC 006/2023-AMM3
-T0063	AB G1	Wt (AB) Sidra	Wt	(AB) Sidra	7/31/2023	7/6/2025	1/21/2025	C0013	7	10	17	6L	Euthanized	QU-IACUC-006/2023
-T0064	AB Mix	Wt (AB)	Wt	(AB)	6/30/2024	5/3/2026	12/22/2025		8		8	2.8L	Euthanized	QU-IACUC 006/2023-AMM3
-T0065	AB	Wt (AB)	Wt	(AB)	9/30/2024	11/1/2026	3/24/2026	C0017	3		3	3.5L	Euthanized	QU-IACUC 006/2023-AMM5
-T0066	Cas/AB	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB) Sidra	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]; (AB) Sidra	6/3/2024		11/25/2025	C0024	11	1	12	2.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0067	Casper X AB (Sidra)	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB) Sidra	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]; (AB) Sidra	10/29/2024		4/22/2026		4	1	5	2.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0068	Casper Pure	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	11/18/2024		5/12/2026	C0025		1	1	1.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0069	Casper outcross X AB mix	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB)	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]; (AB)	12/24/2024	11/1/2026	6/17/2026	C0026	15	4	19	6L	Euthanized	QU-IACUC 006/2023-AMM5
-T0070	Fli G1 +ve from T11	Tg (fli1a:eGFP) Sidra [Fli]	Tg	(fli1a:eGFP) Sidra [Fli]	11/12/2024		5/6/2026	C0027	4	3	7	1.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0071	Fli for Squeezing	Tg (fli1a:eGFP) Sidra [Fli]	Tg	(fli1a:eGFP) Sidra [Fli]	9/24/2023	7/6/2025	3/17/2025		17		17	8L	Euthanized	QU-IACUC 006/2023-AMM1
-T0072	Fli +ve	Tg (fli1a:eGFP) Sidra [Fli]	Tg	(fli1a:eGFP) Sidra [Fli]	3/5/2025		8/27/2026		4	2	6	3.5L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0073	Gata outcross +ve	Tg (gata1:dsRed) Sidra [Gata]	Tg	(gata1:dsRed) Sidra [Gata]	2/17/2025		8/11/2026	C0028	6	1	7	3.5L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0074	AB Mix	Wt (AB)	Wt	(AB)	3/2/2025	12/14/2025	8/24/2026		7	7	14	6L	Euthanized	QU-IACUC 006/2023-AMM1
-T0075	AB Mix	Wt (AB)	Wt	(AB)	3/2/2025	11/1/2026	8/24/2026		20		20	6L	Euthanized	QU-IACUC 006/2023-AMM5
-T0076	AB Mix	Wt (AB)	Wt	(AB)	3/24/2025		9/15/2026		5		5	2.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0077	Casper	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	3/5/2025		8/27/2026	C0029		7	7	1.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0078	Casper X AB	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB)	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]; (AB)	2/13/2025		8/7/2026		3	5	8	1.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0079	Gata x AB sidra (outcross) +ve	Tg (gata1:dsRed) Sidra [Gata]; (AB)	Tg	(gata1:dsRed) Sidra [Gata]; (AB)	2/26/2025		8/20/2026	C0030	13		13	2.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0080	AB (Sidra)	Wt (AB) Sidra	Wt	(AB) Sidra	11/13/2024		5/7/2026		6	4	10	1.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0081	AB Outcross	Wt (AB) Sidra; (AB)	Wt	(AB) Sidra; (AB)	12/5/2024		5/29/2026		3	4	8	2.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0082	Fli X AB outcross	Tg (fli1a:eGFP) Sidra [Fli]	Tg	(fli1a:eGFP) Sidra [Fli]	3/16/2025		9/7/2026	C0031	4	3	7	1.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0083	AB (Males Only)	Wt (AB)	Wt	(AB)	6/30/2024	12/14/2025	12/22/2025			23	23	6L	Euthanized	QU-IACUC 006/2023-AMM1
-T0084	AB (Males Only)	Wt (AB)	Wt	(AB)	5/12/2024	12/14/2025	11/3/2025			25	25	6L	Euthanized	QU-IACUC 006/2023-AMM1
-T0085	AB (Males Only)	Wt (AB)	Wt	(AB)	6/30/2024	12/14/2025	12/22/2025			23	23	6L	Euthanized	QU-IACUC 006/2023-AMM1
-T0086	AB Mix	Wt (AB)	Wt	(AB)	12/22/2024	11/1/2026	6/15/2026		18	11	29	6L	Euthanized	QU-IACUC 006/2023-AMM5
-T0087	AB Mix	Wt (AB)	Wt	(AB)	12/22/2024	11/1/2026	6/15/2026		6	4	10	2.8L	Euthanized	QU-IACUC 006/2023-AMM5
-T0088	AB outcross	Wt (AB)/(AB) Sidra	Wt	(AB)/(AB) Sidra	4/27/2025	12/14/2025	10/19/2026		30		30	6L	Euthanized	QU-IACUC 006/2023-AMM1
-T0089	AB Mix	Wt (AB)	Wt	(AB)	4/13/2025		10/5/2026		15		15	6L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0090	AB Mix	Wt (AB)	Wt	(AB)	11/13/2024		5/7/2026		4	3	8	1.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0091	AB Mix	Wt (AB)	Wt	(AB)	11/13/2024	5/3/2026	5/7/2026		4	2	6	1.8L	Euthanized	QU-IACUC 006/2023-AMM3
-T0092	AB outcross	Wt (AB)/(AB) Sidra	Wt	(AB)/(AB) Sidra	11/13/2024	5/3/2026	5/7/2026			2	2	1.8L	Euthanized	QU-IACUC 006/2023-AMM1
-T0093	AB Mix (Males Only)	Wt (AB)	Wt	(AB)	12/22/2024		6/15/2026			11	11	2.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0094	AB Mix	Wt (AB)	Wt	(AB)	4/27/2025		10/19/2026		27		27	6L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0095	AB (Sidra)	Wt (AB) Sidra	Wt	(AB) Sidra	11/13/2024		5/7/2026		4		4	1.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0096	AB outcross	Wt (AB)/(AB) Sidra	Wt	(AB)/(AB) Sidra	4/27/2025		10/19/2026		8	5	13	2.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0097	AB outcross	Wt (AB)/(AB) Sidra	Wt	(AB)/(AB) Sidra	7/3/2025		12/25/2026		2	1	3	1.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0098	Fli From T52+54+82	Tg (fli1:EGFP) [Fli]	Tg	(fli1:EGFP) [Fli]	7/7/2025		12/29/2026		2	7	9	2.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0099	AB outcross	Wt (AB)/(AB) Sidra	Wt	(AB)/(AB) Sidra	5/5/2025		10/27/2026		5		5	2.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0100	Fli outcross	Tg (fli1a:eGFP) Sidra [Fli]/(fli1:EGFP) [Fli]	Tg	(fli1a:eGFP) Sidra [Fli]/(fli1:EGFP) [Fli]	7/22/2025		1/13/2027		1		1	1.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0101	Gata x AB (Sidra)	Tg (gata1:dsRed) Sidra [Gata]; (AB) Sidra	Tg	(gata1:dsRed) Sidra [Gata]; (AB) Sidra	5/1/2025		10/23/2026		7	1	8	1.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0102	Gata (Sidra) outcross	Tg (gata1:dsRed) Sidra [Gata]	Tg	(gata1:dsRed) Sidra [Gata]	7/21/2025		1/12/2027			1	1	1.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0103	AB outcross	Wt (AB)/(AB) Sidra	Wt	(AB)/(AB) Sidra	6/11/2025		12/3/2026		7	6	13	6L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0104	Fli From T72	Tg (fli1a:eGFP) Sidra [Fli]	Tg	(fli1a:eGFP) Sidra [Fli]	7/20/2025		1/11/2027	C0032	2	2	4	3.5L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0105	Fli From T82	Tg (fli1a:eGFP) Sidra [Fli]	Tg	(fli1a:eGFP) Sidra [Fli]	7/20/2025		1/11/2027	C0033	5		5	3.5L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0106	AB mix from T95 x 93	Wt (AB)	Wt	(AB)	8/12/2025		2/3/2027		15		15	6L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0107	Casper	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	7/3/2025		12/25/2026	C0034	4	3	7	1.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0108	Casper	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	7/3/2025		12/25/2026	C0035	2	1	3	1.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0109	Casper	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	4/16/2025		10/8/2026	C0036	2	1	3	1.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0110	GataxAB sidra	Tg (gata1:dsRed) Sidra [Gata]; (AB) Sidra	Tg	(gata1:dsRed) Sidra [Gata]; (AB) Sidra	2/26/2025		8/20/2026	C0037	2	1	3	1.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0111	Gata From T73	Tg (gata1:dsRed) Sidra [Gata]	Tg	(gata1:dsRed) Sidra [Gata]	6/16/2025		12/8/2026	C0038	10	7	17	6L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0112	Gata From T73	Tg (gata1:dsRed) Sidra [Gata]	Tg	(gata1:dsRed) Sidra [Gata]	6/22/2025		12/14/2026	C0039	2	7	9	1.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0113	Gata Mix	Tg (gata1:dsRed) Sidra [Gata]	Tg	(gata1:dsRed) Sidra [Gata]	2/26/2025		8/20/2026		7	3	10	1.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0114	Casper Pure from T69	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	9/11/2025		3/5/2027	C0040	1		1	1.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0115	Casper From T69 Hetero	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB)	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]; (AB)	9/11/2025		3/5/2027	C0040	4	2	6	2.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0116	Casper from T69	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB)	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]; (AB)	9/11/2025		3/5/2027		13	4	17	2.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0117	AB crossout	Wt (AB); (AB) Sidra	Wt	(AB); (AB) Sidra	9/4/2025		2/26/2027	C0041	11	1	12	3.5L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0118	AB crossout	Wt (AB); (AB) Sidra	Wt	(AB); (AB) Sidra	6/16/2025		12/8/2026	C0042	19	2	21	3.5L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0119	Fli From T82	Tg (fli1:EGFP) [Fli]	Tg	(fli1:EGFP) [Fli]	9/16/2025		3/10/2027		4	2	6	2.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0120	Gata from T73/T49	Tg (gata1:dsRed) Sidra [Gata]	Tg	(gata1:dsRed) Sidra [Gata]	10/14/2025		4/7/2027	C0043	5	4	9	2.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0121	Casper from T67/T15	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB) Sidra	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]; (AB) Sidra	7/3/2025		12/25/2026	C0044	13	2	15	2.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0122	Cas from T77 Vs Spotted F	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	2/11/2026		8/5/2027	C0045	1	2	3	1.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0123	Casper from T0015/pure	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	4/16/2025		10/8/2026	C0046		6	6	1.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0124	Casper from T105/pure	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	2/12/2026		8/6/2027	C0047	1	1	2	1.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0125	Casper from T0115/pure	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	2/11/2026		8/5/2027	C0048			18	6L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0126	Casper from T114/T15 pure	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	2/11/2026		8/5/2027	C0049			15	6L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0127	Gata from T101	Tg (gata1:dsRed) Sidra [Gata]; (AB) Sidra	Tg	(gata1:dsRed) Sidra [Gata]; (AB) Sidra	1/26/2026		7/20/2027	C0050	4	2	6	3.5L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0128	AB mix T86 & T87 & T96	Wt (AB)	Wt	(AB)	12/14/2025		6/7/2027		4	3	7	2.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0129	AB mix T87 & T96	Wt (AB)	Wt	(AB)	12/7/2025		5/31/2027		5	5	10	2.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0130	AB mix T87 & T96	Wt (AB)	Wt	(AB)	12/7/2025		5/31/2027			8	8	1.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0131	Casper from T115/T109	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB)	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]; (AB)	2/11/2026		8/5/2027	C0051			10	6L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0132	Fli mix T52 & T54 & T82	Tg (fli1:EGFP) [Fli]	Tg	(fli1:EGFP) [Fli]	7/7/2025		12/29/2026		2	4	6	2.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0133	Fli from T82	Tg (fli1a:eGFP) Sidra [Fli]	Tg	(fli1a:eGFP) Sidra [Fli]	11/24/2025		5/18/2027	C0052	8	3	11	2.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0134	Gata from T101/T93 (AB)	Tg (gata1:dsRed) Sidra [Gata]; (AB)	Tg	(gata1:dsRed) Sidra [Gata]; (AB)	11/25/2025		5/19/2027	C0053	14		14	2.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0135	Casper from T126 Pure	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	6/29/2026		12/21/2027	C0054	2	8	10	3.5L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0136	Casper from T69 (Hetero)	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	6/18/2026		12/10/2027	C0055	7	1	8	3.5L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0137	Gata from T110	Tg (gata1:dsRed) Sidra [Gata]	Tg	(gata1:dsRed) Sidra [Gata]	6/30/2026		12/22/2027	C0056			13	3.5L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0138	Gata from T110	Tg (gata1:dsRed) Sidra [Gata]	Tg	(gata1:dsRed) Sidra [Gata]	6/30/2026		12/22/2027	C0056	10	7	17	3.5L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0139	Gata Mix	Tg (gata1:dsRed) Sidra [Gata]; (AB)	Tg	(gata1:dsRed) Sidra [Gata]; (AB)	6/30/2026		12/22/2027	C0057	5	3	8	3.5L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0140	Gata T49 (M) x Gata T73 (F)	Tg (gata1:dsRed) Sidra [Gata]; (AB)	Tg	(gata1:dsRed) Sidra [Gata]; (AB)	7/6/2026		12/28/2027	C0057	4	3	7	3.5L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0141	Fli T105 x AB T56	Tg (fli1a:eGFP) Sidra [Fli]	Tg	(fli1a:eGFP) Sidra [Fli]	4/28/2026		10/20/2027	C0058	5	2	7	3.5L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0142	AB Mix	Wt (AB)	Wt	(AB)	6/16/2026		12/8/2027		10	6	16	3.5L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0143	AB Mix	Wt (AB)	Wt	(AB)	6/16/2026		12/8/2027		10	6	16	3.5L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0144	AB Mix	Wt (AB)	Wt	(AB)	6/16/2026		12/8/2027			15	15	3.5L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0145	AB Mix	Wt (AB)	Wt	(AB)	6/16/2026		12/8/2027		9	5	14	3.5L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0146	Casper from T121(F) vs T123(M)	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	6/18/2026		12/10/2027	C0059	3	13	16	3.5L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0147	Casper from T121(F) vs T123(M)	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	6/18/2026		12/10/2027	C0059	5	5	10	3.5L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0148	Casper From T69 [Het. Parents]	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	6/18/2026		12/10/2027	C0055	5	7	12	3.5L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0149	Casper from T108 Pure	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	7/5/2026		12/27/2027	C0060			14	3.5L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0150	Casper from T126 Pure	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	6/29/2026		12/21/2027	C0054	9	6	15	3.5L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0151	Casper from T126 Pure (P2)	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	7/5/2026		12/27/2027	C0054	3	6	9	3.5L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0152	Casper from T69 [Hetero]	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	6/18/2026		12/10/2027	C0055	12	3	15	3.5L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0153	Casper from T109 Pure	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	6/14/2026		12/6/2027	C0061	6	5	11	3.5L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0154	Casper from T69 [Hetero] (Not Bleached)	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	6/18/2026		12/10/2027	C0055	12	8	20	8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0155	AB Mix	Wt (AB)	Wt	(AB)	6/16/2026		12/8/2027				25	8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0156	Casper from T126 Pure (P1)	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	7/5/2026		12/27/2027	C0054			9	1.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0157	Casper from T115 (Silver Parents)	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	4/26/2026		10/18/2027	C0062	8	4	12	3.5L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0158	Casper from T115 (Silver Parents)	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	4/26/2026		10/18/2027	C0062	3	6	9	1.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0159	Casper from T115 (Silver Parents)	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	4/26/2026		10/18/2027	C0062	6	3	9	1.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0160	Casper from T108	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	5/17/2026		11/8/2027	C0060			18	6L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0161	Casper from T126 Pure (3)	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	6/29/2026		12/21/2027	C0054			9	1.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0162	Casper from	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	6/14/2026		12/6/2027	C0063			5	1.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0163	Casper from T109	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	5/17/2026		11/8/2027	C0061		1	1	1.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0164	Casper from T122	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	6/15/2026		12/7/2027	C0064			10	3.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0165	Casper from T108	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	6/15/2026		12/7/2027	C0060			17	6L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0166	AB	Wt (AB)	Wt	(AB)	5/12/2026		11/3/2027	C0065	12	4	16	6L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0167	AB	Wt (AB)	Wt	(AB)	5/12/2026		11/3/2027	C0065	13	3	16	6L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0168	AB Mix	Wt (AB)	Wt	(AB)	5/12/2026		11/3/2027		9		9	1.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0169	AB Mix	Wt (AB)	Wt	(AB)	5/12/2026		11/3/2027				7	1.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0170	AB Mix	Wt (AB)	Wt	(AB)	5/12/2026		11/3/2027		9	6	15	3.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0171	Fli T133 x Fli T98 (1)	Tg (fli1a:eGFP) Sidra [Fli]	Tg	(fli1a:eGFP) Sidra [Fli]	8/17/2026		2/8/2028	C0067			28	3.8L	Juvenile(<3 months old)	QU-IACUC 006/2023-AMM5
-T0172	Fli T133 x Fli T98 (2)	Tg (fli1a:eGFP) Sidra [Fli]	Tg	(fli1a:eGFP) Sidra [Fli]	8/17/2026		2/8/2028	C0067			27	3.8L	Juvenile(<3 months old)	QU-IACUC 006/2023-AMM5
-T0173	Fli	Tg (fli1a:eGFP) Sidra [Fli]	Tg	(fli1a:eGFP) Sidra [Fli]	8/16/2026		2/7/2028	C0068			6	1.8L	Juvenile(<3 months old)	QU-IACUC 006/2023-AMM5
-T0174	Fli	Tg (fli1a:eGFP) Sidra [Fli]	Tg	(fli1a:eGFP) Sidra [Fli]	8/17/2026		2/8/2028	C0069			9	1.8L	Juvenile(<3 months old)	QU-IACUC 006/2023-AMM5
-T0175	Fli	Tg (fli1a:eGFP) Sidra [Fli]	Tg	(fli1a:eGFP) Sidra [Fli]	8/16/2026		2/7/2028	C0070			11	1.8L	Juvenile(<3 months old)	QU-IACUC 006/2023-AMM5
-T0176	Fli	Tg (fli1a:eGFP) Sidra [Fli]	Tg	(fli1a:eGFP) Sidra [Fli]	4/7/2026		9/29/2027	C0070	7	4	11	3.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0177	Fli	Tg (fli1a:eGFP) Sidra [Fli]	Tg	(fli1a:eGFP) Sidra [Fli]	4/7/2026		9/29/2027	C0071	7	4	11	3.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0178	Casper from T69 [Hetero] (1) (Not bleached)	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	6/18/2026		12/10/2027	C0055			12	3.5L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0179	Casper from T69 [Hetero] (2)	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	6/18/2026		12/10/2027	C0055	8	5	13	3.5L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0180	Casper from T69 [Hetero]	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	6/18/2026		12/10/2027	C0055	4	3	7	1.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0181	Casper from T69 [Hetero] (Suspected males)	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	6/18/2026		12/10/2027	C0055		7	7	1.8L	Adult/Active	QU-IACUC 006/2023-AMM5
-T0182	AB T128	Mu Wt (AB)	Mu	Wt (AB)	8/10/2026		2/1/2028	C0072			30	6L	Juvenile(<3 months old)	QU-IACUC 006/2023-AMM5
-T0183	AB T128	Wt Wt (AB)	Wt	Wt (AB)	8/10/2026		2/1/2028	C0072			12	3.5L	Juvenile(<3 months old)	QU-IACUC 006/2023-AMM5
-T0184	AB mix from T95 x 93	Wt Wt Wt (AB)	Wt	Wt Wt (AB)	8/12/2025		2/3/2027		2	1	3	1.8L	Adult/Active	QU-IACUC 006/2023-AMM5
+TUID	Derivative_Cross	Locus 1	Locus 1 Allele 1	Notes	Female	Male	Total_Fish	Tank_Size	Protocol	DOB	Turnover_Deadline	Date Euthanized	Status
+T0002		Mu	(desmbkg155/kg155) [DESMA]	DESMA -/-			2	1.8L	 QU-IACUC 008/2022	10-Jun-24	02-Dec-25	13-Oct-25	Euthanized
+T0004		Mu	(desmbkg155/+)/(desmbkg155/kg155) [DESMA]	DESMA OldXNew	2	2	4	2.8L	QU-IACUC-006/2023	06-Oct-24	30-Mar-26	13-Oct-25	Euthanized
+T0005		Mu	(desmbkg155/+)	DESMA -/+			8	1.8L	 QU-IACUC 008/2022	30-Jun-24	22-Dec-25	13-Oct-25	Euthanized
+T0006		Mu	(desmbkg155/kg155)	DESMA -/-			2	1.8L	 QU-IACUC 008/2022	10-Jun-24	02-Dec-25	13-Oct-25	Euthanized
+T0007		Mu	(desmbkg155/+)	DESMA -/+			10	1.8L	 QU-IACUC 008/2022	30-Jun-24	22-Dec-25	13-Oct-25	Euthanized
+T0008		Mu	(desmbkg155/+)/(desmbkg155/+)	DESMA Hetro			8	1.8L	 QU-IACUC 008/2022	30-Jun-24	22-Dec-25	13-Oct-25	Euthanized
+T0009		Mu	(desmbkg155/+)/(desmbkg155/+)	DESMA from Hetro			20	2.8L	 QU-IACUC 008/2022	18-Mar-24	09-Sep-25	13-Oct-25	Euthanized
+T0010		Wt	Wt (desmbkg155/+)/AB	AB from DESMA 			6	1.8L	 QU-IACUC 008/2022	30-Jun-24	22-Dec-25	13-Oct-25	Euthanized
+T0011		Tg	(fli1a:eGFP) Sidra	Fli (Sidra)	9	3	12	2.8L	QU-IACUC 006/2023-AMM3	26-Feb-23	19-Aug-24		Adult/Active
+T0012		Tg	(fli1a:eGFP) Sidra	Fli (Sidra) G1	8	6	14	2.8L	QU-IACUC-006/2023	30-Jul-23	20-Jan-25	06-Jul-25	Euthanized
+T0013		Tg	(fli1a:eGFP) Sidra	Fli (Sidra) G1	4	4	10	1.8L	QU-IACUC 006/2023-AMM5	13-Sep-23	06-Mar-25	01-Nov-26	Euthanized
+T0014		Tg	(fli1:EGFP)	Fli	1	5	6	1.8L	QU-IACUC-006/2023	07-Apr-23	28-Sep-24	16-Jan-25	Euthanized
+T0015		Mu	(mitfaw2/w2; mpv17a9/a9)	Casper	1	1	2	1.8L	QU-IACUC 006/2023-AMM5	16-Apr-23	07-Oct-24	04-Nov-26	Euthanized
+T0016		Tg	(myl7:GFP) [CMCL2]	CMCL2	4	4	8	1.8L	QU-IACUC-006/2023	05-Apr-23	26-Sep-24	06-Jul-25	Euthanized
+T0017		Tg	(myl7:GFP) [CMCL2]	CMCL2			17	2.8L	QU-IACUC-006/2023	18-Jul-23	08-Jan-25	06-Jul-25	Euthanized
+T0018		Tg	(myl7:GFP) [CMCL2]	CMCL2			13	2.8L	QU-IACUC-006/2023	15-Aug-23	05-Feb-25	06-Jul-25	Euthanized
+T0019		Tg	(gata1:dsRed) Sidra [Gata]	Gata		1	1	1.8L	QU-IACUC-006/2023	20-Feb-23	13-Aug-24	06-Jul-25	Euthanized
+T0020		Tg	(gata1:dsRed) Sidra [Gata]	Gata G1	2	1	4	1.8L	QU-IACUC 006/2023-AMM3	25-Jun-23	16-Dec-24	03-May-26	Euthanized
+T0021		Tg	(gata1:dsRed) Sidra [Gata]	Gata G1	2	3	8	1.8L	QU-IACUC 006/2023-AMM5	25-Sep-23	18-Mar-25	01-Nov-26	Euthanized
+T0022		Wt	(AB)	AB	16	13	29	6L	QU-IACUC-006/2023	07-Jun-23	28-Nov-24	06-Jul-25	Euthanized
+T0023		Wt	(AB)	AB	12	15	27	6L	QU-IACUC-006/2023	07-Jun-23	28-Nov-24	03-Dec-24	Euthanized
+T0024		Wt	(AB)	AB	14	17	31	6L	QU-IACUC-006/2023	18-May-23	08-Nov-24	02-Dec-24	Euthanized
+T0025		Wt	(AB)	AB	7	4	11	2.8L	QU-IACUC-006/2023	12-Mar-23	02-Sep-24	20-Oct-24	Euthanized
+T0026		Wt	(AB)	AB	7	5	12	2.8L	QU-IACUC-006/2023	25-Jul-23	15-Jan-25	27-Mar-25	Euthanized
+T0027		Wt	(AB)	AB	8	6	14	2.8L	QU-IACUC-006/2023	25-Jul-23	15-Jan-25	27-Mar-25	Euthanized
+T0028		Wt	(AB)	AB		22	22	6L	QU-IACUC-006/2023	08-Aug-23	29-Jan-25	06-Jul-25	Euthanized
+T0029		Wt	(AB)	AB	18	12	30	6L	QU-IACUC-006/2023	09-Apr-23	30-Sep-24	20-Oct-24	Euthanized
+T0030		Wt	(AB)	AB	8	6	14	2.8L	QU-IACUC-006/2023	04-Sep-23	25-Feb-25	27-Mar-25	Euthanized
+T0031		Wt	(AB)	AB	5	3	8	1.8L	QU-IACUC-006/2023	04-Sep-23	25-Feb-25	27-Mar-25	Euthanized
+T0032		Wt	(AB)	AB	12	15	27	6L	QU-IACUC-006/2023	02-Jul-23	23-Dec-24	27-Mar-25	Euthanized
+T0033		Wt	(AB)	AB	1	1	2	1.8L	QU-IACUC-006/2023	19-Aug-23	09-Feb-25	01-Dec-24	Euthanized
+T0034		Wt	(AB)	AB	6	4	10	2.8L	QU-IACUC-006/2023	12-Mar-23	02-Sep-24	20-Oct-24	Euthanized
+T0035		Wt	(AB)	AB	8	6	14	2.8L	QU-IACUC-006/2023	14-Aug-23	04-Feb-25	06-Jul-25	Euthanized
+T0036		Wt	(AB)	AB	4	10	14	2.8L	QU-IACUC-006/2023	07-May-23	28-Oct-24	01-Dec-24	Euthanized
+T0037	C0014	Wt	(AB) Sidra	AB G1	2	3	5	1.8L	QU-IACUC-006/2023	28-Aug-23	18-Feb-25	06-Jul-25	Euthanized
+T0038		Wt	(AB) Sidra	AB	5	9	14	2.8L	QU-IACUC-006/2023	20-Feb-23	13-Aug-24	16-Jan-25	Euthanized
+T0039	C0015	Wt	(AB) Sidra	AB G1	3	42	5	2.8L	QU-IACUC-006/2023	31-Jul-23	21-Jan-25	06-Jul-25	Euthanized
+T0040		Wt	(AB)	AB		10	10	6L	QU-IACUC 006/2023	14-Aug-23	04-Feb-25	16-Jan-25	Euthanized
+T0041		Wt	(AB)	AB		31	31	6L	QU-IACUC 006/2023	25-Jul-23	15-Jan-25	16-Jan-25	Euthanized
+T0042		Wt	(AB)	AB (MIX)	14		14	6L	QU-IACUC 006/2023-AMM3	30-Jun-24	22-Dec-25	03-May-26	Euthanized
+T0043		Wt	(AB)	AB (MIX)	4		4	1.8L	QU-IACUC 006/2023-AMM3	30-Jun-24	22-Dec-25	03-May-26	Euthanized
+T0044	C0016	Wt	(AB) Sidra	AB G1	19	21	40	8L	QU-IACUC-006/2023	13-Sep-23	06-Mar-25	06-Jul-25	Euthanized
+T0045		Tg	(myl7:GFP) [CMCL2]	CMCL2 (not scr.)	13	1	13	3.5L	QU-IACUC-006/2023	09-Jun-23	30-Nov-24	06-Jul-25	Euthanized
+T0046	C0001	Wt	(AB) Sidra	AB G1	3	7	11	2.8L	QU-IACUC-006/2023	02-Jan-24	25-Jun-25	06-Aug-25	Euthanized
+T0047	C0002	Tg	(fli1a:eGFP) Sidra [Fli]	Fli G1	14	9	23	6L	QU-IACUC-006/2023	21-Nov-23	14-May-25	06-Jul-25	Euthanized
+T0048	C0003	Tg	(fli1a:eGFP) Sidra [Fli]	Fli G2	8	6	14	3.5L	QU-IACUC-006/2023	24-Sep-23	17-Mar-25	06-Jul-25	Euthanized
+T0049	C0004	Tg	(gata1:dsRed) Sidra [Gata]	Gata G2		3	3	3.5L	QU-IACUC 006/2023-AMM3	27-Feb-24	20-Aug-25		Adult/Active
+T0050	C0005	Tg	(gata1:dsRed) Sidra [Gata]	Gata G2 (not scr.)	2	1	3	3.5L	QU-IACUC-006/2023	23-Oct-23	15-Apr-25	06-Jul-25	Euthanized
+T0051	C0006	Tg	(gata1:dsRed) Sidra [Gata]	Gata G2		17	17	3.5L	QU-IACUC-006/2023	23-Nov-23	16-May-25	06-Jul-25	Euthanized
+T0052	C0007	Tg	(fli1a:eGFP) Sidra [Fli]	Fli G1 (Re-scr.)	9	5	14	3.5L	QU-IACUC-006/2023	11-Mar-24	02-Sep-25	27-Oct-25	Euthanized
+T0053	C0008	Tg	(fli1a:eGFP) Sidra [Fli]	Fli G2	17		14	8L	QU-IACUC-006/2023	23-Sep-23	16-Mar-25	06-Jul-25	Euthanized
+T0054	C0009	Tg	(fli1a:eGFP) Sidra [Fli]	Fli G1	10	7	17	3.5L	QU-IACUC 006/2023-AMM5	25-Aug-24	16-Feb-26	05-Nov-26	Euthanized
+T0055		Wt	(AB)	AB		5	5	2.8L	QU-IACUC 006/2023	18-May-23	08-Nov-24	03-Dec-24	Euthanized
+T0056	C0010	Wt	(AB)	AB	12	3	15	8L	QU-IACUC 006/2023-AMM5	01-Sep-24	23-Feb-26	04-Nov-26	Euthanized
+T0057	C0011	Wt	(AB)	AB	9	8	17	6L	QU-IACUC-006/2023	12-May-24	03-Nov-25	11-Nov-25	Euthanized
+T0058	C0012	Tg	(fli1a:eGFP) Sidra [Fli]	Fli G1	9	2	11	3.5L	QU-IACUC-006/2023	26-Jun-23	17-Dec-24	06-Jul-25	Euthanized
+T0059		Wt	(AB)	AB Mix	12	8	20	6L	QU-IACUC 006/2023-AMM3	15-Jul-24	06-Jan-26	03-May-26	Euthanized
+T0060		Wt	(AB)	AB (Mix+out-cross)	4	3	7	1.8L	QU-IACUC-006/2023	27-May-24	18-Nov-25	14-Dec-25	Euthanized
+T0061		Wt	(AB)	AB Mix	13	8	21	6L	QU-IACUC 006/2023-AMM5	07-Jul-24	29-Dec-25	01-Nov-26	Euthanized
+T0062		Wt	(AB)	AB Mix	7		7	2.8L	QU-IACUC 006/2023-AMM3	30-Jun-24	22-Dec-25	03-May-26	Euthanized
+T0063	C0013	Wt	(AB) Sidra	AB G1	7	10	17	6L	QU-IACUC-006/2023	31-Jul-23	21-Jan-25	06-Jul-25	Euthanized
+T0064		Wt	(AB)	AB Mix	8		8	2.8L	QU-IACUC 006/2023-AMM3	30-Jun-24	22-Dec-25	03-May-26	Euthanized
+T0065	C0017	Wt	(AB)	AB	3		3	3.5L	QU-IACUC 006/2023-AMM5	30-Sep-24	24-Mar-26	01-Nov-26	Euthanized
+T0066	C0024	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]; (AB) Sidra	Cas/AB	11	1	12	2.8L	QU-IACUC 006/2023-AMM3	03-Jun-24	25-Nov-25		Adult/Active
+T0067		Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]; (AB) Sidra	Casper X AB (Sidra)	4	1	5	2.8L	QU-IACUC 006/2023-AMM3	29-Oct-24	22-Apr-26		Adult/Active
+T0068	C0025	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	Casper Pure		1	1	1.8L	QU-IACUC 006/2023-AMM5	18-Nov-24	12-May-26	05-Nov-26	Euthanized
+T0069	C0026	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]; (AB)	Casper outcross X AB mix	15	4	19	6L	QU-IACUC 006/2023-AMM5	24-Dec-24	17-Jun-26	01-Nov-26	Euthanized
+T0070	C0027	Tg	(fli1a:eGFP) Sidra [Fli]	Fli G1 +ve from T11	4	3	7	1.8L	QU-IACUC 006/2023-AMM3	12-Nov-24	06-May-26		Adult/Active
+T0071		Tg	(fli1a:eGFP) Sidra [Fli]	Fli for Squeezing	17		17	8L	QU-IACUC 006/2023-AMM1	24-Sep-23	17-Mar-25	06-Jul-25	Euthanized
+T0072		Tg	(fli1a:eGFP) Sidra [Fli]	Fli +ve	3	3	6	3.5L	QU-IACUC 006/2023-AMM3	05-Mar-25	27-Aug-26		Adult/Active
+T0073	C0028	Tg	(gata1:dsRed) Sidra [Gata]	Gata outcross +ve	6		6	3.5L	QU-IACUC 006/2023-AMM3	17-Feb-25	11-Aug-26		Adult/Active
+T0074		Wt	(AB)	AB Mix	7	7	14	6L	QU-IACUC 006/2023-AMM1	02-Mar-25	24-Aug-26	14-Dec-25	Euthanized
+T0075		Wt	(AB)	AB Mix	20		20	6L	QU-IACUC 006/2023-AMM5	02-Mar-25	24-Aug-26	01-Nov-26	Euthanized
+T0076		Wt	(AB)	AB Mix	5		5	2.8L	QU-IACUC 006/2023-AMM5	24-Mar-25	15-Sep-26	04-Nov-26	Euthanized
+T0077	C0029	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	Casper		7	7	1.8L	QU-IACUC 006/2023-AMM3	05-Mar-25	27-Aug-26		Adult/Active
+T0078		Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]; (AB)	Casper X AB	3	5	8	1.8L	QU-IACUC 006/2023-AMM3	13-Feb-25	07-Aug-26		Adult/Active
+T0079	C0030	Tg	(gata1:dsRed) Sidra [Gata]; (AB)	Gata x AB sidra (outcross) +ve	13		13	2.8L	QU-IACUC 006/2023-AMM3	26-Feb-25	20-Aug-26		Adult/Active
+T0080		Wt	(AB) Sidra	AB (Sidra)	5	3	8	1.8L	QU-IACUC 006/2023-AMM3	13-Nov-24	07-May-26		Adult/Active
+T0081		Wt	(AB) Sidra; (AB)	AB Outcross	3	4	7	2.8L	QU-IACUC 006/2023-AMM3	05-Dec-24	29-May-26		Adult/Active
+T0082	C0031	Tg	(fli1a:eGFP) Sidra [Fli]	Fli X AB outcross	4	3	7	1.8L	QU-IACUC 006/2023-AMM3	16-Mar-25	07-Sep-26		Adult/Active
+T0083		Wt	(AB)	AB (Males Only)		23	23	6L	QU-IACUC 006/2023-AMM1	30-Jun-24	22-Dec-25	14-Dec-25	Euthanized
+T0084		Wt	(AB)	AB (Males Only)		25	25	6L	QU-IACUC 006/2023-AMM1	12-May-24	03-Nov-25	14-Dec-25	Euthanized
+T0085		Wt	(AB)	AB (Males Only)		23	23	6L	QU-IACUC 006/2023-AMM1	30-Jun-24	22-Dec-25	14-Dec-25	Euthanized
+T0086		Wt	(AB)	AB Mix	18	11	29	6L	QU-IACUC 006/2023-AMM5	22-Dec-24	15-Jun-26	01-Nov-26	Euthanized
+T0087		Wt	(AB)	AB Mix	6	4	10	2.8L	QU-IACUC 006/2023-AMM5	22-Dec-24	15-Jun-26	01-Nov-26	Euthanized
+T0088		Wt	(AB)/(AB) Sidra	AB outcross	30		30	6L	QU-IACUC 006/2023-AMM1	27-Apr-25	19-Oct-26	14-Dec-25	Euthanized
+T0089		Wt	(AB)	AB Mix	15		15	6L	QU-IACUC 006/2023-AMM5	13-Apr-25	05-Oct-26	04-Nov-26	Euthanized
+T0090		Wt	(AB)	AB Mix	4	3	8	1.8L	QU-IACUC 006/2023-AMM5	13-Nov-24	07-May-26	04-Nov-26	Euthanized
+T0091		Wt	(AB)	AB Mix	4	2	6	1.8L	QU-IACUC 006/2023-AMM3	13-Nov-24	07-May-26	03-May-26	Euthanized
+T0092		Wt	(AB)/(AB) Sidra	AB outcross		2	2	1.8L	QU-IACUC 006/2023-AMM1	13-Nov-24	07-May-26	03-May-26	Euthanized
+T0093		Wt	(AB)	AB Mix (Males Only)		9	9	2.8L	QU-IACUC 006/2023-AMM3	22-Dec-24	15-Jun-26		Adult/Active
+T0094		Wt	(AB)	AB Mix	27		27	6L	QU-IACUC 006/2023-AMM5	27-Apr-25	19-Oct-26	05-Nov-26	Euthanized
+T0095		Wt	(AB) Sidra	AB (Sidra)	4		4	1.8L	QU-IACUC 006/2023-AMM3	13-Nov-24	07-May-26		Adult/Active
+T0096		Wt	(AB)/(AB) Sidra	AB outcross	8	5	13	2.8L	QU-IACUC 006/2023-AMM3	27-Apr-25	19-Oct-26		Adult/Active
+T0097		Wt	(AB)/(AB) Sidra	AB outcross	2	1	3	1.8L	QU-IACUC 006/2023-AMM3	03-Jul-25	25-Dec-26		Adult/Active
+T0098		Tg	(fli1:EGFP) [Fli]	Fli From T52+54+82	2	7	9	2.8L	QU-IACUC 006/2023-AMM3	07-Jul-25	29-Dec-26		Adult/Active
+T0099		Wt	(AB)/(AB) Sidra	AB outcross	5		5	2.8L	QU-IACUC 006/2023-AMM3	05-May-25	27-Oct-26		Adult/Active
+T0100		Tg	(fli1a:eGFP) Sidra [Fli]/(fli1:EGFP) [Fli]	Fli outcross	1		1	1.8L	QU-IACUC 006/2023-AMM3	22-Jul-25	13-Jan-27		Adult/Active
+T0101		Tg	(gata1:dsRed) Sidra [Gata]; (AB) Sidra	Gata x AB (Sidra)	7	1	8	1.8L	QU-IACUC 006/2023-AMM3	01-May-25	23-Oct-26		Adult/Active
+T0102		Tg	(gata1:dsRed) Sidra [Gata]	Gata (Sidra) outcross		1	1	1.8L	QU-IACUC 006/2023-AMM3	21-Jul-25	12-Jan-27		Adult/Active
+T0103		Wt	(AB)/(AB) Sidra	AB outcross	7	6	13	6L	QU-IACUC 006/2023-AMM3	11-Jun-25	03-Dec-26		Adult/Active
+T0104	C0032	Tg	(fli1a:eGFP) Sidra [Fli]	Fli From T72	2	1	3	3.5L	QU-IACUC 006/2023-AMM3	20-Jul-25	11-Jan-27		Adult/Active
+T0105	C0033	Tg	(fli1a:eGFP) Sidra [Fli]	Fli From T82	5		5	3.5L	QU-IACUC 006/2023-AMM3	20-Jul-25	11-Jan-27		Adult/Active
+T0106		Wt	(AB)	AB mix from T95 x 93	14		14	2.8L	QU-IACUC 006/2023-AMM3	12-Aug-25	03-Feb-27		Adult/Active
+T0107	C0034	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	Casper	3	4	7	1.8L	QU-IACUC 006/2023-AMM3	03-Jul-25	25-Dec-26		Adult/Active
+T0108	C0035	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	Casper	2	1	3	1.8L	QU-IACUC 006/2023-AMM3	03-Jul-25	25-Dec-26		Adult/Active
+T0109	C0036	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	Casper	2	1	3	1.8L	QU-IACUC 006/2023-AMM3	16-Apr-25	08-Oct-26		Adult/Active
+T0110	C0037	Tg	(gata1:dsRed) Sidra [Gata]; (AB) Sidra	GataxAB sidra	2	1	3	1.8L	QU-IACUC 006/2023-AMM3	26-Feb-25	20-Aug-26		Adult/Active
+T0111	C0038	Tg	(gata1:dsRed) Sidra [Gata]	Gata From T73	10	7	17	6L	QU-IACUC 006/2023-AMM3	16-Jun-25	08-Dec-26		Adult/Active
+T0112	C0039	Tg	(gata1:dsRed) Sidra [Gata]	Gata From T73	2	7	9	1.8L	QU-IACUC 006/2023-AMM3	22-Jun-25	14-Dec-26		Adult/Active
+T0113		Tg	(gata1:dsRed) Sidra [Gata]	Gata Mix	8	3	11	1.8L	QU-IACUC 006/2023-AMM3	26-Feb-25	20-Aug-26		Adult/Active
+T0114	C0040	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	Casper Pure from T69	1		1	1.8L	QU-IACUC 006/2023-AMM3	11-Sep-25	05-Mar-27		Adult/Active
+T0115	C0040	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]; (AB)	Casper From T69 Hetero	4	2	6	2.8L	QU-IACUC 006/2023-AMM3	11-Sep-25	05-Mar-27		Adult/Active
+T0116		Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]; (AB)	Casper from T69	13	4	17	2.8L	QU-IACUC 006/2023-AMM3	11-Sep-25	05-Mar-27		Adult/Active
+T0117	C0041	Wt	(AB); (AB) Sidra	AB crossout	9	2	11	3.5L	QU-IACUC 006/2023-AMM3	04-Sep-25	26-Feb-27		Adult/Active
+T0118	C0042	Wt	(AB); (AB) Sidra	AB crossout	19	2	21	3.5L	QU-IACUC 006/2023-AMM3	16-Jun-25	08-Dec-26		Adult/Active
+T0119		Tg	(fli1:EGFP) [Fli]	Fli From T82	3	2	5	2.8L	QU-IACUC 006/2023-AMM3	16-Sep-25	10-Mar-27		Adult/Active
+T0120	C0043	Tg	(gata1:dsRed) Sidra [Gata]	Gata from T73/T49	5	4	9	2.8L	QU-IACUC 006/2023-AMM3	14-Oct-25	07-Apr-27		Adult/Active
+T0121	C0044	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]; (AB) Sidra	Casper from T67/T15	13	2	15	2.8L	QU-IACUC 006/2023-AMM3	03-Jul-25	25-Dec-26		Adult/Active
+T0122	C0045	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	Cas from T77 Vs Spotted F	1	2	3	1.8L	QU-IACUC 006/2023-AMM3	11-Feb-26	05-Aug-27		Adult/Active
+T0123	C0046	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	Casper from T0015/pure		6	6	1.8L	QU-IACUC 006/2023-AMM3	16-Apr-25	08-Oct-26		Adult/Active
+T0124	C0047	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	Casper from T105/pure	1		1	1.8L	QU-IACUC 006/2023-AMM3	12-Feb-26	06-Aug-27		Adult/Active
+T0125	C0048	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	Casper from T0115/pure	9	9	18	6L	QU-IACUC 006/2023-AMM3	11-Feb-26	05-Aug-27		Adult/Active
+T0126	C0049	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	Casper from T114/T15 pure	14	1	15	6L	QU-IACUC 006/2023-AMM3	11-Feb-26	05-Aug-27		Adult/Active
+T0127	C0050	Tg	(gata1:dsRed) Sidra [Gata]; (AB) Sidra	Gata from T101	4	2	6	3.5L	QU-IACUC 006/2023-AMM3	26-Jan-26	20-Jul-27		Adult/Active
+T0128		Wt	(AB)	AB mix T86 & T87 & T96	4	3	7	2.8L	QU-IACUC 006/2023-AMM3	14-Dec-25	07-Jun-27		Adult/Active
+T0129		Wt	(AB)	AB mix T87 & T96	5	3	10	2.8L	QU-IACUC 006/2023-AMM3	07-Dec-25	31-May-27		Adult/Active
+T0130		Wt	(AB)	AB mix T87 & T96		10	10	1.8L	QU-IACUC 006/2023-AMM3	07-Dec-25	31-May-27		Adult/Active
+T0131	C0051	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]; (AB)	Casper from T115/T109	8	2	10	1.8L	QU-IACUC 006/2023-AMM3	11-Feb-26	05-Aug-27		Adult/Active
+T0132		Tg	(fli1:EGFP) [Fli]	Fli mix T52 & T54 & T82	2	4	6	2.8L	QU-IACUC 006/2023-AMM3	07-Jul-25	29-Dec-26		Adult/Active
+T0133	C0052	Tg	(fli1a:eGFP) Sidra [Fli]	Fli from T82	8	3	11	2.8L	QU-IACUC 006/2023-AMM3	24-Nov-25	18-May-27		Adult/Active
+T0134	C0053	Tg	(gata1:dsRed) Sidra [Gata]; (AB)	Gata from T101/T93 (AB)	14		14	2.8L	QU-IACUC 006/2023-AMM3	25-Nov-25	19-May-27		Adult/Active
+T0135	C0054	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	Casper from T126 Pure	2	8	10	3.5L	QU-IACUC 006/2023-AMM3	29-Jun-26	21-Dec-27		Adult/Active
+T0136	C0055	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	Casper from T69 (Hetero)	7	1	8	3.5L	QU-IACUC 006/2023-AMM3	18-Jun-26	10-Dec-27		Adult/Active
+T0137	C0056	Tg	(gata1:dsRed) Sidra [Gata]	Gata from T110			13	3.5L	QU-IACUC 006/2023-AMM3	30-Jun-26	22-Dec-27		Adult/Active
+T0138	C0056	Tg	(gata1:dsRed) Sidra [Gata]	Gata from T110	10	7	17	3.5L	QU-IACUC 006/2023-AMM3	30-Jun-26	22-Dec-27		Adult/Active
+T0139	C0057	Tg	(gata1:dsRed) Sidra [Gata]; (AB)	Gata Mix	5	3	8	3.5L	QU-IACUC 006/2023-AMM3	30-Jun-26	22-Dec-27		Adult/Active
+T0140	C0057	Tg	(gata1:dsRed) Sidra [Gata]; (AB)	Gata T49 (M) x Gata T73 (F)	4	3	7	3.5L	QU-IACUC 006/2023-AMM3	06-Jul-26	28-Dec-27		Adult/Active
+T0141	C0058	Tg	(fli1a:eGFP) Sidra [Fli]	Fli T105 x AB T56	5	2	7	3.5L	QU-IACUC 006/2023-AMM3	28-Apr-26	20-Oct-27		Adult/Active
+T0142		Wt	(AB)	AB Mix	10	6	16	3.5L	QU-IACUC 006/2023-AMM3	16-Jun-26	08-Dec-27		Adult/Active
+T0143		Wt	(AB)	AB Mix	10	6	16	3.5L	QU-IACUC 006/2023-AMM3	16-Jun-26	08-Dec-27		Adult/Active
+T0144		Wt	(AB)	AB Mix	10	6	16	3.5L	QU-IACUC 006/2023-AMM3	16-Jun-26	08-Dec-27		Adult/Active
+T0145		Wt	(AB)	AB Mix	10	6	16	3.5L	QU-IACUC 006/2023-AMM3	16-Jun-26	08-Dec-27		Adult/Active
+T0146	C0059	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	Casper from T121(F) vs T123(M)	3	13	16	3.5L	QU-IACUC 006/2023-AMM3	18-Jun-26	10-Dec-27		Adult/Active
+T0147	C0059	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	Casper from T121(F) vs T123(M)	5	5	10	3.5L	QU-IACUC 006/2023-AMM3	18-Jun-26	10-Dec-27		Adult/Active
+T0148	C0055	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	Casper From T69 [Het. Parents]	5	7	12	3.5L	QU-IACUC 006/2023-AMM3	18-Jun-26	10-Dec-27		Adult/Active
+T0149	C0060	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	Casper from T108 Pure			14	3.5L	QU-IACUC 006/2023-AMM3	05-Jul-26	27-Dec-27		Adult/Active
+T0150	C0054	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	Casper from T126 Pure	9	6	15	3.5L	QU-IACUC 006/2023-AMM3	29-Jun-26	21-Dec-27		Adult/Active
+T0151	C0054	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	Casper from T126 Pure (P2)	3	6	9	3.5L	QU-IACUC 006/2023-AMM3	05-Jul-26	27-Dec-27		Adult/Active
+T0152	C0055	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	Casper from T69 [Hetero]	12	3	15	3.5L	QU-IACUC 006/2023-AMM3	18-Jun-26	10-Dec-27		Adult/Active
+T0153	C0061	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	Casper from T109 Pure	6	5	11	3.5L	QU-IACUC 006/2023-AMM3	14-Jun-26	06-Dec-27		Adult/Active
+T0154	C0055	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	Casper from T69 [Hetero] (Not Bleached)	12	8	20	8L	QU-IACUC 006/2023-AMM3	18-Jun-26	10-Dec-27		Adult/Active
+T0155		Wt	(AB)	AB Mix			22	8L	QU-IACUC 006/2023-AMM3	16-Jun-26	08-Dec-27		Adult/Active
+T0156	C0054	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	Casper from T126 Pure (P1)			9	1.8L	QU-IACUC 006/2023-AMM3	05-Jul-26	27-Dec-27		Adult/Active
+T0157	C0062	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	Casper from T115 (Silver Parents)	8	4	12	3.5L	QU-IACUC 006/2023-AMM3	26-Apr-26	18-Oct-27		Adult/Active
+T0158	C0062	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	Casper from T115 (Silver Parents)	3	6	9	1.8L	QU-IACUC 006/2023-AMM3	26-Apr-26	18-Oct-27		Adult/Active
+T0159	C0062	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	Casper from T115 (Silver Parents)	6	3	9	1.8L	QU-IACUC 006/2023-AMM3	26-Apr-26	18-Oct-27		Adult/Active
+T0160	C0060	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	Casper from T108			18	6L	QU-IACUC 006/2023-AMM3	17-May-26	08-Nov-27		Adult/Active
+T0161	C0054	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	Casper from T126 Pure (3)			9	1.8L	QU-IACUC 006/2023-AMM3	29-Jun-26	21-Dec-27		Adult/Active
+T0162	C0063	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	Casper from			5	1.8L	QU-IACUC 006/2023-AMM3	14-Jun-26	06-Dec-27		Adult/Active
+T0163	C0061	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	Casper from T109		1	1	1.8L	QU-IACUC 006/2023-AMM3	17-May-26	08-Nov-27		Adult/Active
+T0164	C0064	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	Casper from T122			10	3.8L	QU-IACUC 006/2023-AMM3	15-Jun-26	07-Dec-27		Adult/Active
+T0165	C0060	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	Casper from T108			17	6L	QU-IACUC 006/2023-AMM3	15-Jun-26	07-Dec-27		Adult/Active
+T0166	C0065	Wt	(AB)	AB	8	6	16	2.8L	QU-IACUC 006/2023-AMM3	12-May-26	03-Nov-27		Adult/Active
+T0167	C0065	Wt	(AB)	AB	6	3	9	1.8L	QU-IACUC 006/2023-AMM3	12-May-26	03-Nov-27		Adult/Active
+T0168		Wt	(AB)	AB Mix	14		14	2.8L	QU-IACUC 006/2023-AMM3	12-May-26	03-Nov-27		Adult/Active
+T0169		Wt	(AB)	AB Mix			7	1.8L	QU-IACUC 006/2023-AMM3	12-May-26	03-Nov-27		Adult/Active
+T0170		Wt	(AB)	AB Mix	8	6	14	3.8L	QU-IACUC 006/2023-AMM3	12-May-26	03-Nov-27		Adult/Active
+T0171	C0067	Tg	(fli1a:eGFP) Sidra [Fli]	Fli T133 x Fli T98			22	6L	QU-IACUC 006/2023-AMM3	17-Aug-26	08-Feb-28		Juvenile(<3 months old)
+T0172		Wt	(AB)	AB mix from T95 x 93	3	1	4	1.8L	QU-IACUC 006/2023-AMM3	12-Aug-25	03-Feb-27		Adult/Active
+T0173	C0068	Tg	(fli1a:eGFP) Sidra [Fli]	Fli			6	1.8L	QU-IACUC 006/2023-AMM3	16-Aug-26	07-Feb-28		Juvenile(<3 months old)
+T0174	C0069	Tg	(fli1a:eGFP) Sidra [Fli]	Fli			8	1.8L	QU-IACUC 006/2023-AMM3	17-Aug-26	08-Feb-28		Juvenile(<3 months old)
+T0175	C0070	Tg	(fli1a:eGFP) Sidra [Fli]	Fli			9	1.8L	QU-IACUC 006/2023-AMM3	16-Aug-26	07-Feb-28		Juvenile(<3 months old)
+T0176	C0070	Tg	(fli1a:eGFP) Sidra [Fli]	Fli	7	4	11	3.8L	QU-IACUC 006/2023-AMM3	07-Apr-26	29-Sep-27		Adult/Active
+T0177	C0071	Tg	(fli1a:eGFP) Sidra [Fli]	Fli	7	4	11	3.8L	QU-IACUC 006/2023-AMM3	07-Apr-26	29-Sep-27		Adult/Active
+T0178	C0055	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	Casper from T69 [Hetero] (1) (Not bleached)			12	3.5L	QU-IACUC 006/2023-AMM3	18-Jun-26	10-Dec-27		Adult/Active
+T0179	C0055	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	Casper from T69 [Hetero] (2)	8	5	13	3.5L	QU-IACUC 006/2023-AMM3	18-Jun-26	10-Dec-27		Adult/Active
+T0180	C0055	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	Casper from T69 [Hetero]	4	3	7	1.8L	QU-IACUC 006/2023-AMM3	18-Jun-26	10-Dec-27		Adult/Active
+T0181	C0055	Mu	(mitfaw2/w2; mpv17a9/a9) [Casper]	Casper from T69 [Hetero] (Suspected males)			7	1.8L	QU-IACUC 006/2023-AMM3	18-Jun-26	10-Dec-27		Adult/Active
+T0182	C0072	Wt	(AB)	AB T128			28	6L	QU-IACUC 006/2023-AMM3	10-Aug-26	01-Feb-28		Juvenile(<3 months old)
+T0183	C0072	Wt	(AB)	AB T128			14	3.5L	QU-IACUC 006/2023-AMM3	10-Aug-26	01-Feb-28		Juvenile(<3 months old)
+T0184		Wt	(AB)	AB mix from T95 x 93	2	1	3	1.8L	QU-IACUC 006/2023-AMM3	12-Aug-25	03-Feb-27		Adult/Active
+T0185	C0065	Wt	(AB)	AB	11		11	2.8L	QU-IACUC 006/2023-AMM3	12-May-26	03-Nov-27		Adult/Active

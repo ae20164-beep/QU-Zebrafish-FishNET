@@ -1,181 +1,183 @@
-TUID	NOTES	FEMALE	MALE	TOTAL	TANK 	DOB	DOD	TURNOVER	Derivative cross	PATERNAL X MATERNAL	PATERNAL	MATERNAL	STATUS
-T0001	DESMA -/-			1	1.8L	30-06-2024	13-10-2025	22-12-2025					Euthanized
-T0002	DESMA -/-			2	1.8L	10-06-2024	13-10-2025	02-12-2025					Euthanized
-T0004	DESMA OldXNew	2	2	4	2.8L	06-10-2024	13-10-2025	30-03-2026					Euthanized
-T0005	DESMA -/+			8	1.8L	30-06-2024	13-10-2025	22-12-2025					Euthanized
-T0006	DESMA -/-			2	1.8L	10-06-2024	13-10-2025	02-12-2025					Euthanized
-T0007	DESMA -/+			10	1.8L	30-06-2024	13-10-2025	22-12-2025					Euthanized
-T0008	DESMA Hetro			8	1.8L	30-06-2024	13-10-2025	22-12-2025					Euthanized
-T0009	DESMA from Hetro			20	2.8L	18-03-2024	13-10-2025	09-09-2025					Euthanized
-T0010	AB from DESMA			6	1.8L	30-06-2024	13-10-2025	22-12-2025					Euthanized
-T0011	Fli (Sidra)	9	3	12	2.8L	26-02-2023		19-08-2024					Euthanized
-T0012	Fli (Sidra) G1	8	6	14	2.8L	30-07-2023	06-07-2025	20-01-2025					Euthanized
-T0013	Fli (Sidra) G1	4	4	10	1.8L	13-09-2023		06-03-2025					Euthanized
-T0014	Fli	1	5	6	1.8L	07-04-2023	16-01-2025	28-09-2024					Euthanized
-T0015	Casper	1	1	2	1.8L	16-04-2023		07-10-2024					Adult/Active
-T0016	CMCL2	4	4	8	1.8L	05-04-2023	06-07-2025	26-09-2024					Euthanized
-T0017	CMCL2			17	2.8L	18-07-2023	06-07-2025	08-01-2025					Euthanized
-T0018	CMCL2			13	2.8L	15-08-2023	06-07-2025	05-02-2025					Euthanized
-T0019	Gata		1	1	1.8L	20-02-2023	06-07-2025	13-08-2024					Euthanized
-T0020	Gata G1	2	1	4	1.8L	25-06-2023	03-05-2026	16-12-2024					Euthanized
-T0021	Gata G1	2	3	8	1.8L	25-09-2023		18-03-2025					Euthanized
-T0022	AB	16	13	29	6L	07-06-2023	06-07-2025	28-11-2024					Euthanized
-T0023	AB	12	15	27	6L	07-06-2023	03-12-2024	28-11-2024					Euthanized
-T0024	AB	14	17	31	6L	18-05-2023	02-12-2024	08-11-2024					Euthanized
-T0025	AB	7	4	11	2.8L	12-03-2023	20-10-2024	02-09-2024					Euthanized
-T0026	AB	7	5	12	2.8L	25-07-2023	27-03-2025	15-01-2025					Euthanized
-T0027	AB	8	6	14	2.8L	25-07-2023	27-03-2025	15-01-2025					Euthanized
-T0028	AB		22	22	6L	08-08-2023	06-07-2025	29-01-2025					Euthanized
-T0029	AB	18	12	30	6L	09-04-2023	20-10-2024	30-09-2024					Euthanized
-T0030	AB	8	6	14	2.8L	04-09-2023	27-03-2025	25-02-2025					Euthanized
-T0031	AB	5	3	8	1.8L	04-09-2023	27-03-2025	25-02-2025					Euthanized
-T0032	AB	12	15	27	6L	02-07-2023	27-03-2025	23-12-2024					Euthanized
-T0033	AB	1	1	2	1.8L	19-08-2023	01-12-2024	09-02-2025					Euthanized
-T0034	AB	6	4	10	2.8L	12-03-2023	20-10-2024	02-09-2024					Euthanized
-T0035	AB	8	6	14	2.8L	14-08-2023	06-07-2025	04-02-2025					Euthanized
-T0036	AB	4	10	14	2.8L	07-05-2023	01-12-2024	28-10-2024					Euthanized
-T0037	AB G1	2	3	5	1.8L	28-08-2023	06-07-2025	18-02-2025	C0014	T0038T0038	T0038	T0038	Euthanized
-T0038	AB	5	9	14	2.8L	20-02-2023	16-01-2025	13-08-2024					Euthanized
-T0039	AB G1	3	42	5	2.8L	31-07-2023	06-07-2025	21-01-2025	C0015	T0038T0038	T0038	T0038	Euthanized
-T0040	AB		10	10	6L	14-08-2023	16-01-2025	04-02-2025					Euthanized
-T0041	AB		31	31	6L	25-07-2023	16-01-2025	15-01-2025					Euthanized
-T0042	AB (MIX)	14		14	6L	30-06-2024	03-05-2026	22-12-2025					Euthanized
-T0043	AB (MIX)	4		4	1.8L	30-06-2024	03-05-2026	22-12-2025					Euthanized
-T0044	AB G1	19	21	40	8L	13-09-2023	06-07-2025	06-03-2025	C0016	T0038T0038	T0038	T0038	Euthanized
-T0045	CMCL2 (not scr.)	13	1	13	3.5L	09-06-2023	06-07-2025	30-11-2024					Euthanized
-T0046	AB G1	3	7	11	2.8L	02-01-2024	06-08-2025	25-06-2025	C0001	T0038T0038	T0038	T0038	Euthanized
-T0047	Fli G1	14	9	23	6L	21-11-2023	06-07-2025	14-05-2025	C0002	T0011T0011	T0011	T0011	Euthanized
-T0048	Fli G2	8	6	14	3.5L	24-09-2023	06-07-2025	17-03-2025	C0003	T0012T0012	T0012	T0012	Euthanized
-T0049	Gata G2		5	5	3.5L	27-02-2024		20-08-2025	C0004	T0020T0020	T0020	T0020	Adult/Active
-T0050	Gata G2 (not scr.)	2	1	3	3.5L	23-10-2023	06-07-2025	15-04-2025	C0005	T0020T0020	T0020	T0020	Euthanized
-T0051	Gata G2		17	17	3.5L	23-11-2023	06-07-2025	16-05-2025	C0006	T0020T0020	T0020	T0020	Euthanized
-T0052	Fli G1 (Re-scr.)	9	5	14	3.5L	11-03-2024	27-10-2025	02-09-2025	C0007	T0011T0011	T0011	T0011	Euthanized
-T0053	Fli G2	17		14	8L	23-09-2023	06-07-2025	16-03-2025	C0008	T0048T0048	T0048	T0048	Euthanized
-T0054	Fli G1	10	7	17	3.5L	25-08-2024		16-02-2026	C0009	T0011T0011	T0011	T0011	Adult/Active
-T0055	AB		5	5	2.8L	18-05-2023	03-12-2024	08-11-2024					Euthanized
-T0056	AB	12	3	15	8L	01-09-2024		23-02-2026	C0010	T0027T0027	T0027	T0027	Euthanized
-T0057	AB	9	8	17	6L	12-05-2024	11-11-2025	03-11-2025	C0011	T0036T0036	T0036	T0036	Euthanized
-T0058	Fli G1	9	2	11	3.5L	26-06-2023	06-07-2025	17-12-2024	C0012	T0011T0011	T0011	T0011	Euthanized
-T0059	AB Mix	12	8	20	6L	15-07-2024	03-05-2026	06-01-2026					Euthanized
-T0060	AB (Mix+out-cross)	4	3	7	1.8L	27-05-2024	14-12-2025	18-11-2025					Euthanized
-T0061	AB Mix	13	8	21	6L	07-07-2024		29-12-2025					Euthanized
-T0062	AB Mix	7		7	2.8L	30-06-2024	03-05-2026	22-12-2025					Euthanized
-T0063	AB G1	7	10	17	6L	31-07-2023	06-07-2025	21-01-2025	C0013	T0038T0038	T0038	T0038	Euthanized
-T0064	AB Mix	8		8	2.8L	30-06-2024	03-05-2026	22-12-2025					Euthanized
-T0065	AB	3		3	3.5L	30-09-2024		24-03-2026	C0017	T0026T0026	T0026	T0026	Euthanized
-T0066	Cas/AB	11	1	12	2.8L	03-06-2024		25-11-2025	C0024	T0039T0015	T0039	T0015	Adult/Active
-T0067	Casper X AB (Sidra)	4	1	5	2.8L	29-10-2024		22-04-2026					Adult/Active
-T0068	Casper Pure		1	1	1.8L	18-11-2024		12-05-2026	C0025	T0015T0015	T0015	T0015	Adult/Active
-T0069	Casper outcross X AB mix	15	4	19	6L	24-12-2024		17-06-2026	C0026	T0066T0059	T0066	T0059	Euthanized
-T0070	Fli G1 +ve from T11	4	3	7	1.8L	12-11-2024		06-05-2026	C0027	T0011T0011	T0011	T0011	Adult/Active
-T0071	Fli for Squeezing	17		17	8L	24-09-2023	06-07-2025	17-03-2025					Euthanized
-T0072	Fli +ve	4	2	6	3.5L	05-03-2025		27-08-2026					Adult/Active
-T0073	Gata outcross +ve	6	1	7	3.5L	17-02-2025		11-08-2026	C0028	T0049T0064	T0049	T0064	Adult/Active
-T0074	AB Mix	7	7	14	6L	02-03-2025	14-12-2025	24-08-2026					Euthanized
-T0075	AB Mix	20		20	6L	02-03-2025		24-08-2026					Euthanized
-T0076	AB Mix	5		5	2.8L	24-03-2025		15-09-2026					Adult/Active
-T0077	Casper		7	7	1.8L	05-03-2025		27-08-2026	C0029	T0015T0015	T0015	T0015	Adult/Active
-T0078	Casper X AB	3	5	8	1.8L	13-02-2025		07-08-2026					Adult/Active
-T0079	Gata x AB sidra (outcross) +ve	13		13	2.8L	26-02-2025		20-08-2026	C0030	T0049T0056	T0049	T0056	Adult/Active
-T0080	AB (Sidra)	6	4	10	1.8L	13-11-2024		07-05-2026					Adult/Active
-T0081	AB Outcross	3	4	8	2.8L	05-12-2024		29-05-2026					Adult/Active
-T0082	Fli X AB outcross	4	3	7	1.8L	16-03-2025		07-09-2026	C0031	T0056T0053	T0056	T0053	Adult/Active
-T0083	AB (Males Only)		23	23	6L	30-06-2024	14-12-2025	22-12-2025					Euthanized
-T0084	AB (Males Only)		25	25	6L	12-05-2024	14-12-2025	03-11-2025					Euthanized
-T0085	AB (Males Only)		23	23	6L	30-06-2024	14-12-2025	22-12-2025					Euthanized
-T0086	AB Mix	18	11	29	6L	22-12-2024		15-06-2026					Euthanized
-T0087	AB Mix	6	4	10	2.8L	22-12-2024		15-06-2026					Euthanized
-T0088	AB outcross	30		30	6L	27-04-2025	14-12-2025	19-10-2026					Euthanized
-T0089	AB Mix	15		15	6L	13-04-2025		05-10-2026					Adult/Active
-T0090	AB Mix	4	3	8	1.8L	13-11-2024		07-05-2026					Adult/Active
-T0091	AB Mix	4	2	6	1.8L	13-11-2024	03-05-2026	07-05-2026					Euthanized
-T0092	AB outcross		2	2	1.8L	13-11-2024	03-05-2026	07-05-2026					Euthanized
-T0093	AB Mix (Males Only)		11	11	2.8L	22-12-2024		15-06-2026					Adult/Active
-T0094	AB Mix	27		27	6L	27-04-2025		19-10-2026					Adult/Active
-T0095	AB (Sidra)	4		4	1.8L	13-11-2024		07-05-2026					Adult/Active
-T0096	AB outcross	8	5	13	2.8L	27-04-2025		19-10-2026					Adult/Active
-T0097	AB outcross	2	1	3	1.8L	03-07-2025		25-12-2026					Adult/Active
-T0098	Fli From T52+54+82	2	7	9	2.8L	07-07-2025		29-12-2026					Adult/Active
-T0099	AB outcross	5		5	2.8L	05-05-2025		27-10-2026					Adult/Active
-T0100	Fli outcross	1		1	1.8L	22-07-2025		13-01-2027					Adult/Active
-T0101	Gata x AB (Sidra)	7	1	8	1.8L	01-05-2025		23-10-2026					Adult/Active
-T0102	Gata (Sidra) outcross		1	1	1.8L	21-07-2025		12-01-2027					Adult/Active
-T0103	AB outcross	7	6	13	6L	11-06-2025		03-12-2026					Adult/Active
-T0104	Fli From T72	2	2	4	3.5L	20-07-2025		11-01-2027	C0032	T0072T0072	T0072	T0072	Adult/Active
-T0105	Fli From T82	5		5	3.5L	20-07-2025		11-01-2027	C0033	T0082T0082	T0082	T0082	Adult/Active
-T0106	AB mix from T95 x 93	17	3	20	6L	12-08-2025		03-02-2027					Adult/Active
-T0107	Casper	4	3	7	1.8L	03-07-2025		25-12-2026	C0034	T0015T0067	T0015	T0067	Adult/Active
-T0108	Casper	2	1	3	1.8L	03-07-2025		25-12-2026	C0035	T0015T0067	T0015	T0067	Adult/Active
-T0109	Casper	2	1	3	1.8L	16-04-2025		08-10-2026	C0036	T0015T0015	T0015	T0015	Adult/Active
-T0110	GataxAB sidra	2	1	3	1.8L	26-02-2025		20-08-2026	C0037	T0049T0056	T0049	T0056	Adult/Active
-T0111	Gata From T73	10	7	17	6L	16-06-2025		08-12-2026	C0038	T0073T0073	T0073	T0073	Adult/Active
-T0112	Gata From T73	2	7	9	1.8L	22-06-2025		14-12-2026	C0039	T0073T0073	T0073	T0073	Adult/Active
-T0113	Gata Mix	7	3	10	1.8L	26-02-2025		20-08-2026					Adult/Active
-T0114	Casper Pure from T69	1		1	1.8L	11-09-2025		05-03-2027	C0040	T0069T0069	T0069	T0069	Adult/Active
-T0115	Casper From T69 Hetero	4	2	6	2.8L	11-09-2025		05-03-2027	C0040	T0069T0069	T0069	T0069	Adult/Active
-T0116	Casper from T69	13	4	17	2.8L	11-09-2025		05-03-2027					Adult/Active
-T0117	AB crossout	11	1	12	3.5L	04-09-2025		26-02-2027	C0041	T0093T0095	T0093	T0095	Adult/Active
-T0118	AB crossout	19	2	21	3.5L	16-06-2025		08-12-2026	C0042	T0093T0095	T0093	T0095	Adult/Active
-T0119	Fli From T82	4	2	6	2.8L	16-09-2025		10-03-2027					Adult/Active
-T0120	Gata from T73/T49	5	4	9	2.8L	14-10-2025		07-04-2027	C0043	T0049T0073	T0049	T0073	Adult/Active
-T0121	Casper from T67/T15	13	2	15	2.8L	03-07-2025		25-12-2026	C0044	T0015T0067	T0015	T0067	Adult/Active
-T0122	Cas from T77 Vs Spotted F	1	2	3	1.8L	11-02-2026		05-08-2027	C0045	T0077T0077	T0077	T0077	Adult/Active
-T0123	Casper from T0015/pure		6	6	1.8L	16-04-2025		08-10-2026	C0046	T0015T0015	T0015	T0015	Adult/Active
-T0124	Casper from T105/pure	1	1	2	1.8L	12-02-2026		06-08-2027	C0047	T109T109	T109	T109	Adult/Active
-T0125	Casper from T0115/pure			18	6L	11-02-2026		05-08-2027	C0048	T0115T0115	T0115	T0115	Adult/Active
-T0126	Casper from T114/T15 pure			15	6L	11-02-2026		05-08-2027	C0049	T0015T0114	T0015	T0114	Adult/Active
-T0127	Gata from T101	4	2	6	3.5L	26-01-2026		20-07-2027	C0050	T0101T0101	T0101	T0101	Adult/Active
-T0128	AB mix T86 & T87 & T96	4	3	7	2.8L	14-12-2025		07-06-2027					Adult/Active
-T0129	AB mix T87 & T96	5	5	10	2.8L	07-12-2025		31-05-2027					Adult/Active
-T0130	AB mix T87 & T96		8	8	1.8L	07-12-2025		31-05-2027					Adult/Active
-T0131	Casper from T115/T109			10	6L	11-02-2026		05-08-2027	C0051	T0109T0115	T0109	T0115	Adult/Active
-T0132	Fli mix T52 & T54 & T82	2	4	6	2.8L	07-07-2025		29-12-2026					Adult/Active
-T0133	Fli from T82	8	3	11	2.8L	24-11-2025		18-05-2027	C0052	T0082T0082	T0082	T0082	Adult/Active
-T0134	Gata from T101/T93 (AB)	14		14	2.8L	25-11-2025		19-05-2027	C0053	T0093T0101	T0093	T0101	Adult/Active
-T0135	Casper from T126 Pure	2	8	10	3.5L	29-06-2026		21-12-2027	C0054	T0126T0126	T0126	T0126	Adult/Active
-T0136	Casper from T69 (Hetero)	7	1	8	3.5L	18-06-2026		10-12-2027	C0055	T0069T0069	T0069	T0069	Adult/Active
-T0137	Gata from T110			13	3.5L	30-06-2026		22-12-2027	C0056	T0110T0110	T0110	T0110	Adult/Active
-T0138	Gata from T110	10	7	17	3.5L	30-06-2026		22-12-2027	C0056	T0110T0110	T0110	T0110	Adult/Active
-T0139	Gata Mix	5	3	8	3.5L	30-06-2026		22-12-2027	C0057				Adult/Active
-T0140	Gata T49 (M) x Gata T73 (F)	4	3	7	3.5L	06-07-2026		28-12-2027	C0057				Adult/Active
-T0141	Fli T105 x AB T56	5	2	7	3.5L	28-04-2026		20-10-2027	C0058	T0105T0056	T0105	T0056	Adult/Active
-T0142	AB Mix	10	6	16	3.5L	16-06-2026		08-12-2027					Adult/Active
-T0143	AB Mix	10	6	16	3.5L	16-06-2026		08-12-2027					Adult/Active
-T0144	AB Mix		15	15	3.5L	16-06-2026		08-12-2027					Adult/Active
-T0145	AB Mix	9	5	14	3.5L	16-06-2026		08-12-2027					Adult/Active
-T0146	Casper from T121(F) vs T123(M)	3	13	16	3.5L	18-06-2026		10-12-2027	C0059	T0123T0121	T0123	T0121	Adult/Active
-T0147	Casper from T121(F) vs T123(M)	5	5	10	3.5L	18-06-2026		10-12-2027	C0059	T0123T0121	T0123	T0121	Adult/Active
-T0148	Casper From T69 [Het. Parents]	5	7	12	3.5L	18-06-2026		10-12-2027	C0055	T0069T0069	T0069	T0069	Adult/Active
-T0149	Casper from T108 Pure			14	3.5L	05-07-2026		27-12-2027	C0060	T0108T0108	T0108	T0108	Adult/Active
-T0150	Casper from T126 Pure	9	6	15	3.5L	29-06-2026		21-12-2027	C0054	T0126T0126	T0126	T0126	Adult/Active
-T0151	Casper from T126 Pure (P2)	3	6	9	3.5L	05-07-2026		27-12-2027	C0054	T0126T0126	T0126	T0126	Adult/Active
-T0152	Casper from T69 [Hetero]	12	3	15	3.5L	18-06-2026		10-12-2027	C0055	T0069T0069	T0069	T0069	Adult/Active
-T0153	Casper from T109 Pure	6	5	11	3.5L	14-06-2026		06-12-2027	C0061	T0109T0109	T0109	T0109	Adult/Active
-T0154	Casper from T69 [Hetero] (Not Bleached)	12	8	20	8L	18-06-2026		10-12-2027	C0055	T0069T0069	T0069	T0069	Adult/Active
-T0155	AB Mix			25	8L	16-06-2026		08-12-2027					Adult/Active
-T0156	Casper from T126 Pure (P1)			9	1.8L	05-07-2026		27-12-2027	C0054	T0126T0126	T0126	T0126	Adult/Active
-T0157	Casper from T115 (Silver Parents)	8	4	12	3.5L	26-04-2026		18-10-2027	C0062	T0115T0115	T0115	T0115	Adult/Active
-T0158	Casper from T115 (Silver Parents)	3	6	9	1.8L	26-04-2026		18-10-2027	C0062	T0115T0115	T0115	T0115	Adult/Active
-T0159	Casper from T115 (Silver Parents)	6	3	9	1.8L	26-04-2026		18-10-2027	C0062	T0115T0115	T0115	T0115	Adult/Active
-T0160	Casper from T108			18	6L	17-05-2026		08-11-2027	C0060	T0108T0108	T0108	T0108	Adult/Active
-T0161	Casper from T126 Pure (3)			9	1.8L	29-06-2026		21-12-2027	C0054	T0126T0126	T0126	T0126	Adult/Active
-T0162	Casper from			5	1.8L	14-06-2026		06-12-2027	C0063	T0077T0109	T0077	T0109	Adult/Active
-T0163	Casper from T109		1	1	1.8L	17-05-2026		08-11-2027	C0061	T0109T0109	T0109	T0109	Adult/Active
-T0164	Casper from T122			10	3.8L	15-06-2026		07-12-2027	C0064	T0122T0122	T0122	T0122	Adult/Active
-T0165	Casper from T108			17	6L	15-06-2026		07-12-2027	C0060	T0108T0108	T0108	T0108	Adult/Active
-T0166	AB	12	4	16	6L	12-05-2026		03-11-2027	C0065	T0081T0081	T0081	T0081	Adult/Active
-T0167	AB	13	3	16	6L	12-05-2026		03-11-2027	C0065	T0081T0081	T0081	T0081	Adult/Active
-T0168	AB Mix	9		9	1.8L	12-05-2026		03-11-2027					Adult/Active
-T0169	AB Mix			7	1.8L	12-05-2026		03-11-2027					Adult/Active
-T0170	AB Mix	9	6	15	3.8L	12-05-2026		03-11-2027					Adult/Active
-T0171	Fli T133 x Fli T98 (1)			28	3.8L	17-08-2026		08-02-2028	C0067	T0098T0133	T0098	T0133	Juvenile(<3 months old)
-T0172	Fli T133 x Fli T98 (2)			27	3.8L	17-08-2026		08-02-2028	C0067	T0098T0133	T0098	T0133	Juvenile(<3 months old)
-T0173	Fli			6	1.8L	16-08-2026		07-02-2028	C0068	T0119T0119	T0119	T0119	Juvenile(<3 months old)
-T0174	Fli			9	1.8L	17-08-2026		08-02-2028	C0069	T0133T0133	T0133	T0133	Juvenile(<3 months old)
-T0175	Fli			11	1.8L	16-08-2026		07-02-2028	C0070	T0132T0132	T0132	T0132	Juvenile(<3 months old)
-T0176	Fli	7	4	11	3.8L	07-04-2026		29-09-2027	C0070	T0132T0132	T0132	T0132	Adult/Active
-T0177	Fli	7	4	11	3.8L	07-04-2026		29-09-2027	C0071	T0082T0082	T0082	T0082	Adult/Active
-T0178	Casper from T69 [Hetero] (1) (Not bleached)			12	3.5L	18-06-2026		10-12-2027	C0055	T0069T0069	T0069	T0069	Adult/Active
-T0179	Casper from T69 [Hetero] (2)	8	5	13	3.5L	18-06-2026		10-12-2027	C0055	T0069T0069	T0069	T0069	Adult/Active
-T0180	Casper from T69 [Hetero]	4	3	7	1.8L	18-06-2026		10-12-2027	C0055	T0069T0069	T0069	T0069	Adult/Active
-T0181	Casper from T69 [Hetero] (Suspected males)		7	7	1.8L	18-06-2026		10-12-2027	C0055	T0069T0069	T0069	T0069	Adult/Active
+10-Jun-24	13-Oct-25		Zebrafish		Mu (desmbkg155/kg155) [DESMA]	Himanshu Lajpat		DESMA -/-	2	QU-IACUC 008/2022		D126				Euthanized		1.8L		T0002	02-Dec-25	Dr. Huseyin Yalcin Lab	1
+06-Oct-24	13-Oct-25		Zebrafish	2	Mu (desmbkg155/+)/(desmbkg155/kg155) [DESMA]	Himanshu Lajpat	2	DESMA OldXNew	4	QU-IACUC-006/2023		D126				Euthanized		2.8L		T0004	30-Mar-26	Dr. Huseyin Yalcin Lab	1
+30-Jun-24	13-Oct-25		Zebrafish		Mu (desmbkg155/+)	Himanshu Lajpat		DESMA -/+	8	QU-IACUC 008/2022		D126				Euthanized		1.8L		T0005	22-Dec-25	Dr. Huseyin Yalcin Lab	1
+10-Jun-24	13-Oct-25		Zebrafish		Mu (desmbkg155/kg155)	Himanshu Lajpat		DESMA -/-	2	QU-IACUC 008/2022		D126				Euthanized		1.8L		T0006	02-Dec-25	Dr. Huseyin Yalcin Lab	1
+30-Jun-24	13-Oct-25		Zebrafish		Mu (desmbkg155/+)	Himanshu Lajpat		DESMA -/+	10	QU-IACUC 008/2022		D126				Euthanized		1.8L		T0007	22-Dec-25	Dr. Huseyin Yalcin Lab	1
+30-Jun-24	13-Oct-25		Zebrafish		Mu (desmbkg155/+)/(desmbkg155/+)	Himanshu Lajpat		DESMA Hetro	8	QU-IACUC 008/2022		D126				Euthanized		1.8L		T0008	22-Dec-25	Dr. Huseyin Yalcin Lab	1
+18-Mar-24	13-Oct-25		Zebrafish		Mu (desmbkg155/+)/(desmbkg155/+)	Himanshu Lajpat		DESMA from Hetro	20	QU-IACUC 008/2022		D126				Euthanized		2.8L		T0009	09-Sep-25	Dr. Huseyin Yalcin Lab	1
+30-Jun-24	13-Oct-25		Zebrafish		Wt Wt (desmbkg155/+)/AB	Himanshu Lajpat		AB from DESMA	6	QU-IACUC 008/2022		D126				Euthanized		1.8L		T0010	22-Dec-25	Dr. Huseyin Yalcin Lab	1
+26-Feb-23			Zebrafish	9	Tg (fli1a:eGFP) Sidra	Himanshu Lajpat	3	Fli (Sidra)	12	QU-IACUC 006/2023-AMM3		D126				Adult/Active		2.8L		T0011	19-Aug-24	Dr. Huseyin Yalcin Lab	1
+30-Jul-23	06-Jul-25		Zebrafish	8	Tg (fli1a:eGFP) Sidra	Himanshu Lajpat	6	Fli (Sidra) G1	14	QU-IACUC-006/2023		D126				Euthanized		2.8L		T0012	20-Jan-25	Dr. Huseyin Yalcin Lab	1
+13-Sep-23	01-Nov-26		Zebrafish	4	Tg (fli1a:eGFP) Sidra	Himanshu Lajpat	4	Fli (Sidra) G1	10	QU-IACUC 006/2023-AMM5		D126				Euthanized		1.8L		T0013	06-Mar-25	Dr. Huseyin Yalcin Lab	1
+07-Apr-23	16-Jan-25		Zebrafish	1	Tg (fli1:EGFP)	Himanshu Lajpat	5	Fli	6	QU-IACUC-006/2023		D126				Euthanized		1.8L		T0014	28-Sep-24	Dr. Huseyin Yalcin Lab	1
+16-Apr-23	04-Nov-26		Zebrafish	1	Mu (mitfaw2/w2; mpv17a9/a9)	Himanshu Lajpat	1	Casper	2	QU-IACUC 006/2023-AMM5		D126				Euthanized		1.8L		T0015	07-Oct-24	Dr. Huseyin Yalcin Lab	1
+05-Apr-23	06-Jul-25		Zebrafish	4	Tg (myl7:GFP) [CMCL2]	Himanshu Lajpat	4	CMCL2	8	QU-IACUC-006/2023		D126				Euthanized		1.8L		T0016	26-Sep-24	Dr. Huseyin Yalcin Lab	1
+18-Jul-23	06-Jul-25		Zebrafish		Tg (myl7:GFP) [CMCL2]	Himanshu Lajpat		CMCL2	17	QU-IACUC-006/2023		D126				Euthanized		2.8L		T0017	08-Jan-25	Dr. Huseyin Yalcin Lab	1
+15-Aug-23	06-Jul-25		Zebrafish		Tg (myl7:GFP) [CMCL2]	Himanshu Lajpat		CMCL2	13	QU-IACUC-006/2023		D126				Euthanized		2.8L		T0018	05-Feb-25	Dr. Huseyin Yalcin Lab	1
+20-Feb-23	06-Jul-25		Zebrafish		Tg (gata1:dsRed) Sidra [Gata]	Himanshu Lajpat	1	Gata	1	QU-IACUC-006/2023		D126				Euthanized		1.8L		T0019	13-Aug-24	Dr. Huseyin Yalcin Lab	1
+25-Jun-23	03-May-26		Zebrafish	2	Tg (gata1:dsRed) Sidra [Gata]	Himanshu Lajpat	1	Gata G1	4	QU-IACUC 006/2023-AMM3		D126				Euthanized		1.8L		T0020	16-Dec-24	Dr. Huseyin Yalcin Lab	1
+25-Sep-23	01-Nov-26		Zebrafish	2	Tg (gata1:dsRed) Sidra [Gata]	Himanshu Lajpat	3	Gata G1	8	QU-IACUC 006/2023-AMM5		D126				Euthanized		1.8L		T0021	18-Mar-25	Dr. Huseyin Yalcin Lab	1
+07-Jun-23	06-Jul-25		Zebrafish	16	Wt (AB)	Himanshu Lajpat	13	AB	29	QU-IACUC-006/2023		D126				Euthanized		6L		T0022	28-Nov-24	Dr. Huseyin Yalcin Lab	1
+07-Jun-23	03-Dec-24		Zebrafish	12	Wt (AB)	Himanshu Lajpat	15	AB	27	QU-IACUC-006/2023		D126				Euthanized		6L		T0023	28-Nov-24	Dr. Huseyin Yalcin Lab	1
+18-May-23	02-Dec-24		Zebrafish	14	Wt (AB)	Himanshu Lajpat	17	AB	31	QU-IACUC-006/2023		D126				Euthanized		6L		T0024	08-Nov-24	Dr. Huseyin Yalcin Lab	1
+12-Mar-23	20-Oct-24		Zebrafish	7	Wt (AB)	Himanshu Lajpat	4	AB	11	QU-IACUC-006/2023		D126				Euthanized		2.8L		T0025	02-Sep-24	Dr. Huseyin Yalcin Lab	1
+25-Jul-23	27-Mar-25		Zebrafish	7	Wt (AB)	Himanshu Lajpat	5	AB	12	QU-IACUC-006/2023		D126				Euthanized		2.8L		T0026	15-Jan-25	Dr. Huseyin Yalcin Lab	1
+25-Jul-23	27-Mar-25		Zebrafish	8	Wt (AB)	Himanshu Lajpat	6	AB	14	QU-IACUC-006/2023		D126				Euthanized		2.8L		T0027	15-Jan-25	Dr. Huseyin Yalcin Lab	1
+08-Aug-23	06-Jul-25		Zebrafish		Wt (AB)	Himanshu Lajpat	22	AB	22	QU-IACUC-006/2023		D126				Euthanized		6L		T0028	29-Jan-25	Dr. Huseyin Yalcin Lab	1
+09-Apr-23	20-Oct-24		Zebrafish	18	Wt (AB)	Himanshu Lajpat	12	AB	30	QU-IACUC-006/2023		D126				Euthanized		6L		T0029	30-Sep-24	Dr. Huseyin Yalcin Lab	1
+04-Sep-23	27-Mar-25		Zebrafish	8	Wt (AB)	Himanshu Lajpat	6	AB	14	QU-IACUC-006/2023		D126				Euthanized		2.8L		T0030	25-Feb-25	Dr. Huseyin Yalcin Lab	1
+04-Sep-23	27-Mar-25		Zebrafish	5	Wt (AB)	Himanshu Lajpat	3	AB	8	QU-IACUC-006/2023		D126				Euthanized		1.8L		T0031	25-Feb-25	Dr. Huseyin Yalcin Lab	1
+02-Jul-23	27-Mar-25		Zebrafish	12	Wt (AB)	Himanshu Lajpat	15	AB	27	QU-IACUC-006/2023		D126				Euthanized		6L		T0032	23-Dec-24	Dr. Huseyin Yalcin Lab	1
+19-Aug-23	01-Dec-24		Zebrafish	1	Wt (AB)	Himanshu Lajpat	1	AB	2	QU-IACUC-006/2023		D126				Euthanized		1.8L		T0033	09-Feb-25	Dr. Huseyin Yalcin Lab	1
+12-Mar-23	20-Oct-24		Zebrafish	6	Wt (AB)	Himanshu Lajpat	4	AB	10	QU-IACUC-006/2023		D126				Euthanized		2.8L		T0034	02-Sep-24	Dr. Huseyin Yalcin Lab	1
+14-Aug-23	06-Jul-25		Zebrafish	8	Wt (AB)	Himanshu Lajpat	6	AB	14	QU-IACUC-006/2023		D126				Euthanized		2.8L		T0035	04-Feb-25	Dr. Huseyin Yalcin Lab	1
+07-May-23	01-Dec-24		Zebrafish	4	Wt (AB)	Himanshu Lajpat	10	AB	14	QU-IACUC-006/2023		D126				Euthanized		2.8L		T0036	28-Oct-24	Dr. Huseyin Yalcin Lab	1
+28-Aug-23	06-Jul-25	C0014	Zebrafish	2	Wt (AB) Sidra	Himanshu Lajpat	3	AB G1	5	QU-IACUC-006/2023		D126				Euthanized		1.8L		T0037	18-Feb-25	Dr. Huseyin Yalcin Lab	1
+20-Feb-23	16-Jan-25		Zebrafish	5	Wt (AB) Sidra	Himanshu Lajpat	9	AB	14	QU-IACUC-006/2023		D126				Euthanized		2.8L		T0038	13-Aug-24	Dr. Huseyin Yalcin Lab	1
+31-Jul-23	06-Jul-25	C0015	Zebrafish	3	Wt (AB) Sidra	Himanshu Lajpat	42	AB G1	5	QU-IACUC-006/2023		D126				Euthanized		2.8L		T0039	21-Jan-25	Dr. Huseyin Yalcin Lab	1
+14-Aug-23	16-Jan-25		Zebrafish		Wt (AB)	Himanshu Lajpat	10	AB	10	QU-IACUC 006/2023		D126				Euthanized		6L		T0040	04-Feb-25	Dr. Huseyin Yalcin Lab	1
+25-Jul-23	16-Jan-25		Zebrafish		Wt (AB)	Himanshu Lajpat	31	AB	31	QU-IACUC 006/2023		D126				Euthanized		6L		T0041	15-Jan-25	Dr. Huseyin Yalcin Lab	1
+30-Jun-24	03-May-26		Zebrafish	14	Wt (AB)	Himanshu Lajpat		AB (MIX)	14	QU-IACUC 006/2023-AMM3		D126				Euthanized		6L		T0042	22-Dec-25	Dr. Huseyin Yalcin Lab	1
+30-Jun-24	03-May-26		Zebrafish	4	Wt (AB)	Himanshu Lajpat		AB (MIX)	4	QU-IACUC 006/2023-AMM3		D126				Euthanized		1.8L		T0043	22-Dec-25	Dr. Huseyin Yalcin Lab	1
+13-Sep-23	06-Jul-25	C0016	Zebrafish	19	Wt (AB) Sidra	Himanshu Lajpat	21	AB G1	40	QU-IACUC-006/2023		D126				Euthanized		8L		T0044	06-Mar-25	Dr. Huseyin Yalcin Lab	1
+09-Jun-23	06-Jul-25		Zebrafish	13	Tg (myl7:GFP) [CMCL2]	Himanshu Lajpat	1	CMCL2 (not scr.)	13	QU-IACUC-006/2023		D126				Euthanized		3.5L		T0045	30-Nov-24	Dr. Huseyin Yalcin Lab	1
+02-Jan-24	06-Aug-25	C0001	Zebrafish	3	Wt (AB) Sidra	Himanshu Lajpat	7	AB G1	11	QU-IACUC-006/2023		D126				Euthanized		2.8L		T0046	25-Jun-25	Dr. Huseyin Yalcin Lab	1
+21-Nov-23	06-Jul-25	C0002	Zebrafish	14	Tg (fli1a:eGFP) Sidra [Fli]	Himanshu Lajpat	9	Fli G1	23	QU-IACUC-006/2023		D126				Euthanized		6L		T0047	14-May-25	Dr. Huseyin Yalcin Lab	1
+24-Sep-23	06-Jul-25	C0003	Zebrafish	8	Tg (fli1a:eGFP) Sidra [Fli]	Himanshu Lajpat	6	Fli G2	14	QU-IACUC-006/2023		D126				Euthanized		3.5L		T0048	17-Mar-25	Dr. Huseyin Yalcin Lab	1
+27-Feb-24		C0004	Zebrafish		Tg (gata1:dsRed) Sidra [Gata]	Himanshu Lajpat	3	Gata G2	3	QU-IACUC 006/2023-AMM3		D126				Adult/Active		3.5L		T0049	20-Aug-25	Dr. Huseyin Yalcin Lab	1
+23-Oct-23	06-Jul-25	C0005	Zebrafish	2	Tg (gata1:dsRed) Sidra [Gata]	Himanshu Lajpat	1	Gata G2 (not scr.)	3	QU-IACUC-006/2023		D126				Euthanized		3.5L		T0050	15-Apr-25	Dr. Huseyin Yalcin Lab	1
+23-Nov-23	06-Jul-25	C0006	Zebrafish		Tg (gata1:dsRed) Sidra [Gata]	Himanshu Lajpat	17	Gata G2	17	QU-IACUC-006/2023		D126				Euthanized		3.5L		T0051	16-May-25	Dr. Huseyin Yalcin Lab	1
+11-Mar-24	27-Oct-25	C0007	Zebrafish	9	Tg (fli1a:eGFP) Sidra [Fli]	Himanshu Lajpat	5	Fli G1 (Re-scr.)	14	QU-IACUC-006/2023		D126				Euthanized		3.5L		T0052	02-Sep-25	Dr. Huseyin Yalcin Lab	1
+23-Sep-23	06-Jul-25	C0008	Zebrafish	17	Tg (fli1a:eGFP) Sidra [Fli]	Himanshu Lajpat		Fli G2	14	QU-IACUC-006/2023		D126				Euthanized		8L		T0053	16-Mar-25	Dr. Huseyin Yalcin Lab	1
+25-Aug-24	05-Nov-26	C0009	Zebrafish	10	Tg (fli1a:eGFP) Sidra [Fli]	Himanshu Lajpat	7	Fli G1	17	QU-IACUC 006/2023-AMM5		D126				Euthanized		3.5L		T0054	16-Feb-26	Dr. Huseyin Yalcin Lab	1
+18-May-23	03-Dec-24		Zebrafish		Wt (AB)	Himanshu Lajpat	5	AB	5	QU-IACUC 006/2023		D126				Euthanized		2.8L		T0055	08-Nov-24	Dr. Huseyin Yalcin Lab	1
+01-Sep-24	04-Nov-26	C0010	Zebrafish	12	Wt (AB)	Himanshu Lajpat	3	AB	15	QU-IACUC 006/2023-AMM5		D126				Euthanized		8L		T0056	23-Feb-26	Dr. Huseyin Yalcin Lab	1
+12-May-24	11-Nov-25	C0011	Zebrafish	9	Wt (AB)	Himanshu Lajpat	8	AB	17	QU-IACUC-006/2023		D126				Euthanized		6L		T0057	03-Nov-25	Dr. Huseyin Yalcin Lab	1
+26-Jun-23	06-Jul-25	C0012	Zebrafish	9	Tg (fli1a:eGFP) Sidra [Fli]	Himanshu Lajpat	2	Fli G1	11	QU-IACUC-006/2023		D126				Euthanized		3.5L		T0058	17-Dec-24	Dr. Huseyin Yalcin Lab	1
+15-Jul-24	03-May-26		Zebrafish	12	Wt (AB)	Himanshu Lajpat	8	AB Mix	20	QU-IACUC 006/2023-AMM3		D126				Euthanized		6L		T0059	06-Jan-26	Dr. Huseyin Yalcin Lab	1
+27-May-24	14-Dec-25		Zebrafish	4	Wt (AB)	Himanshu Lajpat	3	AB (Mix+out-cross)	7	QU-IACUC-006/2023		D126				Euthanized		1.8L		T0060	18-Nov-25	Dr. Huseyin Yalcin Lab	1
+07-Jul-24	01-Nov-26		Zebrafish	13	Wt (AB)	Himanshu Lajpat	8	AB Mix	21	QU-IACUC 006/2023-AMM5		D126				Euthanized		6L		T0061	29-Dec-25	Dr. Huseyin Yalcin Lab	1
+30-Jun-24	03-May-26		Zebrafish	7	Wt (AB)	Himanshu Lajpat		AB Mix	7	QU-IACUC 006/2023-AMM3		D126				Euthanized		2.8L		T0062	22-Dec-25	Dr. Huseyin Yalcin Lab	1
+31-Jul-23	06-Jul-25	C0013	Zebrafish	7	Wt (AB) Sidra	Himanshu Lajpat	10	AB G1	17	QU-IACUC-006/2023		D126				Euthanized		6L		T0063	21-Jan-25	Dr. Huseyin Yalcin Lab	1
+30-Jun-24	03-May-26		Zebrafish	8	Wt (AB)	Himanshu Lajpat		AB Mix	8	QU-IACUC 006/2023-AMM3		D126				Euthanized		2.8L		T0064	22-Dec-25	Dr. Huseyin Yalcin Lab	1
+30-Sep-24	01-Nov-26	C0017	Zebrafish	3	Wt (AB)	Himanshu Lajpat		AB	3	QU-IACUC 006/2023-AMM5		D126				Euthanized		3.5L		T0065	24-Mar-26	Dr. Huseyin Yalcin Lab	1
+03-Jun-24		C0024	Zebrafish	11	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB) Sidra	Himanshu Lajpat	1	Cas/AB	12	QU-IACUC 006/2023-AMM3		D126				Adult/Active		2.8L		T0066	25-Nov-25	Dr. Huseyin Yalcin Lab	1
+29-Oct-24			Zebrafish	4	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB) Sidra	Himanshu Lajpat	1	Casper X AB (Sidra)	5	QU-IACUC 006/2023-AMM3		D126				Adult/Active		2.8L		T0067	22-Apr-26	Dr. Huseyin Yalcin Lab	1
+18-Nov-24	05-Nov-26	C0025	Zebrafish		Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Himanshu Lajpat	1	Casper Pure	1	QU-IACUC 006/2023-AMM5		D126				Euthanized		1.8L		T0068	12-May-26	Dr. Huseyin Yalcin Lab	1
+24-Dec-24	01-Nov-26	C0026	Zebrafish	15	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB)	Himanshu Lajpat	4	Casper outcross X AB mix	19	QU-IACUC 006/2023-AMM5		D126				Euthanized		6L		T0069	17-Jun-26	Dr. Huseyin Yalcin Lab	1
+12-Nov-24		C0027	Zebrafish	4	Tg (fli1a:eGFP) Sidra [Fli]	Himanshu Lajpat	3	Fli G1 +ve from T11	7	QU-IACUC 006/2023-AMM3		D126				Adult/Active		1.8L		T0070	06-May-26	Dr. Huseyin Yalcin Lab	1
+24-Sep-23	06-Jul-25		Zebrafish	17	Tg (fli1a:eGFP) Sidra [Fli]	Himanshu Lajpat		Fli for Squeezing	17	QU-IACUC 006/2023-AMM1		D126				Euthanized		8L		T0071	17-Mar-25	Dr. Huseyin Yalcin Lab	1
+05-Mar-25			Zebrafish	3	Tg (fli1a:eGFP) Sidra [Fli]	Himanshu Lajpat	3	Fli +ve	6	QU-IACUC 006/2023-AMM3		D126				Adult/Active		3.5L		T0072	27-Aug-26	Dr. Huseyin Yalcin Lab	1
+17-Feb-25		C0028	Zebrafish	6	Tg (gata1:dsRed) Sidra [Gata]	Himanshu Lajpat		Gata outcross +ve	6	QU-IACUC 006/2023-AMM3		D126				Adult/Active		3.5L		T0073	11-Aug-26	Dr. Huseyin Yalcin Lab	1
+02-Mar-25	14-Dec-25		Zebrafish	7	Wt (AB)	Himanshu Lajpat	7	AB Mix	14	QU-IACUC 006/2023-AMM1		D126				Euthanized		6L		T0074	24-Aug-26	Dr. Huseyin Yalcin Lab	1
+02-Mar-25	01-Nov-26		Zebrafish	20	Wt (AB)	Himanshu Lajpat		AB Mix	20	QU-IACUC 006/2023-AMM5		D126				Euthanized		6L		T0075	24-Aug-26	Dr. Huseyin Yalcin Lab	1
+24-Mar-25	04-Nov-26		Zebrafish	5	Wt (AB)	Himanshu Lajpat		AB Mix	5	QU-IACUC 006/2023-AMM5		D126				Euthanized		2.8L		T0076	15-Sep-26	Dr. Huseyin Yalcin Lab	1
+05-Mar-25		C0029	Zebrafish		Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Himanshu Lajpat	7	Casper	7	QU-IACUC 006/2023-AMM3		D126				Adult/Active		1.8L		T0077	27-Aug-26	Dr. Huseyin Yalcin Lab	1
+13-Feb-25			Zebrafish	3	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB)	Himanshu Lajpat	5	Casper X AB	8	QU-IACUC 006/2023-AMM3		D126				Adult/Active		1.8L		T0078	07-Aug-26	Dr. Huseyin Yalcin Lab	1
+26-Feb-25		C0030	Zebrafish	13	Tg (gata1:dsRed) Sidra [Gata]; (AB)	Himanshu Lajpat		Gata x AB sidra (outcross) +ve	13	QU-IACUC 006/2023-AMM3		D126				Adult/Active		2.8L		T0079	20-Aug-26	Dr. Huseyin Yalcin Lab	1
+13-Nov-24			Zebrafish	5	Wt (AB) Sidra	Himanshu Lajpat	3	AB (Sidra)	8	QU-IACUC 006/2023-AMM3		D126				Adult/Active		1.8L		T0080	07-May-26	Dr. Huseyin Yalcin Lab	1
+05-Dec-24			Zebrafish	3	Wt (AB) Sidra; (AB)	Himanshu Lajpat	4	AB Outcross	7	QU-IACUC 006/2023-AMM3		D126				Adult/Active		2.8L		T0081	29-May-26	Dr. Huseyin Yalcin Lab	1
+16-Mar-25		C0031	Zebrafish	4	Tg (fli1a:eGFP) Sidra [Fli]	Himanshu Lajpat	3	Fli X AB outcross	7	QU-IACUC 006/2023-AMM3		D126				Adult/Active		1.8L		T0082	07-Sep-26	Dr. Huseyin Yalcin Lab	1
+30-Jun-24	14-Dec-25		Zebrafish		Wt (AB)	Himanshu Lajpat	23	AB (Males Only)	23	QU-IACUC 006/2023-AMM1		D126				Euthanized		6L		T0083	22-Dec-25	Dr. Huseyin Yalcin Lab	1
+12-May-24	14-Dec-25		Zebrafish		Wt (AB)	Himanshu Lajpat	25	AB (Males Only)	25	QU-IACUC 006/2023-AMM1		D126				Euthanized		6L		T0084	03-Nov-25	Dr. Huseyin Yalcin Lab	1
+30-Jun-24	14-Dec-25		Zebrafish		Wt (AB)	Himanshu Lajpat	23	AB (Males Only)	23	QU-IACUC 006/2023-AMM1		D126				Euthanized		6L		T0085	22-Dec-25	Dr. Huseyin Yalcin Lab	1
+22-Dec-24	01-Nov-26		Zebrafish	18	Wt (AB)	Himanshu Lajpat	11	AB Mix	29	QU-IACUC 006/2023-AMM5		D126				Euthanized		6L		T0086	15-Jun-26	Dr. Huseyin Yalcin Lab	1
+22-Dec-24	01-Nov-26		Zebrafish	6	Wt (AB)	Himanshu Lajpat	4	AB Mix	10	QU-IACUC 006/2023-AMM5		D126				Euthanized		2.8L		T0087	15-Jun-26	Dr. Huseyin Yalcin Lab	1
+27-Apr-25	14-Dec-25		Zebrafish	30	Wt (AB)/(AB) Sidra	Himanshu Lajpat		AB outcross	30	QU-IACUC 006/2023-AMM1		D126				Euthanized		6L		T0088	19-Oct-26	Dr. Huseyin Yalcin Lab	1
+13-Apr-25	04-Nov-26		Zebrafish	15	Wt (AB)	Himanshu Lajpat		AB Mix	15	QU-IACUC 006/2023-AMM5		D126				Euthanized		6L		T0089	05-Oct-26	Dr. Huseyin Yalcin Lab	1
+13-Nov-24	04-Nov-26		Zebrafish	4	Wt (AB)	Himanshu Lajpat	3	AB Mix	8	QU-IACUC 006/2023-AMM5		D126				Euthanized		1.8L		T0090	07-May-26	Dr. Huseyin Yalcin Lab	1
+13-Nov-24	03-May-26		Zebrafish	4	Wt (AB)	Himanshu Lajpat	2	AB Mix	6	QU-IACUC 006/2023-AMM3		D126				Euthanized		1.8L		T0091	07-May-26	Dr. Huseyin Yalcin Lab	1
+13-Nov-24	03-May-26		Zebrafish		Wt (AB)/(AB) Sidra	Himanshu Lajpat	2	AB outcross	2	QU-IACUC 006/2023-AMM1		D126				Euthanized		1.8L		T0092	07-May-26	Dr. Huseyin Yalcin Lab	1
+22-Dec-24			Zebrafish		Wt (AB)	Himanshu Lajpat	9	AB Mix (Males Only)	9	QU-IACUC 006/2023-AMM3		D126				Adult/Active		2.8L		T0093	15-Jun-26	Dr. Huseyin Yalcin Lab	1
+27-Apr-25	05-Nov-26		Zebrafish	27	Wt (AB)	Himanshu Lajpat		AB Mix	27	QU-IACUC 006/2023-AMM5		D126				Euthanized		6L		T0094	19-Oct-26	Dr. Huseyin Yalcin Lab	1
+13-Nov-24			Zebrafish	4	Wt (AB) Sidra	Himanshu Lajpat		AB (Sidra)	4	QU-IACUC 006/2023-AMM3		D126				Adult/Active		1.8L		T0095	07-May-26	Dr. Huseyin Yalcin Lab	1
+27-Apr-25			Zebrafish	8	Wt (AB)/(AB) Sidra	Himanshu Lajpat	5	AB outcross	13	QU-IACUC 006/2023-AMM3		D126				Adult/Active		2.8L		T0096	19-Oct-26	Dr. Huseyin Yalcin Lab	1
+03-Jul-25			Zebrafish	2	Wt (AB)/(AB) Sidra	Himanshu Lajpat	1	AB outcross	3	QU-IACUC 006/2023-AMM3		D126				Adult/Active		1.8L		T0097	25-Dec-26	Dr. Huseyin Yalcin Lab	1
+07-Jul-25			Zebrafish	2	Tg (fli1:EGFP) [Fli]	Himanshu Lajpat	7	Fli From T52+54+82	9	QU-IACUC 006/2023-AMM3		D126				Adult/Active		2.8L		T0098	29-Dec-26	Dr. Huseyin Yalcin Lab	1
+05-May-25			Zebrafish	5	Wt (AB)/(AB) Sidra	Himanshu Lajpat		AB outcross	5	QU-IACUC 006/2023-AMM3		D126				Adult/Active		2.8L		T0099	27-Oct-26	Dr. Huseyin Yalcin Lab	1
+22-Jul-25			Zebrafish	1	Tg (fli1a:eGFP) Sidra [Fli]/(fli1:EGFP) [Fli]	Himanshu Lajpat		Fli outcross	1	QU-IACUC 006/2023-AMM3		D126				Adult/Active		1.8L		T0100	13-Jan-27	Dr. Huseyin Yalcin Lab	1
+01-May-25			Zebrafish	7	Tg (gata1:dsRed) Sidra [Gata]; (AB) Sidra	Himanshu Lajpat	1	Gata x AB (Sidra)	8	QU-IACUC 006/2023-AMM3		D126				Adult/Active		1.8L		T0101	23-Oct-26	Dr. Huseyin Yalcin Lab	1
+21-Jul-25			Zebrafish		Tg (gata1:dsRed) Sidra [Gata]	Himanshu Lajpat	1	Gata (Sidra) outcross	1	QU-IACUC 006/2023-AMM3		D126				Adult/Active		1.8L		T0102	12-Jan-27	Dr. Huseyin Yalcin Lab	1
+11-Jun-25			Zebrafish	7	Wt (AB)/(AB) Sidra	Himanshu Lajpat	6	AB outcross	13	QU-IACUC 006/2023-AMM3		D126				Adult/Active		6L		T0103	03-Dec-26	Dr. Huseyin Yalcin Lab	1
+20-Jul-25		C0032	Zebrafish	2	Tg (fli1a:eGFP) Sidra [Fli]	Himanshu Lajpat	1	Fli From T72	3	QU-IACUC 006/2023-AMM3		D126				Adult/Active		3.5L		T0104	11-Jan-27	Dr. Huseyin Yalcin Lab	1
+20-Jul-25		C0033	Zebrafish	5	Tg (fli1a:eGFP) Sidra [Fli]	Himanshu Lajpat		Fli From T82	5	QU-IACUC 006/2023-AMM3		D126				Adult/Active		3.5L		T0105	11-Jan-27	Dr. Huseyin Yalcin Lab	1
+12-Aug-25			Zebrafish	14	Wt (AB)	Himanshu Lajpat		AB mix from T95 x 93	14	QU-IACUC 006/2023-AMM3		D126				Adult/Active		2.8L		T0106	03-Feb-27	Dr. Huseyin Yalcin Lab	1
+03-Jul-25		C0034	Zebrafish	3	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Himanshu Lajpat	4	Casper	7	QU-IACUC 006/2023-AMM3		D126				Adult/Active		1.8L		T0107	25-Dec-26	Dr. Huseyin Yalcin Lab	1
+03-Jul-25		C0035	Zebrafish	2	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Himanshu Lajpat	1	Casper	3	QU-IACUC 006/2023-AMM3		D126				Adult/Active		1.8L		T0108	25-Dec-26	Dr. Huseyin Yalcin Lab	1
+16-Apr-25		C0036	Zebrafish	2	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Himanshu Lajpat	1	Casper	3	QU-IACUC 006/2023-AMM3		D126				Adult/Active		1.8L		T0109	08-Oct-26	Dr. Huseyin Yalcin Lab	1
+26-Feb-25		C0037	Zebrafish	2	Tg (gata1:dsRed) Sidra [Gata]; (AB) Sidra	Himanshu Lajpat	1	GataxAB sidra	3	QU-IACUC 006/2023-AMM3		D126				Adult/Active		1.8L		T0110	20-Aug-26	Dr. Huseyin Yalcin Lab	1
+16-Jun-25		C0038	Zebrafish	10	Tg (gata1:dsRed) Sidra [Gata]	Himanshu Lajpat	7	Gata From T73	17	QU-IACUC 006/2023-AMM3		D126				Adult/Active		6L		T0111	08-Dec-26	Dr. Huseyin Yalcin Lab	1
+22-Jun-25		C0039	Zebrafish	2	Tg (gata1:dsRed) Sidra [Gata]	Himanshu Lajpat	7	Gata From T73	9	QU-IACUC 006/2023-AMM3		D126				Adult/Active		1.8L		T0112	14-Dec-26	Dr. Huseyin Yalcin Lab	1
+26-Feb-25			Zebrafish	8	Tg (gata1:dsRed) Sidra [Gata]	Himanshu Lajpat	3	Gata Mix	11	QU-IACUC 006/2023-AMM3		D126				Adult/Active		1.8L		T0113	20-Aug-26	Dr. Huseyin Yalcin Lab	1
+11-Sep-25		C0040	Zebrafish	1	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Himanshu Lajpat		Casper Pure from T69	1	QU-IACUC 006/2023-AMM3		D126				Adult/Active		1.8L		T0114	05-Mar-27	Dr. Huseyin Yalcin Lab	1
+11-Sep-25		C0040	Zebrafish	4	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB)	Himanshu Lajpat	2	Casper From T69 Hetero	6	QU-IACUC 006/2023-AMM3		D126				Adult/Active		2.8L		T0115	05-Mar-27	Dr. Huseyin Yalcin Lab	1
+11-Sep-25			Zebrafish	13	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB)	Himanshu Lajpat	4	Casper from T69	17	QU-IACUC 006/2023-AMM3		D126				Adult/Active		2.8L		T0116	05-Mar-27	Dr. Huseyin Yalcin Lab	1
+04-Sep-25		C0041	Zebrafish	9	Wt (AB); (AB) Sidra	Himanshu Lajpat	2	AB crossout	11	QU-IACUC 006/2023-AMM3		D126				Adult/Active		3.5L		T0117	26-Feb-27	Dr. Huseyin Yalcin Lab	1
+16-Jun-25		C0042	Zebrafish	19	Wt (AB); (AB) Sidra	Himanshu Lajpat	2	AB crossout	21	QU-IACUC 006/2023-AMM3		D126				Adult/Active		3.5L		T0118	08-Dec-26	Dr. Huseyin Yalcin Lab	1
+16-Sep-25			Zebrafish	3	Tg (fli1:EGFP) [Fli]	Himanshu Lajpat	2	Fli From T82	5	QU-IACUC 006/2023-AMM3		D126				Adult/Active		2.8L		T0119	10-Mar-27	Dr. Huseyin Yalcin Lab	1
+14-Oct-25		C0043	Zebrafish	5	Tg (gata1:dsRed) Sidra [Gata]	Himanshu Lajpat	4	Gata from T73/T49	9	QU-IACUC 006/2023-AMM3		D126				Adult/Active		2.8L		T0120	07-Apr-27	Dr. Huseyin Yalcin Lab	1
+03-Jul-25		C0044	Zebrafish	13	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB) Sidra	Himanshu Lajpat	2	Casper from T67/T15	15	QU-IACUC 006/2023-AMM3		D126				Adult/Active		2.8L		T0121	25-Dec-26	Dr. Huseyin Yalcin Lab	1
+11-Feb-26		C0045	Zebrafish	1	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Himanshu Lajpat	2	Cas from T77 Vs Spotted F	3	QU-IACUC 006/2023-AMM3		D126				Adult/Active		1.8L		T0122	05-Aug-27	Dr. Huseyin Yalcin Lab	1
+16-Apr-25		C0046	Zebrafish		Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Himanshu Lajpat	6	Casper from T0015/pure	6	QU-IACUC 006/2023-AMM3		D126				Adult/Active		1.8L		T0123	08-Oct-26	Dr. Huseyin Yalcin Lab	1
+12-Feb-26		C0047	Zebrafish	1	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Himanshu Lajpat		Casper from T105/pure	1	QU-IACUC 006/2023-AMM3		D126				Adult/Active		1.8L		T0124	06-Aug-27	Dr. Huseyin Yalcin Lab	1
+11-Feb-26		C0048	Zebrafish	9	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Himanshu Lajpat	9	Casper from T0115/pure	18	QU-IACUC 006/2023-AMM3		D126				Adult/Active		6L		T0125	05-Aug-27	Dr. Huseyin Yalcin Lab	1
+11-Feb-26		C0049	Zebrafish	14	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Himanshu Lajpat	1	Casper from T114/T15 pure	15	QU-IACUC 006/2023-AMM3		D126				Adult/Active		6L		T0126	05-Aug-27	Dr. Huseyin Yalcin Lab	1
+26-Jan-26		C0050	Zebrafish	4	Tg (gata1:dsRed) Sidra [Gata]; (AB) Sidra	Himanshu Lajpat	2	Gata from T101	6	QU-IACUC 006/2023-AMM3		D126				Adult/Active		3.5L		T0127	20-Jul-27	Dr. Huseyin Yalcin Lab	1
+14-Dec-25			Zebrafish	4	Wt (AB)	Himanshu Lajpat	3	AB mix T86 & T87 & T96	7	QU-IACUC 006/2023-AMM3		D126				Adult/Active		2.8L		T0128	07-Jun-27	Dr. Huseyin Yalcin Lab	1
+07-Dec-25			Zebrafish	5	Wt (AB)	Himanshu Lajpat	3	AB mix T87 & T96	10	QU-IACUC 006/2023-AMM3		D126				Adult/Active		2.8L		T0129	31-May-27	Dr. Huseyin Yalcin Lab	1
+07-Dec-25			Zebrafish		Wt (AB)	Himanshu Lajpat	10	AB mix T87 & T96	10	QU-IACUC 006/2023-AMM3		D126				Adult/Active		1.8L		T0130	31-May-27	Dr. Huseyin Yalcin Lab	1
+11-Feb-26		C0051	Zebrafish	8	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]; (AB)	Himanshu Lajpat	2	Casper from T115/T109	10	QU-IACUC 006/2023-AMM3		D126				Adult/Active		1.8L		T0131	05-Aug-27	Dr. Huseyin Yalcin Lab	1
+07-Jul-25			Zebrafish	2	Tg (fli1:EGFP) [Fli]	Himanshu Lajpat	4	Fli mix T52 & T54 & T82	6	QU-IACUC 006/2023-AMM3		D126				Adult/Active		2.8L		T0132	29-Dec-26	Dr. Huseyin Yalcin Lab	1
+24-Nov-25		C0052	Zebrafish	8	Tg (fli1a:eGFP) Sidra [Fli]	Himanshu Lajpat	3	Fli from T82	11	QU-IACUC 006/2023-AMM3		D126				Adult/Active		2.8L		T0133	18-May-27	Dr. Huseyin Yalcin Lab	1
+25-Nov-25		C0053	Zebrafish	14	Tg (gata1:dsRed) Sidra [Gata]; (AB)	Himanshu Lajpat		Gata from T101/T93 (AB)	14	QU-IACUC 006/2023-AMM3		D126				Adult/Active		2.8L		T0134	19-May-27	Dr. Huseyin Yalcin Lab	1
+29-Jun-26		C0054	Zebrafish	2	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Himanshu Lajpat	8	Casper from T126 Pure	10	QU-IACUC 006/2023-AMM3		D126				Adult/Active		3.5L		T0135	21-Dec-27	Dr. Huseyin Yalcin Lab	1
+18-Jun-26		C0055	Zebrafish	7	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Himanshu Lajpat	1	Casper from T69 (Hetero)	8	QU-IACUC 006/2023-AMM3		D126				Adult/Active		3.5L		T0136	10-Dec-27	Dr. Huseyin Yalcin Lab	1
+30-Jun-26		C0056	Zebrafish		Tg (gata1:dsRed) Sidra [Gata]	Himanshu Lajpat		Gata from T110	13	QU-IACUC 006/2023-AMM3		D126				Adult/Active		3.5L		T0137	22-Dec-27	Dr. Huseyin Yalcin Lab	1
+30-Jun-26		C0056	Zebrafish	10	Tg (gata1:dsRed) Sidra [Gata]	Himanshu Lajpat	7	Gata from T110	17	QU-IACUC 006/2023-AMM3		D126				Adult/Active		3.5L		T0138	22-Dec-27	Dr. Huseyin Yalcin Lab	1
+30-Jun-26		C0057	Zebrafish	5	Tg (gata1:dsRed) Sidra [Gata]; (AB)	Himanshu Lajpat	3	Gata Mix	8	QU-IACUC 006/2023-AMM3		D126				Adult/Active		3.5L		T0139	22-Dec-27	Dr. Huseyin Yalcin Lab	1
+06-Jul-26		C0057	Zebrafish	4	Tg (gata1:dsRed) Sidra [Gata]; (AB)	Himanshu Lajpat	3	Gata T49 (M) x Gata T73 (F)	7	QU-IACUC 006/2023-AMM3		D126				Adult/Active		3.5L		T0140	28-Dec-27	Dr. Huseyin Yalcin Lab	1
+28-Apr-26		C0058	Zebrafish	5	Tg (fli1a:eGFP) Sidra [Fli]	Himanshu Lajpat	2	Fli T105 x AB T56	7	QU-IACUC 006/2023-AMM3		D126				Adult/Active		3.5L		T0141	20-Oct-27	Dr. Huseyin Yalcin Lab	1
+16-Jun-26			Zebrafish	10	Wt (AB)	Himanshu Lajpat	6	AB Mix	16	QU-IACUC 006/2023-AMM3		D126				Adult/Active		3.5L		T0142	08-Dec-27	Dr. Huseyin Yalcin Lab	1
+16-Jun-26			Zebrafish	10	Wt (AB)	Himanshu Lajpat	6	AB Mix	16	QU-IACUC 006/2023-AMM3		D126				Adult/Active		3.5L		T0143	08-Dec-27	Dr. Huseyin Yalcin Lab	1
+16-Jun-26			Zebrafish	10	Wt (AB)	Himanshu Lajpat	6	AB Mix	16	QU-IACUC 006/2023-AMM3		D126				Adult/Active		3.5L		T0144	08-Dec-27	Dr. Huseyin Yalcin Lab	1
+16-Jun-26			Zebrafish	10	Wt (AB)	Himanshu Lajpat	6	AB Mix	16	QU-IACUC 006/2023-AMM3		D126				Adult/Active		3.5L		T0145	08-Dec-27	Dr. Huseyin Yalcin Lab	1
+18-Jun-26		C0059	Zebrafish	3	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Himanshu Lajpat	13	Casper from T121(F) vs T123(M)	16	QU-IACUC 006/2023-AMM3		D126				Adult/Active		3.5L		T0146	10-Dec-27	Dr. Huseyin Yalcin Lab	1
+18-Jun-26		C0059	Zebrafish	5	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Himanshu Lajpat	5	Casper from T121(F) vs T123(M)	10	QU-IACUC 006/2023-AMM3		D126				Adult/Active		3.5L		T0147	10-Dec-27	Dr. Huseyin Yalcin Lab	1
+18-Jun-26		C0055	Zebrafish	5	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Himanshu Lajpat	7	Casper From T69 [Het. Parents]	12	QU-IACUC 006/2023-AMM3		D126				Adult/Active		3.5L		T0148	10-Dec-27	Dr. Huseyin Yalcin Lab	1
+05-Jul-26		C0060	Zebrafish		Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Himanshu Lajpat		Casper from T108 Pure	14	QU-IACUC 006/2023-AMM3		D126				Adult/Active		3.5L		T0149	27-Dec-27	Dr. Huseyin Yalcin Lab	1
+29-Jun-26		C0054	Zebrafish	9	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Himanshu Lajpat	6	Casper from T126 Pure	15	QU-IACUC 006/2023-AMM3		D126				Adult/Active		3.5L		T0150	21-Dec-27	Dr. Huseyin Yalcin Lab	1
+05-Jul-26		C0054	Zebrafish	3	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Himanshu Lajpat	6	Casper from T126 Pure (P2)	9	QU-IACUC 006/2023-AMM3		D126				Adult/Active		3.5L		T0151	27-Dec-27	Dr. Huseyin Yalcin Lab	1
+18-Jun-26		C0055	Zebrafish	12	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Himanshu Lajpat	3	Casper from T69 [Hetero]	15	QU-IACUC 006/2023-AMM3		D126				Adult/Active		3.5L		T0152	10-Dec-27	Dr. Huseyin Yalcin Lab	1
+14-Jun-26		C0061	Zebrafish	6	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Himanshu Lajpat	5	Casper from T109 Pure	11	QU-IACUC 006/2023-AMM3		D126				Adult/Active		3.5L		T0153	06-Dec-27	Dr. Huseyin Yalcin Lab	1
+18-Jun-26		C0055	Zebrafish	12	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Himanshu Lajpat	8	Casper from T69 [Hetero] (Not Bleached)	20	QU-IACUC 006/2023-AMM3		D126				Adult/Active		8L		T0154	10-Dec-27	Dr. Huseyin Yalcin Lab	1
+16-Jun-26			Zebrafish		Wt (AB)	Himanshu Lajpat		AB Mix	22	QU-IACUC 006/2023-AMM3		D126				Adult/Active		8L		T0155	08-Dec-27	Dr. Huseyin Yalcin Lab	1
+05-Jul-26		C0054	Zebrafish		Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Himanshu Lajpat		Casper from T126 Pure (P1)	9	QU-IACUC 006/2023-AMM3		D126				Adult/Active		1.8L		T0156	27-Dec-27	Dr. Huseyin Yalcin Lab	1
+26-Apr-26		C0062	Zebrafish	8	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Himanshu Lajpat	4	Casper from T115 (Silver Parents)	12	QU-IACUC 006/2023-AMM3		D126				Adult/Active		3.5L		T0157	18-Oct-27	Dr. Huseyin Yalcin Lab	1
+26-Apr-26		C0062	Zebrafish	3	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Himanshu Lajpat	6	Casper from T115 (Silver Parents)	9	QU-IACUC 006/2023-AMM3		D126				Adult/Active		1.8L		T0158	18-Oct-27	Dr. Huseyin Yalcin Lab	1
+26-Apr-26		C0062	Zebrafish	6	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Himanshu Lajpat	3	Casper from T115 (Silver Parents)	9	QU-IACUC 006/2023-AMM3		D126				Adult/Active		1.8L		T0159	18-Oct-27	Dr. Huseyin Yalcin Lab	1
+17-May-26		C0060	Zebrafish		Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Himanshu Lajpat		Casper from T108	18	QU-IACUC 006/2023-AMM3		D126				Adult/Active		6L		T0160	08-Nov-27	Dr. Huseyin Yalcin Lab	1
+29-Jun-26		C0054	Zebrafish		Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Himanshu Lajpat		Casper from T126 Pure (3)	9	QU-IACUC 006/2023-AMM3		D126				Adult/Active		1.8L		T0161	21-Dec-27	Dr. Huseyin Yalcin Lab	1
+14-Jun-26		C0063	Zebrafish		Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Himanshu Lajpat		Casper from	5	QU-IACUC 006/2023-AMM3		D126				Adult/Active		1.8L		T0162	06-Dec-27	Dr. Huseyin Yalcin Lab	1
+17-May-26		C0061	Zebrafish		Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Himanshu Lajpat	1	Casper from T109	1	QU-IACUC 006/2023-AMM3		D126				Adult/Active		1.8L		T0163	08-Nov-27	Dr. Huseyin Yalcin Lab	1
+15-Jun-26		C0064	Zebrafish		Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Himanshu Lajpat		Casper from T122	10	QU-IACUC 006/2023-AMM3		D126				Adult/Active		3.8L		T0164	07-Dec-27	Dr. Huseyin Yalcin Lab	1
+15-Jun-26		C0060	Zebrafish		Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Himanshu Lajpat		Casper from T108	17	QU-IACUC 006/2023-AMM3		D126				Adult/Active		6L		T0165	07-Dec-27	Dr. Huseyin Yalcin Lab	1
+12-May-26		C0065	Zebrafish	8	Wt (AB)	Himanshu Lajpat	6	AB	16	QU-IACUC 006/2023-AMM3		D126				Adult/Active		2.8L		T0166	03-Nov-27	Dr. Huseyin Yalcin Lab	1
+12-May-26		C0065	Zebrafish	6	Wt (AB)	Himanshu Lajpat	3	AB	9	QU-IACUC 006/2023-AMM3		D126				Adult/Active		1.8L		T0167	03-Nov-27	Dr. Huseyin Yalcin Lab	1
+12-May-26			Zebrafish	14	Wt (AB)	Himanshu Lajpat		AB Mix	14	QU-IACUC 006/2023-AMM3		D126				Adult/Active		2.8L		T0168	03-Nov-27	Dr. Huseyin Yalcin Lab	1
+12-May-26			Zebrafish		Wt (AB)	Himanshu Lajpat		AB Mix	7	QU-IACUC 006/2023-AMM3		D126				Adult/Active		1.8L		T0169	03-Nov-27	Dr. Huseyin Yalcin Lab	1
+12-May-26			Zebrafish	8	Wt (AB)	Himanshu Lajpat	6	AB Mix	14	QU-IACUC 006/2023-AMM3		D126				Adult/Active		3.8L		T0170	03-Nov-27	Dr. Huseyin Yalcin Lab	1
+17-Aug-26		C0067	Zebrafish		Tg (fli1a:eGFP) Sidra [Fli]	Himanshu Lajpat		Fli T133 x Fli T98	22	QU-IACUC 006/2023-AMM3		D126				Juvenile(<3 months old)		6L		T0171	08-Feb-28	Dr. Huseyin Yalcin Lab	1
+12-Aug-25			Zebrafish	3	Wt (AB)	Himanshu Lajpat	1	AB mix from T95 x 93	4	QU-IACUC 006/2023-AMM3		D126				Adult/Active		1.8L		T0172	03-Feb-27	Dr. Huseyin Yalcin Lab	1
+16-Aug-26		C0068	Zebrafish		Tg (fli1a:eGFP) Sidra [Fli]	Himanshu Lajpat		Fli	6	QU-IACUC 006/2023-AMM3		D126				Juvenile(<3 months old)		1.8L		T0173	07-Feb-28	Dr. Huseyin Yalcin Lab	1
+17-Aug-26		C0069	Zebrafish		Tg (fli1a:eGFP) Sidra [Fli]	Himanshu Lajpat		Fli	8	QU-IACUC 006/2023-AMM3		D126				Juvenile(<3 months old)		1.8L		T0174	08-Feb-28	Dr. Huseyin Yalcin Lab	1
+16-Aug-26		C0070	Zebrafish		Tg (fli1a:eGFP) Sidra [Fli]	Himanshu Lajpat		Fli	9	QU-IACUC 006/2023-AMM3		D126				Juvenile(<3 months old)		1.8L		T0175	07-Feb-28	Dr. Huseyin Yalcin Lab	1
+07-Apr-26		C0070	Zebrafish	7	Tg (fli1a:eGFP) Sidra [Fli]	Himanshu Lajpat	4	Fli	11	QU-IACUC 006/2023-AMM3		D126				Adult/Active		3.8L		T0176	29-Sep-27	Dr. Huseyin Yalcin Lab	1
+07-Apr-26		C0071	Zebrafish	7	Tg (fli1a:eGFP) Sidra [Fli]	Himanshu Lajpat	4	Fli	11	QU-IACUC 006/2023-AMM3		D126				Adult/Active		3.8L		T0177	29-Sep-27	Dr. Huseyin Yalcin Lab	1
+18-Jun-26		C0055	Zebrafish		Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Himanshu Lajpat		Casper from T69 [Hetero] (1) (Not bleached)	12	QU-IACUC 006/2023-AMM3		D126				Adult/Active		3.5L		T0178	10-Dec-27	Dr. Huseyin Yalcin Lab	1
+18-Jun-26		C0055	Zebrafish	8	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Himanshu Lajpat	5	Casper from T69 [Hetero] (2)	13	QU-IACUC 006/2023-AMM3		D126				Adult/Active		3.5L		T0179	10-Dec-27	Dr. Huseyin Yalcin Lab	1
+18-Jun-26		C0055	Zebrafish	4	Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Himanshu Lajpat	3	Casper from T69 [Hetero]	7	QU-IACUC 006/2023-AMM3		D126				Adult/Active		1.8L		T0180	10-Dec-27	Dr. Huseyin Yalcin Lab	1
+18-Jun-26		C0055	Zebrafish		Mu (mitfaw2/w2; mpv17a9/a9) [Casper]	Himanshu Lajpat		Casper from T69 [Hetero] (Suspected males)	7	QU-IACUC 006/2023-AMM3		D126				Adult/Active		1.8L		T0181	10-Dec-27	Dr. Huseyin Yalcin Lab	1
+10-Aug-26		C0072	Zebrafish		Wt (AB)	Himanshu Lajpat		AB T128	28	QU-IACUC 006/2023-AMM3		D126				Juvenile(<3 months old)		6L		T0182	01-Feb-28	Dr. Huseyin Yalcin Lab	1
+10-Aug-26		C0072	Zebrafish		Wt (AB)	Himanshu Lajpat		AB T128	14	QU-IACUC 006/2023-AMM3		D126				Juvenile(<3 months old)		3.5L		T0183	01-Feb-28	Dr. Huseyin Yalcin Lab	1
+12-Aug-25			Zebrafish	2	Wt (AB)	Himanshu Lajpat	1	AB mix from T95 x 93	3	QU-IACUC 006/2023-AMM3		D126				Adult/Active		1.8L		T0184	03-Feb-27	Dr. Huseyin Yalcin Lab	1
+12-May-26		C0065	Zebrafish	11	Wt (AB)	Himanshu Lajpat		AB	11	QU-IACUC 006/2023-AMM3		D126				Adult/Active		2.8L		T0185	03-Nov-27	Dr. Huseyin Yalcin Lab	1

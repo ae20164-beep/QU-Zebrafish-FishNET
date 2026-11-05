@@ -302,18 +302,23 @@ def process():
                 tuid = tuid.upper()
                 
                 dob = get_val('DOB') or get_val('DATE OF BIRTH')
-                dod = get_val('DATE OF DEATH') or get_val('DATE_OF_DEATH')
+                dod = get_val('DATE OF DEATH') or get_val('DATE_OF_DEATH') or get_val('DATE EUTHANIZED') or get_val('DATE_EUTHANIZED')
                 derivative_cross = get_val('DERIVATIVE_CROSS') or get_val('DERVITIVE CROSS')
                 facility = get_val('FACILITY', 'Zebrafish')
                 female_str = get_val('FEMALE') or get_val('FEMALES')
                 male_str = get_val('MALE') or get_val('MALES')
                 total_str = get_val('TOTAL_FISH') or get_val('NUMBER OF FISH') or get_val('TOTAL')
                 genotype = get_val('GENOTYPE')
+                if not genotype:
+                    locus1 = get_val('LOCUS 1') or get_val('LOCUS')
+                    allele1 = get_val('LOCUS 1 ALLELE 1') or get_val('LOCUS 1 ALLELE') or get_val('ALLELE')
+                    if locus1 or allele1:
+                        genotype = f"{locus1} {allele1}".strip()
                 notes = get_val('NOTES')
                 protocol = get_val('PROTOCOL')
                 status_raw = get_val('STATUS', 'Adult/Active')
                 tank_size = get_val('TANK_SIZE') or get_val('TANK SIZE')
-                turnover_date = get_val('TURNOVER_DEADLINE') or get_val('TURNOVER DATE')
+                turnover_date = get_val('TURNOVER_DEADLINE') or get_val('TURNOVER DATE') or get_val('TURNOVER DEADLINE')
                 lab_name = get_val('LABORATORIES::LAB NAME') or get_val('LAB NAME')
                 lab_member = get_val('LAB MEMBER')
                 room = get_val('ROOM', 'D126')
@@ -425,6 +430,7 @@ def process():
                 'raw_dob': dob,
                 'dob_iso': dob_iso,
                 'dob_dt': dob_dt,
+                'dod': dod,
                 'turnover_date': turnover_date,
                 'tank_size': tank_size,
                 'protocol': protocol,
