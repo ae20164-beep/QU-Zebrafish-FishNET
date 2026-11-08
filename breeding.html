@@ -2169,12 +2169,67 @@
             return '<span class="badge badge-larvae">Juvenile</span>';
         }
 
-                // Live Cloud Data Fetching & Real-Time Sync
+                
+        // Raw Cloud Sheet Records Cache (Preserves all non-editable facility columns)
+        let cloudTankRawRecords = {};
+
+        function buildGoogleSheetsTankRows() {
+            const headers = ['TUID', 'Derivative_Cross', 'Locus 1', 'Locus 1 Allele 1', 'Notes', 'Female', 'Male', 'Total_Fish', 'Tank_Size', 'Protocol', 'DOB', 'Turnover_Deadline', 'Date Euthanized', 'Status'];
+            const rows = [headers];
+            const tuidList = Object.keys(currentTanks).sort((a,b) => {
+                const na = parseInt(a.replace(/\D/g, '')) || 0;
+                const nb = parseInt(b.replace(/\D/g, '')) || 0;
+                return na - nb;
+            });
+
+            tuidList.forEach(id => {
+                const t = currentTanks[id];
+                const raw = cloudTankRawRecords[id] || {};
+                const formattedStatus = t.status === 'Active' ? 'Adult/Active' : (t.status === 'Juvenile' ? 'Juvenile(<3 months old)' : 'Euthanized');
+                const dateEuth = t.status === 'Euthanized' ? (raw['Date Euthanized'] || t.dod || new Date().toISOString().substring(0, 10)) : '';
+
+                let locus = raw['Locus 1'] || '';
+                let allele = raw['Locus 1 Allele 1'] || '';
+                if (!locus && t.genotype) {
+                    locus = t.genotype.startsWith('Mu') ? 'Mu' : (t.genotype.startsWith('Wt') ? 'Wt' : '');
+                    allele = t.genotype.replace(/^(?:Mu|Wt)\s*/, '');
+                }
+
+                rows.push([
+                    t.tuid,
+                    raw['Derivative_Cross'] || t.derivative_cross || '',
+                    locus,
+                    allele,
+                    t.notes !== undefined ? t.notes : (raw['Notes'] || ''),
+                    (t.female !== undefined && t.female !== '' && t.female !== null) ? String(t.female) : '',
+                    (t.male !== undefined && t.male !== '' && t.male !== null) ? String(t.male) : '',
+                    String(t.total !== undefined ? t.total : 0),
+                    t.tank_size || raw['Tank_Size'] || '3.5L',
+                    raw['Protocol'] || t.protocol || 'QU-IACUC 006/2023-AMM3',
+                    raw['DOB'] || t.dob_iso || t.dob || '',
+                    raw['Turnover_Deadline'] || t.turnover_date_resolved || t.turnover_date || '',
+                    dateEuth,
+                    formattedStatus
+                ]);
+            });
+            return rows;
+        }
+
+        // Live Cloud Data Fetching & Bidirectional Sync
         function fetchLatestCloudData(isSilent = false) {
             const badge = document.getElementById('cloudStatusBadge');
             if (badge && !isSilent) {
                 badge.innerText = '🔄 Syncing Google Sheets...';
                 badge.style.color = '#fbbf24';
+            }
+
+            // Check if there are unsynced local user modifications:
+            const overrides = JSON.parse(localStorage.getItem('fishnet_user_tank_overrides') || '{}');
+            const hasLocalModifications = Object.values(overrides).some(o => o.is_user_modified);
+
+            // If user clicked Refresh Cloud and has local modifications, push them to cloud as part of the sync
+            if (!isSilent && hasLocalModifications) {
+                pushTankUpdateToCloud('BULK_SYNC', null);
             }
 
             fetch(CLOUD_API_URL)
@@ -2183,44 +2238,40 @@
                     if (resp.status === 'success' && resp.data) {
                         const cloudTanks = resp.data.tanks || [];
                         let updatedTanksCount = 0;
-                        const overrides = JSON.parse(localStorage.getItem('fishnet_user_tank_overrides') || '{}');
+                        const currentOverrides = JSON.parse(localStorage.getItem('fishnet_user_tank_overrides') || '{}');
 
                         cloudTanks.forEach(ct => {
                             const tuid = ct.TUID;
-                            if (tuid && currentTanks[tuid]) {
-                                const target = currentTanks[tuid];
-                                const rawStatus = ct.Status || ct.status;
-                                const cloudStatus = normalizeStatus(rawStatus);
-                                if (cloudStatus && cloudStatus !== target.status) {
-                                    target.status = cloudStatus;
-                                    updatedTanksCount++;
-                                    if (cloudStatus === 'Euthanized') {
-                                        target.turnover_urgency = 'EUTHANIZED';
-                                        target.days_to_turnover = null;
-                                        currentAlerts = currentAlerts.filter(a => a.tuid !== tuid);
-                                    }
-                                }
-                                if (ct.Female !== undefined && ct.Female !== '') target.female = parseInt(ct.Female) || 0;
-                                if (ct.Male !== undefined && ct.Male !== '') target.male = parseInt(ct.Male) || 0;
-                                if (ct.Total_Fish !== undefined && ct.Total_Fish !== '') target.total = parseInt(ct.Total_Fish) || (target.female + target.male);
+                            if (!tuid || !currentTanks[tuid]) return;
 
-                                // Save into overrides so it survives any cache resets
-                                overrides[tuid] = {
-                                    status: target.status,
-                                    female: target.female,
-                                    male: target.male,
-                                    total: target.total,
-                                    line: target.line,
-                                    notes: target.notes,
-                                    tank_size: target.tank_size,
-                                    dob: target.dob,
-                                    turnover_urgency: target.turnover_urgency,
-                                    updated_at: new Date().toISOString()
-                                };
+                            // Cache the raw cloud record for perfect field preservation
+                            cloudTankRawRecords[tuid] = ct;
+
+                            // 🛡️ CRITICAL PERSISTENCE RULE:
+                            // If this tank has an explicit manual user edit, NEVER overwrite it with stale cloud data!
+                            if (currentOverrides[tuid] && currentOverrides[tuid].is_user_modified) {
+                                Object.assign(currentTanks[tuid], currentOverrides[tuid]);
+                                return; // Do not overwrite user edit!
                             }
+
+                            // Otherwise, apply live cloud updates to unedited tanks
+                            const target = currentTanks[tuid];
+                            const rawStatus = ct.Status || ct.status;
+                            const cloudStatus = normalizeStatus(rawStatus);
+                            if (cloudStatus && cloudStatus !== target.status) {
+                                target.status = cloudStatus;
+                                updatedTanksCount++;
+                                if (cloudStatus === 'Euthanized') {
+                                    target.turnover_urgency = 'EUTHANIZED';
+                                    target.days_to_turnover = null;
+                                    currentAlerts = currentAlerts.filter(a => a.tuid !== tuid);
+                                }
+                            }
+                            if (ct.Female !== undefined && ct.Female !== '') target.female = parseInt(ct.Female) || 0;
+                            if (ct.Male !== undefined && ct.Male !== '') target.male = parseInt(ct.Male) || 0;
+                            if (ct.Total_Fish !== undefined && ct.Total_Fish !== '') target.total = parseInt(ct.Total_Fish) || (target.female + target.male);
                         });
 
-                        localStorage.setItem('fishnet_user_tank_overrides', JSON.stringify(overrides));
                         persistEdits();
                         recalculateAndRefreshAllTabs();
 
@@ -2230,12 +2281,15 @@
                         }
 
                         if (!isSilent) {
+                            const userModCount = Object.values(currentOverrides).filter(o => o.is_user_modified).length;
                             alert(`✔ Cloud Sync Complete!
 
-Successfully pulled real-time records from Google Sheets.
+Successfully connected to Google Sheets.
 • Tanks synced: ${cloudTanks.length}
-• Status updates applied: ${updatedTanksCount}
-All dashboard KPIs, inventory, and alerts have been recalculated!`);
+• Remote updates applied: ${updatedTanksCount}
+• User local modifications preserved: ${userModCount}
+
+All dashboard KPIs, inventory, and alerts are synchronized!`);
                         }
                     } else {
                         throw new Error(resp.message || 'Malformed API response');
@@ -2248,7 +2302,7 @@ All dashboard KPIs, inventory, and alerts have been recalculated!`);
                         badge.style.color = '#38bdf8';
                         alert(`⚠️ Cloud Sync Notice:
 
-Could not reach Google Sheets API directly from your browser (${err.message}). Local cached records are active and preserved.`);
+Could not reach Google Sheets API directly (${err.message}). Local cached records and your edits remain active and preserved.`);
                     }
                 });
         }
@@ -4510,6 +4564,7 @@ Do you want to proceed?`)) {
                     dob: t.dob,
                     turnover_urgency: t.turnover_urgency,
                     days_remaining: t.days_remaining,
+                    is_user_modified: true,
                     updated_at: new Date().toISOString()
                 };
                 localStorage.setItem('fishnet_user_tank_overrides', JSON.stringify(overrides));
@@ -4639,7 +4694,7 @@ Do you want to proceed?`)) {
             }
         }
 
-        const BUILD_VERSION = '2026-11-08-ZebraTrack-v8';
+        const BUILD_VERSION = '2026-11-08-ZebraTrack-v9';
         const CACHE_KEY_EVENTS = 'fishnet_persisted_events_' + BUILD_VERSION;
         
         function loadPersistedEdits() {
@@ -4994,32 +5049,45 @@ Do you want to proceed?`)) {
             }
         }
 
-        // Live Cloud Point Update Push (Google Sheets POST API)
+                // Live Cloud Point Update Push (Google Sheets POST API via SYNC_ALL_TANKS)
         function pushTankUpdateToCloud(tuid, tankObj) {
             if (!CLOUD_API_URL) return;
-            const payload = {
-                action: 'UPDATE_TANK',
-                tuid: tuid,
-                status: tankObj.status,
-                female: tankObj.female,
-                male: tankObj.male,
-                total: tankObj.total,
-                line: tankObj.line || '',
-                tank_size: tankObj.tank_size || '3.5L',
-                dob: tankObj.dob || '',
-                notes: tankObj.notes || '',
-                operator: 'Staff (Mobile Barcode)'
-            };
-            fetch(CLOUD_API_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
-            }).then(() => {
-                console.log('Live cloud sync push dispatched for', tuid);
-            }).catch(err => {
-                console.warn('Cloud sync error for', tuid, err);
-            });
+            const badge = document.getElementById('cloudStatusBadge');
+            if (badge) {
+                badge.innerText = '☁️ Syncing Google Sheets...';
+                badge.style.color = '#fbbf24';
+            }
+
+            try {
+                const rows = buildGoogleSheetsTankRows();
+                const payload = {
+                    action: 'SYNC_ALL_TANKS',
+                    operator: 'Staff (QU ZebraTrack Web App)',
+                    target_tuid: tuid,
+                    rows: rows
+                };
+
+                fetch(CLOUD_API_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                    body: JSON.stringify(payload)
+                }).then(() => {
+                    console.log('Live cloud sync push dispatched successfully for', tuid);
+                    if (badge) {
+                        badge.innerText = '☁️ Cloud: Google Sheets Live';
+                        badge.style.color = '#34d399';
+                    }
+                }).catch(err => {
+                    console.warn('Cloud sync error for', tuid, err);
+                    if (badge) {
+                        badge.innerText = '☁️ Cloud: Offline Cache Active';
+                        badge.style.color = '#38bdf8';
+                    }
+                });
+            } catch(err) {
+                console.warn('Error constructing cloud sync payload:', err);
+            }
         }
 
         // Master Refresh Across All 12 Active Tabs & KPI Cards

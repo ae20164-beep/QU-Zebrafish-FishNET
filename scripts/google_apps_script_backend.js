@@ -139,18 +139,27 @@ function doPost(e) {
         var updated = false;
         for (var r = 1; r < values.length; r++) {
           if (String(values[r][0]).trim().toUpperCase() === tuidTarget) {
-            // Found target row (r+1)
-            // Cols: [0:TUID, 1:Derivative_Cross, 2:Genotype, 3:Notes, 4:Line, 5:Sex_Structure, 6:Female, 7:Male, 8:Total_Fish, 9:Tank_Size, 10:Protocol, 11:DOB, 12:Turnover_Deadline, 13:Status, 14:Operator]
-            if (data.notes !== undefined) sTanks.getRange(r + 1, 4).setValue(data.notes);
-            if (data.line !== undefined) sTanks.getRange(r + 1, 5).setValue(data.line);
-            if (data.sex_type !== undefined) sTanks.getRange(r + 1, 6).setValue(data.sex_type);
-            if (data.female !== undefined) sTanks.getRange(r + 1, 7).setValue(Number(data.female) || 0);
-            if (data.male !== undefined) sTanks.getRange(r + 1, 8).setValue(Number(data.male) || 0);
-            if (data.total !== undefined) sTanks.getRange(r + 1, 9).setValue(Number(data.total) || 0);
-            if (data.tank_size !== undefined) sTanks.getRange(r + 1, 10).setValue(data.tank_size);
-            if (data.dob !== undefined) sTanks.getRange(r + 1, 12).setValue(data.dob);
-            if (data.status !== undefined) sTanks.getRange(r + 1, 14).setValue(data.status);
-            sTanks.getRange(r + 1, 15).setValue((operator || "Staff") + " [Live Update]");
+            // Actual sheet headers:
+            // [1:TUID, 2:Derivative_Cross, 3:Locus 1, 4:Locus 1 Allele 1, 5:Notes, 6:Female, 7:Male, 8:Total_Fish, 9:Tank_Size, 10:Protocol, 11:DOB, 12:Turnover_Deadline, 13:Date Euthanized, 14:Status]
+            if (data.notes !== undefined) sTanks.getRange(r + 1, 5).setValue(data.notes);
+            if (data.female !== undefined) sTanks.getRange(r + 1, 6).setValue(Number(data.female) || 0);
+            if (data.male !== undefined) sTanks.getRange(r + 1, 7).setValue(Number(data.male) || 0);
+            if (data.total !== undefined) sTanks.getRange(r + 1, 8).setValue(Number(data.total) || 0);
+            if (data.tank_size !== undefined) sTanks.getRange(r + 1, 9).setValue(data.tank_size);
+            if (data.protocol !== undefined) sTanks.getRange(r + 1, 10).setValue(data.protocol);
+            if (data.dob !== undefined) sTanks.getRange(r + 1, 11).setValue(data.dob);
+            if (data.status !== undefined) {
+              var formattedStatus = data.status;
+              if (formattedStatus === "Active") formattedStatus = "Adult/Active";
+              else if (formattedStatus === "Juvenile") formattedStatus = "Juvenile(<3 months old)";
+              sTanks.getRange(r + 1, 14).setValue(formattedStatus);
+              if (data.status === "Euthanized" && !values[r][12]) {
+                sTanks.getRange(r + 1, 13).setValue(Utilities.formatDate(now, "GMT+3", "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"));
+              }
+            }
+            if (sTanks.getLastColumn() >= 15) {
+              sTanks.getRange(r + 1, 15).setValue((operator || "Staff") + " [Live Update]");
+            }
             recordAudit(ss, operator, "UPDATE_TANK", "Updated " + tuidTarget + " -> Status: " + (data.status || "") + ", Total: " + (data.total || ""));
             updated = true;
             break;
