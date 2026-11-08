@@ -1,4 +1,4 @@
-const CACHE_NAME = 'fishnet-pwa-v2026-v1';
+const CACHE_NAME = 'zebratrack-pwa-v1';
 const CORE_ASSETS = [
   '/',
   '/index.html',

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FishNET Facility Reproductive & Colony Intelligence System</title>
+    <title>QU ZebraTrack | Facility Reproductive & Colony Intelligence System</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
     <script src="vendor/html5-qrcode.min.js"></script>
@@ -19,7 +19,7 @@
     <link rel="manifest" href="manifest.json">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="FishNET">
+    <meta name="apple-mobile-web-app-title" content="ZebraTrack">
     <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <meta name="theme-color" content="#0284c7">
@@ -825,12 +825,12 @@
     <!-- Header -->
     <header>
         <div class="header-title">
-            <h1><span>🐠</span> FishNET Facility Reproductive & Colony Intelligence System</h1>
-            <p id="headerSubtext">Unified Zebrafish Platform (2024–2026) | 183 Tanks • 2,224 Spawning Events • 1,253,907 Eggs • 71 Crosses • Live Cloud Database</p>
+            <h1><span>🦓</span> QU ZebraTrack | Facility Reproductive & Colony Intelligence System</h1>
+            <p id="headerSubtext">QU ZebraTrack Intelligence Platform (2024–2026) | 183 Tanks • 2,224 Spawning Events • 1,253,907 Eggs • 71 Crosses • Live Cloud Database</p>
         </div>
         <div class="header-controls">
             <span class="cloud-badge" id="cloudStatusBadge">🟢 Cloud: Google Sheets Live</span>
-            <button class="btn btn-outline" id="btnInstallApp" onclick="promptInstallPWA()" style="display: inline-flex; align-items: center; gap: 6px;" title="Install FishNET as a Standalone Mobile App"><span>📲</span> <span>Download App</span></button>
+            <button class="btn btn-outline" id="btnInstallApp" onclick="promptInstallPWA()" style="display: inline-flex; align-items: center; gap: 6px;" title="Install QU ZebraTrack as a Standalone Mobile App"><span>📲</span> <span>Download ZebraTrack</span></button>
             <button class="btn btn-blue" onclick="openBarcodeScanner()" style="display: inline-flex; align-items: center; gap: 6px; font-weight: bold; background: #0284c7; border-color: #0369a1;"><span style="font-size: 15px;">📷</span> Scan Tank</button>
             <button class="btn btn-outline" onclick="fetchLatestCloudData()">🔄 Refresh Cloud</button>
             <button class="btn btn-outline" onclick="resetAllLocalEdits()" title="Clear browser cache and reload official facility data">🧹 Reset Cache</button>
@@ -884,7 +884,7 @@
         <button class="tab-btn" onclick="switchTab('tab-trends')">📈 Longitudinal Trends & Climate Seasonality</button>
         <button class="tab-btn" onclick="switchTab('tab-age-curves')">🔬 Parental Age vs. Fecundity</button>
         <button class="tab-btn" onclick="switchTab('tab-scorecards')">🏆 Breeder Tank Scorecards</button>
-        <button class="tab-btn" onclick="switchTab('tab-inventory')">🐠 FishNET Inventory & Sex Structure</button>
+        <button class="tab-btn" onclick="switchTab('tab-inventory')">🦓 ZebraTrack Inventory & Sex Structure</button>
         <button class="tab-btn" onclick="switchTab('tab-planner')">🎯 Intelligent Mating Planner</button>
         <button class="tab-btn" onclick="switchTab('tab-raw-events')">📋 Master Breeding Log (2,224 Events)</button>
     </div>
@@ -1640,11 +1640,11 @@
         <div class="card">
             <div class="card-header">
                 <div>
-                    <span class="card-title">🐠 FishNET Tank Inventory & Sex Structure Explorer</span>
+                    <span class="card-title">🦓 ZebraTrack Tank Inventory & Sex Structure Explorer</span>
                     <span style="font-size: 12px; color: var(--text-secondary);">Live population inventory and sex classification</span>
                 </div>
                 <div class="card-header-actions">
-                    <button class="btn btn-sm btn-outline" onclick="exportTableToCSV('inventoryTable', 'fishnet_tank_inventory_sex_structure')">📥 Export Table (CSV)</button>
+                    <button class="btn btn-sm btn-outline" onclick="exportTableToCSV('inventoryTable', 'zebratrack_tank_inventory_sex_structure')">📥 Export Table (CSV)</button>
                 </div>
             </div>
             <div class="filter-bar" style="margin-bottom: 16px;">
@@ -1962,18 +1962,18 @@
         <div class="modal-container" onclick="event.stopPropagation()" style="max-width: 480px; width: 95%;">
             <div class="modal-header">
                 <div>
-                    <span class="modal-title">📲 Download FishNET to Mobile</span>
+                    <span class="modal-title">📲 Download ZebraTrack to Mobile</span>
                     <p style="font-size: 12px; color: var(--text-secondary); margin-top: 2px;">
-                        Install FishNET directly to your phone screen for instant, full-screen offline access.
+                        Install ZebraTrack directly to your phone screen for instant, full-screen offline access.
                     </p>
                 </div>
                 <button class="close-btn" onclick="closeInstallModal()">&times;</button>
             </div>
             <div class="modal-body" style="padding: 20px; font-size: 14px; line-height: 1.6;">
                 <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 16px; background: rgba(2, 132, 199, 0.1); padding: 12px; border-radius: 8px; border: 1px solid rgba(2, 132, 199, 0.3);">
-                    <img src="assets/icon-192.png" alt="FishNET Icon" style="width: 48px; height: 48px; border-radius: 10px;">
+                    <img src="assets/icon-192.png" alt="ZebraTrack Icon" style="width: 48px; height: 48px; border-radius: 10px;">
                     <div>
-                        <b style="color: #fff; font-size: 15px;">FishNET Intelligence App</b>
+                        <b style="color: #fff; font-size: 15px;">QU ZebraTrack App</b>
                         <div style="color: #94a3b8; font-size: 12px;">Fast, standalone facility management</div>
                     </div>
                 </div>
@@ -1981,7 +1981,7 @@
                 <div id="pwaAndroidSection" style="margin-bottom: 16px;">
                     <b style="color: #38bdf8; display: block; margin-bottom: 6px;">🤖 Android / Chrome:</b>
                     <p style="color: #cbd5e1; font-size: 13px; margin-bottom: 10px;">
-                        Tap below to install FishNET as a standalone app on your phone:
+                        Tap below to install ZebraTrack as a standalone app on your phone:
                     </p>
                     <button class="btn btn-blue" id="btnTriggerNativeInstall" onclick="triggerNativeInstall()" style="width: 100%; justify-content: center; padding: 10px; font-size: 14px;">
                         ⬇️ Install Standalone App
@@ -1993,7 +1993,7 @@
                     <ol style="color: #cbd5e1; font-size: 13px; padding-left: 20px; line-height: 1.8;">
                         <li>Tap the <b>Share</b> button in Safari (square with arrow up <span style="font-size: 15px;">📤</span> at bottom of screen).</li>
                         <li>Scroll down and tap <b>"Add to Home Screen"</b> (<span style="font-size: 15px;">➕</span>).</li>
-                        <li>Tap <b>Add</b> at top-right. FishNET will appear on your home screen like a native app!</li>
+                        <li>Tap <b>Add</b> at top-right. ZebraTrack will appear on your home screen like a native app!</li>
                     </ol>
                 </div>
             </div>
@@ -3902,7 +3902,7 @@ Could not reach Google Sheets API directly from your browser (${err.message}). L
             
             const headerSub = document.getElementById('headerSubtext');
             if (headerSub) {
-                headerSub.textContent = `Unified Zebrafish Platform (2024–2026) | ${totalTanks} Tanks • ${totalEv.toLocaleString()} Spawning Events • ${totalEggs.toLocaleString()} Eggs • ${currentCrosses.length} Crosses • Live Cloud Database`;
+                headerSub.textContent = `QU ZebraTrack Intelligence Platform (2024–2026) | ${totalTanks} Tanks • ${totalEv.toLocaleString()} Spawning Events • ${totalEggs.toLocaleString()} Eggs • ${currentCrosses.length} Crosses • Live Cloud Database`;
             }
         }
 
@@ -4627,7 +4627,7 @@ Do you want to proceed?`)) {
             }
         }
 
-        const BUILD_VERSION = '2026-11-08-PWA-v6';
+        const BUILD_VERSION = '2026-11-08-ZebraTrack-v7';
         const CACHE_KEY_EVENTS = 'fishnet_persisted_events_' + BUILD_VERSION;
         
         function loadPersistedEdits() {
@@ -4642,7 +4642,7 @@ Do you want to proceed?`)) {
                     localStorage.removeItem('fishnet_persisted_events_v2026_oct26');
                     localStorage.removeItem(CACHE_KEY_EVENTS);
                     localStorage.setItem('fishnet_build_version', BUILD_VERSION);
-                    console.log('FishNET: Updated to new official data build', BUILD_VERSION);
+                    console.log('ZebraTrack: Updated to new official data build', BUILD_VERSION);
                 }
 
                 // Apply explicit user overrides if present
@@ -4687,7 +4687,7 @@ Do you want to proceed?`)) {
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('sw.js')
-                    .then(reg => console.log('FishNET SW active:', reg.scope))
+                    .then(reg => console.log('ZebraTrack SW active:', reg.scope))
                     .catch(err => console.warn('FishNET SW registration notice:', err));
             });
         }
@@ -4704,7 +4704,7 @@ Do you want to proceed?`)) {
         });
 
         window.addEventListener('appinstalled', () => {
-            console.log('FishNET installed as standalone PWA');
+            console.log('ZebraTrack installed as standalone PWA');
             deferredInstallPrompt = null;
             const btn = document.getElementById('btnInstallApp');
             if (btn) btn.style.display = 'none';
@@ -4733,7 +4733,7 @@ Do you want to proceed?`)) {
                     deferredInstallPrompt = null;
                 });
             } else {
-                alert('FishNET can be installed from your browser menu: tap the browser menu (⋮ or Share) and choose "Install App" or "Add to Home Screen".');
+                alert('ZebraTrack can be installed from your browser menu: tap the browser menu (⋮ or Share) and choose "Install App" or "Add to Home Screen".');
             }
         }
 
