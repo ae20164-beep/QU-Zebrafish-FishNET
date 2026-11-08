@@ -131,6 +131,35 @@ function doPost(e) {
         operator
       ]);
       recordAudit(ss, operator, "CROSS", "Created cross " + (data.cuid || nextC));
+    } else if (action === "UPDATE_TANK") {
+      var sTanks = ss.getSheetByName("Tanks");
+      if (sTanks) {
+        var values = sTanks.getDataRange().getValues();
+        var tuidTarget = String(data.tuid || "").trim().toUpperCase();
+        var updated = false;
+        for (var r = 1; r < values.length; r++) {
+          if (String(values[r][0]).trim().toUpperCase() === tuidTarget) {
+            // Found target row (r+1)
+            // Cols: [0:TUID, 1:Derivative_Cross, 2:Genotype, 3:Notes, 4:Line, 5:Sex_Structure, 6:Female, 7:Male, 8:Total_Fish, 9:Tank_Size, 10:Protocol, 11:DOB, 12:Turnover_Deadline, 13:Status, 14:Operator]
+            if (data.notes !== undefined) sTanks.getRange(r + 1, 4).setValue(data.notes);
+            if (data.line !== undefined) sTanks.getRange(r + 1, 5).setValue(data.line);
+            if (data.sex_type !== undefined) sTanks.getRange(r + 1, 6).setValue(data.sex_type);
+            if (data.female !== undefined) sTanks.getRange(r + 1, 7).setValue(Number(data.female) || 0);
+            if (data.male !== undefined) sTanks.getRange(r + 1, 8).setValue(Number(data.male) || 0);
+            if (data.total !== undefined) sTanks.getRange(r + 1, 9).setValue(Number(data.total) || 0);
+            if (data.tank_size !== undefined) sTanks.getRange(r + 1, 10).setValue(data.tank_size);
+            if (data.dob !== undefined) sTanks.getRange(r + 1, 12).setValue(data.dob);
+            if (data.status !== undefined) sTanks.getRange(r + 1, 14).setValue(data.status);
+            sTanks.getRange(r + 1, 15).setValue((operator || "Staff") + " [Live Update]");
+            recordAudit(ss, operator, "UPDATE_TANK", "Updated " + tuidTarget + " -> Status: " + (data.status || "") + ", Total: " + (data.total || ""));
+            updated = true;
+            break;
+          }
+        }
+        if (!updated) {
+          recordAudit(ss, operator, "UPDATE_TANK_WARN", "Target tank " + tuidTarget + " not found on sheet");
+        }
+      }
     }
 
     return ContentService.createTextOutput(JSON.stringify({ status: "success" }))

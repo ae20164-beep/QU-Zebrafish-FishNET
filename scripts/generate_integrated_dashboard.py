@@ -20,6 +20,14 @@ def generate_dashboard():
     <title>FishNET Facility Reproductive & Colony Intelligence System</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <script src="vendor/html5-qrcode.min.js"></script>
+    <script>
+        if (typeof Html5Qrcode === 'undefined') {
+            const cdnScript = document.createElement('script');
+            cdnScript.src = 'https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js';
+            document.head.appendChild(cdnScript);
+        }
+    </script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -672,6 +680,90 @@ def generate_dashboard():
             color: var(--text-secondary);
         }
 
+        /* Mobile Floating Barcode Scanner Action Button (FAB) */
+        .fab-scanner {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 999;
+            background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 50px;
+            padding: 12px 22px;
+            font-size: 14px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 10px 25px -5px rgba(2, 132, 199, 0.5), 0 8px 10px -6px rgba(2, 132, 199, 0.3);
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .fab-scanner:hover {
+            transform: translateY(-2px) scale(1.03);
+            box-shadow: 0 14px 28px -5px rgba(2, 132, 199, 0.6);
+        }
+        @media (max-width: 640px) {
+            .fab-scanner-text { display: none; }
+            .fab-scanner { padding: 14px; border-radius: 50%; bottom: 20px; right: 20px; width: 54px; height: 54px; justify-content: center; }
+        }
+
+        /* Scanner Modal & Reticle */
+        .scanner-viewfinder-box {
+            position: relative;
+            width: 100%;
+            min-height: 280px;
+            background: #0f172a;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid #334155;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #barcodeScannerReader {
+            width: 100% !important;
+            border: none !important;
+        }
+        #barcodeScannerReader video {
+            width: 100% !important;
+            height: auto !important;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+        #barcodeScannerReader__scan_region {
+            background: transparent !important;
+        }
+        .scanner-reticle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            max-width: 280px;
+            height: 140px;
+            pointer-events: none;
+            border: 2px dashed rgba(56, 189, 248, 0.85);
+            border-radius: 8px;
+            box-shadow: 0 0 0 9999px rgba(15, 23, 42, 0.5);
+            z-index: 10;
+        }
+        .scanner-reticle .reticle-line {
+            position: absolute;
+            left: 4px;
+            right: 4px;
+            height: 2px;
+            background: #38bdf8;
+            box-shadow: 0 0 10px #38bdf8;
+            animation: scanLineAnim 2s infinite ease-in-out;
+        }
+        @keyframes scanLineAnim {
+            0% { top: 5%; opacity: 0.8; }
+            50% { top: 95%; opacity: 1; }
+            100% { top: 5%; opacity: 0.8; }
+        }
+
         /* Modal */
         .modal-overlay {
             position: fixed;
@@ -744,6 +836,7 @@ def generate_dashboard():
         </div>
         <div class="header-controls">
             <span class="cloud-badge" id="cloudStatusBadge">🟢 Cloud: Google Sheets Live</span>
+            <button class="btn btn-blue" onclick="openBarcodeScanner()" style="display: inline-flex; align-items: center; gap: 6px; font-weight: bold; background: #0284c7; border-color: #0369a1;"><span style="font-size: 15px;">📷</span> Scan Tank</button>
             <button class="btn btn-outline" onclick="fetchLatestCloudData()">🔄 Refresh Cloud</button>
             <button class="btn btn-outline" onclick="resetAllLocalEdits()" title="Clear browser cache and reload official facility data">🧹 Reset Cache</button>
             <button class="btn btn-outline" onclick="exportBreedingJSON()">💾 Export JSON</button>
@@ -1594,6 +1687,9 @@ def generate_dashboard():
                 <div class="filter-group">
                     <input type="text" id="invSearch" placeholder="Search TUID, Cross, Genotype, Notes..." oninput="renderInventory()">
                 </div>
+                <div class="filter-group">
+                    <button class="btn btn-blue" onclick="openBarcodeScanner()" style="display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; font-size: 13px;"><span style="font-size: 14px;">📷</span> Scan Barcode</button>
+                </div>
             </div>
             <div class="table-responsive">
                 <table id="inventoryTable">
@@ -1808,6 +1904,69 @@ def generate_dashboard():
             </div>
         </div>
     </div>
+
+    <!-- MODAL: MOBILE CAMERA BARCODE SCANNER -->
+    <div id="modalBarcodeScanner" class="modal-overlay" onclick="closeBarcodeModal(event)">
+        <div class="modal-container" onclick="event.stopPropagation()" style="max-width: 520px; width: 95%;">
+            <div class="modal-header">
+                <div>
+                    <span class="modal-title">📷 Scan Tank Barcode</span>
+                    <p style="font-size: 12px; color: var(--text-secondary); margin-top: 2px;">
+                        Point your mobile camera at any tank label barcode or QR code.
+                    </p>
+                </div>
+                <button class="close-btn" onclick="closeBarcodeModal()">&times;</button>
+            </div>
+            <div class="modal-body" style="padding: 16px; text-align: center;">
+                <!-- Camera Viewfinder -->
+                <div class="scanner-viewfinder-box">
+                    <div id="barcodeScannerReader"></div>
+                    <div id="scannerReticle" class="scanner-reticle">
+                        <div class="reticle-line"></div>
+                    </div>
+                </div>
+
+                <!-- Status / Feedback Message -->
+                <div id="scannerStatusMsg" style="margin-top: 12px; font-size: 13px; color: #94a3b8; min-height: 24px;">
+                    Align barcode within the target box
+                </div>
+
+                <!-- Scanner Controls (Torch / Camera Switch) -->
+                <div style="display: flex; justify-content: center; gap: 10px; margin-top: 10px;">
+                    <button type="button" id="btnScannerTorch" class="btn btn-outline" onclick="toggleScannerTorch()" style="display: none; font-size: 12px; padding: 6px 12px;">
+                        🔦 Flashlight
+                    </button>
+                    <button type="button" id="btnSwitchCamera" class="btn btn-outline" onclick="switchScannerCamera()" style="display: none; font-size: 12px; padding: 6px 12px;">
+                        🔄 Flip Camera
+                    </button>
+                </div>
+
+                <!-- Manual Fallback Input -->
+                <div style="margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border-color); text-align: left;">
+                    <label style="font-size: 12px; font-weight: 600; color: var(--text-secondary); display: block; margin-bottom: 6px;">
+                        Or Enter / Scan Tank ID Manually:
+                    </label>
+                    <div style="display: flex; gap: 8px;">
+                        <input type="text" id="manualScannerInput" placeholder="e.g. T0056, 56, T185..." 
+                               style="flex: 1; padding: 8px 12px; background: rgba(255,255,255,0.06); border: 1px solid var(--border-color); border-radius: 6px; color: #fff; font-size: 14px;"
+                               onkeydown="if(event.key === 'Enter') { event.preventDefault(); submitManualScan(); }">
+                        <button type="button" class="btn btn-blue" onclick="submitManualScan()" style="padding: 8px 16px;">
+                            Open Tank
+                        </button>
+                    </div>
+                    <span style="font-size: 11px; color: var(--text-muted); margin-top: 4px; display: block;">
+                        Compatible with handheld Bluetooth/USB barcode scanners.
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MOBILE FLOATING BARCODE SCANNER BUTTON -->
+    <button id="fabScanTank" class="fab-scanner" onclick="openBarcodeScanner()" title="Scan Tank Barcode on Mobile">
+        <span style="font-size: 20px;">📷</span>
+        <span class="fab-scanner-text">Scan Tank</span>
+    </button>
 
     <script>
         const CLOUD_API_URL = 'https://script.google.com/macros/s/AKfycbyU-4YKpnXEp_CXI2mu2Xb-DFo1fcIbt_qk9AWtXoPsj5CnDYmJ1XiZni1jl2Tce3df/exec';
@@ -3993,15 +4152,15 @@ def generate_dashboard():
             currentEditTargetId = null;
         }
 
-        function openEditTankModal(tuid) {
+        function openEditTankModal(tuid, fromScan = false) {
             const t = currentTanks[tuid];
             if (!t) return;
             currentEditMode = 'tank';
             currentEditTargetId = tuid;
             clearValidationAlert();
 
-            document.getElementById('editModalTitle').innerText = `✏️ Edit Tank ${tuid} [${t.line}]`;
-            document.getElementById('editModalSubtitle').innerText = `Update line, sex distribution, DOB, or tank size. Validation rules enforce welfare and breeding compatibility.`;
+            document.getElementById('editModalTitle').innerHTML = `🛠 Edit Tank ${tuid} [${t.line}] ${fromScan ? '<span style="font-size: 11px; background: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); padding: 2px 8px; border-radius: 4px; margin-left: 8px;">📷 Scanned via Barcode</span>' : ''}`;
+            document.getElementById('editModalSubtitle').innerText = fromScan ? 'Physical label barcode decoded successfully. Update tank details or status below.' : 'Update line, sex distribution, DOB, or tank size. Validation rules enforce welfare and breeding compatibility.';
 
             const formContent = document.getElementById('editFormContent');
             formContent.innerHTML = `
@@ -4270,17 +4429,31 @@ def generate_dashboard():
                 else t.turnover_urgency = 'FUTURE (>90d)';
             }
 
-            persistEdits();
+            // Preserve explicit user override across builds & browser sessions
+            try {
+                const overrides = JSON.parse(localStorage.getItem('fishnet_user_tank_overrides') || '{}');
+                overrides[tuid] = {
+                    status: t.status,
+                    female: t.female,
+                    male: t.male,
+                    total: t.total,
+                    line: t.line,
+                    notes: t.notes,
+                    tank_size: t.tank_size,
+                    dob: t.dob,
+                    turnover_urgency: t.turnover_urgency,
+                    days_remaining: t.days_remaining,
+                    updated_at: new Date().toISOString()
+                };
+                localStorage.setItem('fishnet_user_tank_overrides', JSON.stringify(overrides));
+            } catch(e) { console.warn('Overrides save error:', e); }
 
-            renderInventory();
-            renderScorecards();
-            renderTurnoverTable();
-            calculatePlanner();
-            renderBenchmarks();
-            populateFocalDropdown();
+            persistEdits();
+            recalculateAndRefreshAllTabs();
+            pushTankUpdateToCloud(tuid, t);
 
             closeEditModal();
-            alert(`✅ Tank ${tuid} updated and synchronized across all modules!`);
+            alert(`✔ Tank ${tuid} updated and synchronized across all 12 modules & cloud!`);
         }
 
         function saveCrossEdit() {
@@ -4399,7 +4572,7 @@ def generate_dashboard():
             }
         }
 
-        const BUILD_VERSION = '2026-11-05-Tanks-v4';
+        const BUILD_VERSION = '2026-11-08-BarcodeScanner-v5';
         const CACHE_KEY_EVENTS = 'fishnet_persisted_events_' + BUILD_VERSION;
         
         function loadPersistedEdits() {
@@ -4451,9 +4624,10 @@ def generate_dashboard():
         }
 
         function closeModal(e) {
-            if (!e || e.target.id === 'tankModal' || e.target.id === 'modalEditRow' || e.target.className === 'close-btn') {
+            if (!e || e.target.id === 'tankModal' || e.target.id === 'modalEditRow' || e.target.id === 'modalBarcodeScanner' || e.target.className === 'close-btn') {
                 if (document.getElementById('tankModal')) document.getElementById('tankModal').style.display = 'none';
                 if (document.getElementById('modalEditRow')) document.getElementById('modalEditRow').style.display = 'none';
+                if (document.getElementById('modalBarcodeScanner')) closeBarcodeModal();
             }
         }
 
@@ -4479,6 +4653,259 @@ def generate_dashboard():
             else if (tabId === 'tab-inventory') renderInventory();
             else if (tabId === 'tab-planner') calculatePlanner();
             else if (tabId === 'tab-raw-events') renderRawEvents();
+        }
+
+
+        // ==========================================
+        // 📷 MOBILE BARCODE SCANNER CONTROLLER
+        // ==========================================
+        let html5QrScannerInstance = null;
+        let isTorchOn = false;
+        let currentCameraFacing = "environment";
+
+        function triggerScanFeedback() {
+            if (navigator.vibrate) {
+                try { navigator.vibrate([70, 30, 70]); } catch(e) {}
+            }
+            try {
+                const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                if (AudioCtx) {
+                    const ctx = new AudioCtx();
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(880, ctx.currentTime);
+                    gain.gain.setValueAtTime(0.15, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.15);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start();
+                    osc.stop(ctx.currentTime + 0.15);
+                }
+            } catch(e) {}
+        }
+
+        function normalizeScannedBarcode(raw) {
+            if (!raw) return null;
+            let text = String(raw).trim();
+            if (text.includes('?') || text.includes('#') || text.includes('/')) {
+                const match = text.match(/[?&](?:tank|id)=([A-Za-z0-9_-]+)/i);
+                if (match && match[1]) text = match[1];
+                else {
+                    const parts = text.split(/[\/?#]/).filter(p => p.length > 0);
+                    if (parts.length > 0) text = parts[parts.length - 1];
+                }
+            }
+            const clean = text.toUpperCase().replace(/^(?:TANK|QU)[\s:_#-]*/, '').replace(/[\s\-_:]/g, '');
+            if (currentTanks[clean]) return clean;
+            
+            const matchT = clean.match(/^T0*(\d+)$/);
+            if (matchT) {
+                const fmt = 'T' + String(parseInt(matchT[1], 10)).padStart(4, '0');
+                if (currentTanks[fmt]) return fmt;
+            }
+            
+            const matchNum = clean.match(/^0*(\d+)$/);
+            if (matchNum) {
+                const fmt = 'T' + String(parseInt(matchNum[1], 10)).padStart(4, '0');
+                if (currentTanks[fmt]) return fmt;
+            }
+            
+            for (const [k, t] of Object.entries(currentTanks)) {
+                if (k.toLowerCase() === text.toLowerCase()) return k;
+                if (t.tuid && t.tuid.toLowerCase() === text.toLowerCase()) return t.tuid;
+            }
+            return null;
+        }
+
+        function openBarcodeScanner() {
+            const modal = document.getElementById('modalBarcodeScanner');
+            if (!modal) return;
+            modal.style.display = 'flex';
+            document.getElementById('scannerStatusMsg').innerHTML = '<span style="color: #38bdf8;">Initializing camera stream...</span>';
+            const manualInp = document.getElementById('manualScannerInput');
+            if (manualInp) manualInp.value = '';
+
+            setTimeout(() => {
+                startScanner();
+            }, 150);
+        }
+
+        function startScanner() {
+            if (typeof Html5Qrcode === 'undefined') {
+                document.getElementById('scannerStatusMsg').innerHTML = '<span style="color: #fb7185;">Scanner engine loading... please wait a moment or enter Tank ID below.</span>';
+                return;
+            }
+
+            if (html5QrScannerInstance) {
+                stopBarcodeScanner(() => initScannerInstance());
+            } else {
+                initScannerInstance();
+            }
+        }
+
+        function initScannerInstance() {
+            const qrboxFunction = function(viewfinderWidth, viewfinderHeight) {
+                const qrboxWidth = Math.floor(viewfinderWidth * 0.85);
+                const qrboxHeight = Math.floor(Math.min(qrboxWidth * 0.55, 180));
+                return { width: Math.max(qrboxWidth, 240), height: Math.max(qrboxHeight, 140) };
+            };
+
+            html5QrScannerInstance = new Html5Qrcode("barcodeScannerReader");
+
+            const config = {
+                fps: 20,
+                qrbox: qrboxFunction,
+                aspectRatio: 1.0,
+                formatsToSupport: [
+                    Html5QrcodeSupportedFormats.CODE_128,
+                    Html5QrcodeSupportedFormats.CODE_39,
+                    Html5QrcodeSupportedFormats.EAN_13,
+                    Html5QrcodeSupportedFormats.UPC_A,
+                    Html5QrcodeSupportedFormats.UPC_E,
+                    Html5QrcodeSupportedFormats.QR_CODE,
+                    Html5QrcodeSupportedFormats.DATA_MATRIX
+                ]
+            };
+
+            html5QrScannerInstance.start(
+                { facingMode: currentCameraFacing },
+                config,
+                onBarcodeScanSuccess,
+                onBarcodeScanFailure
+            ).then(() => {
+                document.getElementById('scannerStatusMsg').innerHTML = '<span style="color: #34d399;">📷 Camera active. Align barcode inside box.</span>';
+                try {
+                    const track = html5QrScannerInstance.getRunningTrackCameraCapabilities();
+                    if (track && track.torchFeature && track.torchFeature().isSupported()) {
+                        document.getElementById('btnScannerTorch').style.display = 'inline-flex';
+                    }
+                } catch(e) {}
+            }).catch(err => {
+                console.warn('Camera stream error:', err);
+                document.getElementById('scannerStatusMsg').innerHTML = `<span style="color: #fb7185;">Camera notice: ${err}. Please allow camera access or use manual input below.</span>`;
+            });
+        }
+
+        function onBarcodeScanSuccess(decodedText, decodedResult) {
+            console.log("Barcode scanned:", decodedText);
+            triggerScanFeedback();
+            
+            const matchedTuid = normalizeScannedBarcode(decodedText);
+            if (matchedTuid && currentTanks[matchedTuid]) {
+                document.getElementById('scannerStatusMsg').innerHTML = `<span style="color: #34d399; font-weight: bold;">✔ Found Tank ${matchedTuid}! Opening details...</span>`;
+                stopBarcodeScanner(() => {
+                    closeBarcodeModal();
+                    openEditTankModal(matchedTuid, true);
+                });
+            } else {
+                document.getElementById('scannerStatusMsg').innerHTML = `<span style="color: #fb7185;">Scanned "${decodedText}", but no matching Tank found in facility database.</span>`;
+            }
+        }
+
+        function onBarcodeScanFailure(error) {
+            // Ignore normal per-frame scan misses
+        }
+
+        function stopBarcodeScanner(callback) {
+            if (html5QrScannerInstance) {
+                html5QrScannerInstance.stop().then(() => {
+                    html5QrScannerInstance.clear();
+                    html5QrScannerInstance = null;
+                    if (callback) callback();
+                }).catch(err => {
+                    console.warn("Stop scanner error:", err);
+                    html5QrScannerInstance = null;
+                    if (callback) callback();
+                });
+            } else if (callback) {
+                callback();
+            }
+        }
+
+        function closeBarcodeModal(event) {
+            stopBarcodeScanner();
+            const modal = document.getElementById('modalBarcodeScanner');
+            if (modal) modal.style.display = 'none';
+        }
+
+        function toggleScannerTorch() {
+            if (!html5QrScannerInstance) return;
+            try {
+                const track = html5QrScannerInstance.getRunningTrackCameraCapabilities();
+                if (track && track.torchFeature && track.torchFeature().isSupported()) {
+                    isTorchOn = !isTorchOn;
+                    track.torchFeature().apply(isTorchOn);
+                    document.getElementById('btnScannerTorch').innerText = isTorchOn ? '🔦 Torch ON' : '🔦 Flashlight';
+                }
+            } catch(e) {
+                console.warn('Torch toggle error:', e);
+            }
+        }
+
+        function switchScannerCamera() {
+            currentCameraFacing = currentCameraFacing === "environment" ? "user" : "environment";
+            startScanner();
+        }
+
+        function submitManualScan() {
+            const val = document.getElementById('manualScannerInput').value.trim();
+            if (!val) return;
+            const matchedTuid = normalizeScannedBarcode(val);
+            if (matchedTuid && currentTanks[matchedTuid]) {
+                stopBarcodeScanner(() => {
+                    closeBarcodeModal();
+                    openEditTankModal(matchedTuid, false);
+                });
+            } else {
+                document.getElementById('scannerStatusMsg').innerHTML = `<span style="color: #fb7185;">Tank "${val}" not found in facility database.</span>`;
+            }
+        }
+
+        // Live Cloud Point Update Push (Google Sheets POST API)
+        function pushTankUpdateToCloud(tuid, tankObj) {
+            if (!CLOUD_API_URL) return;
+            const payload = {
+                action: 'UPDATE_TANK',
+                tuid: tuid,
+                status: tankObj.status,
+                female: tankObj.female,
+                male: tankObj.male,
+                total: tankObj.total,
+                line: tankObj.line || '',
+                tank_size: tankObj.tank_size || '3.5L',
+                dob: tankObj.dob || '',
+                notes: tankObj.notes || '',
+                operator: 'Staff (Mobile Barcode)'
+            };
+            fetch(CLOUD_API_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            }).then(() => {
+                console.log('Live cloud sync push dispatched for', tuid);
+            }).catch(err => {
+                console.warn('Cloud sync error for', tuid, err);
+            });
+        }
+
+        // Master Refresh Across All 12 Active Tabs & KPI Cards
+        function recalculateAndRefreshAllTabs() {
+            updateGlobalKPICards();
+            renderBenchmarks();
+            populateFocalDropdown();
+            renderFocalPedigreeTree();
+            renderTurnoverTable();
+            renderCrossesRegistry();
+            renderColonyAlerts();
+            renderCrosses();
+            renderTrends();
+            renderAgeCurves();
+            renderScorecards();
+            renderInventory();
+            calculatePlanner();
+            renderRawEvents();
         }
 
         window.onload = function() {
