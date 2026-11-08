@@ -839,7 +839,7 @@ def generate_dashboard():
     <!-- Header -->
     <header>
         <div class="header-title">
-            <h1><span>🦓</span> QU ZebraTrack | Facility Reproductive & Colony Intelligence System</h1>
+            <h1><span>🐟</span> QU ZebraTrack | Facility Reproductive & Colony Intelligence System</h1>
             <p id="headerSubtext">QU ZebraTrack Intelligence Platform (2024–2026) | 183 Tanks • 2,224 Spawning Events • 1,253,907 Eggs • 71 Crosses • Live Cloud Database</p>
         </div>
         <div class="header-controls">
@@ -847,7 +847,7 @@ def generate_dashboard():
             <button class="btn btn-outline" id="btnInstallApp" onclick="promptInstallPWA()" style="display: inline-flex; align-items: center; gap: 6px;" title="Install QU ZebraTrack as a Standalone Mobile App"><span>📲</span> <span>Download ZebraTrack</span></button>
             <button class="btn btn-blue" onclick="openBarcodeScanner()" style="display: inline-flex; align-items: center; gap: 6px; font-weight: bold; background: #0284c7; border-color: #0369a1;"><span style="font-size: 15px;">📷</span> Scan Tank</button>
             <button class="btn btn-outline" onclick="fetchLatestCloudData()">🔄 Refresh Cloud</button>
-            <button class="btn btn-outline" onclick="resetAllLocalEdits()" title="Clear browser cache and reload official facility data">🧹 Reset Cache</button>
+            <button class="btn btn-outline" onclick="resetAllLocalEdits()" title="Reload fresh web code from server. Your manual tank edits and overrides will be safely preserved.">🧹 Purge Web Cache</button>
             <button class="btn btn-outline" onclick="exportBreedingJSON()">💾 Export JSON</button>
             <button class="btn btn-outline" onclick="exportBreedingCSV()">📥 Export Master CSV</button>
         </div>
@@ -898,7 +898,7 @@ def generate_dashboard():
         <button class="tab-btn" onclick="switchTab('tab-trends')">📈 Longitudinal Trends & Climate Seasonality</button>
         <button class="tab-btn" onclick="switchTab('tab-age-curves')">🔬 Parental Age vs. Fecundity</button>
         <button class="tab-btn" onclick="switchTab('tab-scorecards')">🏆 Breeder Tank Scorecards</button>
-        <button class="tab-btn" onclick="switchTab('tab-inventory')">🦓 ZebraTrack Inventory & Sex Structure</button>
+        <button class="tab-btn" onclick="switchTab('tab-inventory')">🐟 ZebraTrack Inventory & Sex Structure</button>
         <button class="tab-btn" onclick="switchTab('tab-planner')">🎯 Intelligent Mating Planner</button>
         <button class="tab-btn" onclick="switchTab('tab-raw-events')">📋 Master Breeding Log (2,224 Events)</button>
     </div>
@@ -1654,7 +1654,7 @@ def generate_dashboard():
         <div class="card">
             <div class="card-header">
                 <div>
-                    <span class="card-title">🦓 ZebraTrack Tank Inventory & Sex Structure Explorer</span>
+                    <span class="card-title">🐟 ZebraTrack Tank Inventory & Sex Structure Explorer</span>
                     <span style="font-size: 12px; color: var(--text-secondary);">Live population inventory and sex classification</span>
                 </div>
                 <div class="card-header-actions">
@@ -2183,10 +2183,10 @@ def generate_dashboard():
             return '<span class="badge badge-larvae">Juvenile</span>';
         }
 
-        // Live Cloud Data Fetching & Real-Time Sync
-        function fetchLatestCloudData() {
+                // Live Cloud Data Fetching & Real-Time Sync
+        function fetchLatestCloudData(isSilent = false) {
             const badge = document.getElementById('cloudStatusBadge');
-            if (badge) {
+            if (badge && !isSilent) {
                 badge.innerText = '🔄 Syncing Google Sheets...';
                 badge.style.color = '#fbbf24';
             }
@@ -2197,6 +2197,7 @@ def generate_dashboard():
                     if (resp.status === 'success' && resp.data) {
                         const cloudTanks = resp.data.tanks || [];
                         let updatedTanksCount = 0;
+                        const overrides = JSON.parse(localStorage.getItem('fishnet_user_tank_overrides') || '{}');
 
                         cloudTanks.forEach(ct => {
                             const tuid = ct.TUID;
@@ -2216,36 +2217,53 @@ def generate_dashboard():
                                 if (ct.Female !== undefined && ct.Female !== '') target.female = parseInt(ct.Female) || 0;
                                 if (ct.Male !== undefined && ct.Male !== '') target.male = parseInt(ct.Male) || 0;
                                 if (ct.Total_Fish !== undefined && ct.Total_Fish !== '') target.total = parseInt(ct.Total_Fish) || (target.female + target.male);
+
+                                // Save into overrides so it survives any cache resets
+                                overrides[tuid] = {
+                                    status: target.status,
+                                    female: target.female,
+                                    male: target.male,
+                                    total: target.total,
+                                    line: target.line,
+                                    notes: target.notes,
+                                    tank_size: target.tank_size,
+                                    dob: target.dob,
+                                    turnover_urgency: target.turnover_urgency,
+                                    updated_at: new Date().toISOString()
+                                };
                             }
                         });
 
+                        localStorage.setItem('fishnet_user_tank_overrides', JSON.stringify(overrides));
                         persistEdits();
-
-                        updateGlobalKPICards();
-                        renderBenchmarks();
-                        renderTurnoverTable();
-                        renderColonyAlerts();
-                        renderInventory();
-                        renderScorecards();
-                        calculatePlanner();
+                        recalculateAndRefreshAllTabs();
 
                         if (badge) {
-                            badge.innerText = '🟢 Cloud: Google Sheets Live';
+                            badge.innerText = '☁️ Cloud: Google Sheets Live';
                             badge.style.color = '#34d399';
                         }
 
-                        alert(`✅ Cloud Sync Complete!\n\nSuccessfully pulled real-time records from Google Sheets.\n• Tanks synced: ${cloudTanks.length}\n• Status updates applied: ${updatedTanksCount}\nAll dashboard KPIs, inventory, and alerts have been recalculated!`);
+                        if (!isSilent) {
+                            alert(`✔ Cloud Sync Complete!
+
+Successfully pulled real-time records from Google Sheets.
+• Tanks synced: ${cloudTanks.length}
+• Status updates applied: ${updatedTanksCount}
+All dashboard KPIs, inventory, and alerts have been recalculated!`);
+                        }
                     } else {
                         throw new Error(resp.message || 'Malformed API response');
                     }
                 })
                 .catch(err => {
                     console.warn('Cloud sync error:', err);
-                    if (badge) {
-                        badge.innerText = '🟢 Cloud Ready (Offline Cache)';
+                    if (badge && !isSilent) {
+                        badge.innerText = '☁️ Cloud Ready (Offline Cache)';
                         badge.style.color = '#38bdf8';
+                        alert(`⚠️ Cloud Sync Notice:
+
+Could not reach Google Sheets API directly from your browser (${err.message}). Local cached records are active and preserved.`);
                     }
-                    alert(`⚠️ Cloud Sync Notice:\n\nCould not reach Google Sheets API directly from your browser (${err.message}). Local cached records are active and preserved.`);
                 });
         }
 
@@ -3574,6 +3592,7 @@ def generate_dashboard():
             if (input) {
                 input.value = target;
                 calculatePlanner();
+
             }
         }
 
@@ -4624,7 +4643,7 @@ def generate_dashboard():
             }
         }
 
-        const BUILD_VERSION = '2026-11-08-ZebraTrack-v7';
+        const BUILD_VERSION = '2026-11-08-ZebraTrack-v8';
         const CACHE_KEY_EVENTS = 'fishnet_persisted_events_' + BUILD_VERSION;
         
         function loadPersistedEdits() {
@@ -4663,14 +4682,29 @@ def generate_dashboard():
         }
 
         function resetAllLocalEdits() {
-            if (confirm('Reset to official facility data and clear local browser cache?')) {
+            if (confirm('Clear web cache and reload ZebraTrack? (Your saved tank edits will be preserved).')) {
+                if ('caches' in window) {
+                    caches.keys().then(names => {
+                        names.forEach(name => caches.delete(name));
+                    });
+                }
                 localStorage.removeItem('fishnet_persisted_tanks');
                 localStorage.removeItem('fishnet_persisted_crosses');
                 localStorage.removeItem('fishnet_persisted_events');
-                localStorage.removeItem('fishnet_user_tank_overrides');
+                // NOTE: fishnet_user_tank_overrides is PRESERVED so your edits are never lost!
                 localStorage.removeItem('fishnet_persisted_events_v2026_oct26');
                 localStorage.removeItem(CACHE_KEY_EVENTS);
                 localStorage.removeItem('fishnet_build_version');
+                location.reload(true);
+            }
+        }
+
+        function discardAllUserOverrides() {
+            if (confirm('CAUTION: Discard all manual tank edits and revert to official facility records?')) {
+                localStorage.removeItem('fishnet_user_tank_overrides');
+                localStorage.removeItem('fishnet_persisted_tanks');
+                localStorage.removeItem('fishnet_persisted_crosses');
+                localStorage.removeItem('fishnet_persisted_events');
                 location.reload(true);
             }
         }
@@ -5026,6 +5060,10 @@ def generate_dashboard():
             renderInventory();
             renderRawEvents();
             calculatePlanner();
+            // Non-blocking background cloud sync on page load
+            setTimeout(() => {
+                fetchLatestCloudData(true);
+            }, 1200);
         };
     </script>
 </body>
