@@ -1654,11 +1654,12 @@ def generate_dashboard():
         <div class="card">
             <div class="card-header">
                 <div>
-                    <span class="card-title">🐟 ZebraTrack Tank Inventory & Sex Structure Explorer</span>
-                    <span style="font-size: 12px; color: var(--text-secondary);">Live population inventory and sex classification</span>
+                    <span class="card-title">🐟 ZebraTrack Tank Inventory & FishNet Compatible Table</span>
+                    <span style="font-size: 12px; color: var(--text-secondary);">Direct FileMaker Pro FishNet schema (14 core columns matching Tanks.tab)</span>
                 </div>
-                <div class="card-header-actions">
-                    <button class="btn btn-sm btn-outline" onclick="exportTableToCSV('inventoryTable', 'zebratrack_tank_inventory_sex_structure')">📥 Export Table (CSV)</button>
+                <div class="card-header-actions" style="display: flex; gap: 8px;">
+                    <button class="btn btn-sm btn-blue" onclick="exportTanksForFishNet()" style="display: inline-flex; align-items: center; gap: 6px;" title="Export tab-delimited Tanks.tab file ready for direct FileMaker Pro / FishNet import">📥 Export for FishNet (.tab)</button>
+                    <button class="btn btn-sm btn-outline" onclick="exportTableToCSV('inventoryTable', 'Tanks')" title="Export active table view as CSV">📥 Export Table (CSV)</button>
                 </div>
             </div>
             <div class="filter-bar" style="margin-bottom: 16px;">
@@ -1705,23 +1706,20 @@ def generate_dashboard():
                     <thead>
                         <tr>
                             <th>TUID</th>
-                            <th>Derivative Cross</th>
-                            <th>Genotype</th>
+                            <th>Derivative_Cross</th>
+                            <th>Locus 1</th>
+                            <th>Locus 1 Allele 1</th>
                             <th>Notes</th>
-                            <th>Line</th>
-                            <th>Sex Composition</th>
                             <th>Female</th>
                             <th>Male</th>
-                            <th>Total Fish</th>
-                            <th>Tank Size</th>
+                            <th>Total_Fish</th>
+                            <th>Tank_Size</th>
                             <th>Protocol</th>
                             <th>DOB</th>
-                            <th>Turnover Date</th>
-                            <th>Age (Mo)</th>
+                            <th>Turnover_Deadline</th>
+                            <th>Date Euthanized</th>
                             <th>Status</th>
-                            <th>Lifetime Spawns</th>
-                            <th>Lifetime Eggs</th>
-                            <th class="no-export">Details</th>
+                            <th class="no-export">Actions</th>
                         </tr>
                     </thead>
                     <tbody id="inventoryTableBody">
@@ -2215,8 +2213,8 @@ def generate_dashboard():
                     locus,
                     allele,
                     t.notes !== undefined ? t.notes : (raw['Notes'] || ''),
-                    (t.female !== undefined && t.female !== '' && t.female !== null) ? String(t.female) : '',
-                    (t.male !== undefined && t.male !== '' && t.male !== null) ? String(t.male) : '',
+                    (t.female && Number(t.female) > 0) ? String(t.female) : '',
+                    (t.male && Number(t.male) > 0) ? String(t.male) : '',
                     String(t.total !== undefined ? t.total : 0),
                     t.tank_size || raw['Tank_Size'] || '3.5L',
                     raw['Protocol'] || t.protocol || 'QU-IACUC 006/2023-AMM3',
@@ -3581,6 +3579,95 @@ Could not reach Google Sheets API directly (${err.message}). Local cached record
         }
 
         // TAB 10: Inventory
+        
+        // Helper: Format Date to FishNet standard DD-MMM-YY (e.g. 10-Jun-24)
+        function formatFishNetDate(dStr) {
+            if (!dStr) return '';
+            const s = String(dStr).trim();
+            if (/^\d{1,2}-[A-Za-z]{3}-\d{2,4}$/.test(s)) return s;
+            const dt = new Date(s);
+            if (isNaN(dt.getTime())) return s;
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            const d = String(dt.getDate()).padStart(2, '0');
+            const m = months[dt.getMonth()];
+            const y = String(dt.getFullYear()).slice(-2);
+            return `${d}-${m}-${y}`;
+        }
+
+        // Direct Export for FileMaker Pro / FishNet Database (Tanks.tab)
+        function exportTanksForFishNet() {
+            const headers = [
+                'TUID', 'Derivative_Cross', 'Locus 1', 'Locus 1 Allele 1', 
+                'Notes', 'Female', 'Male', 'Total_Fish', 'Tank_Size', 
+                'Protocol', 'DOB', 'Turnover_Deadline', 'Date Euthanized', 'Status'
+            ];
+            const tabChar = String.fromCharCode(9); const crlfChar = String.fromCharCode(13, 10); const lines = [headers.join(tabChar)];
+
+            const tuidList = Object.keys(currentTanks).sort((a,b) => {
+                const na = parseInt(a.replace(/\D/g, '')) || 0;
+                const nb = parseInt(b.replace(/\D/g, '')) || 0;
+                return na - nb;
+            });
+
+            tuidList.forEach(id => {
+                const t = currentTanks[id];
+                const raw = cloudTankRawRecords[id] || {};
+                
+                let locus1 = t.locus1 || raw['Locus 1'] || '';
+                let allele1 = t.locus1_allele1 || raw['Locus 1 Allele 1'] || '';
+                if (!locus1 && t.genotype) {
+                    for (const pref of ['Mu', 'Wt', 'Tg']) {
+                        if (t.genotype.startsWith(pref)) {
+                            locus1 = pref;
+                            allele1 = t.genotype.replace(new RegExp('^' + pref + '\\s*'), '');
+                            break;
+                        }
+                    }
+                    if (!locus1) allele1 = t.genotype;
+                }
+
+                const rawStatus = t.raw_status || raw['Status'] || '';
+                let formattedStatus = rawStatus;
+                if (!formattedStatus || formattedStatus === 'Active') {
+                    formattedStatus = t.status === 'Active' ? 'Adult/Active' : (t.status === 'Juvenile' ? 'Juvenile(<3 months old)' : 'Euthanized');
+                } else if (t.status === 'Euthanized') {
+                    formattedStatus = 'Euthanized';
+                }
+
+                const dateEuth = t.status === 'Euthanized' ? (raw['Date Euthanized'] || t.dod || t.date_euthanized || formatFishNetDate(new Date())) : '';
+                const dobVal = t.raw_dob || raw['DOB'] || formatFishNetDate(t.dob_iso || t.dob);
+                const turnoverVal = t.turnover_date || raw['Turnover_Deadline'] || t.turnover_deadline || '';
+
+                const row = [
+                    t.tuid || '',
+                    t.derivative_cross || raw['Derivative_Cross'] || '',
+                    locus1,
+                    allele1,
+                    t.notes !== undefined ? t.notes : (raw['Notes'] || ''),
+                    (t.female && Number(t.female) > 0) ? String(t.female) : '',
+                    (t.male && Number(t.male) > 0) ? String(t.male) : '',
+                    String(t.total !== undefined ? t.total : 0),
+                    t.tank_size || raw['Tank_Size'] || '3.5L',
+                    t.protocol || raw['Protocol'] || 'QU-IACUC 006/2023-AMM3',
+                    dobVal,
+                    turnoverVal,
+                    dateEuth,
+                    formattedStatus
+                ];
+                lines.push(row.join(tabChar));
+            });
+
+            const tabContent = lines.join(crlfChar) + crlfChar;
+            const blob = new Blob([tabContent], { type: 'text/tab-separated-values;charset=utf-8' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'Tanks.tab';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            setTimeout(() => URL.revokeObjectURL(link.href), 1500);
+        }
+
         function renderInventory() {
             const tbody = document.getElementById('inventoryTableBody');
             if (!tbody) return;
@@ -3601,34 +3688,75 @@ Could not reach Google Sheets API directly (${err.message}). Local cached record
                     list = list.filter(t => t.status === statusFilter);
                 }
             }
-            if (search) list = list.filter(t => t.tuid.includes(search) || (t.notes && t.notes.toUpperCase().includes(search)) || (t.genotype && t.genotype.toUpperCase().includes(search)) || (t.derivative_cross && t.derivative_cross.toUpperCase().includes(search)));
+            if (search) {
+                list = list.filter(t => 
+                    t.tuid.includes(search) || 
+                    (t.notes && t.notes.toUpperCase().includes(search)) || 
+                    (t.genotype && t.genotype.toUpperCase().includes(search)) || 
+                    (t.derivative_cross && t.derivative_cross.toUpperCase().includes(search)) ||
+                    (t.locus1 && t.locus1.toUpperCase().includes(search)) ||
+                    (t.locus1_allele1 && t.locus1_allele1.toUpperCase().includes(search))
+                );
+            }
 
             list.sort((a, b) => a.tuid.localeCompare(b.tuid));
 
             list.forEach(t => {
-                const sexBadge = getSexBadge(t.sex_type);
-                const statusBadge = getStatusBadge(t.status);
-                const lineBadge = `<span class="badge badge-${t.line.toLowerCase()}">${t.line}</span>`;
+                const raw = cloudTankRawRecords[t.tuid] || {};
+                
+                // Extract locus1 and allele1 matching Tanks.tab
+                let locus1 = t.locus1 || raw['Locus 1'] || '';
+                let allele1 = t.locus1_allele1 || raw['Locus 1 Allele 1'] || '';
+                if (!locus1 && t.genotype) {
+                    for (const pref of ['Mu', 'Wt', 'Tg']) {
+                        if (t.genotype.startsWith(pref)) {
+                            locus1 = pref;
+                            allele1 = t.genotype.replace(new RegExp('^' + pref + '\\s*'), '');
+                            break;
+                        }
+                    }
+                    if (!locus1) allele1 = t.genotype;
+                }
+
+                const rawStatus = t.raw_status || raw['Status'] || '';
+                let formattedStatus = rawStatus;
+                if (!formattedStatus || formattedStatus === 'Active') {
+                    formattedStatus = t.status === 'Active' ? 'Adult/Active' : (t.status === 'Juvenile' ? 'Juvenile(<3 months old)' : 'Euthanized');
+                } else if (t.status === 'Euthanized') {
+                    formattedStatus = 'Euthanized';
+                }
+
+                const statusBadge = t.status === 'Active' ? 
+                    '<span class="badge badge-active">Adult/Active</span>' : 
+                    (t.status === 'Euthanized' ? '<span class="badge badge-euthanized">Euthanized</span>' : '<span class="badge badge-larvae">Juvenile(&lt;3m)</span>');
+
+                const locusBadge = locus1 ? `<span class="badge badge-subtle" style="font-weight: 600;">${locus1}</span>` : '-';
+                const dobVal = t.raw_dob || raw['DOB'] || formatFishNetDate(t.dob_iso || t.dob) || '-';
+                const turnoverVal = t.turnover_date || raw['Turnover_Deadline'] || t.turnover_deadline || '-';
+                const dateEuthVal = t.status === 'Euthanized' ? (raw['Date Euthanized'] || t.dod || t.date_euthanized || '-') : '-';
+                const femaleVal = (t.female && Number(t.female) > 0) ? String(t.female) : '';
+                const maleVal = (t.male && Number(t.male) > 0) ? String(t.male) : '';
+                const totalVal = (t.total !== undefined && t.total !== '' && t.total !== null) ? t.total : 0;
+                const protocolVal = t.protocol || raw['Protocol'] || '-';
+                const tankSizeVal = t.tank_size || raw['Tank_Size'] || '-';
+                const crossVal = t.derivative_cross || raw['Derivative_Cross'] || '-';
 
                 tbody.innerHTML += `
                     <tr>
                         <td><strong>${t.tuid}</strong></td>
-                        <td><span style="color: var(--accent-indigo); font-weight: bold;">${t.derivative_cross || '-'}</span></td>
-                        <td>${t.genotype || t.line}</td>
-                        <td style="max-width: 150px; overflow: hidden; text-overflow: ellipsis;" title="${t.notes || ''}">${t.notes || '-'}</td>
-                        <td>${lineBadge}</td>
-                        <td>${sexBadge}</td>
-                        <td>${t.female}</td>
-                        <td>${t.male}</td>
-                        <td><strong>${t.total}</strong></td>
-                        <td>${t.tank_size || '-'}</td>
-                        <td>${t.protocol || '-'}</td>
-                        <td>${t.dob || '-'}</td>
-                        <td>${t.turnover_date || '-'}</td>
-                        <td>${(t.age_months_now !== undefined && t.age_months_now !== null) ? t.age_months_now + ' mo' : ((t.age_months !== undefined && t.age_months !== null) ? t.age_months + ' mo' : '-')}</td>
+                        <td><span style="color: var(--accent-indigo); font-weight: bold;">${crossVal}</span></td>
+                        <td>${locusBadge}</td>
+                        <td style="max-width: 200px; word-break: break-word;" title="${allele1}">${allele1 || '-'}</td>
+                        <td style="max-width: 180px; overflow: hidden; text-overflow: ellipsis;" title="${t.notes || ''}">${t.notes || '-'}</td>
+                        <td>${femaleVal}</td>
+                        <td>${maleVal}</td>
+                        <td><strong>${totalVal}</strong></td>
+                        <td>${tankSizeVal}</td>
+                        <td style="font-size: 11px;">${protocolVal}</td>
+                        <td>${dobVal}</td>
+                        <td>${turnoverVal}</td>
+                        <td>${dateEuthVal}</td>
                         <td>${statusBadge}</td>
-                        <td>${t.total_spawns}</td>
-                        <td>${t.total_eggs_0h.toLocaleString()}</td>
                         <td class="no-export">
                             <div style="display: flex; gap: 4px;">
                                 <button class="btn btn-sm btn-outline" onclick="openTankModal('${t.tuid}')">Profile</button>
@@ -4698,7 +4826,7 @@ Could not reach Google Sheets API directly (${err.message}). Local cached record
             }
         }
 
-        const BUILD_VERSION = '2026-11-08-ZebraTrack-v9';
+        const BUILD_VERSION = '2026-11-09-ZebraTrack-v10';
         const CACHE_KEY_EVENTS = 'fishnet_persisted_events_' + BUILD_VERSION;
         
         function loadPersistedEdits() {

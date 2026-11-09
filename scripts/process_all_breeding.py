@@ -309,11 +309,16 @@ def process():
                 male_str = get_val('MALE') or get_val('MALES')
                 total_str = get_val('TOTAL_FISH') or get_val('NUMBER OF FISH') or get_val('TOTAL')
                 genotype = get_val('GENOTYPE')
-                if not genotype:
-                    locus1 = get_val('LOCUS 1') or get_val('LOCUS')
-                    allele1 = get_val('LOCUS 1 ALLELE 1') or get_val('LOCUS 1 ALLELE') or get_val('ALLELE')
-                    if locus1 or allele1:
-                        genotype = f"{locus1} {allele1}".strip()
+                locus1 = get_val('LOCUS 1') or get_val('LOCUS')
+                allele1 = get_val('LOCUS 1 ALLELE 1') or get_val('LOCUS 1 ALLELE') or get_val('ALLELE')
+                if not genotype and (locus1 or allele1):
+                    genotype = f"{locus1} {allele1}".strip()
+                if not locus1 and genotype:
+                    for pref in ['Mu', 'Wt', 'Tg']:
+                        if genotype.startswith(pref):
+                            locus1 = pref
+                            allele1 = genotype[len(pref):].strip()
+                            break
                 notes = get_val('NOTES')
                 protocol = get_val('PROTOCOL')
                 status_raw = get_val('STATUS', 'Adult/Active')
@@ -419,6 +424,10 @@ def process():
                 'nursery_grad_date': nursery_grad_date,
                 'nursery_count': nursery_count,
                 'genotype': genotype,
+                'locus1': locus1,
+                'locus1_allele1': allele1,
+                'date_euthanized': dod,
+                'turnover_deadline': turnover_date,
                 'notes': notes,
                 'line': line,
                 'female': female,
