@@ -858,7 +858,7 @@ def generate_dashboard():
         <div class="kpi-card kpi-blue">
             <span class="kpi-label">Total Tanks</span>
             <span class="kpi-value" id="kpiTotalTanks">183</span>
-            <span class="kpi-subtext" id="kpiTankStatusSub">99 Active | 78 Euthanized | 0 Larvae</span>
+            <span class="kpi-subtext" id="kpiTankStatusSub">99 Active | 78 Euthanized | 6 Juvenile</span>
         </div>
         <div class="kpi-card kpi-emerald">
             <span class="kpi-label">Breeding Events</span>
@@ -2197,8 +2197,16 @@ def generate_dashboard():
             tuidList.forEach(id => {
                 const t = currentTanks[id];
                 const raw = cloudTankRawRecords[id] || {};
-                const formattedStatus = t.status === 'Active' ? 'Adult/Active' : (t.status === 'Juvenile' ? 'Juvenile(<3 months old)' : 'Euthanized');
-                const dateEuth = t.status === 'Euthanized' ? (raw['Date Euthanized'] || t.dod || new Date().toISOString().substring(0, 10)) : '';
+                
+                let formattedStatus = 'Adult/Active';
+                if (t.status === 'Euthanized' || normalizeStatus(t.status) === 'Euthanized') {
+                    formattedStatus = 'Euthanized';
+                } else if (t.status === 'Juvenile(<3 months old)' || (t.status && t.status.includes('Juvenile')) || t.status === 'Larvae') {
+                    formattedStatus = 'Juvenile(<3 months old)';
+                } else {
+                    formattedStatus = 'Adult/Active';
+                }
+                const dateEuth = formattedStatus === 'Euthanized' ? (raw['Date Euthanized'] || t.dod || t.date_euthanized || new Date().toISOString().substring(0, 10)) : '';
 
                 let locus = raw['Locus 1'] || '';
                 let allele = raw['Locus 1 Allele 1'] || '';
@@ -3626,15 +3634,16 @@ Could not reach Google Sheets API directly (${err.message}). Local cached record
                     if (!locus1) allele1 = t.genotype;
                 }
 
-                const rawStatus = t.raw_status || raw['Status'] || '';
-                let formattedStatus = rawStatus;
-                if (!formattedStatus || formattedStatus === 'Active') {
-                    formattedStatus = t.status === 'Active' ? 'Adult/Active' : (t.status === 'Juvenile' ? 'Juvenile(<3 months old)' : 'Euthanized');
-                } else if (t.status === 'Euthanized') {
+                let formattedStatus = 'Adult/Active';
+                if (t.status === 'Euthanized' || normalizeStatus(t.status) === 'Euthanized') {
                     formattedStatus = 'Euthanized';
+                } else if (t.status === 'Juvenile(<3 months old)' || (t.status && t.status.includes('Juvenile')) || t.status === 'Larvae') {
+                    formattedStatus = 'Juvenile(<3 months old)';
+                } else {
+                    formattedStatus = 'Adult/Active';
                 }
 
-                const dateEuth = t.status === 'Euthanized' ? (raw['Date Euthanized'] || t.dod || t.date_euthanized || formatFishNetDate(new Date())) : '';
+                const dateEuth = formattedStatus === 'Euthanized' ? (raw['Date Euthanized'] || t.dod || t.date_euthanized || formatFishNetDate(new Date())) : '';
                 const dobVal = t.raw_dob || raw['DOB'] || formatFishNetDate(t.dob_iso || t.dob);
                 const turnoverVal = t.turnover_date || raw['Turnover_Deadline'] || t.turnover_deadline || '';
 
@@ -3718,22 +3727,23 @@ Could not reach Google Sheets API directly (${err.message}). Local cached record
                     if (!locus1) allele1 = t.genotype;
                 }
 
-                const rawStatus = t.raw_status || raw['Status'] || '';
-                let formattedStatus = rawStatus;
-                if (!formattedStatus || formattedStatus === 'Active') {
-                    formattedStatus = t.status === 'Active' ? 'Adult/Active' : (t.status === 'Juvenile' ? 'Juvenile(<3 months old)' : 'Euthanized');
-                } else if (t.status === 'Euthanized') {
+                let formattedStatus = 'Adult/Active';
+                if (t.status === 'Euthanized' || normalizeStatus(t.status) === 'Euthanized') {
                     formattedStatus = 'Euthanized';
+                } else if (t.status === 'Juvenile(<3 months old)' || (t.status && t.status.includes('Juvenile')) || t.status === 'Larvae') {
+                    formattedStatus = 'Juvenile(<3 months old)';
+                } else {
+                    formattedStatus = 'Adult/Active';
                 }
 
-                const statusBadge = t.status === 'Active' ? 
+                const statusBadge = formattedStatus === 'Adult/Active' ? 
                     '<span class="badge badge-active">Adult/Active</span>' : 
-                    (t.status === 'Euthanized' ? '<span class="badge badge-euthanized">Euthanized</span>' : '<span class="badge badge-larvae">Juvenile(&lt;3m)</span>');
+                    (formattedStatus === 'Euthanized' ? '<span class="badge badge-euthanized">Euthanized</span>' : '<span class="badge badge-larvae">Juvenile(&lt;3m)</span>');
 
                 const locusBadge = locus1 ? `<span class="badge badge-subtle" style="font-weight: 600;">${locus1}</span>` : '-';
                 const dobVal = t.raw_dob || raw['DOB'] || formatFishNetDate(t.dob_iso || t.dob) || '-';
                 const turnoverVal = t.turnover_date || raw['Turnover_Deadline'] || t.turnover_deadline || '-';
-                const dateEuthVal = t.status === 'Euthanized' ? (raw['Date Euthanized'] || t.dod || t.date_euthanized || '-') : '-';
+                const dateEuthVal = formattedStatus === 'Euthanized' ? (raw['Date Euthanized'] || t.dod || t.date_euthanized || '-') : '-';
                 const femaleVal = (t.female && Number(t.female) > 0) ? String(t.female) : '';
                 const maleVal = (t.male && Number(t.male) > 0) ? String(t.male) : '';
                 const totalVal = (t.total !== undefined && t.total !== '' && t.total !== null) ? t.total : 0;
@@ -4051,9 +4061,10 @@ Could not reach Google Sheets API directly (${err.message}). Local cached record
             let activeCount = 0, euthCount = 0, larvaeCount = 0;
             let femaleOnly = 0, maleOnly = 0;
             Object.values(currentTanks).forEach(t => {
-                if (t.status === 'Active') activeCount++;
-                else if (t.status === 'Euthanized') euthCount++;
-                else if (t.status === 'Larvae') larvaeCount++;
+                const norm = normalizeStatus(t.status);
+                if (norm === 'Active') activeCount++;
+                else if (norm === 'Euthanized') euthCount++;
+                else if (norm.includes('Juvenile') || norm === 'Larvae') larvaeCount++;
                 if (t.sex_type === 'Female-Only') femaleOnly++;
                 else if (t.sex_type === 'Male-Only') maleOnly++;
             });
@@ -4076,7 +4087,7 @@ Could not reach Google Sheets API directly (${err.message}). Local cached record
             if (elTotalTanks) elTotalTanks.textContent = totalTanks;
 
             const elTankSub = document.getElementById('kpiTankStatusSub');
-            if (elTankSub) elTankSub.textContent = `${activeCount} Active | ${euthCount} Euthanized | ${larvaeCount} Larvae`;
+            if (elTankSub) elTankSub.textContent = `${activeCount} Active | ${euthCount} Euthanized | ${larvaeCount} Juvenile`;
 
             const elTotalEvents = document.getElementById('kpiTotalEvents');
             if (elTotalEvents) elTotalEvents.textContent = totalEv.toLocaleString();
@@ -4826,7 +4837,7 @@ Could not reach Google Sheets API directly (${err.message}). Local cached record
             }
         }
 
-        const BUILD_VERSION = '2026-11-09-ZebraTrack-v10';
+        const BUILD_VERSION = '2026-11-11-ZebraTrack-v11';
         const CACHE_KEY_EVENTS = 'fishnet_persisted_events_' + BUILD_VERSION;
         
         function loadPersistedEdits() {
@@ -4848,6 +4859,18 @@ Could not reach Google Sheets API directly (${err.message}). Local cached record
                 const savedOverrides = localStorage.getItem('fishnet_user_tank_overrides');
                 if (savedOverrides) {
                     const overrides = JSON.parse(savedOverrides);
+                    // Purge errantly cached euthanasia status for young juvenile tanks
+                    const juvenileTuids = ['T0171', 'T0173', 'T0174', 'T0175', 'T0182', 'T0183'];
+                    let overridesChanged = false;
+                    juvenileTuids.forEach(jid => {
+                        if (overrides[jid] && (overrides[jid].status === 'Euthanized' || overrides[jid].status === 'EUTHANIZED')) {
+                            delete overrides[jid];
+                            overridesChanged = true;
+                        }
+                    });
+                    if (overridesChanged) {
+                        localStorage.setItem('fishnet_user_tank_overrides', JSON.stringify(overrides));
+                    }
                     Object.keys(overrides).forEach(tuid => {
                         if (currentTanks[tuid]) {
                             Object.assign(currentTanks[tuid], overrides[tuid]);

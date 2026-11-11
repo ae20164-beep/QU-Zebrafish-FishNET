@@ -384,9 +384,8 @@ def process():
 
             if 'EUTH' in status_raw.upper() or 'DEAD' in status_raw.upper():
                 status_clean = 'Euthanized'
-            elif 'LARVAE' in status_raw.upper():
-                # If tank is already mature (>3 months) or actively breeding, graduate to Active
-                status_clean = 'Active' if is_mature else 'Larvae'
+            elif 'JUVENILE' in status_raw.upper() or 'LARVAE' in status_raw.upper():
+                status_clean = 'Active' if is_mature else 'Juvenile(<3 months old)'
             elif 'ACTIVE' in status_raw.upper() or 'ADULT' in status_raw.upper():
                 status_clean = 'Active'
             else:
@@ -454,12 +453,12 @@ def process():
     unique_tanks = {t['tuid']: t for t in fishnet_tanks.values()}
     n_active = sum(1 for t in unique_tanks.values() if t['status'] == 'Active')
     n_euth = sum(1 for t in unique_tanks.values() if t['status'] == 'Euthanized')
-    n_larvae = sum(1 for t in unique_tanks.values() if t['status'] == 'Larvae')
+    n_juvenile = sum(1 for t in unique_tanks.values() if 'JUVENILE' in t['status'].upper() or t['status'] == 'Larvae')
     n_f_only = sum(1 for t in unique_tanks.values() if t['sex_type'] == 'Female-Only')
     n_m_only = sum(1 for t in unique_tanks.values() if t['sex_type'] == 'Male-Only')
     n_mixed = sum(1 for t in unique_tanks.values() if t['sex_type'] == 'Mixed Colony')
 
-    print(f'Loaded {len(unique_tanks)} unique tanks ({n_active} Active, {n_euth} Euthanized, {n_larvae} Larvae).')
+    print(f'Loaded {len(unique_tanks)} unique tanks ({n_active} Active, {n_euth} Euthanized, {n_juvenile} Juvenile).')
     print(f'Sex Structure: {n_f_only} Female-Only, {n_m_only} Male-Only, {n_mixed} Mixed Colony.')
     # Canonical Cross-Pairing Synergy (interchangeable setups unified)
     def get_canonical_pair(t1, t2):
@@ -1075,8 +1074,10 @@ def process():
             age_months = round(diff_days / 30.4375, 1)
         st['age_months_now'] = age_months
 
-        if st['status'] != 'Active':
+        if st['status'] == 'Euthanized':
             st['lifecycle_stage'] = 'Euthanized / Inactive'
+        elif 'JUVENILE' in st['status'].upper() or 'LARVAE' in st['status'].upper():
+            st['lifecycle_stage'] = 'Juvenile (<3m)'
         elif age_months is not None:
             if age_months < 3:
                 st['lifecycle_stage'] = 'Juvenile (<3m)'
@@ -1106,7 +1107,7 @@ def process():
         if not turn_dt and dob_dt:
             turn_dt = dob_dt + timedelta(days=548)
 
-        if turn_dt and st['status'] == 'Active':
+        if turn_dt and (st['status'] == 'Active' or 'JUVENILE' in st['status'].upper()):
             days_left = (turn_dt - NOW).days
             st['days_to_turnover'] = days_left
             st['turnover_date_resolved'] = turn_dt.strftime('%d-%m-%Y')
@@ -1215,7 +1216,8 @@ def process():
             'total_tanks': len(unique_tanks),
             'active_tanks': sum(1 for t in unique_tanks.values() if t['status'] == 'Active'),
             'euthanized_tanks': sum(1 for t in unique_tanks.values() if t['status'] == 'Euthanized'),
-            'larvae_tanks': sum(1 for t in unique_tanks.values() if t['status'] == 'Larvae'),
+            'larvae_tanks': sum(1 for t in unique_tanks.values() if 'JUVENILE' in t['status'].upper() or t['status'] == 'Larvae'),
+            'juvenile_tanks': sum(1 for t in unique_tanks.values() if 'JUVENILE' in t['status'].upper() or t['status'] == 'Larvae'),
             'female_only_tanks': n_f_only,
             'male_only_tanks': n_m_only,
             'mixed_colony_tanks': n_mixed,
